@@ -3,183 +3,12 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-09-24 Tue 19:12 -->
+<!-- 2019-09-24 Tue 21:01 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>无法注册Pixabay.com</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="SunDawning ([[https://github.com/SunDawning][Github]]Github/[[https://steemkr.com/@SunDawning][Steem]]Steem)" />
-<style type="text/css">
- <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center;
-             margin-bottom: .2em; }
-  .subtitle { text-align: center;
-              font-size: medium;
-              font-weight: bold;
-              margin-top:0; }
-  .todo   { font-family: monospace; color: red; }
-  .done   { font-family: monospace; color: green; }
-  .priority { font-family: monospace; color: orange; }
-  .tag    { background-color: #eee; font-family: monospace;
-            padding: 2px; font-size: 80%; font-weight: normal; }
-  .timestamp { color: #bebebe; }
-  .timestamp-kwd { color: #5f9ea0; }
-  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
-  .underline { text-decoration: underline; }
-  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
-  p.verse { margin-left: 3%; }
-  pre {
-    border: 1px solid #ccc;
-    box-shadow: 3px 3px 3px #eee;
-    padding: 8pt;
-    font-family: monospace;
-    overflow: auto;
-    margin: 1.2em;
-  }
-  pre.src {
-    position: relative;
-    overflow: visible;
-    padding-top: 1.2em;
-  }
-  pre.src:before {
-    display: none;
-    position: absolute;
-    background-color: white;
-    top: -10px;
-    right: 10px;
-    padding: 3px;
-    border: 1px solid black;
-  }
-  pre.src:hover:before { display: inline;}
-  /* Languages per Org manual */
-  pre.src-asymptote:before { content: 'Asymptote'; }
-  pre.src-awk:before { content: 'Awk'; }
-  pre.src-C:before { content: 'C'; }
-  /* pre.src-C++ doesn't work in CSS */
-  pre.src-clojure:before { content: 'Clojure'; }
-  pre.src-css:before { content: 'CSS'; }
-  pre.src-D:before { content: 'D'; }
-  pre.src-ditaa:before { content: 'ditaa'; }
-  pre.src-dot:before { content: 'Graphviz'; }
-  pre.src-calc:before { content: 'Emacs Calc'; }
-  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-fortran:before { content: 'Fortran'; }
-  pre.src-gnuplot:before { content: 'gnuplot'; }
-  pre.src-haskell:before { content: 'Haskell'; }
-  pre.src-hledger:before { content: 'hledger'; }
-  pre.src-java:before { content: 'Java'; }
-  pre.src-js:before { content: 'Javascript'; }
-  pre.src-latex:before { content: 'LaTeX'; }
-  pre.src-ledger:before { content: 'Ledger'; }
-  pre.src-lisp:before { content: 'Lisp'; }
-  pre.src-lilypond:before { content: 'Lilypond'; }
-  pre.src-lua:before { content: 'Lua'; }
-  pre.src-matlab:before { content: 'MATLAB'; }
-  pre.src-mscgen:before { content: 'Mscgen'; }
-  pre.src-ocaml:before { content: 'Objective Caml'; }
-  pre.src-octave:before { content: 'Octave'; }
-  pre.src-org:before { content: 'Org mode'; }
-  pre.src-oz:before { content: 'OZ'; }
-  pre.src-plantuml:before { content: 'Plantuml'; }
-  pre.src-processing:before { content: 'Processing.js'; }
-  pre.src-python:before { content: 'Python'; }
-  pre.src-R:before { content: 'R'; }
-  pre.src-ruby:before { content: 'Ruby'; }
-  pre.src-sass:before { content: 'Sass'; }
-  pre.src-scheme:before { content: 'Scheme'; }
-  pre.src-screen:before { content: 'Gnu Screen'; }
-  pre.src-sed:before { content: 'Sed'; }
-  pre.src-sh:before { content: 'shell'; }
-  pre.src-sql:before { content: 'SQL'; }
-  pre.src-sqlite:before { content: 'SQLite'; }
-  /* additional languages in org.el's org-babel-load-languages alist */
-  pre.src-forth:before { content: 'Forth'; }
-  pre.src-io:before { content: 'IO'; }
-  pre.src-J:before { content: 'J'; }
-  pre.src-makefile:before { content: 'Makefile'; }
-  pre.src-maxima:before { content: 'Maxima'; }
-  pre.src-perl:before { content: 'Perl'; }
-  pre.src-picolisp:before { content: 'Pico Lisp'; }
-  pre.src-scala:before { content: 'Scala'; }
-  pre.src-shell:before { content: 'Shell Script'; }
-  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
-  /* additional language identifiers per "defun org-babel-execute"
-       in ob-*.el */
-  pre.src-cpp:before  { content: 'C++'; }
-  pre.src-abc:before  { content: 'ABC'; }
-  pre.src-coq:before  { content: 'Coq'; }
-  pre.src-groovy:before  { content: 'Groovy'; }
-  /* additional language identifiers from org-babel-shell-names in
-     ob-shell.el: ob-shell is the only babel language using a lambda to put
-     the execution function name together. */
-  pre.src-bash:before  { content: 'bash'; }
-  pre.src-csh:before  { content: 'csh'; }
-  pre.src-ash:before  { content: 'ash'; }
-  pre.src-dash:before  { content: 'dash'; }
-  pre.src-ksh:before  { content: 'ksh'; }
-  pre.src-mksh:before  { content: 'mksh'; }
-  pre.src-posh:before  { content: 'posh'; }
-  /* Additional Emacs modes also supported by the LaTeX listings package */
-  pre.src-ada:before { content: 'Ada'; }
-  pre.src-asm:before { content: 'Assembler'; }
-  pre.src-caml:before { content: 'Caml'; }
-  pre.src-delphi:before { content: 'Delphi'; }
-  pre.src-html:before { content: 'HTML'; }
-  pre.src-idl:before { content: 'IDL'; }
-  pre.src-mercury:before { content: 'Mercury'; }
-  pre.src-metapost:before { content: 'MetaPost'; }
-  pre.src-modula-2:before { content: 'Modula-2'; }
-  pre.src-pascal:before { content: 'Pascal'; }
-  pre.src-ps:before { content: 'PostScript'; }
-  pre.src-prolog:before { content: 'Prolog'; }
-  pre.src-simula:before { content: 'Simula'; }
-  pre.src-tcl:before { content: 'tcl'; }
-  pre.src-tex:before { content: 'TeX'; }
-  pre.src-plain-tex:before { content: 'Plain TeX'; }
-  pre.src-verilog:before { content: 'Verilog'; }
-  pre.src-vhdl:before { content: 'VHDL'; }
-  pre.src-xml:before { content: 'XML'; }
-  pre.src-nxml:before { content: 'XML'; }
-  /* add a generic configuration mode; LaTeX export needs an additional
-     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
-  pre.src-conf:before { content: 'Configuration File'; }
-
-  table { border-collapse:collapse; }
-  caption.t-above { caption-side: top; }
-  caption.t-bottom { caption-side: bottom; }
-  td, th { vertical-align:top;  }
-  th.org-right  { text-align: center;  }
-  th.org-left   { text-align: center;   }
-  th.org-center { text-align: center; }
-  td.org-right  { text-align: right;  }
-  td.org-left   { text-align: left;   }
-  td.org-center { text-align: center; }
-  dt { font-weight: bold; }
-  .footpara { display: inline; }
-  .footdef  { margin-bottom: 1em; }
-  .figure { padding: 1em; }
-  .figure p { text-align: center; }
-  .inlinetask {
-    padding: 10px;
-    border: 2px solid gray;
-    margin: 10px;
-    background: #ffffcc;
-  }
-  #org-div-home-and-up
-   { text-align: right; font-size: 70%; white-space: nowrap; }
-  textarea { overflow-x: auto; }
-  .linenr { font-size: smaller }
-  .code-highlighted { background-color: #ffff00; }
-  .org-info-js_info-navigation { border-style: none; }
-  #org-info-js_console-label
-    { font-size: 10px; font-weight: bold; white-space: nowrap; }
-  .org-info-js_search-highlight
-    { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
-  /*]]>*/-->
-</style>
 <script type="text/javascript">
 /*
 @licstart  The following is the entire license notice for the
@@ -230,35 +59,12 @@ for the JavaScript code in this tag.
 <body>
 <div id="content">
 <h1 class="title">无法注册Pixabay.com</h1>
-<div id="table-of-contents">
-<h2>Table of Contents</h2>
-<div id="text-table-of-contents">
-<ul>
-<li><a href="#org9fa1ef6">1. 解决办法</a>
-<ul>
-<li><a href="#org1ebaac2">1.1. Firefox浏览器</a></li>
-<li><a href="#orge440e47">1.2. Redirector扩展</a></li>
-<li><a href="#org4d5885b">1.3. Create new redirect</a></li>
-</ul>
-</li>
-<li><a href="#org444fbe9">2. 问题的源头</a></li>
-<li><a href="#org20aa69e">3. 替换问题网址</a>
-<ul>
-<li><a href="#orgfe98a37">3.1. /jquery/1.12.4/jquery.min.js</a></li>
-<li><a href="#org939d1ce">3.2. /recaptcha/api.js</a></li>
-</ul>
-</li>
-<li><a href="#org2e7c1c8">4. 重定向的规则</a></li>
-<li><a href="#orgd2a54e9">5. 推而广之</a></li>
-</ul>
-</div>
-</div>
 <p>
 ［创建时间］：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-09-24 Tue 09:42&gt;</span></span>
 </p>
 
 <p>
-［更新时间］：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-09-24 Tue 15:11&gt;</span></span>
+［更新时间］：<span class="timestamp-wrapper"><span class="timestamp">&lt;2019-09-24 Tue 20:56&gt;</span></span>
 </p>
 
 <p>
@@ -275,16 +81,40 @@ for the JavaScript code in this tag.
 <li>Create new redirect</li>
 </ol>
 
-<div id="outline-container-org9fa1ef6" class="outline-2">
-<h2 id="org9fa1ef6"><span class="section-number-2">1</span> 解决办法</h2>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org6bcb806">1. 解决办法</a>
+<ul>
+<li><a href="#org892cb64">1.1. Firefox浏览器</a></li>
+<li><a href="#org203caf9">1.2. Redirector扩展</a></li>
+<li><a href="#orgfb70ec9">1.3. Create new redirect</a></li>
+</ul>
+</li>
+<li><a href="#org077756b">2. 问题的源头</a></li>
+<li><a href="#org3d2e25c">3. 替换问题网址</a>
+<ul>
+<li><a href="#orgc05361b">3.1. /jquery/1.12.4/jquery.min.js</a></li>
+<li><a href="#org753c4d0">3.2. /recaptcha/api.js</a></li>
+</ul>
+</li>
+<li><a href="#orgcef4afc">4. 重定向的规则</a></li>
+<li><a href="#org5942b27">5. 推而广之</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6bcb806" class="outline-2">
+<h2 id="org6bcb806"><span class="section-number-2">1</span> 解决办法</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 该网络问题是由该网站上某些文件无法访问而引起的，在找到这些问题文件之后，用网址重定向的方法，将问题文件指引到正常的相同的文件，在替换之后，访问的加载速度也会明显加快。
 </p>
 </div>
 
-<div id="outline-container-org1ebaac2" class="outline-3">
-<h3 id="org1ebaac2"><span class="section-number-3">1.1</span> Firefox浏览器</h3>
+<div id="outline-container-org892cb64" class="outline-3">
+<h3 id="org892cb64"><span class="section-number-3">1.1</span> Firefox浏览器</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 在
@@ -294,8 +124,8 @@ Firefox 火狐浏览器 - 全新、安全、快速 | 官方最新下载: <a href
 </div>
 </div>
 
-<div id="outline-container-orge440e47" class="outline-3">
-<h3 id="orge440e47"><span class="section-number-3">1.2</span> Redirector扩展</h3>
+<div id="outline-container-org203caf9" class="outline-3">
+<h3 id="org203caf9"><span class="section-number-3">1.2</span> Redirector扩展</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 在火狐浏览器里安装
@@ -305,23 +135,23 @@ Redirector – 下载 Firefox 扩展（zh-CN）: <a href="https://addons.mozilla
 </div>
 </div>
 
-<div id="outline-container-org4d5885b" class="outline-3">
-<h3 id="org4d5885b"><span class="section-number-3">1.3</span> Create new redirect</h3>
+<div id="outline-container-orgfb70ec9" class="outline-3">
+<h3 id="orgfb70ec9"><span class="section-number-3">1.3</span> Create new redirect</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
 找到
-<a href="#org444fbe9">问题的源头</a>
+<a href="#org077756b">问题的源头</a>
 ，
 再添加
-<a href="#org2e7c1c8">重定向的规则</a>
+<a href="#orgcef4afc">重定向的规则</a>
 。
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org444fbe9" class="outline-2">
-<h2 id="org444fbe9"><span class="section-number-2">2</span> 问题的源头</h2>
+<div id="outline-container-org077756b" class="outline-2">
+<h2 id="org077756b"><span class="section-number-2">2</span> 问题的源头</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 需要找到那些有问题的文件，在谷歌浏览器里刷新注册页面
@@ -363,22 +193,22 @@ GET https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js net::ERR_C
 
 <p>
 上述两个网址无法访问，直接在新的页面里打开是显示无法访问的，需要
-<a href="#org20aa69e">替换问题网址</a>
+<a href="#org3d2e25c">替换问题网址</a>
 。
 </p>
 </div>
 </div>
 
-<div id="outline-container-org20aa69e" class="outline-2">
-<h2 id="org20aa69e"><span class="section-number-2">3</span> 替换问题网址</h2>
+<div id="outline-container-org3d2e25c" class="outline-2">
+<h2 id="org3d2e25c"><span class="section-number-2">3</span> 替换问题网址</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 搜索可以访问的镜像网站，一一对应。
 </p>
 </div>
 
-<div id="outline-container-orgfe98a37" class="outline-3">
-<h3 id="orgfe98a37"><span class="section-number-3">3.1</span> /jquery/1.12.4/jquery.min.js</h3>
+<div id="outline-container-orgc05361b" class="outline-3">
+<h3 id="orgc05361b"><span class="section-number-3">3.1</span> /jquery/1.12.4/jquery.min.js</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 找中国境内＂jquery.min.js＂文件的镜像网站
@@ -390,8 +220,8 @@ jquery | BootCDN - Bootstrap 中文网开源项目免费 CDN 加速服务: <a hr
 </div>
 </div>
 
-<div id="outline-container-org939d1ce" class="outline-3">
-<h3 id="org939d1ce"><span class="section-number-3">3.2</span> /recaptcha/api.js</h3>
+<div id="outline-container-org753c4d0" class="outline-3">
+<h3 id="org753c4d0"><span class="section-number-3">3.2</span> /recaptcha/api.js</h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 同样是找中国境内＂Google reCAPTCHA＂的镜像网站
@@ -406,8 +236,8 @@ jquery | BootCDN - Bootstrap 中文网开源项目免费 CDN 加速服务: <a hr
 </div>
 </div>
 
-<div id="outline-container-org2e7c1c8" class="outline-2">
-<h2 id="org2e7c1c8"><span class="section-number-2">4</span> 重定向的规则</h2>
+<div id="outline-container-orgcef4afc" class="outline-2">
+<h2 id="orgcef4afc"><span class="section-number-2">4</span> 重定向的规则</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 在火狐浏览器＂Redirector＂扩展的规则编辑页面
@@ -427,8 +257,8 @@ Pixabay.com无法注册.json-淘宝网: <a href="https://item.taobao.com/item.ht
 </div>
 </div>
 
-<div id="outline-container-orgd2a54e9" class="outline-2">
-<h2 id="orgd2a54e9"><span class="section-number-2">5</span> 推而广之</h2>
+<div id="outline-container-org5942b27" class="outline-2">
+<h2 id="org5942b27"><span class="section-number-2">5</span> 推而广之</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 不少使用Google服务的网站都有与pixabay站点相同的无法登录、注册、回复问题，包括但不限于：
@@ -453,91 +283,103 @@ Search · Redirector.json · GitHub: <a href="https://github.com/search?q=Redire
 </p>
 
 <style type="text/css">
-    body {
-        background: #000000;
-        color: white;
-        font-size: 1.2em;
-        word-break: break-word;
-        max-width: 720px;
-        margin: auto;
-        padding: 0.4em;
-    }
-    h1 {
-        color: #b0eeee;
-    }
-    h2 {
-        color: #88cffa;
-    }
-    h3 {
-        color: #eede83;
-    }
-    h4 {
-        color: #00ffff;
-    }
-    h5 {
-        color: #ff801f;
-    }
-    h6 {
-        color: #99fb99;
-    }
-    h7 {
-        color: #80ffd5;
-    }
-    h8 {
-        color: #b1c5df;
-    }
-    h9 {
-        color: #ffa17b;
-    }
-    .todo {
-        color: #ffc1cc;
-        font-weight: bold;
-    }
-    .timestamp {
-        color: #00ffff;
-    }
-    a {
-        color: #00f9f9;
-    }
-    a:visited {
-        color: #b4b4b4;
-    }
-    pre.src,
-    pre {
-        box-shadow: none;
-        border: none;
-        border-left: 0.4em solid #ff801f;
-        overflow: auto;
-        max-height: 16em;
-        white-space: pre-wrap;
-        padding: 0 0.4em;
-        margin: 0.4em 0;
-    }
-    pre.src:hover:before {
-        background: none;
-        color: #ff801f;
-        border: none;
-        top: 0;
-        right: 0;
-        padding: 0;
-    }
-    #postamble {
-        text-align: right;
-        font-size: 80%;
-    }
-    #postamble p {
-        color: #b4b4b4;
-    }
-    img {
-        max-width: 100%;
-    }
+  body {
+      background: #000000;
+      color: white;
+      font-size: 1.2em;
+      word-break: break-word;
+      max-width: 720px;
+      margin: auto;
+      padding: 0.8em;
+      line-height: 1.6em;
+  }
+  h1 {
+      color: #b0eeee;
+      text-align: center;
+  }
+  h2 {
+      color: #88cffa;
+  }
+  h3 {
+      color: #eede83;
+  }
+  h4 {
+      color: #00ffff;
+  }
+  h5 {
+      color: #ff801f;
+  }
+  h6 {
+      color: #99fb99;
+  }
+  h7 {
+      color: #80ffd5;
+  }
+  h8 {
+      color: #b1c5df;
+  }
+  h9 {
+      color: #ffa17b;
+  }
+  p {
+      text-indent: 2em;
+      background: #212129;
+      border-radius: 0.4em;
+      border: #212129;
+      padding: 0.2em;
+      color: #f9fafa;
+      margin-bottom: 0.4em;
+      margin-top: 0.4em;
+  }
+  .todo {
+      color: #ffc1cc;
+      font-weight: bold;
+  }
+  .timestamp {
+      color: #00ffff;
+  }
+  a {
+      color: #00f9f9;
+  }
+  a:visited {
+      color: #b4b4b4;
+  }
+  pre.src,
+  pre {
+      box-shadow: none;
+      border: none;
+      border-left: 0.4em solid #ff801f;
+      overflow: auto;
+      max-height: 16em;
+      white-space: pre-wrap;
+      padding: 0 0.4em;
+      margin: 0.4em 0;
+  }
+  pre.src:hover:before {
+      background: none;
+      color: #ff801f;
+      border: none;
+      top: 0;
+      right: 0;
+      padding: 0;
+  }
+  #postamble {
+      text-align: right;
+      font-size: 80%;
+  }
+  #postamble p {
+      color: #b4b4b4;
+  }
+  img {
+      max-width: 100%;
+  }
 </style>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: SunDawning (<a href="https://github.com/SunDawning">Github</a>/<a href="https://steemkr.com/@SunDawning">Steem</a>)</p>
-<p class="date">Created: 2019-09-24 Tue 19:12</p>
+<p class="date">Created: 2019-09-24 Tue 21:01</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

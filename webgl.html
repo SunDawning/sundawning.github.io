@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta http-equiv="Content-Type" name="viewport" content="width=device-width">
+  </head>
+  <body>
+    <div>
+      <p id="output"></p>
+      <canvas id="canvas" width="800px" height="600px"></canvas>
+    </div>
+    <style>
+      body{font-size:16px;}
+      canvas{width:100%;}
+    </style>
+
+    <script>
+      var cross = [];
+      function isInPolygon(point, polygon){
+          var n = polygon.length;
+          var nCross = 0;
+          for (let i = 0; i < n; i++) {
+              var p1 = polygon[i];
+              var p2 = polygon[(i + 1) % n];
+              if (p1.y == p2.y)
+                  continue;
+              if (point.y < Math.min(p1.y, p2.y))
+                  continue;
+              if (point.y >= Math.max(p1.y, p2.y))
+                  continue;
+              var x = (point.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y) + p1.x;
+              if (x > point.x){
+		  cross.push({x:x, y:point.y});
+                  nCross++;
+              }
+          }
+          return (nCross % 2 == 1);
+      }
+    </script>
+
+    <script>
+      function draw(point, polygon){
+          var context = document.getElementById("canvas").getContext("2d");
+          var n = polygon.length;
+
+          context.moveTo(polygon[0].x, polygon[0].y);
+          for (let i = 0; i < n; i++) {
+              var p2 = polygon[(i + 1) % n];
+              context.lineTo(p2.x, p2.y);
+          };
+          context.stroke();
+
+          var maxX = Math.max(...polygon.map(function (currentValue){return currentValue.x}));
+          context.moveTo(point.x, point.y);
+          context.lineTo(point.x + maxX, point.y);
+          context.stroke();
+
+          context.fillText("p", point.x, point.y);
+          for (let i = 0; i < cross.length; i++){
+              context.fillText("x", cross[i].x, cross[i].y);
+          };
+      };
+    </script>
+
+    <script>
+      function setPointWithMouse (event){
+	  var point = {x:event.clientX, y:event.clientY};
+	  document.getElementById("output").innerHTML = isInPolygon(point, polygon);
+	  draw(point, polygon);
+      };
+    </script>
+
+    <script>
+      var point = {x:150, y:150};
+      var polygon = [{x:100, y:100}, {x:100, y:200}, {x:180, y:180}, {x:200, y:200}, {x:250, y:300},
+                     {x:400, y:200}, {x:250, y:140}, {x:250, y:180}, {x:200, y:180}, {x:200, y:100}];
+
+      document.getElementById("output").innerHTML = isInPolygon(point, polygon);
+      draw(point, polygon);
+
+      document.getElementById("canvas").addEventListener("click",setPointWithMouse);
+    </script>
+  </body>
+</html>

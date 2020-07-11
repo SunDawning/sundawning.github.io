@@ -2,19 +2,14 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta http-equiv="Content-Type" name="viewport" content="width=device-width">
+
   </head>
   <body>
-    <div>
-      <p id="output"></p>
-      <canvas id="canvas" width="800px" height="600px"></canvas>
-    </div>
     <style>
-      body{font-size:16px;}
-      canvas{width:100%;}
+      body{margin:0;}
     </style>
-
+    <script src="https://threejs.org/build/three.js"></script>
     <script>
-      var cross = [];
       function isInPolygon(point, polygon){
           var n = polygon.length;
           var nCross = 0;
@@ -29,55 +24,127 @@
                   continue;
               var x = (point.y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y) + p1.x;
               if (x > point.x){
-		  cross.push({x:x, y:point.y});
+                  cross.push({x:x, y:point.y});
                   nCross++;
-              }
-          }
-          return (nCross % 2 == 1);
-      }
-    </script>
-
-    <script>
-      function draw(point, polygon){
-          var context = document.getElementById("canvas").getContext("2d");
-          var n = polygon.length;
-
-          context.moveTo(polygon[0].x, polygon[0].y);
-          for (let i = 0; i < n; i++) {
-              var p2 = polygon[(i + 1) % n];
-              context.lineTo(p2.x, p2.y);
+              };
           };
-          context.stroke();
-
-          var maxX = Math.max(...polygon.map(function (currentValue){return currentValue.x}));
-          context.moveTo(point.x, point.y);
-          context.lineTo(point.x + maxX, point.y);
-          context.stroke();
-
-          context.fillText("p", point.x, point.y);
+          return nCross % 2 == 1;
+      };
+      function add2DPoints (points,color){
+          var polygon = [];
+          for (let i = 0; i < points.length; i++){
+              var point = points[i];
+              polygon.push(new THREE.Vector3(point.x, point.y, 0));
+          };
+          var geometry = new THREE.BufferGeometry().setFromPoints(polygon);
+          var material = new THREE.LineBasicMaterial({color:color});
+          var line = new THREE.Line(geometry, material);
+          scene.add(line);
+          return {polygon:polygon,line:line};
+      };
+      function add2DText(string,size,x,y,color) {
+          var gemometry = new THREE.TextGeometry(string,{font:textFont,size:size,height:1});
+          gemometry.center();
+          var material = new THREE.MeshPhongMaterial({color:color});
+          var object = new THREE.Mesh(gemometry, material);
+          scene.add(object);
+          object.position.z=0;
+          object.position.x=x;
+          object.position.y=y;
+          return object;
+      };
+      function add2DCircle(radius,x,y,color){
+          var gemometry = new THREE.CircleGeometry(radius,64);
+          gemometry.vertices.shift();
+          var material = new THREE.LineBasicMaterial({color:color});
+          var object = new THREE.LineLoop(gemometry,material);
+          object.position.x = x-radius;
+          object.position.y = y;
+          scene.add(object);
+          return object;
+      };
+      function addRayPoint(point){
+          lineGroup.push(add2DCircle(5,point.x,point.y,lineGroupColor));
+      };
+      function addCrossText(cross){
           for (let i = 0; i < cross.length; i++){
-              context.fillText("x", cross[i].x, cross[i].y);
+              var point = cross[i];
+              lineGroup.push(add2DText("x",20,point.x,point.y,lineGroupColor));
           };
       };
-    </script>
-
-    <script>
-      function setPointWithMouse (event){
-	  var point = {x:event.clientX, y:event.clientY};
-	  document.getElementById("output").innerHTML = isInPolygon(point, polygon);
-	  draw(point, polygon);
+      function generatePolygonPoints(n){
+          var width=window.innerWidth/2;
+          var height=window.innerHeight/2;
+          var start={x:-width*3/4,y:-height*3/4};
+          var points=[];
+          points.push(start);
+          for (let i=0;i<n;i++){
+              var lastIndex=points.length-1;
+              points.push({x:Math.min(points[lastIndex].x+Math.random(1)*(window.innerWidth/8),
+                                      window.innerWidth/3),
+                           y:Math.min(points[lastIndex].y+Math.random(1)*(window.innerHeight/8),
+                                      window.innerHeight/3)});
+          };
+          var lastPoint=points[points.length-1]
+          points.push({x:lastPoint.x+ (window.innerWidth/2-lastPoint.x)/2,
+                       y:start.y});
+          points.push(start);
+          return points;
       };
-    </script>
+      function setPointWithMouse (event){
+          var point = {x:event.clientX-(window.innerWidth/2),y:(window.innerHeight/2)-event.clientY};
+          for (let i=0;i<lineGroup.length;i++){
+              scene.remove(lineGroup[i]);
+          };
+          lineGroup.push(add2DPoints([point,{x:window.innerWidth/2,y:point.y}],lineGroupColor).line);
+          cross = [];
+          displayOutput(isInPolygon(point,polygon));
+          addRayPoint(point);
+          addCrossText(cross);
+          renderer.render(scene,camera);
+      };
+      function displayOutput(object){
+          scene.remove(output)
+          if (object){
+              object="Inside";
+          } else {object="Outside"};
+          output = add2DText(object,20,-window.innerWidth/4,window.innerHeight/4,0xffffff);
+          return output;
+      };
 
-    <script>
-      var point = {x:150, y:150};
-      var polygon = [{x:100, y:100}, {x:100, y:200}, {x:180, y:180}, {x:200, y:200}, {x:250, y:300},
-                     {x:400, y:200}, {x:250, y:140}, {x:250, y:180}, {x:200, y:180}, {x:200, y:100}];
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      document.body.appendChild( renderer.domElement );
 
-      document.getElementById("output").innerHTML = isInPolygon(point, polygon);
-      draw(point, polygon);
+      var camera = new THREE.OrthographicCamera( -window.innerWidth/2,window.innerWidth/2,window.innerHeight/2,-window.innerHeight/2, 1, 10);
+      camera.position.set( 0, 0, 10);
+      camera.lookAt( 0, 0, 0 );
 
-      document.getElementById("canvas").addEventListener("click",setPointWithMouse);
+      var scene = new THREE.Scene();
+
+      var spotlight=new THREE.DirectionalLight(0xffffff, 1);
+      spotlight.position.set(0, 0, 100);
+      scene.add(spotlight);
+
+      var polygon = add2DPoints(generatePolygonPoints(10), 0x2194ce).polygon;
+      var point = {x:0, y:0};
+      var lineGroup=[];
+      var lineGroupColor=0xff0080;
+      lineGroup.push(add2DPoints([point,{x:window.innerWidth/2,y:point.y}], lineGroupColor).line);
+
+      var cross = [];
+      var output;
+
+      document.getElementsByTagName("canvas")[0].addEventListener( 'click', setPointWithMouse, false );
+
+      var textFont;
+      new THREE.FontLoader().load('https://zengxiangliang.github.io/three_text/font/optimer_regular.typeface.json', function(font) {
+          textFont = font;
+          output = displayOutput(isInPolygon(point,polygon));
+          addRayPoint(point);
+          addCrossText(cross);
+          renderer.render(scene,camera);
+      });
     </script>
   </body>
 </html>

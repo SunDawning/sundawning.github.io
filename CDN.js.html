@@ -1,0 +1,8 @@
+<script type="module">
+  import{CDN}from"./CDN.js";
+  let cdn=new CDN({
+      uri:window.location.href,
+  });//测试CDN.js
+  let Toast=await cdn.import("./Toast.js");
+  Toast.success("拼");
+</script>

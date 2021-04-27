@@ -1,10 +1,11 @@
 import"./iziToast.min.js"; // https://izitoast.marcelodolza.com/
+import{style as iziToastStyle}from"./iziToast.min.css.js";
 function addiziToastCSS(){
-    let css=document.createElement("link");
-    css.rel="stylesheet";
-    css.href=new URL("./iziToast.min.css",import.meta.url).href;
-    document.head.appendChild(css);
-    return css;
+    let style=document.createElement("style");
+    style.type="text/css";
+    style.innerHTML=iziToastStyle;
+    document.head.appendChild(style);
+    return style;
 }
 addiziToastCSS();
 export function warning(message){

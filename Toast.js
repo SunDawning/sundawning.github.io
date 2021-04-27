@@ -2,7 +2,7 @@ import"./iziToast.min.js"; // https://izitoast.marcelodolza.com/
 function addiziToastCSS(){
     let css=document.createElement("link");
     css.rel="stylesheet";
-    css.href="./iziToast.min.css";
+    css.href=new URL("./iziToast.min.css",import.meta.url).href;
     document.head.appendChild(css);
     return css;
 }

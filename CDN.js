@@ -5,7 +5,7 @@
  * - 不填的话，默认使用import引用CDN.js的地址作为CDN的地址。
  * - 可以与import引用的CDN.js的地址不同
  * @return output.import 动态import CDN上的JavaScript文件
- * @returun output.set 替换CDN的地址
+ * @return output.set 替换CDN的地址
  */
 export function CDN(input){
     if(input===undefined){

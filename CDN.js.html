@@ -14,4 +14,9 @@
   });
   let Toast2=await cdn2.import("./Toast.js");
   Toast2.success("音");
+
+  import{CDN as CDN3}from"./CDN.js";
+  let cdn3=new CDN3("https://sundawning.github.io");
+  let Toast3=await cdn3.import("./Toast.js");
+  Toast3.success("开");
 </script>

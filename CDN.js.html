@@ -1,24 +1,33 @@
 <script type="module">
   /*
-   * 使用在线CDN
+   * 使用在线CDN.js和在线CDN地址
    */
   import{CDN}from"https://sundawning.github.io/CDN.js";
   let cdn=new CDN();
   let Toast=await cdn.import("./Toast.js");
-  Toast.success("拼");
+  Toast.success("使用在线CDN.js和在线CDN地址");
   /*
-   * 使用本地CDN
+   * 使用在线CDN.js和本地CDN地址
    */
   let cdn2=new CDN({
     uri:window.location.href,
   });
   let Toast2=await cdn2.import("./Toast.js");
-  Toast2.success("音");
-
+  Toast2.success("使用在线CDN.js和本地CDN地址");
+  /*
+   * 使用本地CDN.js和在线CDN地址
+   */
   import{CDN as CDN3}from"./CDN.js";
   let cdn3=new CDN3({
     uri:"https://sundawning.github.io",
   });
   let Toast3=await cdn3.import("./Toast.js");
-  Toast3.success("开");
+  Toast3.success("使用本地CDN.js和在线CDN地址");
+  /*
+   * 使用本地CDN.js和本地CDN地址
+   */
+  import{CDN as CDN4}from"./CDN.js";
+  let cdn4=new CDN4();
+  let Toast4=await cdn4.import("./Toast.js");
+  Toast4.success("使用本地CDN.js和本地CDN地址");
 </script>

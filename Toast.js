@@ -13,16 +13,19 @@ export function warning(message){
         message: message,
         position: 'center',
     });
+    console.warn(message);
 }
 export function success(message){
     iziToast.success({
         message:message,
         position:"center",
     });
+    console.log(message);
 }
 export function info(message){
     iziToast.info({
         message:message,
         position:"center",
     });
+    console.info(message);
 }

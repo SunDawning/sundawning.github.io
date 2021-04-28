@@ -1,8 +1,17 @@
 <script type="module">
+  /*
+   * 使用在线CDN
+   */
   import{CDN}from"https://sundawning.github.io/CDN.js";
-  let cdn=new CDN({
-    /* uri:window.location.href, */
-  });//测试CDN.js
+  let cdn=new CDN();
   let Toast=await cdn.import("./Toast.js");
   Toast.success("拼");
+  /*
+   * 使用本地CDN
+   */
+  let cdn2=new CDN({
+    uri:window.location.href,
+  });
+  let Toast2=await cdn2.import("./Toast.js");
+  Toast2.success("音");
 </script>

@@ -5,9 +5,14 @@ import{style as iziToastStyle}from"./iziToast.min.css.js"; // https://izitoast.m
  * @return object 返回所创建的＂style＂元素
  */
 export function addiziToastCSS(){
-    let style=document.createElement("style");
-    style.type="text/css";
-    style.innerHTML=iziToastStyle;
-    document.head.appendChild(style);
+    let id="iziToast.min.css";
+    let style=document.getElementById(id);
+    if(style===null){
+        style=document.createElement("style");
+        style.type="text/css";
+        style.innerHTML=iziToastStyle;
+        document.head.appendChild(style);
+        style.id=id;
+    }
     return style;
 }

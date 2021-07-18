@@ -82,15 +82,17 @@
     </script>
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="47eae4c0-6302-42e3-8e00-ee6ccf4d1355";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
     <script type="text/javascript">
-      let animateID;
-      function animate(){
-        if(document.querySelector("#edit-with-js-bin")){
-          document.querySelector("#edit-with-js-bin").remove();
-          cancelAnimationFrame(animateID);
+      if(typeof(jsbinShowEdit)!=="undefined"){
+        let animateID;
+        function animate(){
+          if(document.querySelector("#edit-with-js-bin")){
+            document.querySelector("#edit-with-js-bin").remove();
+            cancelAnimationFrame(animateID);
+          }
+          animateID=requestAnimationFrame(animate);
         }
-        animateID=requestAnimationFrame(animate);
+        animate();
       }
-      animate();
     </script>
   </body>
 </html>

@@ -13,24 +13,31 @@
     <script src="https://unpkg.com/element-plus@1.0.2-beta.55/lib/index.full.js"></script>
     <div id="Vue">
       <el-row justify="center">
-        <el-image src="https://image.crisp.chat/avatar/operator/de634bab-5210-44f1-a499-f6eb8fa6a884/120/" :fit="fit">
-          <template #placeholder>
-            <div class="image-slot" style="width:120;height:120px;"></div>
-          </template>
-          <template #error>
-            <div class="image-slot" style="width:120;height:120px;">
-              <i class="el-icon-picture-outline"></i>
-            </div>
-          </template>
-        </el-image>
-      </el-row>
-      <el-row justify="center">
-        <el-space wrap>
-          <el-col v-for="link in links">
-            <el-card shadow="hover">
-              <el-link :href="link.href">{{link.innerText}}</el-link>
-            </el-card>
-          </el-col>
+        <el-space :size="16" direction="vertical">
+          <el-row justify="center">
+            <el-image src="https://image.crisp.chat/avatar/operator/de634bab-5210-44f1-a499-f6eb8fa6a884/120/" :fit="fit">
+              <template #placeholder>
+                <div class="image-slot" style="width:120;height:120px;"></div>
+              </template>
+              <template #error>
+                <div class="image-slot" style="width:120;height:120px;">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </template>
+            </el-image>
+          </el-row>
+          <el-row justify="center">
+            <el-link href="https://gitee.com/sundawning" target="_blank">SunDawning</el-link>
+          </el-row>
+          <el-row justify="center">
+            <el-space wrap>
+              <el-col v-for="link in links">
+                <el-card shadow="hover">
+                  <el-link :href="link.href">{{link.innerText}}</el-link>
+                </el-card>
+              </el-col>
+            </el-space>
+          </el-row>
         </el-space>
       </el-row>
     </div>

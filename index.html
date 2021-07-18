@@ -17,6 +17,10 @@
         flex-wrap: wrap;
         align-items: center;
       }
+      #logo {
+        width:120px;
+        height:120px;
+      }
       .project {
         margin:8px;
         padding:16px;
@@ -58,24 +62,14 @@
       a:hover {
         color: #409EFF;
       }
-      a:hover:after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 0;
-        bottom: 0;
-        border-bottom: 1px solid #409EFF;
-      }
     </style>
   </head>
   <body>
     <div id="app">
       <div id="logo">
-        <img src="https://image.crisp.chat/avatar/operator/de634bab-5210-44f1-a499-f6eb8fa6a884/120/">
-      </div>
-      <div id="website">
-        <a href="https://gitee.com/sundawning" target="_blank">SunDawning</a>
+        <a href="https://gitee.com/sundawning" target="_blank">
+          <img src="https://image.crisp.chat/avatar/operator/de634bab-5210-44f1-a499-f6eb8fa6a884/120/">
+        </a>
       </div>
       <div id="projects"></div>
     </div>

@@ -9,7 +9,21 @@
     </style>
   </head>
   <body>
+    <script src="https://unpkg.com/vue@3.1.5/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/element-plus@1.0.2-beta.55/lib/index.full.js"></script>
     <div id="Vue">
+      <el-row justify="center">
+        <el-image src="https://image.crisp.chat/avatar/operator/de634bab-5210-44f1-a499-f6eb8fa6a884/120/" :fit="fit">
+          <template #placeholder>
+            <div class="image-slot" style="width:120;height:120px;"></div>
+          </template>
+          <template #error>
+            <div class="image-slot" style="width:120;height:120px;">
+              <i class="el-icon-picture-outline"></i>
+            </div>
+          </template>
+        </el-image>
+      </el-row>
       <el-row justify="center">
         <el-space wrap>
           <el-col v-for="link in links">
@@ -20,8 +34,6 @@
         </el-space>
       </el-row>
     </div>
-    <script src="https://unpkg.com/vue@3.1.5/dist/vue.global.prod.js"></script>
-    <script src="https://unpkg.com/element-plus@1.0.2-beta.55/lib/index.full.js"></script>
     <script type="text/javascript">
       Vue.createApp({data(){
         return {

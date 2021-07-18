@@ -19,9 +19,13 @@
     <div id="Cesium"></div>
     <script src="https://cdn.staticfile.org/cesium/1.83.0/Cesium.js"></script>
     <script type="text/javascript">
-      new Cesium.Viewer("Cesium",{
+      let viewer=new Cesium.Viewer("Cesium",{
+        fullscreenButton:false,
+        animation:false,
+        timeline:false,
         imageryProvider:new Cesium.UrlTemplateImageryProvider({url:"https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"})
       });
+      viewer._cesiumWidget._creditContainer.style.display="none";
     </script>
   </body>
 </html>

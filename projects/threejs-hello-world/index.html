@@ -19,6 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.130.1/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.130.1/examples/js/controls/OrbitControls.js"></script>
     <script type="text/javascript">
+      "use strict";
       function HelloWorld(container,options){
         var SELF={};
         if(options===undefined){options={};}
@@ -28,23 +29,32 @@
           return undefined;
         }
         SELF.webGLRenderer=new THREE.WebGLRenderer();
-        SELF.webGLRenderer.setSize(SELF.container.clientWidth,SELF.container.clientHeight);
         SELF.container.appendChild(SELF.webGLRenderer.domElement);
         SELF.scene=new THREE.Scene();
         SELF.scene.add(new THREE.GridHelper());
         SELF.scene.add(new THREE.AxesHelper());
         SELF.perspectiveCamera=new THREE.PerspectiveCamera();
-        SELF.perspectiveCamera.aspect=SELF.container.clientWidth/SELF.container.clientHeight;
         SELF.perspectiveCamera.position.set(10,10,10);
+        SELF.setSize=function(width,height){
+          if(width===undefined){width=SELF.container.clientWidth;}
+          if(height===undefined){height=SELF.container.clientHeight;}
+          SELF.webGLRenderer.setSize(width,height);
+          SELF.perspectiveCamera.aspect=width/height;
+          SELF.perspectiveCamera.updateProjectionMatrix();
+        }
         SELF.animationFrame=function(){
           SELF.webGLRenderer.render(SELF.scene,SELF.perspectiveCamera);
           SELF.animationFrameId=requestAnimationFrame(SELF.animationFrame);
         }
         SELF.orbitControls=new THREE.OrbitControls(SELF.perspectiveCamera,SELF.webGLRenderer.domElement);
+        SELF.setSize(SELF.container.clientWidth,SELF.container.clientHeight);
         SELF.animationFrame();
         return SELF;
       }
       window.APP=new HelloWorld(document.querySelector("#THREE"));
+      window.addEventListener("resize",function onWindowResize(){
+        APP.setSize();
+      });
     </script>
   </body>
 </html>

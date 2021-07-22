@@ -1,0 +1,50 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello Threejs</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
+    <link rel="shortcut icon" href="https://threejs.org/files/favicon.ico"/>
+    <style type="text/css">
+      #THREE {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="THREE"></div>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.130.1/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.130.1/examples/js/controls/OrbitControls.js"></script>
+    <script type="text/javascript">
+      function HelloWorld(container,options){
+        var SELF={};
+        if(options===undefined){options={};}
+        SELF.container=container;
+        if(SELF.container===undefined){
+          console.log("Missing required THREE container.");
+          return undefined;
+        }
+        SELF.webGLRenderer=new THREE.WebGLRenderer();
+        SELF.webGLRenderer.setSize(SELF.container.clientWidth,SELF.container.clientHeight);
+        SELF.container.appendChild(SELF.webGLRenderer.domElement);
+        SELF.scene=new THREE.Scene();
+        SELF.scene.add(new THREE.GridHelper());
+        SELF.scene.add(new THREE.AxesHelper());
+        SELF.perspectiveCamera=new THREE.PerspectiveCamera();
+        SELF.perspectiveCamera.aspect=SELF.container.clientWidth/SELF.container.clientHeight;
+        SELF.perspectiveCamera.position.set(10,10,10);
+        SELF.animationFrame=function(){
+          SELF.webGLRenderer.render(SELF.scene,SELF.perspectiveCamera);
+          SELF.animationFrameId=requestAnimationFrame(SELF.animationFrame);
+        }
+        SELF.orbitControls=new THREE.OrbitControls(SELF.perspectiveCamera,SELF.webGLRenderer.domElement);
+        SELF.animationFrame();
+        return SELF;
+      }
+      window.APP=new HelloWorld(document.querySelector("#THREE"));
+    </script>
+  </body>
+</html>

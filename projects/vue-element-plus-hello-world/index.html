@@ -1,0 +1,20 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello Element+</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
+    <link rel="shortcut icon" href="https://v3.cn.vuejs.org/logo.png"/>
+    <link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.58/lib/theme-chalk/index.css">
+    <style type="text/css">
+    </style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue@3.1.5/dist/vue.global.prod.js"></script>
+    <script src="https://unpkg.com/element-plus@1.0.2-beta.58/lib/index.full.js"></script>
+    <div id="APP"><el-rate v-model="value" :colors="colors" allow-half show-score></el-rate></div>
+    <script>Vue.createApp({data(){return{
+        value:null,
+        colors:["#99A9BF","#F7BA2A","#FF9900"]
+      }}}).use(ElementPlus).mount("#APP");</script>
+  </body>
+</html>

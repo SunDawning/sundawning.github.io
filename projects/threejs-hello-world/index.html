@@ -32,8 +32,10 @@
         SELF.webGLRenderer=new THREE.WebGLRenderer();
         SELF.container.appendChild(SELF.webGLRenderer.domElement);
         SELF.scene=new THREE.Scene();
-        SELF.scene.add(new THREE.GridHelper());
-        SELF.scene.add(new THREE.AxesHelper());
+        SELF.gridHelper=new THREE.GridHelper();
+        SELF.scene.add(SELF.gridHelper);
+        SELF.axesHelper=new THREE.AxesHelper();
+        SELF.scene.add(SELF.axesHelper);
         SELF.perspectiveCamera=new THREE.PerspectiveCamera();
         SELF.perspectiveCamera.position.set(10,10,10);
         SELF.setSize=function(width,height){

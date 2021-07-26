@@ -20,11 +20,17 @@ async function download(url,path,options){
         console.log("下载的文件已经存在",path);
         return;
     }
+    console.log("下载",path);
     //确保下载目录存在
     let dir=dirname(path);
     await ensureDir(dir);
     //下载到指定路径
     await Deno.writeFile(path,new Uint8Array(await(await fetch(url)).arrayBuffer()));
 }
-download("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/1/1/0","./World_Imagery/MapServer/tile/1/1/0.jpg");
-download("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/2/1/1","./World_Imagery/MapServer/tile/2/1/1.jpg");
+[
+    {z:1,y:1,x:0},
+    {z:2,y:1,x:1}
+].forEach(function(item){
+    let{z,y,x}=item;
+    download(`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`,`./World_Imagery/MapServer/tile/${z}/${y}/${x}.jpg`);
+});

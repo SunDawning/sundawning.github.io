@@ -27,3 +27,4 @@ async function download(url,path,options){
     await Deno.writeFile(path,new Uint8Array(await(await fetch(url)).arrayBuffer()));
 }
 download("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/1/1/0","./World_Imagery/MapServer/tile/1/1/0.jpg");
+download("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/2/1/1","./World_Imagery/MapServer/tile/2/1/1.jpg");

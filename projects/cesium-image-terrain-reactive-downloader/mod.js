@@ -1,7 +1,32 @@
 /*
  * 离线下载地图
  * deno run --allow-net --allow-write --allow-read --unstable ./mod.js
+ * deno compile --allow-net --allow-write --allow-read --unstable ./mod.js mod.js
  */
+import{
+    parse
+}from"https://deno.land/std/flags/mod.ts";
+let commandLineArgs=parse(Deno.args);
+console.log(commandLineArgs);
+if(commandLineArgs.help){
+    console.log(`
+A Simple Map Downloader.
+
+Version: <2021-07-26 Mon 21:56:54 UTC+08:00>
+
+  USAGE:
+    downloader [options]
+
+  OPTIONS:
+    --help                      Prints help information
+    --z           <zoom>        Set Zoom
+    --y           <Y>           Set Tile Y 
+    --x           <X>           Set Tile X
+    --output      <DIRECTORY>   Set output directory
+`);
+    Deno.exit();
+}
+
 import{
     ensureDir,
     exists
@@ -14,6 +39,8 @@ import{
  * javascript - How to convert an arrayBuffer to a Uint8Array, in Deno? - Stack Overflow: https://stackoverflow.com/questions/62762623/how-to-convert-an-arraybuffer-to-a-uint8array-in-deno
  */
 async function download(url,path,options){
+    if(url===undefined){return;}
+    if(path===undefined){return;}
     //下载的文件已经存在
     let isExists=await exists(path);
     if(isExists===true){
@@ -66,14 +93,29 @@ function WGS84Tile(){
             }
         }
         return tiles;
-        
+
     };
     return SELF;
 }
-[
-    {z:1,y:1,x:0},
-    {z:2,y:1,x:1}
-].forEach(function(item){
-    let{z,y,x}=item;
-    download(`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`,`./World_Imagery/MapServer/tile/${z}/${y}/${x}.jpg`);
-});
+
+async function main(){
+    let z=commandLineArgs.z;
+    if(z===undefined){return;}
+    let y=commandLineArgs.y;
+    if(y===undefined){return;}
+    let x=commandLineArgs.x;
+    if(x===undefined){return;}
+    let output=commandLineArgs.output;
+    if(output===undefined){
+        console.log("没有指定保存的位置");
+        return;
+    }else{
+        if(output.endsWith("/")===false){
+            output=output+"/";
+        }
+    }
+    await download(`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`,`${output}${z}/${y}/${x}.jpg`);
+}
+if(import.meta.main){
+    main();
+}

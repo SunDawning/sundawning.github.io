@@ -20,10 +20,10 @@ async function download(url,path,options){
     //下载的文件已经存在
     let isExists=await exists(path);
     if(isExists===true){
-        console.log("下载的文件已经存在",path);
+        // console.log("下载的文件已经存在",path);
         return;
     }
-    console.log("下载",path);
+    // console.log("下载",path);
     //确保下载目录存在
     let dir=dirname(path);
     await ensureDir(dir);

@@ -99,6 +99,21 @@ function WGS84Tile(){
         return tiles;
 
     };
+    SELF.download=function(longitude1,latitude1,longitude2,latitude2,zoom,output){
+        if(zoom===undefined){
+            zoom=1;
+        }
+        if(output===undefined){
+            output="./World_Imagery/MapServer/tile/";
+        }
+        for(let z=0;z<zoom;z=z+1){
+            console.log(z);
+            wgs84Tile.wgs84RegionToTile(longitude1,latitude1,longitude2,latitude2,z).forEach(function(item){
+                let{z,x,y}=item;
+                download(`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`,`${output}${z}/${y}/${x}.jpg`);
+            });
+        }
+    }
     return SELF;
 }
 async function main(){
@@ -122,3 +137,5 @@ async function main(){
 if(import.meta.main){
     main();
 }
+let wgs84Tile=new WGS84Tile();
+wgs84Tile.download(-180,90,180,-90,6,"./World_Imagery/MapServer/tile/");

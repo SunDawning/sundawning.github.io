@@ -14,7 +14,7 @@ import{
 /**
  * javascript - How to convert an arrayBuffer to a Uint8Array, in Deno? - Stack Overflow: https://stackoverflow.com/questions/62762623/how-to-convert-an-arraybuffer-to-a-uint8array-in-deno
  */
-async function download(url,path,options){
+export async function download(url,path,options){
     if(url===undefined){return;}
     if(path===undefined){return;}
     //下载的文件已经存在
@@ -27,7 +27,7 @@ async function download(url,path,options){
 /**
  * Cesium - 地图下载器(python)_qgbihc的专栏-CSDN博客_cesium 地图下载器: https://blog.csdn.net/qgbihc/article/details/109134671
  */
-function WGS84Tile(){
+export function WGS84Tile(){
     let SELF={};
     SELF.width=function(zoom){
         return Math.pow(2,zoom);
@@ -77,7 +77,7 @@ function WGS84Tile(){
     return SELF;
 }
 let wgs84Tile=new WGS84Tile();
-function downloads(options){
+export function downloads(options){
     let[minZ,maxZ]=options.zoom;
     let[longitude1,latitude1,longitude2,latitude2]=options.region;
     let output=options.output;
@@ -88,8 +88,3 @@ function downloads(options){
         });
     }
 }
-downloads({
-    zoom:[0,6],
-    region:[-180,90,180,-90],
-    output:"./World_Imagery/MapServer/tile/"
-});

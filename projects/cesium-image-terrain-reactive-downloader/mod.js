@@ -1,7 +1,7 @@
 /*
  * 离线下载地图
  * deno run --allow-net --allow-write --allow-read --unstable ./mod.js
- * deno compile --allow-net --allow-write --allow-read --unstable ./mod.js mod.js
+ * deno compile --allow-net --allow-write --allow-read --unstable ./mod.js
  */
 import{
     parse
@@ -20,7 +20,7 @@ Version: <2021-07-26 Mon 21:56:54 UTC+08:00>
   OPTIONS:
     --help                      Prints help information
     --z           <zoom>        Set Zoom
-    --y           <Y>           Set Tile Y 
+    --y           <Y>           Set Tile Y
     --x           <X>           Set Tile X
     --output      <DIRECTORY>   Set output directory
 `);
@@ -87,8 +87,12 @@ function WGS84Tile(){
     };
     SELF.wgs84RegionToTile=function(longitude1,latitude1,longitude2,latitude2,zoom){
         let tiles=[];
-        for(let x=SELF.wgs84ToTileY(longitude1,zoom);x<SELF.wgs84ToTileX(longitude2,zoom)+1;x=x+1){
-            for(let y=SELF.wgs84ToTileY(latitude1,zoom);y<SELF.wgs84ToTileY(latitude2,zoom)+1;y=y+1){
+        let y1=SELF.wgs84ToTileY(latitude1,zoom);
+        let y2=SELF.wgs84ToTileY(latitude2,zoom);
+        let x1=SELF.wgs84ToTileX(longitude1,zoom);
+        let x2=SELF.wgs84ToTileX(longitude2,zoom);
+        for(let y=y1;y<y2+1;y=y+1){
+            for(let x=x1;x<x2+1;x=x+1){
                 tiles.push({z:zoom,y:y,x:x});
             }
         }
@@ -97,7 +101,6 @@ function WGS84Tile(){
     };
     return SELF;
 }
-
 async function main(){
     let z=commandLineArgs.z;
     if(z===undefined){return;}

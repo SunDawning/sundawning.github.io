@@ -18,15 +18,9 @@ async function download(url,path,options){
     if(url===undefined){return;}
     if(path===undefined){return;}
     //下载的文件已经存在
-    let isExists=await exists(path);
-    if(isExists===true){
-        // console.log("下载的文件已经存在",path);
-        return;
-    }
-    // console.log("下载",path);
+    if((await exists(path))===true){return;}
     //确保下载目录存在
-    let dir=dirname(path);
-    await ensureDir(dir);
+    await ensureDir(dirname(path));
     //下载到指定路径
     await Deno.writeFile(path,new Uint8Array(await(await fetch(url)).arrayBuffer()));
 }
@@ -38,7 +32,7 @@ function WGS84Tile(){
     SELF.width=function(zoom){
         return Math.pow(2,zoom);
     };
-    SELF.wgs84ToTileX=function(longitude,zoom){
+    SELF.longitudeToTileX=function(longitude,zoom){
         if(longitude<0){
             longitude=180+longitude;
         }else{
@@ -51,7 +45,7 @@ function WGS84Tile(){
             return x;
         }
     };
-    SELF.wgs84ToTileY=function(latitude,zoom){
+    SELF.latitudeToTileY=function(latitude,zoom){
         if(latitude>85.0511287798){
             latitude=85.0511287798;
         }
@@ -62,10 +56,10 @@ function WGS84Tile(){
         return Math.floor(latitude*SELF.width(zoom));
     };
     SELF.onRegionToTile=function(longitude1,latitude1,longitude2,latitude2,zoom,onTile){
-        let y1=SELF.wgs84ToTileY(latitude1,zoom);
-        let y2=SELF.wgs84ToTileY(latitude2,zoom);
-        let x1=SELF.wgs84ToTileX(longitude1,zoom);
-        let x2=SELF.wgs84ToTileX(longitude2,zoom);
+        let y1=SELF.latitudeToTileY(latitude1,zoom);
+        let y2=SELF.latitudeToTileY(latitude2,zoom);
+        let x1=SELF.longitudeToTileX(longitude1,zoom);
+        let x2=SELF.longitudeToTileX(longitude2,zoom);
         for(let y=y1;y<y2+1;y=y+1){
             for(let x=x1;x<x2+1;x=x+1){
                 onTile({z:zoom,y:y,x:x});

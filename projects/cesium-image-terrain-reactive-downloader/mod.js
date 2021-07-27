@@ -4,30 +4,6 @@
  * deno compile --allow-net --allow-write --allow-read --unstable ./mod.js
  */
 import{
-    parse
-}from"https://deno.land/std/flags/mod.ts";
-let commandLineArgs=parse(Deno.args);
-console.log(commandLineArgs);
-if(commandLineArgs.help){
-    console.log(`
-A Simple Map Downloader.
-
-Version: <2021-07-26 Mon 21:56:54 UTC+08:00>
-
-  USAGE:
-    downloader [options]
-
-  OPTIONS:
-    --help                      Prints help information
-    --z           <zoom>        Set Zoom
-    --y           <Y>           Set Tile Y
-    --x           <X>           Set Tile X
-    --output      <DIRECTORY>   Set output directory
-`);
-    Deno.exit();
-}
-
-import{
     ensureDir,
     exists
 }from"https://deno.land/std/fs/mod.ts";
@@ -85,57 +61,41 @@ function WGS84Tile(){
         latitude=1-((((Math.log(Math.tan((90+latitude)*Math.PI/360))/(Math.PI/180))/180)+1)/2);
         return Math.floor(latitude*SELF.width(zoom));
     };
-    SELF.wgs84RegionToTile=function(longitude1,latitude1,longitude2,latitude2,zoom){
-        let tiles=[];
+    SELF.onRegionToTile=function(longitude1,latitude1,longitude2,latitude2,zoom,onTile){
         let y1=SELF.wgs84ToTileY(latitude1,zoom);
         let y2=SELF.wgs84ToTileY(latitude2,zoom);
         let x1=SELF.wgs84ToTileX(longitude1,zoom);
         let x2=SELF.wgs84ToTileX(longitude2,zoom);
         for(let y=y1;y<y2+1;y=y+1){
             for(let x=x1;x<x2+1;x=x+1){
-                tiles.push({z:zoom,y:y,x:x});
+                onTile({z:zoom,y:y,x:x});
             }
         }
-        return tiles;
-
     };
-    SELF.download=function(longitude1,latitude1,longitude2,latitude2,zoom,output){
-        if(zoom===undefined){
-            zoom=1;
+    SELF.regionToTiles=function(longitude1,latitude1,longitude2,latitude2,zoom){
+        let tiles=[];
+        function onTile(tile){
+            tiles.push(tile);
         }
-        if(output===undefined){
-            output="./World_Imagery/MapServer/tile/";
-        }
-        for(let z=0;z<zoom;z=z+1){
-            console.log(z);
-            wgs84Tile.wgs84RegionToTile(longitude1,latitude1,longitude2,latitude2,z).forEach(function(item){
-                let{z,x,y}=item;
-                download(`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`,`${output}${z}/${y}/${x}.jpg`);
-            });
-        }
-    }
+        SELF.onRegionToTile(longitude1,latitude1,longitude2,latitude2,zoom,onTile);
+        return tiles;
+    };
     return SELF;
 }
-async function main(){
-    let z=commandLineArgs.z;
-    if(z===undefined){return;}
-    let y=commandLineArgs.y;
-    if(y===undefined){return;}
-    let x=commandLineArgs.x;
-    if(x===undefined){return;}
-    let output=commandLineArgs.output;
-    if(output===undefined){
-        console.log("没有指定保存的位置");
-        return;
-    }else{
-        if(output.endsWith("/")===false){
-            output=output+"/";
-        }
-    }
-    await download(`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`,`${output}${z}/${y}/${x}.jpg`);
-}
-if(import.meta.main){
-    main();
-}
 let wgs84Tile=new WGS84Tile();
-wgs84Tile.download(-180,90,180,-90,6,"./World_Imagery/MapServer/tile/");
+function downloads(options){
+    let[minZ,maxZ]=options.zoom;
+    let[longitude1,latitude1,longitude2,latitude2]=options.region;
+    let output=options.output;
+    for(let z=minZ;z<=maxZ;z=z+1){
+        wgs84Tile.onRegionToTile(longitude1,latitude1,longitude2,latitude2,z,async function onTile(tile){
+            let{z,y,x}=tile;
+            await download(`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`,`${output}${z}/${y}/${x}.jpg`);
+        });
+    }
+}
+downloads({
+    zoom:[0,6],
+    region:[-180,90,180,-90],
+    output:"./World_Imagery/MapServer/tile/"
+});

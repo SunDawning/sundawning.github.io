@@ -1,0 +1,75 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>文件服务器 Powered By Deno</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
+    <link rel="shortcut icon" href="https://deno.land/favicon.svg">
+    <style type="text/css">
+      html {
+        word-break: break-all;
+        text-align: justify;
+      }
+      #title {
+        text-align:center;
+      }
+      #author{
+        text-align:center;
+      }
+      #reference ol {
+        list-style-type: none;
+        counter-reset: 当前计数;
+        padding-inline-start: 1.5em;
+      }
+      #reference ol li:before {
+        content:"["counter(当前计数)"] ";
+        counter-increment:当前计数;
+      }
+    </style>
+    <style type="text/css">
+      @media print{
+        a{
+          color:unset;
+          text-decoration:none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="title">
+      <h1>文件服务器 Powered By Deno</h1>
+    </div>
+    <div id="author">
+      <p><a href="https://gitee.com/SunDawning" target="_blank">SunDawning</a></p>
+    </div>
+    <div id="content">
+      <h2>目录</h2>
+      <ol>
+        <li>标题</li>
+        <li>作者</li>
+        <li>目录</li>
+        <li>摘要</li>
+        <li>关键词</li>
+        <li>正文</li>
+        <li>参考文献</li>
+      </ol>
+    </div>
+    <div id="abstract">
+      <h2>摘要</h2>
+      <p>创建一个文件服务器，可以用来服务静态网页，也可以部分服务动态网页。</p>
+    </div>
+    <div id="keywords">
+      <h2>关键词</h2>
+      <p>Deno 网站 视频 边下边播 离线</p>
+    </div>
+    <h3>源码</h3>
+    <a href="./mod.js" target="_blank">FileServer/mod.js</a>
+    <div id="reference">
+      <h2>参考文献</h2>
+      <ol>
+        <li>denoland.File server[EB/OL].(2021-07-27 22:05:05)[2021-07-27].<a href="https://deno.land/manual@v1.12.2/examples/file_server" target="_blank">https://deno.land/manual@v1.12.2/examples/file_server</a></li>
+      </ol>
+    </div>
+    <script type="text/javascript">
+    </script>
+  </body>
+</html>

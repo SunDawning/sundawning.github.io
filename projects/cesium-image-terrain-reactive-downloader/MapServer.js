@@ -1,7 +1,7 @@
 /*
- * deno run --allow-net --allow-read --allow-write --watch --unstable MapServer.js 
+ * deno run --allow-net --allow-read --allow-write --watch --unstable MapServer.js
  */
-import{FileServer}from"../../../deno/FileServer/mod.js";
+import{FileServer}from"../deno/FileServer/mod.js";
 import{download}from"./mod.js";
 let fileServer=new FileServer({
     port:8088,

@@ -10,6 +10,8 @@ let fileServer=new FileServer({
         //访问不存在的地图
         if(file.search("World_Imagery/MapServer/tile")>-1){
             let[match,z,y,x]=file.match(/World_Imagery\/MapServer\/tile\/(\d*)\/(\d*)\/(\d*)/);
+            if(z===undefined){return;}
+            if(z>17){return;}
             await download(`https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/${z}/${y}/${x}`,file);
         }
     }

@@ -24,7 +24,7 @@ export async function download(url,path,options){
     //下载到指定路径
     let response;
     try{
-        response=await fetch(url);
+        response=await fetch(url,options);
     }catch(error){
         console.log("出错了",url,error);
     }

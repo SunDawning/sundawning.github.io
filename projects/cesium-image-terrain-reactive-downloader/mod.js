@@ -22,14 +22,7 @@ export async function download(url,path,options){
     //确保下载目录存在
     await ensureDir(dirname(path));
     //下载到指定路径
-    let response;
-    try{
-        response=await fetch(url,options);
-    }catch(error){
-        console.log("出错了",url,error);
-    }
-    if(response===undefined){return;}
-    await Deno.writeFile(path,new Uint8Array(await response.arrayBuffer()));
+    await Deno.writeFile(path,new Uint8Array(await(await fetch(url,options)).arrayBuffer()));
 }
 /**
  * Cesium - 地图下载器(python)_qgbihc的专栏-CSDN博客_cesium 地图下载器: https://blog.csdn.net/qgbihc/article/details/109134671

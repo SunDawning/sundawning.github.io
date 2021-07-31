@@ -2,9 +2,10 @@
 
 
 // [[file:~/literate-programming/blender-threejs.org::*index.js][index.js:1]]
-function createTHREEAPP(){
+async function createTHREEAPP(){
     let SELF={};
     SELF.container=document.getElementById("THREE");
+    await import("https://unpkg.com/three/build/three.min.js");
     SELF.scene=new THREE.Scene();
     SELF.ambiemtLight=new THREE.AmbientLight();
     SELF.scene.add(SELF.ambiemtLight);
@@ -25,6 +26,7 @@ function createTHREEAPP(){
         SELF.animationFrameID=requestAnimationFrame(SELF.animationFrame);
     };
     SELF.animationFrame();
+    await import("https://unpkg.com/three/examples/js/controls/OrbitControls.js");
     SELF.orbitControls=new THREE.OrbitControls(SELF.perspectiveCamera,SELF.webGLRenderer.domElement);
     SELF.resize=function(x,y){
         SELF.webGLRenderer.setSize(x,y);
@@ -33,22 +35,26 @@ function createTHREEAPP(){
     };
     return SELF;
 }
-window.APP=createTHREEAPP();
-function onResize(event){
-    APP.resize(window.innerWidth,window.innerHeight);
+async function loadModel(){
+    await import("https://unpkg.com/three/examples/js/loaders/GLTFLoader.js");
+    window.gltfLoader=new THREE.GLTFLoader();
+    await import("https://unpkg.com/three/examples/js/loaders/DRACOLoader.js");
+    window.dracoLoader=new THREE.DRACOLoader();
+    dracoLoader.setDecoderPath("https://unpkg.com/three/examples/js/libs/draco/gltf/");
+    gltfLoader.setDRACOLoader(dracoLoader);
+    gltfLoader.load("./hello.glb",function(data){
+        APP.scene.add(data.scene);
+        console.log(data);
+    });
 }
-window.addEventListener("resize",onResize);
-onResize();
-function reload(){
-    window.location.reload();
+async function init(){
+    window.APP=await createTHREEAPP();
+    function onResize(event){
+        APP.resize(window.innerWidth,window.innerHeight);
+    }
+    window.addEventListener("resize",onResize);
+    onResize();
+    await loadModel();
 }
-window.gltfLoader=new THREE.GLTFLoader();
-window.dracoLoader=new THREE.DRACOLoader();
-dracoLoader.setDecoderPath("https://unpkg.com/three/examples/js/libs/draco/gltf/");
-gltfLoader.setDRACOLoader(dracoLoader);
-
-gltfLoader.load("./hello.glb",function(data){
-    APP.scene.add(data.scene);
-    console.log(data);
-});
+init();//top-level await
 // index.js:1 ends here

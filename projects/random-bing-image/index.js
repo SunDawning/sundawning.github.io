@@ -38,3 +38,11 @@ async function randomBingImageAfterDOMElement(element){
     let img=await randomBingImage();
     element.after(img);
 }
+async function randomBingImageBeforeDOMElement(element){
+    let img=await randomBingImage();
+    element.before(img);
+}
+async function randomBingImageAppendToDOMElement(element){
+    let img=await randomBingImage();
+    element.appendChild(img);
+}

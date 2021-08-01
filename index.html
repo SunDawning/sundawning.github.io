@@ -117,34 +117,8 @@
     <div id="app">
       <div id="logo">
         <a href="/index.html">
-          <script type="text/javascript">
-            async function randomBingImage(currentScript){
-              let apiURL="https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=10";
-              function randomItem(array){
-                return array[Math.floor(Math.random()*array.length)];
-              }
-              let corsServers=[
-                /* "https://jsonp.afeld.me/?url=",
-                 * "https://api.allorigins.win/raw?url=", */
-                "https://salty-earth-46109.herokuapp.com/",
-                "https://eerovil-cors-proxy.herokuapp.com/",
-                "https://lazyguy-nhl-proxy.herokuapp.com/",
-                "https://cors-anywhere.herokuapp.com/"
-              ];
-              let headers=new window.Headers();
-              headers.set("Origin","origin");
-              let response=await window.fetch(randomItem(corsServers)+apiURL,{headers:headers});
-              let data=await response.json();
-              console.log("data",data);
-              function getImgCreate(options){
-                let img=document.createElement("img");
-                Object.assign(img,options);
-                return img;
-              }
-              currentScript.after(getImgCreate({"src":new window.URL(randomItem(data.images).url,apiURL).href}));
-            }
-            randomBingImage(document.currentScript);
-          </script>
+          <script type="text/javascript" src="./projects/random-bing-image/index.js"></script>
+          <script type="text/javascript">randomBingImageAfterDOMElement(document.currentScript);</script>
         </a>
       </div>
       <a href="./projects/index.html" title="查看所有项目"><h2>项目</h2></a>

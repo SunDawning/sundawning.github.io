@@ -9,6 +9,7 @@ window.RandomBingImage=function(){
     SELF.bingImagesAPIURL="https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=10";
     /**
      * 跨域代理服务器
+     * 当 SELF.corsServers=[""] 时，即表示不使用跨域代理服务器，默认使用跨域代理服务器。
      */
     SELF.corsServers=[
         /* "https://jsonp.afeld.me/?url=",

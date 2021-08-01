@@ -24,15 +24,18 @@ function RandomBingImage(){
         let response=await window.fetch(SELF.randomItem(SELF.corsServers)+SELF.bingImagesAPIURL,{headers:headers});
         return await response.json();
     };
+    /**
+     * 使用localStorage保存当日的数据
+     */
+    SELF.localStorageKey="bingImages";
     SELF.randomBingImage=async function(){
-        let localStorageKey="bingImages";
-        let bingImages=JSON.parse(window.localStorage.getItem(localStorageKey));
+        let bingImages=JSON.parse(window.localStorage.getItem(SELF.localStorageKey));
         if(bingImages===null){bingImages={};}
         if((bingImages.data===undefined)||((new Date().getTime()-bingImages.update)>24*60*60*1000)){
             bingImages.data=await SELF.getBingImages();
             if(bingImages.data){
                 bingImages.update=new Date().getTime();
-                window.localStorage.setItem(localStorageKey,JSON.stringify(bingImages));
+                window.localStorage.setItem(SELF.localStorageKey,JSON.stringify(bingImages));
             }
         }
         function getImgCreate(options){

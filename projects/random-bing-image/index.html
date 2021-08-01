@@ -1,0 +1,27 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>随机Bing每日图片</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
+    <link rel="shortcut icon" href="https://cn.bing.com/sa/simg/favicon-2x.ico"/>
+    <style type="text/css">
+      #app {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #app img {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <script type="text/javascript" src="./index.js"></script>
+      <script type="text/javascript">
+        randomBingImageAfterDOMElement(document.currentScript);
+      </script>
+    </div>
+  </body>
+</html>

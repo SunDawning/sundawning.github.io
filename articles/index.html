@@ -11,7 +11,7 @@
         flex-direction: column;
         justify-content: center;
       }
-      #projects {
+      #articles {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
@@ -28,7 +28,7 @@
       #logo img {
         width: 100%;
       }
-      .project {
+      .article {
         margin:8px;
         padding:16px;
         border-radius: 4px;
@@ -39,7 +39,7 @@
         -webkit-transition: .3s;
         transition: .3s;
       }
-      .project:hover {
+      .article:hover {
         box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
       }
       a {
@@ -69,81 +69,21 @@
       a:hover {
         color: #409EFF;
       }
-      #articles {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      .article {
-        margin:8px;
-        padding:16px;
-        border-radius: 4px;
-        border: 1px solid #EBEEF5;
-        background-color: #FFF;
-        overflow: hidden;
-        color: #303133;
-        -webkit-transition: .3s;
-        transition: .3s;
-      }
-      .article:hover {
-        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-      }
-      h2{
-        border-top:4px solid;
-        border-bottom:4px solid;
-      }
-      #others {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-      }
-      .other {
-        margin:8px;
-        padding:16px;
-        border-radius: 4px;
-        border: 1px solid #EBEEF5;
-        background-color: #FFF;
-        overflow: hidden;
-        color: #303133;
-        -webkit-transition: .3s;
-        transition: .3s;
-      }
-      .other:hover {
-        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-      }
     </style>
   </head>
   <body>
     <div id="app">
       <div id="logo">
         <a href="/index.html">
-          <script type="text/javascript" src="./projects/random-bing-image/index.js"></script><script type="text/javascript">randomBingImageAfterDOMElement(document.currentScript);</script>
+          <img src="https://cn.bing.com/th?id=OHR.ZinnowitzSeebruecke_ZH-CN6706198565_UHD.jpg&rf=LaDigue_UHD.jpg&pid=hp&w=3840&h=2160&rs=1&c=4">
         </a>
       </div>
-      <a href="./projects/index.html" title="查看所有项目"><h2>项目</h2></a>
-      <div id="projects"></div>
-      <a href="./articles/index.html" title="查看所有文章"><h2>文章</h2></a>
       <div id="articles"></div>
-      <h2>其它</h2>
-      <div id="others"></div>
     </div>
     <script type="text/javascript">
       [
-        {"href":"./projects/cesium-hello-world/index.html","innerText":"Hello Cesium"},
-        {"href":"./projects/cesium-image-terrain-reactive-downloader/index.html","innerText":"Cesium响应式离线地图下载器"},
-        {"href":"./projects/vue-hello-world/index.html","innerText":"Hello Vue"},
-        {"href":"./projects/index.html","innerText":"查看所有项目"},
-      ].forEach(function(link){
-        let div=document.createElement("div");
-        div.className="project";
-        let a=document.createElement("a");
-        Object.assign(a,link);
-        div.appendChild(a);
-        document.querySelector("#projects").appendChild(div);
-      });
-      [
-        {"href":"./projects/deno/FileServer/index.html","innerText":"文件服务器 Powered By Deno"},
-        {"href":"./articles/index.html","innerText":"查看所有文章"},
+        {"href":"./javascript-taobao-use-qiandao/index.html","innerText":"强制使用淘宝签到红包"},
+        {"href":"../projects/deno/FileServer/index.html","innerText":"文件服务器 Powered By Deno"},
       ].forEach(function(link){
         let div=document.createElement("div");
         div.className="article";
@@ -152,19 +92,6 @@
         div.appendChild(a);
         document.querySelector("#articles").appendChild(div);
       });
-      [
-        {"href":"https://gitee.com/sundawning","innerText":"Gitee个人项目主页"},
-        {"href":"https://diigo.com/profile/mastermeichen","innerText":"Diigo网页笔记"},
-      ].forEach(function(link){
-        let div=document.createElement("div");
-        div.className="other";
-        let a=document.createElement("a");
-        a.target="_blank";
-        Object.assign(a,link);
-        div.appendChild(a);
-        document.querySelector("#others").appendChild(div);
-      });
     </script>
-    <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="3a42847d-5bc0-4d39-a0a6-5440bd882f67";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
   </body>
 </html>

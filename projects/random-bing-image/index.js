@@ -7,18 +7,21 @@ function RandomBingImage(){
      * Bing每日图片的API
      */
     SELF.bingImagesAPIURL="https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=10";
+    /**
+     * 跨域代理服务器
+     */
+    SELF.corsServers=[
+        /* "https://jsonp.afeld.me/?url=",
+         * "https://api.allorigins.win/raw?url=", */
+        "https://salty-earth-46109.herokuapp.com/",
+        "https://eerovil-cors-proxy.herokuapp.com/",
+        "https://lazyguy-nhl-proxy.herokuapp.com/",
+        "https://cors-anywhere.herokuapp.com/"
+    ];
     SELF.getBingImages=async function(){
-        let corsServers=[
-            /* "https://jsonp.afeld.me/?url=",
-             * "https://api.allorigins.win/raw?url=", */
-            "https://salty-earth-46109.herokuapp.com/",
-            "https://eerovil-cors-proxy.herokuapp.com/",
-            "https://lazyguy-nhl-proxy.herokuapp.com/",
-            "https://cors-anywhere.herokuapp.com/"
-        ];
         let headers=new window.Headers();
         headers.set("Origin","origin");
-        let response=await window.fetch(SELF.randomItem(corsServers)+SELF.bingImagesAPIURL,{headers:headers});
+        let response=await window.fetch(SELF.randomItem(SELF.corsServers)+SELF.bingImagesAPIURL,{headers:headers});
         return await response.json();
     };
     SELF.randomBingImage=async function(){

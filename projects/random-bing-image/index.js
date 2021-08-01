@@ -6,7 +6,7 @@ async function randomBingImage(){
     function randomItem(array){
         return array[Math.floor(Math.random()*array.length)];
     }
-    if((bingImages.data===null)||((new Date().getTime()-bingImages.update)>24*60*60*1000)){
+    if((bingImages.data===undefined)||((new Date().getTime()-bingImages.update)>24*60*60*1000)){
         let corsServers=[
             /* "https://jsonp.afeld.me/?url=",
              * "https://api.allorigins.win/raw?url=", */

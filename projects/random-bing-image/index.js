@@ -1,4 +1,4 @@
-window.RandomBingImage=function(){
+function RandomBingImage(){
     let SELF={};
     SELF.randomItem=function(array){
         return array[Math.floor(Math.random()*array.length)];

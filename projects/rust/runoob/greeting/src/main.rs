@@ -21,4 +21,12 @@ fn main(){
     println!("{}",g);
     let g=g+10;
     println!("{}",g);
+    hello("音");
+    let h=String::from("1");
+    let j=h.clone();
+    let i=h;
+    println!("{},{}",i,j);
+}
+fn hello(name:&str){
+    println!("拼，{}",name);
 }

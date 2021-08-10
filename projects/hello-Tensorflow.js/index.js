@@ -1,7 +1,27 @@
-var a=tf.scalar(2);//创建了一个张量
-var b=tf.tensor([2,2]);//将数组转换为张量
-var c=b.shape;//张量的大小
-var d=tf.zeros([2,2]);//创建特定大小的张量
-a.print();
-tf.tensor([1,2,3]).square().square();
-d.dispose();
+// f（x）=x⁶+2x⁴+3x²+ x + 1
+function f(x){
+    return x.pow(tf.scalar(6,"int32")).add(
+        x.pow(tf.scalar(4,"int32")).mul(tf.scalar(2))
+    ).add(
+        x.pow(tf.scalar(2,"int32")).mul(tf.scalar(3))
+    ).add(
+        x
+    ).add(
+        tf.scalar(1)
+    );
+}
+function minimize(epochs,learningRate){
+    var y=tf.variable(tf.scalar(0));
+    var optim=tf.train.adam(learningRate);
+    for(var c=0;c<epochs;c=c+1){
+        optim.minimize(function(){
+            return f(y);
+        });
+    }
+    return y;
+}
+minimize(100,0.9);
+// Tensor
+//     -0.16476447880268097
+
+

@@ -1,3 +1,4 @@
+# python pyodbcä½¿ç¨æ¹æ³ https://blog.csdn.net/huwei2003/article/details/107387919
 import pyodbc
 print(pyodbc.drivers())
 # ['SQL Server', 'SQL Server Native Client 11.0', 'ODBC Driver 17 for SQL Server', 'SQL Server Native Client RDA 11.0']

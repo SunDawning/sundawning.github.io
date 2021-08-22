@@ -32,7 +32,8 @@ def readFile(path):
 """
 def connect():
     import pyodbc
-    connection=pyodbc.connect("Driver={SQL Server Native Client 11.0};Server=localhost;Database=master;UID=test;PwD=test")
+    print("Supported Drivers: {}".format(pyodbc.drivers()))
+    connection=pyodbc.connect("Driver={SQL Server};Server=localhost;Database=master;UID=test;PwD=test")
     cursor=connection.cursor()
     return cursor
 """
@@ -54,6 +55,23 @@ def upload(data):
     import requests
     response=requests.post(url="https://httpbin.org/post",headers={"Content-Type":"application/json"},data=data)
     return response.text
+"""
+获取所有列的名字
+https://exceptionshub.com/output-pyodbc-cursor-results-as-python-dictionary.html
+"""
+def getColumns(cursor):
+    output=[]
+    for column in cursor.description:
+        output.append(column[0])
+    return output
+"""
+多行转成JSON对象
+"""
+def rowsToJSON(columns,rows):
+    output=[]
+    for row in rows:
+        output.append(dict(zip(columns,row)))
+    return output
 
 UPDATETIMEFILE="./updateTime.txt"
 if isFileExists(UPDATETIMEFILE)==False:
@@ -63,6 +81,9 @@ UPDATETIME=readFile(UPDATETIMEFILE)
 print("Previous updateTime: {}".format(UPDATETIME))
 CURSOR=connect()
 print("CURSOR: {}".format(CURSOR))
+rows=query(CURSOR,getSQL(UPDATETIME))
+print("columns: {}".format(getColumns(CURSOR)))
+print("Query Data: {}".format(rowsToJSON(getColumns(CURSOR),rows)))
 def loop():
     global UPDATETIME
     data=query(CURSOR,getSQL(UPDATETIME))

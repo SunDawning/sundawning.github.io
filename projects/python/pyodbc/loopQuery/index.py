@@ -50,6 +50,7 @@ class SQLServer:
     def query(SELF,sql):
         SELF.cursor.execute(sql)
         SELF.rows=SELF.cursor.fetchall()
+        return SELF.rows
     """
     生成SQL语句
     """
@@ -77,34 +78,37 @@ def upload(data):
     import requests
     response=requests.post(url="https://httpbin.org/post",headers={"Content-Type":"application/json"},data=data)
     return response.text
+def main():
+    UPDATETIMEFILE="./updateTime.txt"
+    if isFileExists(UPDATETIMEFILE)==False:
+        writeToFile(UPDATETIMEFILE,now())
 
+    global UPDATETIME # UnboundLocalError: local variable 'UPDATETIME' referenced before assignment
+    UPDATETIME=readFile(UPDATETIMEFILE)
+    print("Previous updateTime: {}".format(UPDATETIME))
+    sqlServer=SQLServer()
+    sqlServer.connectString="Driver={SQL Server Native Client 11.0};Server=localhost;Database=master;UID=test;PwD=test"
+    sqlServer.connect()
+    print("CURSOR: {}".format(sqlServer.cursor))
+    rows=sqlServer.query(sqlServer.getSQL(UPDATETIME))
+    print("columns: {}".format(sqlServer.getColumns()))
+    print("Query Data: {}".format(sqlServer.rowsToJSON()))
+    def loop():
+        global UPDATETIME # UnboundLocalError: local variable 'UPDATETIME' referenced before assignment
+        data=sqlServer.query(sqlServer.getSQL(UPDATETIME))
+        if len(data)==0:
+            import threading
+            threading.Timer(3,loop).start()
+        else:
+            print("Query data: {}".format(data))
+            response=upload(data)
+            print("Upload response: {}".format(response))
+            UPDATETIME=now()
+            print("Newest updateTime: {}".format(UPDATETIME))
+            writeToFile(UPDATETIMEFILE,UPDATETIME)
+            import threading
+            threading.Timer(3,loop).start()
+    loop()
+if __name__=="__main__":
+    main()
 
-UPDATETIMEFILE="./updateTime.txt"
-if isFileExists(UPDATETIMEFILE)==False:
-    writeToFile(UPDATETIMEFILE,now())
-
-UPDATETIME=readFile(UPDATETIMEFILE)
-print("Previous updateTime: {}".format(UPDATETIME))
-sqlServer=SQLServer()
-sqlServer.connectString="Driver={SQL Server Native Client 11.0};Server=localhost;Database=master;UID=test;PwD=test"
-sqlServer.connect()
-print("CURSOR: {}".format(sqlServer.cursor))
-rows=sqlServer.query(sqlServer.getSQL(UPDATETIME))
-print("columns: {}".format(sqlServer.getColumns()))
-print("Query Data: {}".format(sqlServer.rowsToJSON()))
-def loop():
-    global UPDATETIME
-    data=sqlServer.query(sqlServer.getSQL(UPDATETIME))
-    if len(data)==0:
-        import threading
-        threading.Timer(3,loop).start()
-    else:
-        print("Query data: {}".format(data))
-        response=upload(data)
-        print("Upload response: {}".format(response))
-        UPDATETIME=now()
-        print("Newest updateTime: {}".format(UPDATETIME))
-        writeToFile(UPDATETIMEFILE,UPDATETIME)
-        import threading
-        threading.Timer(3,loop).start()
-# loop()

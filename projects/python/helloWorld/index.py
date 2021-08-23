@@ -38,7 +38,7 @@ def build():
             "config":'{"say":"simi","timestamp":now()}'
         }
     ]
-    version="0.0.3"
+    version="0.0.4"
     for user in users:
         name=user["name"]
         print("name {}".format(name))
@@ -56,6 +56,9 @@ index({})
         exeName="HelloWorld-v{}-win10-64-{}".format(version,name)
         print("exeName {}.exe".format(exeName))
         import subprocess
-        subprocess.Popen(["pyinstaller","-F","--name",exeName,path.format(user)])
+        subprocess.Popen(["pyinstaller","-F","--name",exeName,path])
+        bat="build-{}.bat".format(name)
+        print("bat {}".format(bat))
+        writeToFile(bat,"pyinstaller -F --name {} {} && exit".format(exeName,path))
 if __name__=="__main__":
     build()

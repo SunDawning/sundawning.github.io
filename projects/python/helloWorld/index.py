@@ -17,6 +17,7 @@ def writeToFile(path,string):
 """
 def index(options):
     print("Hello, {}".format(options["say"]))
+    print("It's {}".format(options["timestamp"]))
     import os
     os.system("pause")
     return
@@ -24,7 +25,7 @@ def index(options):
 生成可执行文件等：
 - 生成build.bat
 - 生成{name}.py
-- 生成build-{os}-{machine}-{name}.bat
+- 生成build-v{version}-{os}-{machine}-{name}.bat
 - 生成HelloWorld-v{version}-{os}-{machine}-{name}.exe
 """
 def build():
@@ -42,7 +43,7 @@ def build():
             "config":'{"say":"simi","timestamp":now()}'
         }
     ]
-    version="0.0.7"
+    version="0.0.8"
     import platform
     os=platform.platform()
     machine=platform.machine()
@@ -67,7 +68,7 @@ index({})
         print("cmd {}".format(cmd))
         import subprocess
         subprocess.Popen(cmd)
-        bat="build-{}-{}-{}.bat".format(os,machine,name)
+        bat="build-v{}-{}-{}-{}.bat".format(version,os,machine,name)
         print("bat {}".format(bat))
         cmdString=" ".join(cmd)
         print("cmd string {}".format(cmdString))

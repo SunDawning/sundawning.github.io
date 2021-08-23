@@ -21,7 +21,11 @@ def index(options):
     os.system("pause")
     return
 """
-生成可执行文件等
+生成可执行文件等：
+- 生成build.bat
+- 生成{name}.py
+- 生成build-{os}-{machine}-{name}.bat
+- 生成HelloWorld-v{version}-{os}-{machine}-{name}.exe
 """
 def build():
     writeToFile("build.bat","python index.py")
@@ -38,7 +42,10 @@ def build():
             "config":'{"say":"simi","timestamp":now()}'
         }
     ]
-    version="0.0.4"
+    version="0.0.5"
+    import platform
+    os=platform.platform()
+    machine=platform.machine()
     for user in users:
         name=user["name"]
         print("name {}".format(name))
@@ -53,11 +60,11 @@ index({})
 """.format(config)
         print("string {}".format(string))
         writeToFile(path,string)
-        exeName="HelloWorld-v{}-win10-64-{}".format(version,name)
+        exeName="HelloWorld-v{}-{}-{}-{}".format(version,os,machine,name)
         print("exeName {}.exe".format(exeName))
         import subprocess
         subprocess.Popen(["pyinstaller","-F","--name",exeName,path])
-        bat="build-{}.bat".format(name)
+        bat="build-{}-{}-{}.bat".format(os,machine,name)
         print("bat {}".format(bat))
         writeToFile(bat,"pyinstaller -F --name {} {} && exit".format(exeName,path))
 if __name__=="__main__":

@@ -42,10 +42,11 @@ def build():
             "config":'{"say":"simi","timestamp":now()}'
         }
     ]
-    version="0.0.5"
+    version="0.0.6"
     import platform
     os=platform.platform()
     machine=platform.machine()
+    ico="index.ico"
     for user in users:
         name=user["name"]
         print("name {}".format(name))
@@ -63,9 +64,9 @@ index({})
         exeName="HelloWorld-v{}-{}-{}-{}".format(version,os,machine,name)
         print("exeName {}.exe".format(exeName))
         import subprocess
-        subprocess.Popen(["pyinstaller","-F","--name",exeName,path])
+        subprocess.Popen(["pyinstaller","-F","--name",exeName,"-i",ico,path])
         bat="build-{}-{}-{}.bat".format(os,machine,name)
         print("bat {}".format(bat))
-        writeToFile(bat,"pyinstaller -F --name {} {} && exit".format(exeName,path))
+        writeToFile(bat,"pyinstaller -F --name {} -i {} {} && exit".format(exeName,ico,path))
 if __name__=="__main__":
     build()

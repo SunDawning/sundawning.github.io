@@ -1,4 +1,10 @@
 """
+获取当前时间
+"""
+def now():
+    import time
+    return time.strftime("%Y-%m-%d %H:%M:%S",time.localtime())
+"""
 将字符串写到文件里
 """
 def writeToFile(path,string):
@@ -23,17 +29,16 @@ def build():
         {
             "name":"sgs",
             "config":{
-                "say":"sgs"
+                "say":"sgs",
+                "timestamp":"2021-08-23 21:01"
             }
         },
         {
             "name":"simi",
-            "config":{
-                "say":"simi"
-            }
+            "config":'{"say":"simi","timestamp":now()}'
         }
     ]
-    version="0.0.2"
+    version="0.0.3"
     for user in users:
         name=user["name"]
         print("name {}".format(name))
@@ -41,13 +46,15 @@ def build():
         print("path {}".format(path))
         config=user["config"]
         print("config {}".format(config))
+        import json
         string="""
 from index import *
 index({})
-    """.format(config)
+""".format(config)
         print("string {}".format(string))
         writeToFile(path,string)
         exeName="HelloWorld-v{}-win10-64-{}".format(version,name)
+        print("exeName {}.exe".format(exeName))
         import subprocess
         subprocess.Popen(["pyinstaller","-F","--name",exeName,path.format(user)])
 if __name__=="__main__":

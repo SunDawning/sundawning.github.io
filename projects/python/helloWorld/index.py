@@ -62,8 +62,7 @@ def index(options):
 - 生成build-v{version}-{os}-{machine}-{name}.bat
 - 生成HelloWorld-v{version}-{os}-{machine}-{name}.exe
 """
-def make():
-    version="0.0.9"
+def make(version="0.0.1",build=False):
     buildSourceDirectory="./build/source/{}".format(version)
     mkdir("./build")
     mkdir("./build/source")
@@ -110,14 +109,28 @@ index({})
         cmdString=" ".join(cmd)
         print("cmd string {}".format(cmdString))
         writeToFile(bat,cmdString)
+        if(build==True):
+            import subprocess
+            subprocess.Popen(cmd,cwd=buildSourceDirectory)
+            pass
         continue
     return
 """
 以命令行的方式使用
 """
 def main():
+    import sys
+    arguments=sys.argv
+    print("sys.argv: {}".format(arguments))
+    build=False
+    if("build" in arguments):
+        build=True
+        pass
     try:
-        make()
+        make(
+            version="0.0.11",
+            build=build
+        )
     except Exception as error:
         print(error)
         import os

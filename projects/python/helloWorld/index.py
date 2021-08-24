@@ -1,32 +1,42 @@
+VERSION="0.0.13"
+def getVersion():
+    """
+    当前版本号
+    """
+    global VERSION
+    return VERSION
 def formatTime(datetime):
+    """
+    格式化时间
+    """
     return datetime.strftime("%Y-%m-%d %H:%M:%S.%f")[:-3]
-"""
-获取当前时间
-"""
 def now():
+    """
+    获取当前时间
+    """
     import datetime
     return formatTime(datetime.datetime.now())
-"""
-将字符串写到文件里
-"""
 def writeToFile(path,string):
+    """
+    将字符串写到文件里
+    """
     f=open(path,"w",encoding="utf-8")
     f.write(string)
     f.close()
     return
-"""
-读取文件的所有内容为字符串
-"""
 def readFile(path):
+    """
+    读取文件的所有内容为字符串
+    """
     content=""
     with open(path,encoding="utf-8") as f:
         content=f.read()
         f.close()
     return content
-"""
-判断文件是否存在
-"""
 def isFileExists(path):
+    """
+    判断文件是否存在
+    """
     import os
     return os.path.exists(path)
 def mkdir(directory):
@@ -39,30 +49,28 @@ def mkdir(directory):
         pass
     return
 def copyFile(source,destination):
+    """
+    复制文件
+    """
     import shutil
     shutil.copyfile(source,destination)
     return
-"""
-使用上面的功能
-"""
 def index(options):
+    """
+    使用上面的功能
+    """
     print("Hello, {}".format(options["say"]))
     print("It's {}".format(options["timestamp"]))
     import os
     os.system("pause")
     return
-"""
-生成源代码
-"""
-
-"""
-生成可执行文件等：
-- 生成build.bat
-- 生成{name}.py
-- 生成build-v{version}-{os}-{machine}-{name}.bat
-- 生成HelloWorld-v{version}-{os}-{machine}-{name}.exe
-"""
 def tangle(version="0.0.1",build=False,run=False):
+    """
+    - 创建打包的目录 build/source/{version}
+    - 在打包的目录下生成 {name}.py
+    - 在打包的目录下生成build-{os}-{machine}-{name}.bat
+    - 在打包的目录下生成HelloWorld-v{version}-{os}-{machine}-{name}.exe
+    """
     buildSourceDirectory="./build/source/{}".format(version)
     mkdir("./build")
     mkdir("./build/source")
@@ -123,14 +131,13 @@ index({})
             pass
         continue
     return
-"""
-以命令行的方式使用
-"""
 def main():
+    """
+    以命令行的方式使用
+    """
     import sys
     arguments=sys.argv
     print("sys.argv: {}".format(arguments))
-    version="0.0.12"
     build=False
     if("build" in arguments):
         build=True
@@ -146,7 +153,7 @@ def main():
     try:
         if(make==True or build==True or run==True):
             tangle(
-                version=version,
+                version=getVersion(),
                 build=build,
                 run=run,
             )

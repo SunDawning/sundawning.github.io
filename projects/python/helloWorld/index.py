@@ -8,10 +8,25 @@ def now():
 将字符串写到文件里
 """
 def writeToFile(path,string):
-    f=open(path,"w")
+    f=open(path,"w",encoding="utf-8")
     f.write(string)
     f.close()
     return
+"""
+读取文件的所有内容为字符串
+"""
+def readFile(path):
+    content=""
+    with open(path,encoding="utf-8") as f:
+        content=f.read()
+        f.close()
+    return content
+"""
+判断文件是否存在
+"""
+def isFileExists(path):
+    import os
+    return os.path.exists(path)
 """
 使用上面的功能
 """
@@ -21,6 +36,22 @@ def index(options):
     import os
     os.system("pause")
     return
+"""
+生成源代码
+"""
+def buildSource():
+    content=readFile("./index.py")
+    if(isFileExists("build")==False):
+        import os
+        os.mkdir("build")
+        pass
+    if(isFileExists("./build/source")==False):
+        import os
+        os.mkdir("./build/source")
+        pass
+    writeToFile("./build/source/index.py",content)
+    return
+
 """
 生成可执行文件等：
 - 生成build.bat
@@ -73,5 +104,22 @@ index({})
         cmdString=" ".join(cmd)
         print("cmd string {}".format(cmdString))
         writeToFile(bat,cmdString)
-if __name__=="__main__":
-    build()
+    return
+"""
+以命令行的方式使用
+"""
+def main():
+    import sys
+    arguments=sys.argv
+    print("sys.argv: {}".format(arguments))
+    if("buildSource" in arguments):
+        buildSource()
+        print("builded source")
+    else:
+        print("""
+buildSource build source directory
+        """)
+    return
+if(__name__=="__main__"):
+    main()
+        

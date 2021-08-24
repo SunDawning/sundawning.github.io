@@ -1,10 +1,17 @@
-VERSION="0.0.13"
+VERSION="0.0.14"
+PROGRAMNAME="HelloWorld"
 def getVersion():
     """
     当前版本号
     """
     global VERSION
     return VERSION
+def getProgramName():
+    """
+    当前程序的名字
+    """
+    global PROGRAMNAME
+    return PROGRAMNAME
 def formatTime(datetime):
     """
     格式化时间
@@ -55,10 +62,19 @@ def copyFile(source,destination):
     import shutil
     shutil.copyfile(source,destination)
     return
+def setConsoleTitle(title):
+    """
+    设置cmd窗口的标题
+    在Python中设置Windows命令行终端标题 - Thinbug: https://www.thinbug.com/q/7387276
+    """
+    import ctypes
+    ctypes.windll.kernel32.SetConsoleTitleW(title)
+    return
 def index(options):
     """
     使用上面的功能
     """
+    setConsoleTitle(getProgramName())
     print("Hello, {}".format(options["say"]))
     print("It's {}".format(options["timestamp"]))
     import os
@@ -94,6 +110,7 @@ def tangle(version="0.0.1",build=False,run=False):
     import platform
     osType=platform.platform()
     machine=platform.machine()
+    programName=getProgramName()
     for user in users:
         name=user["name"]
         print("name {}".format(name))
@@ -108,7 +125,7 @@ index({})
 """.format(config)
         print("string {}".format(string))
         writeToFile("{}/{}".format(buildSourceDirectory,pyScript),string)
-        exeName="HelloWorld-v{}-{}-{}-{}".format(version,osType,machine,name)
+        exeName="{}-v{}-{}-{}-{}".format(programName,version,osType,machine,name)
         print("exeName {}.exe".format(exeName))
         cmd=["pyinstaller","-y","-F","--name",exeName,"-i",ico,pyScript]
         print("cmd {}".format(cmd))

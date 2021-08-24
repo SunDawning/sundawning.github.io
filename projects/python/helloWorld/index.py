@@ -62,7 +62,7 @@ def index(options):
 - 生成build-v{version}-{os}-{machine}-{name}.bat
 - 生成HelloWorld-v{version}-{os}-{machine}-{name}.exe
 """
-def make(version="0.0.1",build=False):
+def tangle(version="0.0.1",build=False,run=False):
     buildSourceDirectory="./build/source/{}".format(version)
     mkdir("./build")
     mkdir("./build/source")
@@ -84,7 +84,7 @@ def make(version="0.0.1",build=False):
         }
     ]
     import platform
-    os=platform.platform()
+    osType=platform.platform()
     machine=platform.machine()
     for user in users:
         name=user["name"]
@@ -100,18 +100,26 @@ index({})
 """.format(config)
         print("string {}".format(string))
         writeToFile("{}/{}".format(buildSourceDirectory,pyScript),string)
-        exeName="HelloWorld-v{}-{}-{}-{}".format(version,os,machine,name)
+        exeName="HelloWorld-v{}-{}-{}-{}".format(version,osType,machine,name)
         print("exeName {}.exe".format(exeName))
-        cmd=["pyinstaller","-F","--name",exeName,"-i",ico,pyScript]
+        cmd=["pyinstaller","-y","-F","--name",exeName,"-i",ico,pyScript]
         print("cmd {}".format(cmd))
-        bat="{}/build-{}-{}-{}.bat".format(buildSourceDirectory,os,machine,name)
+        bat="{}/build-{}-{}-{}.bat".format(buildSourceDirectory,osType,machine,name)
         print("bat {}".format(bat))
         cmdString=" ".join(cmd)
         print("cmd string {}".format(cmdString))
         writeToFile(bat,cmdString)
-        if(build==True):
+        if(build==True and run==False):
             import subprocess
             subprocess.Popen(cmd,cwd=buildSourceDirectory)
+            pass
+        if(build==True and run ==True):
+            import subprocess
+            subprocess.run(cmd,cwd=buildSourceDirectory)
+            pass
+        if(run==True):
+            import os
+            os.system('start "" {}/dist/{}.exe'.format(buildSourceDirectory,exeName))
             pass
         continue
     return
@@ -122,19 +130,38 @@ def main():
     import sys
     arguments=sys.argv
     print("sys.argv: {}".format(arguments))
+    version="0.0.12"
     build=False
     if("build" in arguments):
         build=True
         pass
+    run=False
+    if("run" in arguments):
+        run=True
+        pass
+    make=False
+    if("make" in arguments):
+        make=True
+        pass
     try:
-        make(
-            version="0.0.11",
-            build=build
-        )
+        if(make==True or build==True or run==True):
+            tangle(
+                version=version,
+                build=build,
+                run=run,
+            )
+            pass
+        else:
+            print("""
+            [Sub COMMAND]:
+
+            - make
+            - build
+            - run
+            """)
     except Exception as error:
         print(error)
         import os
         os.system("pause")
 if(__name__=="__main__"):
     main()
-

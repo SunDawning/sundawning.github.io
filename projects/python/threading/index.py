@@ -6,7 +6,7 @@ class ThreadLoop:
     """
     def __init__(self,function=None):
         self.enabled=None
-        self.timer=None
+        self.thread=None
         self.function=function
         pass
     def start(self):
@@ -19,20 +19,18 @@ class ThreadLoop:
                     pass
                 continue
             return
-        import threading
-        self.timer=threading.Timer(0,loop)
-        self.timer.start()
+        from threading import Thread
+        self.thread=Thread(target=loop)
+        self.thread.start()
         return
     def stop(self):
         self.enabled=False
-        if(self.timer):
-            self.timer.cancel()
-            pass
         return
     pass
 def foo():
     print(1)
-    import time
-    time.sleep(1)
+    from time import sleep
+    sleep(1)
     return
-threadLoop=ThreadLoop()
+threadLoop=ThreadLoop(foo)
+threadLoop.start()

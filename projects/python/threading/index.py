@@ -4,16 +4,17 @@ class ThreadLoop:
     - 使用多线程来执行
     - 可以停止或开始
     """
-    def __init__(self,function=False):
-        self.enabled=True
-        self.timer=False
+    def __init__(self,function=None):
+        self.enabled=None
+        self.timer=None
         self.function=function
         pass
     def start(self):
         self.enabled=True
         def loop():
             while self.enabled==True:
-                if self.function:
+                from inspect import isfunction
+                if(isfunction(self.function)==True):
                     self.function()
                     pass
                 continue
@@ -24,7 +25,9 @@ class ThreadLoop:
         return
     def stop(self):
         self.enabled=False
-        self.timer.cancel()
+        if(self.timer):
+            self.timer.cancel()
+            pass
         return
     pass
 def foo():
@@ -32,6 +35,4 @@ def foo():
     import time
     time.sleep(1)
     return
-threadLoop=ThreadLoop(foo)
-threadLoop.start()
-threadLoop.stop()
+threadLoop=ThreadLoop()

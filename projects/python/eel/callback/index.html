@@ -1,0 +1,11 @@
+<script type="text/javascript" src="/eel.js"></script>
+<script type="text/javascript">
+  function index(string){
+    document.write(string);
+    return window.location.href;
+  }
+  eel.expose(index);
+  eel.index(window.location.href)(function(data){
+    console.log(data)
+  })
+</script>

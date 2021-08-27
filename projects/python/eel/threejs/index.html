@@ -1,0 +1,73 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>Hello Threejs</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
+    <link rel="shortcut icon" href="https://pypi.org/static/images/logo-small.95de8436.svg"/>
+    <style type="text/css">
+      #THREE {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow:hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="THREE"></div>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.130.1/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.130.1/examples/js/controls/OrbitControls.js"></script>
+    <script type="text/javascript">
+      "use strict";
+      function HelloWorld(container,options){
+        var SELF={};
+        if(options===undefined){options={};}
+        SELF.container=container;
+        if(SELF.container===undefined){
+          console.log("Missing required THREE container.");
+          return undefined;
+        }
+        SELF.webGLRenderer=new THREE.WebGLRenderer();
+        SELF.container.appendChild(SELF.webGLRenderer.domElement);
+        SELF.scene=new THREE.Scene();
+        SELF.gridHelper=new THREE.GridHelper();
+        SELF.scene.add(SELF.gridHelper);
+        SELF.axesHelper=new THREE.AxesHelper();
+        SELF.scene.add(SELF.axesHelper);
+        SELF.perspectiveCamera=new THREE.PerspectiveCamera();
+        SELF.perspectiveCamera.position.set(10,10,10);
+        SELF.setSize=function(width,height){
+          if(width===undefined){width=SELF.container.clientWidth;}
+          if(height===undefined){height=SELF.container.clientHeight;}
+          SELF.webGLRenderer.setSize(width,height);
+          SELF.perspectiveCamera.aspect=width/height;
+          SELF.perspectiveCamera.updateProjectionMatrix();
+        }
+        SELF.animationFrame=function(){
+          SELF.webGLRenderer.render(SELF.scene,SELF.perspectiveCamera);
+          SELF.animationFrameId=requestAnimationFrame(SELF.animationFrame);
+        }
+        SELF.orbitControls=new THREE.OrbitControls(SELF.perspectiveCamera,SELF.webGLRenderer.domElement);
+        SELF.setSize(SELF.container.clientWidth,SELF.container.clientHeight);
+        SELF.animationFrame();
+        return SELF;
+      }
+      window.APP=new HelloWorld(document.querySelector("#THREE"));
+      window.addEventListener("resize",function onWindowResize(){
+        APP.setSize();
+      });
+    </script>
+    <script type="text/javascript" src="/eel.js"></script>    
+    <script type="text/javascript">
+      eel.index(`THREE.REVISION: ${THREE.REVISION}`);
+      function setSize(width,height){
+        window.APP.setSize(width,height);
+      };
+      eel.expose(setSize)
+    </script>
+  </body>
+</html>
+
+

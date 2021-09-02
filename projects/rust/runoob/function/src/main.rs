@@ -7,17 +7,17 @@ extern crate chrono;
  * chrono::format::strftime - Rust: https://docs.rs/chrono/0.4.19/chrono/format/strftime/index.html#specifiers
  */
 fn now()->String{
-    return format!("{}",chrono::Local::now().format("%Y-%m-%d %H:%M:%S%.3f"));
+    return std::format!("{}",chrono::Local::now().format("%Y-%m-%d %H:%M:%S%.3f"));
 }
 /**
  * Rust 输出到命令行 | 菜鸟教程: https://www.runoob.com/rust/rust-println.html
  */
 fn print_time(string:String){
-    println!("[{}] {}",now(),string);
+    std::println!("[{}] {}",now(),string);
 }
 fn launch(){
-    print_time(format!("{}","程序启动"));
-    print_time(format!("当前时间：{}",now()))
+    print_time(std::format!("{}","程序启动"));
+    print_time(std::format!("当前时间：{}",now()))
 }
 fn main() {
     launch();

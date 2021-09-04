@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 fn main() {
     println!("开始猜数字游戏");
     let secret_number=rand::thread_rng().gen_range(1..101);
-    println!("密码是：{}",secret_number);
+    // println!("密码是：{}",secret_number);
     loop{
 	println!("请输入任意一个数字");
 	let mut guess=String::new();

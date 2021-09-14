@@ -1,11 +1,11 @@
 {
     "name": "javascript",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "",
     "main": "index.js",
     "scripts": {
         "development": "concurrently \"parcel watch ./src/index.html --out-dir ./target/debug/ --public-url . --no-cache\" \"static-server\"",
-        "production":"parcel build --no-content-hash ./src/index.html --out-dir ./target/release/1.0.1/ --public-url . --no-cache"
+        "production": "parcel build --no-content-hash ./src/index.html --out-dir ./target/release/1.0.2/ --public-url . --no-cache"
     },
     "keywords": [],
     "author": "",
@@ -13,7 +13,9 @@
     "devDependencies": {
         "concurrently": "^6.2.1",
         "parcel-bundler": "^1.12.5",
-        "static-server": "^2.2.1",
+        "static-server": "^2.2.1"
+    },
+    "dependencies": {
         "three": "^0.132.2"
     }
 }

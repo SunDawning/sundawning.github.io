@@ -1,5 +1,5 @@
 /*
- * 将.css转换成.js.css，以便使用await import来加载。
+ * 将.css转换成.css.js，以便使用await import来加载。
  * deno run --allow-read --allow-write CSSTOJS.js
  */
 function cssStringToJSString(cssString){

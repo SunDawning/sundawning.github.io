@@ -12,7 +12,7 @@
        * 内容的书写格式：
        * - await import，动态加载模块，按需加载
        * - async function，跟class一样的命名，返回一个对象{}
-       */
+       */      
       async function HelloWorld(container,options){
         var SELF={};
         if(options===undefined){options={};}
@@ -21,7 +21,7 @@
           console.log("Missing required THREE container.");
           return undefined;
         }
-        await import("https://cdn.jsdelivr.net/npm/three@0.130.1/build/three.min.js");        
+        await import("https://cdn.jsdelivr.net/npm/three@0.130.1/build/three.min.js");
         SELF.webGLRenderer=new THREE.WebGLRenderer();
         SELF.container.appendChild(SELF.webGLRenderer.domElement);
         SELF.scene=new THREE.Scene();
@@ -54,6 +54,17 @@
         SELF.helloWorld=await HelloWorld(document.querySelector("#THREE"));
         return SELF;
       }
+      /**
+       * 批量异步同时加载独立的必须依赖：
+       * - 这些依赖是相互独立的
+       * - 这些依赖是其他依赖所必须的
+       * - 每个依赖需要在确保生效之前再次 await import
+       * - 利用import函数不会重复加载的特点来分批加载
+       * - 在任何时候都能加载
+       * - 几乎同时加载
+       */
+      import("./index.html.css.js");
+      import("https://cdn.jsdelivr.net/npm/three@0.130.1/build/three.min.js");
       Init();
     </script>
   </body>

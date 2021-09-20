@@ -13,4 +13,11 @@ fn main() {
     use std::io::{self,Write};
     let _=write!(&mut io::stdout(),"写入数据流");
     println!();
+    println!("输入你的名字：");
+    let mut input=String::new();
+    if let Ok(n)=std::io::stdin().read_line(&mut input){
+        println!("欢迎你，{}({}bytes)",input,n);
+    }else{
+        eprintln!("出错了：");
+    }
 }

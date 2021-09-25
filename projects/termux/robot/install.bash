@@ -19,11 +19,12 @@ function download_latest_index_bash(){
     curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.bash -o ~/index.bash
     echo "Downloading ~/index.js";
     curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.js -o ~/index.js
+    echo "Downloading ~/config.js to ~/config.default.js";
+    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/config.js -o ~/config.default.js;
 }
 function index(){
     ensure_bashrc;
     ensure_reference_index_bash;
     download_latest_index_bash;
-    bash ~/index.bash;
 }
 index;

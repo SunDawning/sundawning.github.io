@@ -89,13 +89,11 @@ async function start_processes(){
  * - crontab终端命令
  * - crontab模块
  */
-function create_crontab_tasks(){
+function create_crontab_tasks(config){
+    if(config===undefined){return;}
     require("crontab").load(function(error,crontab){
         let crontabList=crontab.jobs().map(function(job){return job.toString();});
-        [
-            ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
-            ["0 18 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"]
-        ].forEach(function(item){
+        config.forEach(function(item){
             if(crontabList.includes(item.join(" "))===true){return;}
             crontab.create(item[1],item[0]);
             console.log("创建任务：",item[1],item[0]);
@@ -104,15 +102,48 @@ function create_crontab_tasks(){
     });
 }
 /**
+ * 使用用户配置文件
+ * 优先使用./config.js，然后是./config.default.js
+ */
+function apply_user_config(){
+    let fs=install_require("fs-extra");
+    fs.pathExists("./config.js",function(error,exists){
+        if(error){
+            console.log(error);
+            return;
+        }
+        if(exists===true){
+            let config=require("./config.js");
+            create_crontab_tasks(config.crontab);
+        }else{
+            console.log("不存在配置文件：./config.js");
+            console.log("尝试使用默认配置文件：./config.default.js");
+            fs.pathExists("./config.default.js",function(error,exists){
+                if(error){
+                    console.log(error);
+                    return;
+                }
+                if(exists===true){
+                    let config=require("./config.default.js");
+                    create_crontab_tasks(config.crontab);                    
+                }else{
+                    console.log("不存在配置文件：./config.default.js");
+                }
+            });
+        }
+    });
+}
+/**
  * 运行本程序
  * 依赖：
- * - is-module-installed模块
- * - which模块
- * - crontab模块
+ * - 模块：is-module-installed
+ * - 模块：which
+ * - 模块：crontab
+ * - 配置文件：./config.js
  */
 async function index(){
     hello();
     await start_processes();
-    create_crontab_tasks();
+    apply_user_config();
 }
 index();

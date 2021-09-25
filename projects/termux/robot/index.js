@@ -70,12 +70,12 @@ async function startProcesses(){
         "sshd":{cmd:"sshd -p 8022",install:"pkg install openssh -y"}
     };
     let processList=await getProcessList();
+    let which=install_require("which");
     Object.keys(processes).forEach(async function(name){
         let matched=processList.filter(function(item){
             return item.name===name;
         });
         if(matched.length===0){
-            let which=install_require("which");
             which(name,function(error,resolvePath){
                 if(error){
                     console.log(`未安装程序：${name}`);

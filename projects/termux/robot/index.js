@@ -40,17 +40,24 @@ async function getProcessList(){
 async function npmInstall(){
 }
 /**
+ * 字符串式的命令转换成数组
+ */
+function parse_cmd(cmd){
+    let parsedCmd=cmd.split(" ");
+    return parsedCmd;
+}
+/**
  * 后台运行系统程序
  */
 function start_process(cmd){
-    let parsedCmd=cmd.split(" ");
+    let parsedCmd=parse_cmd(cmd);
     let child_process=require("child_process");
     child_process.spawn(parsedCmd[0],parsedCmd.slice[1]);
 }
 function start_process_sync(cmd){
-    let parsedCmd=cmd.split(" ");
+    let parsedCmd=parse_cmd(cmd);
     let child_process=require("child_process");
-    child_process.spawn(parsedCmd[0],parsedCmd.slice[1]);
+    child_process.spawnSync(parsedCmd[0],parsedCmd.slice[1]);
 }
 /**
  * 后台启动一些程序

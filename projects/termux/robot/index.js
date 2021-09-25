@@ -104,9 +104,11 @@ function create_crontab_tasks(config){
 /**
  * 使用用户配置文件
  * 优先使用./config.js，然后是./config.default.js
+ * 依赖：
+ * - 模块：fs-extra
  */
 function apply_user_config(){
-    let fs=install_require("fs-extra");
+    let fs=require("fs-extra");
     fs.pathExists("./config.js",function(error,exists){
         if(error){
             console.log(error);
@@ -140,6 +142,7 @@ function apply_user_config(){
  * - 模块：which
  * - 模块：crontab
  * - 配置文件：./config.js
+ * - 模块：fs-extra
  */
 async function index(){
     hello();

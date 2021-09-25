@@ -23,6 +23,7 @@ function index(){
     install_npm_module is-module-installed;
     install_npm_module which;
     install_npm_module crontab;
+    install_npm_module fs-extra;
     node ./index.js;
 }
 index;

@@ -55,6 +55,7 @@ function start_process(cmd){
     child_process.spawn(parsedCmd[0],parsedCmd.slice[1]);
 }
 function start_process_sync(cmd){
+    console.log("命令：",cmd);
     let parsedCmd=parse_cmd(cmd);
     let child_process=require("child_process");
     console.log("程序：",parsedCmd[0]);

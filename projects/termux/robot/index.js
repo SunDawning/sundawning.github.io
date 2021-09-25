@@ -42,15 +42,15 @@ async function npmInstall(){
 /**
  * 后台运行系统程序
  */
-function startProcess(cmd){
+function start_process(cmd){
     let parsedCmd=cmd.split(" ");
-    let cross_spawn=require("cross-spawn");
-    cross_spawn(parsedCmd[0],parsedCmd.slice[1]);
+    let child_process=require("child_process");
+    child_process.spawn(parsedCmd[0],parsedCmd.slice[1]);
 }
-function startProcessSync(cmd){
+function start_process_sync(cmd){
     let parsedCmd=cmd.split(" ");
-    let cross_spawn=require("cross-spawn");
-    cross_spawn.sync(parsedCmd[0],parsedCmd.slice[1]);
+    let child_process=require("child_process");
+    child_process.spawn(parsedCmd[0],parsedCmd.slice[1]);
 }
 /**
  * 后台启动一些程序
@@ -71,10 +71,10 @@ async function startProcesses(){
                 if(error){
                     console.log(`未安装程序：${name}`);
                     console.log(`将安装程序：${name}`);
-                    startProcessSync(processes[name].install);
+                    start_process_sync(processes[name].install);
                 }
                 console.log(`启动程序：${name}`);
-                startProcessSync(processes[name].cmd);
+                start_process(processes[name].cmd);
             });
         }else{
             console.log(`已启动程序：${name}`);

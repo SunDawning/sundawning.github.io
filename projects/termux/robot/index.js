@@ -14,9 +14,10 @@ function is_module_installed(module){
  */
 function install_module(module){
     if(is_module_installed(module)===true){return;}
-    console.log(`安装模块：${module}`);
+    console.log(`将安装模块：${module}`);
     let child_process=require("child_process");
     child_process.spawnSync("pnpm",["add",module,"--save-dev"]);
+    console.log(`已安装模块：${module}`);
 }
 /**
  * 安装与导入模块

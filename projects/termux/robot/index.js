@@ -63,12 +63,12 @@ async function startProcesses(){
         "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
     };
     let processList=await getProcessList();
-    let which=install_require("which");
     Object.keys(processes).forEach(async function(name){
         let matched=processList.filter(function(item){
             return item.name===name;
         });
         if(matched.length===0){
+            let which=require("which");
             which(name,function(error,resolvePath){
                 if(error){
                     console.log(`未安装程序：${name}`);
@@ -88,7 +88,6 @@ async function startProcesses(){
  */
 async function index(){
     hello();
-    install_require("which");
     await startProcesses();
 }
 index();

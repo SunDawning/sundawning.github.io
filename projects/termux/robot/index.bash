@@ -16,10 +16,10 @@ function install_is_module_installed(){
         pnpm add is-module-installed --save-dev;
     fi
 }
-function main(){
+function index(){
     install_node_js;
     install_pnpm;
     install_is_module_installed;
     node ./index.js;
 }
-main;
+index;

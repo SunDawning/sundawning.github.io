@@ -10,7 +10,7 @@ function install_pnpm(){
     }
 }
 function install_is_module_installed(){
-    if test -z "$(pnpm ls is-module-installed)";then
+    if test -z "$(find ~/node_modules/is-module-installed)";then
         echo "Not Install is-module-installed";
         echo "Installing is-module-installed";
         pnpm add is-module-installed --save-dev;

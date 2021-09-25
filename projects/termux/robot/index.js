@@ -58,9 +58,11 @@ function start_process_sync(cmd){
     console.log("命令：",cmd);
     let parsedCmd=parse_cmd(cmd);
     let child_process=require("child_process");
-    console.log("程序：",parsedCmd[0]);
-    console.log("参数：",JSON.stringify(parsedCmd.slice[1]));
-    child_process.spawnSync(parsedCmd[0],parsedCmd.slice[1]);
+    let program=parsedCmd[0];
+    let args=parsedCmd.slice[1];
+    console.log("程序：",program);
+    console.log("参数：",JSON.stringify(args),args);
+    child_process.spawnSync(program,args);
 }
 /**
  * 后台启动一些程序

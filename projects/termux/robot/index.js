@@ -51,18 +51,23 @@ async function npmInstall(){
 /**
  * 后台运行系统程序
  */
-async function startProcess(cmd){
+function startProcess(cmd){
     let parsedCmd=cmd.split(" ");
     let cross_spawn=require("cross-spawn");
     cross_spawn(parsedCmd[0],parsedCmd.slice[1]);
+}
+function startProcessSync(cmd){
+    let parsedCmd=cmd.split(" ");
+    let cross_spawn=require("cross-spawn");
+    cross_spawn.sync(parsedCmd[0],parsedCmd.slice[1]);
 }
 /**
  * 后台启动一些程序
  */
 async function startProcesses(){
     let processes={
-        "crond":{cmd:"crond"},
-        "sshd":{cmd:"sshd -p 8022"}
+        "crond":{cmd:"crond",install:"pkg install cronie -y"},
+        "sshd":{cmd:"sshd -p 8022",install:"pkg install openssh -y"}
     };
     let processList=await getProcessList();
     Object.keys(processes).forEach(async function(name){
@@ -70,8 +75,16 @@ async function startProcesses(){
             return item.name===name;
         });
         if(matched.length===0){
-            console.log(`启动程序：${name}`);
-            await startProcess(processes[name].cmd);
+            let which=install_require("which");
+            which(name,function(error,resolvePath){
+                if(error){
+                    console.log(`未安装程序：${name}`);
+                    console.log(`将安装程序：${name}`);
+                    startProcessSync(processes[name].install);
+                }
+                console.log(`启动程序：${name}`);
+                startProcessSync(processes[name].cmd);
+            });
         }else{
             console.log(`已启动程序：${name}`);
         }

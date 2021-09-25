@@ -9,6 +9,7 @@ function install_pnpm(){
         npm install pnpm -g;
     }
 }
+# 有些npm模块不能在node里面安装并立即使用
 function install_npm_module(){
     if test -z "$(find ~/node_modules/$1)";then
         echo "Not Install $1";
@@ -21,6 +22,7 @@ function index(){
     install_pnpm;
     install_npm_module is-module-installed;
     install_npm_module which;
+    install_npm_module crontab;
     node ./index.js;
 }
 index;

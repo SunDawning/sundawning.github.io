@@ -87,9 +87,10 @@ async function start_processes(){
  * 添加crontab定时任务
  * 依赖：
  * - crontab终端命令
+ * - crontab模块
  */
 function create_crontab_tasks(){
-    install_require("crontab").load(function(error,crontab){
+    require("crontab").load(function(error,crontab){
         let crontabList=crontab.jobs().map(function(job){return job.toString();});
         [
             ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
@@ -107,6 +108,7 @@ function create_crontab_tasks(){
  * 依赖：
  * - is-module-installed模块
  * - which模块
+ * - crontab模块
  */
 async function index(){
     hello();

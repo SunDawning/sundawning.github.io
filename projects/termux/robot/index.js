@@ -117,6 +117,7 @@ function apply_user_config(){
         if(exists===true){
             let config=require("./config.js");
             create_crontab_tasks(config.crontab);
+            console.log("已生效配置文件：./config.js");
         }else{
             console.log("不存在配置文件：./config.js");
             console.log("尝试使用默认配置文件：./config.default.js");
@@ -127,7 +128,8 @@ function apply_user_config(){
                 }
                 if(exists===true){
                     let config=require("./config.default.js");
-                    create_crontab_tasks(config.crontab);                    
+                    create_crontab_tasks(config.crontab);
+                    console.log("已生效配置文件：./config.default.js");
                 }else{
                     console.log("不存在配置文件：./config.default.js");
                 }

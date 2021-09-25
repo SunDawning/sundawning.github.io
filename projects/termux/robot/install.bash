@@ -7,20 +7,20 @@ function ensure_bashrc(){
     echo "Existed ~/.bashrc";
 }
 function ensure_reference_index_bash(){
-    if test -z "$(grep 'bash ~/index.bash' ~/.bashrc)";then
+    if test -z "$(grep 'bash ~/.termux-robot/index.bash' ~/.bashrc)";then
 	echo "Not Install reference in ~/.bashrc";
 	echo "Installing reference in ~/.bashrc";
-	echo "bash ~/index.bash" >> ~/.bashrc;
+	echo "bash ~/.termux-robot/index.bash" >> ~/.bashrc;
     fi
     echo "Installed reference in ~/.bashrc";
 }
 function download_latest_index_bash(){
-    echo "Downloading ~/index.bash";
-    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.bash -o ~/index.bash
-    echo "Downloading ~/index.js";
-    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.js -o ~/index.js
-    echo "Downloading ~/config.js to ~/config.default.js";
-    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/config.js -o ~/config.default.js;
+    echo "Downloading ~/.termux-robot/index.bash";
+    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.bash -o ~/.termux-robot/index.bash
+    echo "Downloading ~/.termux-robot/index.js";
+    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.js -o ~/.termux-robot/index.js
+    echo "Downloading ~/.termux-robot/config.default.js";
+    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/config.js -o ~/.termux-robot/config.default.js;
 }
 function index(){
     ensure_bashrc;

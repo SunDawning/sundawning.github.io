@@ -11,10 +11,10 @@ function install_pnpm(){
 }
 # 有些npm模块不能在node里面安装并立即使用
 function install_npm_module(){
-    if test -z "$(find ~/node_modules/$1)";then
+    if test -z "$(find ~/.termux-robot/node_modules/$1)";then
         echo "Not Install $1";
         echo "Installing $1";
-        pnpm add $1 --save-dev;
+        cd ~/.termux-robot/ && pnpm add $1 --save-dev;
     fi
 }
 function index(){
@@ -24,6 +24,6 @@ function index(){
     install_npm_module which;
     install_npm_module crontab;
     install_npm_module fs-extra;
-    node ./index.js;
+    cd .termux-robot/ && node ./index.js;
 }
 index;

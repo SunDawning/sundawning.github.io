@@ -2,14 +2,13 @@ curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux
 curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.js -o ~/index.js
 if test -z "$(find ~ -name '.bashrc')";then
     echo "Not exist ~/.bashrc";
+    echo "Creating file ~/.bashrc";
     echo "" > ~/.bashrc;
-else
-    echo "Exist ~/.bashrc";
 fi
+echo "Exist file ~/.bashrc";
 if test -z "$(grep 'bash ~/index.bash' ~/.bashrc)";then
-    echo "Not Install";
+    echo "Not Install ~/index.bash";
     echo "Installing";
     echo "bash ~/index.bash" >> ~/.bashrc;
-else
-    echo "Installed ~/index.bash";
 fi
+echo "Installed ~/index.bash";

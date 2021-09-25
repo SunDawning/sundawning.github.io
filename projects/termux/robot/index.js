@@ -23,8 +23,12 @@ function install_module(module){
  */
 function install_require(module){
     install_module(module);
-    let required=require(module);
-    return required;
+    try{
+        let required=require(module);
+        return required;
+    }catch(error){
+        return install_require(module);
+    }
 }
 /**
  * 获取系统正在运行的程序

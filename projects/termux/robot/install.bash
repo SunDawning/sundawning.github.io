@@ -4,13 +4,13 @@ echo "Downloading ~/index.js";
 curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.js -o ~/index.js
 if test -z "$(find ~ -name '.bashrc')";then
     echo "Not exist ~/.bashrc";
-    echo "Creating file ~/.bashrc";
+    echo "Creating ~/.bashrc";
     echo "" > ~/.bashrc;
 fi
-echo "Exist file ~/.bashrc";
+echo "Existed ~/.bashrc";
 if test -z "$(grep 'bash ~/index.bash' ~/.bashrc)";then
-    echo "Not Install ~/index.bash";
-    echo "Installing";
+    echo "Not Install reference in ~/.bashrc";
+    echo "Installing reference in ~/.bashrc";
     echo "bash ~/index.bash" >> ~/.bashrc;
 fi
-echo "Installed ~/index.bash";
+echo "Installed reference in ~/.bashrc";

@@ -88,6 +88,7 @@ async function startProcesses(){
  */
 async function index(){
     hello();
+    install_require("which");
     await startProcesses();
 }
 index();

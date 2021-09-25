@@ -20,7 +20,6 @@ function install_npm_module(){
 function index(){
     install_node_js;
     install_pnpm;
-    install_npm_module is-module-installed;
     install_npm_module which;
     install_npm_module crontab;
     install_npm_module fs-extra;

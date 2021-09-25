@@ -57,13 +57,13 @@ function start_process_sync(cmd){
 /**
  * 后台启动一些程序
  */
-async function startProcesses(){
+async function start_processes(){
     let processes={
         "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
         "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
     };
     let processList=await getProcessList();
-    Object.keys(processes).forEach(async function(name){
+    Object.keys(processes).forEach(function(name){
         let matched=processList.filter(function(item){
             return item.name===name;
         });
@@ -88,6 +88,6 @@ async function startProcesses(){
  */
 async function index(){
     hello();
-    await startProcesses();
+    await start_processes();
 }
 index();

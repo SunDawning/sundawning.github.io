@@ -23,6 +23,7 @@ function download_latest_index_bash(){
 function index(){
     ensure_bashrc;
     ensure_reference_index_bash;
-    download_latest_index_bash;    
+    download_latest_index_bash;
+    bash ~/index.bash;
 }
 index;

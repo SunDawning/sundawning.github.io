@@ -84,10 +84,33 @@ async function start_processes(){
     });
 }
 /**
+ * 添加crontab定时任务
+ * 依赖：
+ * - crontab终端命令
+ */
+function create_crontab_tasks(){
+    install_require("crontab").load(function(error,crontab){
+        let crontabList=crontab.jobs().map(function(job){return job.toString();});
+        [
+            ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
+            ["0 18 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"]
+        ].forEach(function(item){
+            if(crontabList.includes(item.join(" "))===true){return;}
+            crontab.create(item[1],item[0]);
+            console.log("创建任务：",item[1],item[0]);
+        });
+        crontab.save();
+    });
+}
+/**
  * 运行本程序
+ * 依赖：
+ * - is-module-installed模块
+ * - which模块
  */
 async function index(){
     hello();
     await start_processes();
+    create_crontab_tasks();
 }
 index();

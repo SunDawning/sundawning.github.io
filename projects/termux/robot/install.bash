@@ -14,6 +14,13 @@ function ensure_reference_index_bash(){
     fi
     echo "Installed reference in ~/.bashrc";
 }
+function ensure_directory(){
+    if test -z "$(find ~/.termux-robot)";then
+	echo "Not exist ~/.termux-robot";
+	echo "Creating ~/.termux-robot";
+	mkdir ~/.termux-robot;
+    fi    
+}
 function download_latest_index_bash(){
     echo "Downloading ~/.termux-robot/index.bash";
     curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.bash -o ~/.termux-robot/index.bash
@@ -25,6 +32,7 @@ function download_latest_index_bash(){
 function index(){
     ensure_bashrc;
     ensure_reference_index_bash;
+    ensure_directory;
     download_latest_index_bash;
 }
 index;

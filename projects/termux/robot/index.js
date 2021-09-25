@@ -57,6 +57,8 @@ function start_process(cmd){
 function start_process_sync(cmd){
     let parsedCmd=parse_cmd(cmd);
     let child_process=require("child_process");
+    console.log("程序：",parsedCmd[0]);
+    console.log("参数：",JSON.stringify(parsedCmd.slice[1]));
     child_process.spawnSync(parsedCmd[0],parsedCmd.slice[1]);
 }
 /**

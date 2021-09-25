@@ -24,6 +24,6 @@ function index(){
     install_npm_module which;
     install_npm_module crontab;
     install_npm_module fs-extra;
-    cd .termux-robot/ && node ./index.js;
+    cd ~/.termux-robot/ && node ./index.js;
 }
 index;

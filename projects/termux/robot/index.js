@@ -10,22 +10,13 @@ function is_module_installed(module){
     return is;
 }
 /**
- * 安装模块：cross_spawn
- */
-function install_cross_spawn(){
-    let module="cross-spawn";
-    if(is_module_installed(module)===true){return;}
-    let child_process=require("child_process");
-    child_process.spawnSync("pnpm",["add",module,"--save-dev"]);
-}
-/**
  * 安装模块
  */
 function install_module(module){
     if(is_module_installed(module)===true){return;}
     console.log(`安装模块：${module}`);
-    let cross_spawn=require("cross-spawn");
-    cross_spawn.sync("pnpm",["add",module,"--save-dev"]);
+    let child_process=require("child_process");
+    child_process.spawnSync("pnpm",["add",module,"--save-dev"]);
 }
 /**
  * 安装与导入模块
@@ -95,7 +86,6 @@ async function startProcesses(){
  */
 async function index(){
     hello();
-    install_cross_spawn();
     await startProcesses();
 }
 index();

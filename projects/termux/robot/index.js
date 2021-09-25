@@ -40,37 +40,23 @@ async function getProcessList(){
 async function npmInstall(){
 }
 /**
- * 字符串式的命令转换成数组
- */
-function parse_cmd(cmd){
-    let parsedCmd=cmd.split(" ");
-    return parsedCmd;
-}
-/**
  * 后台运行系统程序
  */
 function start_process(cmd){
-    let parsedCmd=parse_cmd(cmd);
     let child_process=require("child_process");
-    child_process.spawn(parsedCmd[0],parsedCmd.slice[1]);
+    child_process.spawn(cmd.program,cmd.args);
 }
 function start_process_sync(cmd){
-    console.log("命令：",cmd);
-    let parsedCmd=parse_cmd(cmd);
     let child_process=require("child_process");
-    let program=parsedCmd[0];
-    let args=parsedCmd.slice[1];
-    console.log("程序：",program);
-    console.log("参数：",JSON.stringify(args),args);
-    child_process.spawnSync(program,args);
+    child_process.spawnSync(cmd.program,cmd.args);
 }
 /**
  * 后台启动一些程序
  */
 async function startProcesses(){
     let processes={
-        "crond":{cmd:"crond",install:"pkg install cronie -y"},
-        "sshd":{cmd:"sshd -p 8022",install:"pkg install openssh -y"}
+        "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
+        "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
     };
     let processList=await getProcessList();
     let which=install_require("which");

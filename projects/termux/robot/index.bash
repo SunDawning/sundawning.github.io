@@ -10,10 +10,10 @@ function install_pnpm(){
     }
 }
 function install_npm_module(){
-    if test -z "$(find ~/.termux-robot/node_modules/$1)";then
+    if test -z "$(find ./node_modules/$1)";then
         echo "Not Install $1";
         echo "Installing $1";
-        cd ~/.termux-robot/ && pnpm add $1 --save-dev;
+        pnpm add $1 --save-dev;
     fi
 }
 function index(){

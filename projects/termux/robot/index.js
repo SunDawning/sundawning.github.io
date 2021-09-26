@@ -82,7 +82,6 @@ async function start_processes(processes){
         });
         if(matched.length===0){
             install_program(name,processes[name].install,function(){
-                console.log(`启动程序：${name}`);
                 start_process(processes[name].cmd);
             });
         }else{

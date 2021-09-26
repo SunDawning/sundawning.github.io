@@ -17,6 +17,7 @@ function install_module(module){
     console.log(`将安装模块：${module}`);
     let cross_spawn=require("cross-spawn");
     cross_spawn.sync("pnpm",["add",module,"--save-dev"]);
+    cross_spawn.sync("pnpm",["ls",module]);
     console.log(`已安装模块：${module}`);
 }
 /**
@@ -24,12 +25,7 @@ function install_module(module){
  */
 function install_require_module(module){
     install_module(module);
-    try{
-        let required=require(module);
-        return required;
-    }catch(error){
-        return install_require_module(module);
-    }
+    return require(module);
 }
 /**
  * 获取系统正在运行的程序
@@ -66,7 +62,7 @@ async function start_processes(){
         "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
     };
     let processList=await get_process_list();
-    let which=install_require_module("which");    
+    let which=install_require_module("which");
     Object.keys(processes).forEach(function(name){
         let matched=processList.filter(function(item){
             return item.name===name;

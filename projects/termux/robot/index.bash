@@ -20,7 +20,6 @@ function index(){
     pwd;
     install_node_js;
     install_pnpm;
-    install_npm_module is-module-installed;
     install_npm_module cross-spawn;
     node ./index.js;
 }

@@ -7,7 +7,7 @@ function hello(){
 function is_module_installed(module){
     let fs=require("fs");
     let path=require("path");
-    return fs.existsSync(path.resolve(__dirname,`./node_module/${module}`));
+    return fs.existsSync(path.resolve(__dirname,`./node_modules/${module}`));
 }
 /**
  * 安装模块
@@ -19,7 +19,6 @@ function install_module(module){
     console.log(`将安装模块：${module}`);
     let cross_spawn=require("cross-spawn");
     cross_spawn.sync("pnpm",["add",module,"--save-dev"]);
-    cross_spawn.sync("pnpm",["ls",module]);
     console.log(`已安装模块：${module}`);
 }
 /**

@@ -32,8 +32,9 @@ function index(){
     ensure_bashrc;
     ensure_reference_index_bash;
     ensure_directory;
+    cd ~/.termux-robot;    
+    pwd;
     download_latest_index_bash;
     bash ./index.bash;
 }
-cd ~/.termux-robot;
 index;

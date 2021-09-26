@@ -5,7 +5,8 @@ function hello(){
  * 是否安装了模块
  */
 function is_module_installed(module){
-    return require("is-module-installed")(module);
+    let fs=require("fs");
+    return fs.existSync(`./node_module/${module}`);
 }
 /**
  * 安装模块

@@ -6,8 +6,7 @@ function hello(){
  */
 function is_module_installed(module){
     let fs=require("fs");
-    let path=require("path");
-    return fs.existsSync(path.resolve(__dirname,`./node_modules/${module}`));
+    return fs.existsSync(`./node_modules/${module}`);
 }
 /**
  * 安装模块
@@ -35,11 +34,6 @@ async function get_process_list(){
     let psList=install_require_module("ps-list");
     let list=await psList();
     return list;
-}
-/**
- * 安装全局npm包
- */
-async function npmInstall(){
 }
 /**
  * 后台运行系统程序
@@ -109,13 +103,10 @@ function create_crontab_tasks(tasks){
 /**
  * 运行本程序
  * 依赖：
- * - 模块：is-module-installed
- * - 模块：which
- * - 模块：crontab
+ * - 模块：cross-spawn
  */
 async function index(){
     hello();
-    install_module("which");
     await start_processes();
     create_crontab_tasks([
         ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],

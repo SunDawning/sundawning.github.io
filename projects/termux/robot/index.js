@@ -38,14 +38,15 @@ async function get_process_list(){
  * ```JavaScript
  * start_process({program:"sshd",args:["-p","8022"]});
  * ```
+ * @param options Object https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
  */
-function start_process(cmd){
+function start_process(cmd,options){
     console.log(`启动程序：${cmd.program}`);
-    return require("cross-spawn").spawn(cmd.program,cmd.args);
+    return require("cross-spawn").spawn(cmd.program,cmd.args,options);
 }
-function start_process_sync(cmd){
+function start_process_sync(cmd,options){
     console.log(`启动程序：${cmd.program}`);
-    return require("cross-spawn").sync(cmd.program,cmd.args);
+    return require("cross-spawn").sync(cmd.program,cmd.args,options);
 }
 /**
  * 安装程序

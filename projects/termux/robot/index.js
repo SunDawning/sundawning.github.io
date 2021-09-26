@@ -61,8 +61,8 @@ async function start_processes(){
         "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
         "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
     };
-    let processList=await get_process_list();
     let which=install_require_module("which");
+    let processList=await get_process_list();
     Object.keys(processes).forEach(function(name){
         let matched=processList.filter(function(item){
             return item.name===name;
@@ -106,11 +106,10 @@ function create_crontab_tasks(tasks){
  * - 模块：is-module-installed
  * - 模块：which
  * - 模块：crontab
- * - 配置文件：./config.js
- * - 模块：fs-extra
  */
 async function index(){
     hello();
+    install_module("which");
     await start_processes();
     create_crontab_tasks([
         ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],

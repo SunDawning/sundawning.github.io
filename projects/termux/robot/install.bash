@@ -28,6 +28,7 @@ function download_latest_index_bash(){
     curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.js -o ~/.termux-robot/index.js
 }
 function index(){
+    echo pwd;
     ensure_bashrc;
     ensure_reference_index_bash;
     ensure_directory;

@@ -17,6 +17,7 @@ function install_npm_module(){
     fi
 }
 function index(){
+    echo pwd;
     install_node_js;
     install_pnpm;
     install_npm_module is-module-installed;

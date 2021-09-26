@@ -50,12 +50,16 @@ function start_process_sync(cmd){
 }
 /**
  * 后台启动一些程序
+ * @param processes Object
+ * ```JavaScript
+ * start_processes({
+ *     "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
+ *     "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
+ * })
+ * ```
  */
-async function start_processes(){
-    let processes={
-        "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
-        "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
-    };
+async function start_processes(processes){
+    if(processes===undefined){return;}
     let which=install_require_module("which");
     let processList=await get_process_list();
     Object.keys(processes).forEach(function(name){
@@ -82,6 +86,12 @@ async function start_processes(){
  * 依赖：
  * - crontab终端命令
  * - crontab模块
+ * ```JavaScript
+ * create_crontab_tasks([
+ *     ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
+ *     ["0 18 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"]
+ * ]);
+ * ```
  */
 function create_crontab_tasks(tasks){
     if(tasks===undefined){return;}
@@ -107,7 +117,10 @@ function create_crontab_tasks(tasks){
  */
 async function index(){
     hello();
-    await start_processes();
+    await start_processes({
+        "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
+        "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
+    });
     create_crontab_tasks([
         ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
         ["0 18 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"]

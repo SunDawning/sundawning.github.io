@@ -1,10 +1,6 @@
 function remove_index_bash(){
-    echo "removing ~/index.bash";
-    rm ~/index.bash;
-    echo "removing ~/index.js";
-    rm ~/index.js;
-    echo "removing ~/config.default.js";
-    rm ~/config.default.js;
+    echo "removing ~/.termux-robot";
+    rm -r ~/.termux-robot;
 }
 function remove_reference_index_bash(){
     echo "deleting reference in ~/.bashrc";

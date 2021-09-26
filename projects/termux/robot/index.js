@@ -6,7 +6,7 @@ function hello(){
  */
 function is_module_installed(module){
     let fs=require("fs");
-    return fs.existSync(`./node_module/${module}`);
+    return fs.existsSync(`./node_module/${module}`);
 }
 /**
  * 安装模块

@@ -97,7 +97,7 @@ function create_crontab_tasks(tasks){
         tasks.forEach(function(item){
             if(crontabList.includes(item.join(" "))===true){return;}
             crontab.create(item[1],item[0]);
-            console.log("创建任务：",item[1],item[0]);
+            console.log("创建任务：",item[0],item[1]);
         });
         crontab.save();
     });

@@ -5,9 +5,7 @@ function hello(){
  * 是否安装了模块
  */
 function is_module_installed(module){
-    let isInstalled=require("is-module-installed");
-    let is=isInstalled(module);
-    return is;
+    return require("is-module-installed")(module);
 }
 /**
  * 安装模块

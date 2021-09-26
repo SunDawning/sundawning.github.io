@@ -5,8 +5,7 @@ function hello(){
  * 是否安装了模块
  */
 function is_module_installed(module){
-    let fs=require("fs");
-    return fs.existsSync(`./node_modules/${module}`);
+    return require("fs").existsSync(`./node_modules/${module}`);
 }
 /**
  * 安装模块
@@ -16,8 +15,7 @@ function is_module_installed(module){
 function install_module(module){
     if(is_module_installed(module)===true){return;}
     console.log(`将安装模块：${module}`);
-    let cross_spawn=require("cross-spawn");
-    cross_spawn.sync("pnpm",["add",module,"--save-dev"]);
+    require("cross-spawn").sync("pnpm",["add",module,"--save-dev"]);
     console.log(`已安装模块：${module}`);
 }
 /**
@@ -31,9 +29,7 @@ function install_require_module(module){
  * 获取系统正在运行的程序
  */
 async function get_process_list(){
-    let psList=install_require_module("ps-list");
-    let list=await psList();
-    return list;
+    return await install_require_module("ps-list")();
 }
 /**
  * 后台运行系统程序
@@ -44,14 +40,12 @@ async function get_process_list(){
  * ```
  */
 function start_process(cmd){
-    let cross_spawn=require("cross-spawn");
     console.log(`启动程序：${cmd.program}`);
-    cross_spawn.spawn(cmd.program,cmd.args);
+    return require("cross-spawn").spawn(cmd.program,cmd.args);
 }
 function start_process_sync(cmd){
-    let cross_spawn=require("cross-spawn");
     console.log(`启动程序：${cmd.program}`);
-    cross_spawn.sync(cmd.program,cmd.args);
+    return require("cross-spawn").sync(cmd.program,cmd.args);
 }
 /**
  * 安装程序
@@ -127,6 +121,7 @@ function create_crontab_tasks(tasks){
 }
 /**
  * 使用termux-notification发送消息到下拉消息栏
+ * @param options Object
  * 命令：
  * termux-notification --id "test" --content "内容" --title "标题" --button1-action "termux-open-url https://bing.com" --button1 "必应搜索" --button2-action "am start -a android.settings.BLUETOOTH_SETTINGS" --button2 "设置Bluetooth" --led-color 00A4FF --led-on 500
  * 对应为：

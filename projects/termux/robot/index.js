@@ -95,12 +95,8 @@ function create_crontab_tasks(tasks){
     install_require_module("crontab").load(function(error,crontab){
         // 空白的crontab
         if(crontab===null){
-            crontab.create("30 8 * * *","ls");
-            crontab.save();
-            crontab.jobs().forEach(function(job){
-                crontab.remove(job);
-            });
-            crontab.save();
+            create_crontab_tasks(tasks);
+            return;
         }
         let crontabList=crontab.jobs().map(function(job){return job.toString();});
         tasks.forEach(function(item){

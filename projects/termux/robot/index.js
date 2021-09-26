@@ -39,14 +39,35 @@ async function get_process_list(){
  * 后台运行系统程序
  * 依赖：
  * - 模块：cross-spawn
+ * ```JavaScript
+ * start_process({program:"sshd",args:["-p","8022"]});
+ * ```
  */
 function start_process(cmd){
     let cross_spawn=require("cross-spawn");
+    console.log(`启动程序：${cmd.program}`);
     cross_spawn.spawn(cmd.program,cmd.args);
 }
 function start_process_sync(cmd){
     let cross_spawn=require("cross-spawn");
+    console.log(`启动程序：${cmd.program}`);
     cross_spawn.sync(cmd.program,cmd.args);
+}
+/**
+ * 安装程序
+ * ```JavaScript
+ * install_program("crontab",{program:"pkg",args:["install","cronie","-y"]});
+ * ```
+ */
+function install_program(name,cmd,onInstall){
+    install_require_module("which")(name,function(error,resolvePath){
+        if(error){
+            console.log(`未安装程序：${name}`);
+            console.log(`将安装程序：${name}`);
+            start_process_sync(cmd);
+        }
+        if(onInstall){onInstall();}
+    });
 }
 /**
  * 后台启动一些程序
@@ -60,19 +81,13 @@ function start_process_sync(cmd){
  */
 async function start_processes(processes){
     if(processes===undefined){return;}
-    let which=install_require_module("which");
     let processList=await get_process_list();
     Object.keys(processes).forEach(function(name){
         let matched=processList.filter(function(item){
             return item.name===name;
         });
         if(matched.length===0){
-            which(name,function(error,resolvePath){
-                if(error){
-                    console.log(`未安装程序：${name}`);
-                    console.log(`将安装程序：${name}`);
-                    start_process_sync(processes[name].install);
-                }
+            install_program(name,processes[name].install,function(){
                 console.log(`启动程序：${name}`);
                 start_process(processes[name].cmd);
             });
@@ -108,6 +123,33 @@ function create_crontab_tasks(tasks){
             console.log("创建任务：",item[0],item[1]);
         });
         crontab.save();
+    });
+}
+/**
+ * 使用termux-notification发送消息到下拉消息栏
+ * ```JavaScript
+ * // termux-notification --id "test" --content "内容" --title "标题" --button1-action "termux-open-url https://bing.com" --button1 "必应搜索" --button2-action "am start -a android.settings.BLUETOOTH_SETTINGS" --button2 "设置Bluetooth" --led-color 00A4FF --led-on 500
+ * termux_notification({
+ *     "--id":"test",
+ *     "--content":"内容",
+ *     "--title":"标题",
+ *     "--button1-action":"termux-open-url https://bing.com",
+ *     "--button1":"必应搜索",
+ *     "--button2-action":"am start -a android.settings.BLUETOOTH_SETTINGS",
+ *     "--button2":"设置Blutetooth",
+ *     "--led-color":"00A4FF",
+ *     "--led-on":"500"
+ * })
+ * ```
+ */
+function termux_notification(options){
+    if(options===undefined){options={};}
+    let args=[];
+    Object.keys(options).forEach(function(key){
+        args.push(key,options[key]);
+    });
+    install_program("termux-notification",{program:"pkg",args:["install","termux-api","-y"]},function(){
+        start_process({program:"termux-notification",args:args});
     });
 }
 /**

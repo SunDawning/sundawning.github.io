@@ -102,8 +102,11 @@ async function start_processes(processes){
  * ]);
  * ```
  */
-function create_crontab_tasks(tasks){
+async function create_crontab_tasks(tasks){
     if(tasks===undefined){return;}
+    await start_processes({
+        "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
+    });
     install_require_module("crontab").load(function(error,crontab){
         // 空白的crontab
         if(crontab===null){
@@ -203,10 +206,10 @@ function termux_notification(options){
 async function index(){
     hello();
     await start_processes({
-        "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
+        "mysqld":{cmd:{program:"mysqld",args:[]},install:{program:"pkg",args:["install","mariadb","-y"]}},
         "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
     });
-    create_crontab_tasks([
+    await create_crontab_tasks([
         ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
         ["0 18 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"]
     ]);

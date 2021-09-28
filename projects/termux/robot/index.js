@@ -207,11 +207,14 @@ async function index(){
     hello();
     await start_processes({
         "mysqld":{cmd:{program:"mysqld",args:[]},install:{program:"pkg",args:["install","mariadb","-y"]}},
+    });
+    await start_processes({
         "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
     });
     await create_crontab_tasks([
         ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
         ["0 18 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"]
     ]);
+    process.exit();
 }
 index();

@@ -205,8 +205,9 @@ function termux_notification(options){
  */
 async function index(){
     hello();
+    install_program("pm2",{program:"pnpm",args:["add","pm2","-g"]});
     await start_processes({
-        "mysqld":{cmd:{program:"mysqld",args:[]},install:{program:"pkg",args:["install","mariadb","-y"]}},
+        "mysqld":{cmd:{program:"pm2",args:["start","mysqld"]},install:{program:"pkg",args:["install","mariadb","-y"]}},
     });
     await start_processes({
         "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}

@@ -42,7 +42,7 @@ async function get_process_list(){
  */
 function start_process(cmd,options){
     console.log(`启动程序：${cmd.program}`);
-    return require("cross-spawn").spawn(cmd.program,cmd.args,options);
+    return require("cross-spawn")(cmd.program,cmd.args,options);
 }
 function start_process_sync(cmd,options){
     console.log(`启动程序：${cmd.program}`);
@@ -215,6 +215,5 @@ async function index(){
         ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
         ["0 18 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"]
     ]);
-    process.exit();
 }
 index();

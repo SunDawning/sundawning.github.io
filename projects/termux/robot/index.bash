@@ -24,6 +24,6 @@ function index(){
     install_pnpm;
     install_npm_module cross-spawn;
     pwd;
-    node ./index.js;
+    node ./index.umd.js;
 }
 index;

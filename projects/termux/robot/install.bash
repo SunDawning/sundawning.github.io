@@ -24,8 +24,8 @@ function ensure_directory(){
 function download_latest_index_bash(){
     echo "Downloading ~/.termux-robot/index.bash";
     curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.bash -o index.bash
-    echo "Downloading ~/.termux-robot/index.js";
-    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.js -o index.js
+    echo "Downloading ~/.termux-robot/index.min.js";
+    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.min.js -o index.min.js
 }
 function index(){
     pwd;

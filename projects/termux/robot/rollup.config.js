@@ -1,4 +1,4 @@
 export default{
-    input:"index.js",
-    output:{file:"index.umd.js",format:"umd",name:""},
+    input:"src/index.js",
+    output:{file:"index.js",format:"umd",name:""},
 };

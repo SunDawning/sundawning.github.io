@@ -104,11 +104,11 @@ export function install_program(name,cmd,onInstall){
         if(error){
             console.log(`未安装程序：${name}`);
             console.log(`将安装程序：${name}`);
+            start_process(cmd);
             which(name,function(error,resolvePath){
                 if(error){
                     console.log(`无法安装程序：${name}`);
                 }else{
-                    start_process(cmd);
                     if(onInstall){onInstall();}
                 }
             });

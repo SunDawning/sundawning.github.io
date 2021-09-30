@@ -12,7 +12,6 @@ function pnpm_init_y(){
     }catch(error){
         console.log("尝试：","npm install pnpm -g");
         execSync("npm install pnpm -g");
-        execSync("pnpm init -y");
     }
 }
 /**

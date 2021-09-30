@@ -89,7 +89,7 @@ export async function get_process_list(){
  * @param options Object https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
  */
 export function start_process(cmd,options){
-    console.log(`启动程序：${cmd.program}`);
+    console.log(`启动程序：${cmd.program} ${cmd.args.join(" ")}`);
     return require("cross-spawn").sync(cmd.program,cmd.args,options);
 }
 /**

@@ -16,6 +16,25 @@ function pnpm_init_y(){
     }
 }
 /**
+ * pnpm add module --save-dev
+ */
+function pnpm_add_save_dev(module){
+    let{existsSync}=require("fs");
+    if(existsSync(`./node_modules/`)===false){
+        console.log("不存在：","./node_modules/");
+        pnpm_init_y();
+    };    
+    let{execSync}=require("child_process");
+    console.log(`将安装模块：${module}`);
+    try{
+        execSync(`pnpm add ${module} --save-dev`);   
+    }catch(error){
+        pnpm_init_y();
+        execSync(`pnpm add ${module} --save-dev`);
+    }
+    console.log(`已安装模块：${module}`);    
+}
+/**
  * 是否安装了模块
  */
 export function is_module_installed(module){
@@ -45,9 +64,7 @@ export function is_module_installed(module){
  */
 export function install_module(module){
     if(is_module_installed(module)===true){return;}
-    console.log(`将安装模块：${module}`);
-    require("cross-spawn").sync("pnpm",["add",module,"--save-dev"]);
-    console.log(`已安装模块：${module}`);
+    pnpm_add_save_dev(module);
 }
 /**
  * 安装与导入模块

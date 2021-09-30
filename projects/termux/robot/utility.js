@@ -23,16 +23,16 @@ function pnpm_add_save_dev(module){
     if(existsSync(`./node_modules/`)===false){
         console.log("不存在：","./node_modules/");
         pnpm_init_y();
-    };    
+    };
     let{execSync}=require("child_process");
     console.log(`将安装模块：${module}`);
     try{
-        execSync(`pnpm add ${module} --save-dev`);   
+        execSync(`pnpm add ${module} --save-dev`);
     }catch(error){
         pnpm_init_y();
         execSync(`pnpm add ${module} --save-dev`);
     }
-    console.log(`已安装模块：${module}`);    
+    console.log(`已安装模块：${module}`);
 }
 /**
  * 是否安装了模块

@@ -5,7 +5,24 @@ export function hello(){
  * 是否安装了模块
  */
 export function is_module_installed(module){
-    return require("fs").existsSync(`./node_modules/${module}`);
+    let{existsSync}=require("fs");
+    let{execSync}=require("child_process");
+    // pnpm init -y
+    if(existsSync(`./node_modules/`)===false){
+        console.log("不存在：","./node_modules/");
+        try{
+            console.log("尝试：","pnpm init -y");
+            let result=execSync("pnpm init -y");
+        }catch(error){
+            console.log("尝试：","npm install pnpm -g");
+            execSync("npm install pnpm -g");
+        }
+    };
+    // pnpm add cross-spawn --save-dev
+    if(existsSync(`./node_modules/cross-spawn`)===false){
+        execSync("pnpm add cross-spawn --save-dev");
+    }
+    return existsSync(`./node_modules/${module}`);
 }
 /**
  * 安装模块

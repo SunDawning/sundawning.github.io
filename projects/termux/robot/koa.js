@@ -8,7 +8,7 @@ async function index(){
     app.use(function(context,next){
         context.body="Koa";
     });
-    let port=8080;
+    let port=2006;
     app.listen(port);
     console.log("启动网页服务器：",`http://localhost:${port}`);
 }

@@ -90,10 +90,6 @@ export async function get_process_list(){
  */
 export function start_process(cmd,options){
     console.log(`启动程序：${cmd.program}`);
-    return require("cross-spawn")(cmd.program,cmd.args,options);
-}
-export function start_process_sync(cmd,options){
-    console.log(`启动程序：${cmd.program}`);
     return require("cross-spawn").sync(cmd.program,cmd.args,options);
 }
 /**
@@ -107,7 +103,7 @@ export function install_program(name,cmd,onInstall){
         if(error){
             console.log(`未安装程序：${name}`);
             console.log(`将安装程序：${name}`);
-            start_process_sync(cmd);
+            start_process(cmd);
         }
         if(onInstall){onInstall();}
     });

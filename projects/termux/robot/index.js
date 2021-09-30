@@ -13,8 +13,7 @@ async function index(){
     install_program("pm2",{program:"pnpm",args:["add","pm2","-g"]},function(){
         // pm2 start mysqld
         start_processes({
-            "mysqld":{cmd:{program:"mysqld",args:[]},install:{program:"pkg",args:["install","mariadb","-y"]}},
-            // "mysqld":{cmd:{program:"pm2",args:["start","mysqld"]},install:{program:"pkg",args:["install","mariadb","-y"]}},
+            "mysqld":{cmd:{program:"pm2",args:["start","mysqld"]},install:{program:"pkg",args:["install","mariadb","-y"]}},
         });
         // pm2 start koa.min.js
         start_process({program:"pm2",args:["start","koa.min.js"]});

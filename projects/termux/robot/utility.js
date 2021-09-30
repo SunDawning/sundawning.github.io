@@ -2,25 +2,39 @@ export function hello(){
     console.log("欢迎");
 }
 /**
+ * 使用pnpm init -y
+ */
+function pnpm_init_y(){
+    let{execSync}=require("child_process");
+    try{
+        console.log("尝试：","pnpm init -y");
+        let result=execSync("pnpm init -y");
+    }catch(error){
+        console.log("尝试：","npm install pnpm -g");
+        execSync("npm install pnpm -g");
+        execSync("pnpm init -y");
+    }
+}
+/**
  * 是否安装了模块
  */
 export function is_module_installed(module){
     let{existsSync}=require("fs");
-    let{execSync}=require("child_process");
     // pnpm init -y
     if(existsSync(`./node_modules/`)===false){
         console.log("不存在：","./node_modules/");
-        try{
-            console.log("尝试：","pnpm init -y");
-            let result=execSync("pnpm init -y");
-        }catch(error){
-            console.log("尝试：","npm install pnpm -g");
-            execSync("npm install pnpm -g");
-        }
+        pnpm_init_y();
     };
     // pnpm add cross-spawn --save-dev
     if(existsSync(`./node_modules/cross-spawn`)===false){
-        execSync("pnpm add cross-spawn --save-dev");
+        let{execSync}=require("child_process");
+        try{
+            console.log("尝试：","pnpm add cross-spawn --save-dev");
+            execSync("pnpm add cross-spawn --save-dev");
+        }catch(error){
+            pnpm_init_y();
+            execSync("pnpm add cross-spawn --save-dev");
+        }
     }
     return existsSync(`./node_modules/${module}`);
 }

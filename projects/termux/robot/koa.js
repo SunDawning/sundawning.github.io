@@ -1,3 +1,6 @@
+/*
+ * 网页服务器
+ */
 import{install_require_module}from"./utility.js";
 async function index(){
     let Koa=install_require_module("koa");

@@ -2,74 +2,64 @@ export function hello(){
     console.log("欢迎");
 }
 /**
- * 使用pnpm init -y
+ * npm init -y
  */
-function pnpm_init_y(){
+export function npm_init_y(){
+    // 不存在 ./node_modules
+    let{existsSync}=require("fs");
+    if(existsSync(`./node_modules/`)===true){return;};
+    // npm init -y
+    let{execSync}=require("child_process");
+    execSync("npm init -y");
+}
+/**
+ * 获取不同操作系统查找命令的程序
+ */
+export function get_platform_which_command(){
+    switch(process.platform){
+        case "win32":
+            return "where";
+        case "android":
+            return "which";
+        default:
+            return "";
+    }
+}
+/**
+ * 使用pnpm init -y
+ * 强制初始化
+ */
+export function pnpm_init_y(){
+    // npm init -y
+    npm_init_y();
+    // 确保pnpm命令存在
     let{execSync}=require("child_process");
     try{
-        console.log("尝试：","pnpm init -y");
-        let result=execSync("pnpm init -y");
+        execSync(`${get_platform_which_command()} pnpm`); 
     }catch(error){
-        console.log("尝试：","npm install pnpm -g");
         execSync("npm install pnpm -g");
     }
 }
 /**
+ * 安装模块
  * pnpm add module --save-dev
  */
-function pnpm_add_save_dev(module){
+export function pnpm_add_save_dev(module){
+    // 已经添加了模型
     let{existsSync}=require("fs");
-    if(existsSync(`./node_modules/`)===false){
-        console.log("不存在：","./node_modules/");
-        pnpm_init_y();
-    };
+    if(existsSync(`./node_modules/${module}`)===true){return;}
+    // 确保存在 ./node_modules及pnpm命令
+    pnpm_init_y();
     let{execSync}=require("child_process");
     console.log(`将安装模块：${module}`);
-    try{
-        execSync(`pnpm add ${module} --save-dev`);
-    }catch(error){
-        pnpm_init_y();
-        execSync(`pnpm add ${module} --save-dev`);
-    }
+    execSync(`pnpm add ${module} --save-dev`);
     console.log(`已安装模块：${module}`);
-}
-/**
- * 是否安装了模块
- */
-export function is_module_installed(module){
-    let{existsSync}=require("fs");
-    // pnpm init -y
-    if(existsSync(`./node_modules/`)===false){
-        console.log("不存在：","./node_modules/");
-        pnpm_init_y();
-    };
-    // pnpm add cross-spawn --save-dev
-    if(existsSync(`./node_modules/cross-spawn`)===false){
-        let{execSync}=require("child_process");
-        try{
-            console.log("尝试：","pnpm add cross-spawn --save-dev");
-            execSync("pnpm add cross-spawn --save-dev");
-        }catch(error){
-            pnpm_init_y();
-            execSync("pnpm add cross-spawn --save-dev");
-        }
-    }
-    return existsSync(`./node_modules/${module}`);
-}
-/**
- * 安装模块
- * 依赖：
- * - 模块：cross-spawn
- */
-export function install_module(module){
-    if(is_module_installed(module)===true){return;}
-    pnpm_add_save_dev(module);
 }
 /**
  * 安装与导入模块
  */
 export function install_require_module(module){
-    install_module(module);
+    pnpm_add_save_dev(module);
     return require(module);
 }
 /**

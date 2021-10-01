@@ -5,7 +5,7 @@ function install_node_js(){
     }
 }
 function index(){
-    cd ~/.termux-robot;
+    cd ~/termux-robot;
     pwd;
     install_node_js;
     pwd;

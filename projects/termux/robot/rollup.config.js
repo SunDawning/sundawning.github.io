@@ -6,14 +6,11 @@ import{
 }from"./utility.js";
 let{terser}=install_require_module("rollup-plugin-terser");
 export default[
-    {
-        input:"index.js",
-        output:{file:"index.min.js",format:"umd",name:""},
+    "index","koa","utility"
+].map(function(name){
+    return {
+        input:`${name}.js`,
+        output:{file:`${name}.min.js`,format:"umd",name:`termux_robot_${name}`},
         plugins:[terser()]
-    },
-    {
-        input:"koa.js",
-        output:{file:"koa.min.js",format:"umd",name:""},
-        plugins:[terser()]
-    }
-];
+    };
+});;

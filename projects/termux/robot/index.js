@@ -3,13 +3,15 @@ import{
     install_program,
     start_processes,
     create_crontab_tasks,
-    start_process
+    start_process,
+    npm_config_set_regisitry_taobao
 }from"./utility.js";
 /**
  * 运行本程序
  */
 async function index(){
     hello();
+    npm_config_set_regisitry_taobao();
     install_program("pm2",{program:"pnpm",args:["add","pm2","-g"]},function(){
         // pm2 start mysqld
         start_processes({

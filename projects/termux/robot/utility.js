@@ -1,6 +1,17 @@
 export function hello(){
     console.log("欢迎");
 }
+export function child_process_exec_sync(cmd){
+    let{execSync}=require("child_process");
+    return execSync(cmd);
+}
+/**
+ * npm config set registry https://registry.npm.taobao.org
+ * 设置npm源的几种方式 - 云+社区 - 腾讯云: https://cloud.tencent.com/developer/article/1588050
+ */
+export function npm_config_set_regisitry_taobao(){
+    return child_process_exec_sync("npm config set registry https://registry.npm.taobao.org");
+}
 /**
  * npm init -y
  */
@@ -9,8 +20,7 @@ export function npm_init_y(){
     let{existsSync}=require("fs");
     if(existsSync(`./node_modules/`)===true){return;};
     // npm init -y
-    let{execSync}=require("child_process");
-    execSync("npm init -y");
+    child_process_exec_sync("npm init -y");
 }
 /**
  * 获取不同操作系统查找命令的程序
@@ -33,11 +43,10 @@ export function pnpm_init_y(){
     // npm init -y
     npm_init_y();
     // 确保pnpm命令存在
-    let{execSync}=require("child_process");
     try{
-        execSync(`${get_platform_which_command()} pnpm`);
+        child_process_exec_sync(`${get_platform_which_command()} pnpm`);
     }catch(error){
-        execSync("npm install pnpm -g");
+        child_process_exec_sync("npm install pnpm -g");
     }
 }
 /**
@@ -50,9 +59,8 @@ export function pnpm_add_save_dev(module){
     if(existsSync(`./node_modules/${module}`)===true){return;}
     // 确保存在 ./node_modules及pnpm命令
     pnpm_init_y();
-    let{execSync}=require("child_process");
     console.log(`将安装模块：${module}`);
-    execSync(`pnpm add ${module} --save-dev`);
+    child_process_exec_sync(`pnpm add ${module} --save-dev`);
     console.log(`已安装模块：${module}`);
 }
 /**

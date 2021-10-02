@@ -35,7 +35,7 @@ export function pnpm_init_y(){
     // 确保pnpm命令存在
     let{execSync}=require("child_process");
     try{
-        execSync(`${get_platform_which_command()} pnpm`); 
+        execSync(`${get_platform_which_command()} pnpm`);
     }catch(error){
         execSync("npm install pnpm -g");
     }
@@ -79,7 +79,7 @@ export async function get_process_list(){
  */
 export function start_process(cmd,options){
     console.log(`启动程序：${cmd.program} ${cmd.args.join(" ")}`);
-    return require("cross-spawn").sync(cmd.program,cmd.args,options);
+    return install_require_module("cross-spawn").sync(cmd.program,cmd.args,options);
 }
 /**
  * 安装程序

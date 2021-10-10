@@ -27,4 +27,3 @@ curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux
 curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/koa.min.js -o koa.min.js
 echo "Running script: install.min.js"
 pm2 start install.min.js;
-

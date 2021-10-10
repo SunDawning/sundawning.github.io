@@ -1,3 +1,4 @@
+import{child_process_exec_sync}from"./utility.js";
 function index(){
     let{exists,readFile,writeFileSync,appendFile}=require("fs");
     let path="/data/data/com.termux/files/home/.bashrc";
@@ -20,6 +21,7 @@ function index(){
                         console.log("添加启动命令到：",path);
                     });
                 }
+                child_process_exec_sync(content);
             }
         });
 

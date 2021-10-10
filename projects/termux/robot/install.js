@@ -30,6 +30,7 @@ function index(){
             child_process_exec_sync(item[1]);        
         }        
     });
+    child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/init.el -o ~/.emacs.d/init.el");
     child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.min.js -o index.min.js");
     child_process_exec_sync("pm2 start index.min.js");
 }

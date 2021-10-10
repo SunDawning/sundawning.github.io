@@ -120,9 +120,9 @@ export async function is_process_live(name){
  */
 export async function create_crontab_tasks(tasks){
     if(tasks===undefined){return;}
-    await start_processes({
-        "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
-    });
+    if(executable_find("crond")===undefined){
+        child_process_exec_sync("pkg install cronie -y");
+    }
     install_require_module("crontab").load(function(error,crontab){
         // 空白的crontab
         if(crontab===null){
@@ -210,6 +210,11 @@ export function termux_notification(options){
     Object.keys(options).forEach(function(key){
         args.push(key,options[key]);
     });
-    install_program("termux-notification",{program:"pkg",args:["install","termux-api","-y"]});
-    start_process({program:"termux-notification",args:args});
+    if(executable_find("termux-notification")===undefined){
+        child_process_exec_sync("pkg install termux-api -y");
+    }
+    child_process_exec_sync(`termux-notification ${args.join(" ")}`);
+}
+export function is_file_exists(path){
+    return require("fs").existsSync(path);
 }

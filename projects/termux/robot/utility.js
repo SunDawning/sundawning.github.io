@@ -3,6 +3,16 @@ export function hello(){
 }
 /**
  * ```Javascript
+ * child_process_exec("npm config set registry https://registry.npm.taobao.org")
+ * ```
+ */
+export function child_process_exec(cmd){
+    let{exec}=require("child_process");
+    console.log("启动程序：",cmd);
+    return exec(cmd);
+}
+/**
+ * ```Javascript
  * child_process_exec_sync("npm config set registry https://registry.npm.taobao.org")
  * ```
  */
@@ -229,6 +239,6 @@ export async function start_sshd(){
     }
     let is_sshd_live=await is_process_live("sshd");
     if(is_sshd_live===false){
-        child_process_exec_sync("sshd -p 8022");
+        child_process_exec("sshd -p 8022");
     }
 }

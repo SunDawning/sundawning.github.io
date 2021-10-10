@@ -251,19 +251,14 @@ export function termux_notification(options){
 /**
  * 下载文件
  */
-export function download_file(url,path){
-    install_require_module("node-fetch")(url,{
+export async function download_file(url,path){
+    let{fetch}=install_require_module("node-fetch");
+    let response=await fetch(url,{
         method:"GET",
         headers:{"Content-Type":"application/octet-stream"},
-    }).then(function(response){
-        return response.buffer();
-    }).then(function(data){
-        require("fs").writeFile(path,data,"binary",function(error){
-            if(error){
-                console.log(error);
-            }else{
-                console.log("下载成功：",url,"=>",path);
-            }
-        });
     });
+    let data=await response.buffer();
+    let{writeFileSync}=require("fs");
+    writeFileSync(path,data,"binary");
+    console.log("下载成功：",url,"=>",path);
 }

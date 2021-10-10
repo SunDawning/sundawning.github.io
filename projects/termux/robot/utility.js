@@ -124,6 +124,7 @@ export function create_crontab_tasks(tasks){
         child_process_exec_sync("pkg install cronie -y");
     }
     if(is_process_live("crond")===false){
+        console.log("启动：crond");
         child_process_exec_sync("crond");
     }
     install_require_module("crontab").load(function(error,crontab){

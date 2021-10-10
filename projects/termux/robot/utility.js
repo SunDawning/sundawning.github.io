@@ -123,6 +123,9 @@ export function create_crontab_tasks(tasks){
     if(executable_find("crond")===undefined){
         child_process_exec_sync("pkg install cronie -y");
     }
+    if(is_process_live("crond")===false){
+        child_process_exec_sync("crond");
+    }
     install_require_module("crontab").load(function(error,crontab){
         // 空白的crontab
         if(crontab===null){

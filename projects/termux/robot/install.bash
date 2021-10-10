@@ -8,9 +8,9 @@ if test -z "$(find ~/termux-robot)";then
     echo "Making directory: ~/termux-robot";
     mkdir ~/termux-robot;
 fi
-echo "Downloading file: ~/termux-robot/install.min.js";
+echo "Downloading file: ~/termux-robot/index.min.js";
 cd ~/termux-robot;
 pwd;
-curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/install.min.js -o install.min.js;
-echo "Run script: install.min.js";
-node install.min.js;
+curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.min.js -o index.min.js;
+echo "Run script: index.min.js";
+node index.min.js;

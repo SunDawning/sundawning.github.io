@@ -118,7 +118,7 @@ export async function is_process_live(name){
  * ]);
  * ```
  */
-export async function create_crontab_tasks(tasks){
+export function create_crontab_tasks(tasks){
     if(tasks===undefined){return;}
     if(executable_find("crond")===undefined){
         child_process_exec_sync("pkg install cronie -y");

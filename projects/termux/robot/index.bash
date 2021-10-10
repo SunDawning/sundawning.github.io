@@ -1,6 +1,6 @@
 #!/bin/bash
 function index(){
-    if test -z "$(pgrep node)";then
+    if test -z "$(ps -aef | grep 'node /data/data/com.termux/files/home/termux-robot/index.min.js' | grep -v 'grep')";then
 	echo "Not start tasks.";
 	echo "Starting tasks.";
 	cd ~/termux-robot;

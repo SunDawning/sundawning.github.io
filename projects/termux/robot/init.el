@@ -17,11 +17,10 @@
     (package-install (quote aggressive-indent)))
   (global-aggressive-indent-mode))
 (global-set-key (kbd "<f11>") (function termux:fullscreen))
-(setf package-archive
+(setf package-archives
       (quote
        (("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
         ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-        ("melpa-stable" . "http://mirrors.ustc.edu.cn/elpa/melpa-stable/")
         ("org" . "http://mirrors.ustc.edu.cn/elpa/org/"))))
 (unless (and (boundp (quote package--initialized))
              package--initialized)

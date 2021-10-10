@@ -1,4 +1,3 @@
-#!/bin/bash
 command -v node >/dev/null 2>&1 || {
     echo "Installing command: nodejs";
     pwd;

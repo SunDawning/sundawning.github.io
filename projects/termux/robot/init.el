@@ -28,6 +28,7 @@
 (defun termux:execute-extended-command()
   (interactive)
   (unless (functionp (function counsel-M-x))
+    (package-refresh-contents)
     (package-install (quote ivy))
     (package-install (quote counsel)))
   (call-interactively (function counsel-M-x)))

@@ -7,7 +7,6 @@ import{
 let{terser}=install_require_module("rollup-plugin-terser");
 export default[
     "index","koa","utility",
-    "tasks",
 ].map(function(name){
     return {
         input:`${name}.js`,

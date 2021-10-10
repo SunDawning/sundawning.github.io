@@ -8,7 +8,7 @@ export function hello(){
  */
 export function child_process_exec(cmd){
     let{exec}=require("child_process");
-    console.log("启动程序：",cmd);
+    console.log("异步启动程序：",cmd);
     return exec(cmd);
 }
 /**
@@ -18,7 +18,7 @@ export function child_process_exec(cmd){
  */
 export function child_process_exec_sync(cmd){
     let{execSync}=require("child_process");
-    console.log("启动程序：",cmd);
+    console.log("同步启动程序：",cmd);
     return execSync(cmd);
 }
 /**

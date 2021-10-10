@@ -8,6 +8,7 @@ export function hello(){
  */
 export function child_process_exec_sync(cmd){
     let{execSync}=require("child_process");
+    console.log("启动程序：",cmd);
     return execSync(cmd);
 }
 /**
@@ -125,7 +126,6 @@ export async function create_crontab_tasks(tasks){
     }
     let is_crond_live=await is_process_live("crond");
     if(is_crond_live===false){
-        console.log("启动：crond");
         child_process_exec_sync("crond");
     }
     install_require_module("crontab").load(function(error,crontab){
@@ -222,4 +222,13 @@ export function termux_notification(options){
 }
 export function is_file_exists(path){
     return require("fs").existsSync(path);
+}
+export async function start_sshd(){
+    if(executable_find("sshd")===undefined){
+        child_process_exec_sync("pkg install openssh -y");
+    }
+    let is_sshd_live=await is_process_live("sshd");
+    if(is_sshd_live===false){
+        child_process_exec_sync("sshd -p 8022");
+    }
 }

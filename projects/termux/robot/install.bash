@@ -12,3 +12,4 @@ echo "Downloading file: ~/termux-robot/install.min.js";
 cd ~/termux-robot;
 pwd;
 curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/install.min.js -o install.min.js;
+node install.min.js;

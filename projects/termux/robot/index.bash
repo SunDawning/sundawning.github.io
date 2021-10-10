@@ -12,6 +12,10 @@ function index(){
     pwd;
     install_node_js;
     pwd;
-    pm2 start index.min.js;
+    if test -z "$(pgrep node)";then
+        echo "Not start tasks.";
+        echo "Starting tasks.";
+	pm2 start index.min.js;
+    fi
 }
 index;

@@ -118,12 +118,13 @@ export async function is_process_live(name){
  * ]);
  * ```
  */
-export function create_crontab_tasks(tasks){
+export async function create_crontab_tasks(tasks){
     if(tasks===undefined){return;}
     if(executable_find("crond")===undefined){
         child_process_exec_sync("pkg install cronie -y");
     }
-    if(is_process_live("crond")===false){
+    let is_crond_live=await is_process_live("crond");
+    if(is_crond_live===false){
         console.log("启动：crond");
         child_process_exec_sync("crond");
     }

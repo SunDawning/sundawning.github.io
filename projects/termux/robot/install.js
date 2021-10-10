@@ -1,7 +1,7 @@
 import{download_file}from"./utility.js";
 function index(){
     let{exists,readFile,writeFileSync,appendFile}=require("fs");
-    let path="~/.bashrc";
+    let path="/data/data/com.termux/files/home/.bashrc";
     let content="bash ~/termux-robot/index.bash";
     exists(path,function(exist){
         if(exist===false){

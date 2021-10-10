@@ -1,4 +1,13 @@
 (defun termux::package-install (pkg)
+  "安装elpa包"
+  (unless (and (boundp (quote package--initialized))
+               package--initialized)
+    (setf package-archives
+          (quote
+           (("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
+            ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+            ("org" . "http://mirrors.ustc.edu.cn/elpa/org/"))))
+    (package-initialize))
   (let ((symbol (quote termux::*package-refresh-contents*)))
     (unless (boundp symbol)
       (setf (symbol-value symbol) nil))
@@ -25,14 +34,6 @@
     (termux::package-install (quote aggressive-indent)))
   (global-aggressive-indent-mode))
 (global-set-key (kbd "<f11>") (function termux:fullscreen))
-(setf package-archives
-      (quote
-       (("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-        ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
-        ("org" . "http://mirrors.ustc.edu.cn/elpa/org/"))))
-(unless (and (boundp (quote package--initialized))
-             package--initialized)
-  (package-initialize))
 (defun termux:execute-extended-command()
   (interactive)
   (unless (functionp (function counsel-M-x))

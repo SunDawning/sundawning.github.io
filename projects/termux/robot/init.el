@@ -44,9 +44,6 @@
 (defun termux:counsel-find-file()
   (interactive)
   (unless (functionp (function counsel-find-file))
-    (unless termux::*package-refresh-contents*
-      (package-refresh-contents)
-      (setf termux::*package-refresh-contents* t))
     (termux::package-install (quote ivy))
     (termux::package-install (quote counsel)))
   (call-interactively (function counsel-find-file)))

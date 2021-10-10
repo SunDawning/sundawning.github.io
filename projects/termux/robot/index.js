@@ -3,7 +3,8 @@ import{
     create_crontab_tasks,
     executable_find,
     child_process_exec_sync,
-    is_file_exists
+    is_file_exists,
+    is_process_live,
 }from"./utility.js";
 async function index(){
     hello();
@@ -11,7 +12,9 @@ async function index(){
     if(executable_find("sshd")===undefined){
         child_process_exec_sync("pkg install openssh -y");
     }
-    child_process_exec_sync("sshd -p 8022");
+    if(is_process_live("sshd")===false){
+        child_process_exec_sync("sshd -p 8022");        
+    }
     // crond
     await create_crontab_tasks([
         ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],

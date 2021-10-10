@@ -45,6 +45,7 @@ function index(){
     }
     child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/init.el -o ~/.emacs.d/init.el");
     // rollup
+    child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.bash -o index.bash");
     if(executable_find("rollup")===undefined){
         child_process_exec_sync("pnpm add rollup -g");
     }

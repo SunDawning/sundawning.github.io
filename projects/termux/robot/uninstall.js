@@ -1,6 +1,6 @@
 function index(){
     let{exists,readFile,writeFile}=require("fs");
-    let path="~/.bashrc";
+    let path="/data/data/com.termux/files/home/.bashrc";
     let content="bash ~/termux-robot/index.bash";
     exists(path,function(exist){
         if(exist===false){

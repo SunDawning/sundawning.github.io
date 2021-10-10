@@ -22,7 +22,6 @@ function index(){
     [
         ["pnpm","npm install pnpm -g"],
         ["pm2","pnpm add pm2 -g"],
-        ["emacs","pkg install emacs -y"],
         ["git","pkg install git -y"],
         ["sshd","pkg install openssh -y"],
     ].forEach(function(item){
@@ -30,8 +29,11 @@ function index(){
             child_process_exec_sync(item[1]);        
         }        
     });
-    child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/init.el -o ~/.emacs.d/init.el");
     child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.min.js -o index.min.js");
     child_process_exec_sync("pm2 start index.min.js");
+    if(executable_find("emacs")===undefined){
+        child_process_exec_sync("pkg install emacs -y");
+    }
+    child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/init.el -o ~/.emacs.d/init.el");
 }
 index();

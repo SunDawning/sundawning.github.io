@@ -242,3 +242,14 @@ export async function start_sshd(){
         child_process_exec("sshd -p 8022");
     }
 }
+export function install_emacs(){
+    if(executable_find("emacs")===undefined){
+        child_process_exec("pkg install emacs -y");
+    }
+    if(is_file_exists("/data/data/com.termux/files/home/.emacs.d")===false){
+        child_process_exec_sync("mkdir ~/.emacs.d");
+    }
+    if(is_file_exists("/data/data/com.termux/files/home/.emacs.d/init.el")===false){
+        child_process_exec("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/init.el -o ~/.emacs.d/init.el");        
+    }
+}

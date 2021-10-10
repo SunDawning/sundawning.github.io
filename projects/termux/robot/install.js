@@ -21,7 +21,7 @@ function index(){
         appendFileSync(path,content);
         console.log("添加启动命令到：",path);
     }
-    child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/install.min.js -o install.min.j");
+    child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.min.js -o index.min.js");
     child_process_exec_sync(content);
 }
 index();

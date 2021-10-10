@@ -1,5 +1,5 @@
 export function hello(){
-    console.log("欢迎");
+    console.log("欢迎使用Node.js来管理程序");
 }
 /**
  * ```Javascript

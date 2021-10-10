@@ -3,7 +3,6 @@ import{
     create_crontab_tasks,
     executable_find,
     child_process_exec_sync,
-    is_file_exists,
     is_process_live,
 }from"./utility.js";
 async function index(){
@@ -13,7 +12,7 @@ async function index(){
         child_process_exec_sync("pkg install openssh -y");
     }
     if(is_process_live("sshd")===false){
-        child_process_exec_sync("sshd -p 8022");        
+        child_process_exec_sync("sshd -p 8022");
     }
     // crond
     await create_crontab_tasks([

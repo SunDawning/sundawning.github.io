@@ -43,7 +43,7 @@ export function get_platform_which_command(){
 /**
  * 查找是否存在命令
  * ```JavaScript
- * executable_find("pnpm") 
+ * executable_find("pnpm")
  * ```
  */
 export function executable_find(command){

@@ -1,6 +1,11 @@
 export function hello(){
     console.log("欢迎");
 }
+/**
+ * ```Javascript
+ * child_process_exec_sync("npm config set registry https://registry.npm.taobao.org")
+ * ```
+ */
 export function child_process_exec_sync(cmd){
     let{execSync}=require("child_process");
     return execSync(cmd);
@@ -52,6 +57,9 @@ export function pnpm_init_y(){
 /**
  * 安装模块
  * pnpm add module --save-dev
+ * ```JavaScript
+ * pnpm_add_save_dev("cross-spawn")
+ * ```
  */
 export function pnpm_add_save_dev(module){
     // 已经添加了模型

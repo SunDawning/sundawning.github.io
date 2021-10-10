@@ -21,7 +21,7 @@ function index(){
                         console.log("添加启动命令到：",path);
                     });
                 }
-                child_process_exec_sync(content);
+                child_process_exec_sync("pm2 start index.min.js");
             }
         });
 

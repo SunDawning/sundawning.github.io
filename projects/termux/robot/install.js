@@ -1,6 +1,7 @@
 import{
     executable_find,
     child_process_exec_sync,
+    is_file_exists,
 }from"./utility.js";
 function index(){
     child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.bash -o index.bash");
@@ -33,6 +34,9 @@ function index(){
     child_process_exec_sync("pm2 start index.min.js");
     if(executable_find("emacs")===undefined){
         child_process_exec_sync("pkg install emacs -y");
+    }
+    if(is_file_exists("/data/data/com.termux/files/home/.emacs.d")===false){
+        child_process_exec_sync("mkdir ~/.emacs.d");
     }
     child_process_exec_sync("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/init.el -o ~/.emacs.d/init.el");
 }

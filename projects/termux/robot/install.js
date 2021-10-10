@@ -37,7 +37,9 @@ function index(){
     if(executable_find("emacs")===undefined){
         child_process_exec_sync("pkg install emacs -y");
     }
-    child_process_exec_sync("rm -r ~/.emacs.d");
+    if(is_file_exists("/data/data/com.termux/files/home/.emacs.d")===true){
+        child_process_exec_sync("rm -r ~/.emacs.d");
+    }
     if(is_file_exists("/data/data/com.termux/files/home/.emacs.d")===false){
         child_process_exec_sync("mkdir ~/.emacs.d");
     }

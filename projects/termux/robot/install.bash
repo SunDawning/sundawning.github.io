@@ -28,6 +28,8 @@ function download_latest_index_bash(){
     curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.min.js -o index.min.js
     echo "Downloading ~/termux-robot/koa.min.js";
     curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/koa.min.js -o koa.min.js
+    echo "Downloading ~/termux-robot/tasks.min.js";
+    curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/tasks.min.js -o tasks.min.js
 }
 function index(){
     pwd;

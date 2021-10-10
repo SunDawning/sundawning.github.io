@@ -22,6 +22,9 @@ echo "Downloading file: ~/termux-robot/install.min.js";
 cd ~/termux-robot;
 pwd;
 curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/install.min.js -o install.min.js
+curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.bash -o index.bash
+curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.min.js -o index.min.js
+curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/koa.min.js -o koa.min.js
 echo "Running script: install.min.js"
 pm2 start install.min.js;
 

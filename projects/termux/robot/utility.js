@@ -248,17 +248,3 @@ export function termux_notification(options){
         start_process({program:"termux-notification",args:args});
     });
 }
-/**
- * 下载文件
- */
-export async function download_file(url,path){
-    let{fetch}=install_require_module("node-fetch");
-    let response=await fetch(url,{
-        method:"GET",
-        headers:{"Content-Type":"application/octet-stream"},
-    });
-    let data=await response.buffer();
-    let{writeFileSync}=require("fs");
-    writeFileSync(path,data,"binary");
-    console.log("下载成功：",url,"=>",path);
-}

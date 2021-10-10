@@ -1,4 +1,3 @@
-import{download_file}from"./utility.js";
 function index(){
     let{exists,readFile,writeFileSync,appendFile}=require("fs");
     let path="/data/data/com.termux/files/home/.bashrc";
@@ -21,9 +20,6 @@ function index(){
                         console.log("添加启动命令到：",path);
                     });
                 }
-                await download_file("https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.bash","index.bash");
-                await download_file("https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/index.min.js","index.min.js");
-                await download_file("https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/koa.min.js","koa.min.js");
             }
         });
 

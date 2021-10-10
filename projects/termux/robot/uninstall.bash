@@ -1,13 +1,6 @@
-function remove_index_bash(){
-    echo "removing ~/termux-robot";
-    rm -r ~/termux-robot;
-}
-function remove_reference_index_bash(){
-    echo "deleting reference in ~/.bashrc";
-    sed -ie '/bash ~\/index.bash/d' ~/.bashrc
-}
-function index(){
-    remove_reference_index_bash;
-    remove_index_bash;
-}
-index;
+echo "Downloading file: ~/termux-robot/uninstall.min.js";
+cd ~/termux-robot;
+pwd;
+curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/uninstall.min.js -o uninstall.min.js
+node uninstall.min.js;
+

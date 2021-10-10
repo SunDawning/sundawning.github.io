@@ -41,6 +41,19 @@ export function get_platform_which_command(){
     }
 }
 /**
+ * 查找是否存在命令
+ * ```JavaScript
+ * executable_find("pnpm") 
+ * ```
+ */
+export function executable_find(command){
+    try{
+        return child_process_exec_sync(`${get_platform_which_command()} ${command}`);
+    }catch(error){
+        return undefined;
+    }
+}
+/**
  * 使用pnpm init -y
  * 强制初始化
  */
@@ -48,11 +61,9 @@ export function pnpm_init_y(){
     // npm init -y
     npm_init_y();
     // 确保pnpm命令存在
-    try{
-        child_process_exec_sync(`${get_platform_which_command()} pnpm`);
-    }catch(error){
+    if(executable_find("pnpm")===undefined){
         child_process_exec_sync("npm install pnpm -g");
-    }
+    };
 }
 /**
  * 安装模块
@@ -84,69 +95,16 @@ export function install_require_module(module){
 export async function get_process_list(){
     return await install_require_module("ps-list")();
 }
-/**
- * 后台运行系统程序
- * 依赖：
- * - 模块：cross-spawn
- * ```JavaScript
- * start_process({program:"sshd",args:["-p","8022"]});
- * ```
- * @param options Object https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
- */
-export function start_process(cmd,options){
-    console.log(`启动程序：${cmd.program} ${cmd.args.join(" ")}`);
-    return install_require_module("cross-spawn").sync(cmd.program,cmd.args,options);
-}
-/**
- * 安装程序
- * ```JavaScript
- * install_program("crontab",{program:"pkg",args:["install","cronie","-y"]});
- * ```
- */
-export function install_program(name,cmd,onInstall){
-    let which=install_require_module("which");
-    which(name,function(error,resolvePath){
-        if(error){
-            console.log(`未安装程序：${name}`);
-            console.log(`将安装程序：${name}`);
-            start_process(cmd);
-            which(name,function(error,resolvePath){
-                if(error){
-                    console.log(`无法安装程序：${name}`);
-                }else{
-                    if(onInstall){onInstall();}
-                }
-            });
-        }else{
-            if(onInstall){onInstall();}
-        }
-    });
-}
-/**
- * 后台启动一些程序
- * @param processes Object
- * ```JavaScript
- * start_processes({
- *     "crond":{cmd:{program:"crond",args:[]},install:{program:"pkg",args:["install","cronie","-y"]}},
- *     "sshd":{cmd:{program:"sshd",args:["-p","8022"]},install:{program:"pkg",args:["install","openssh","-y"]}}
- * })
- * ```
- */
-export async function start_processes(processes){
-    if(processes===undefined){return;}
+export async function is_process_live(name){
     let processList=await get_process_list();
-    Object.keys(processes).forEach(function(name){
-        let matched=processList.filter(function(item){
-            return item.name===name;
-        });
-        if(matched.length===0){
-            install_program(name,processes[name].install,function(){
-                start_process(processes[name].cmd);
-            });
-        }else{
-            console.log(`已启动程序：${name}`);
-        }
+    let matched=processList.filter(function(item){
+        return item.name===name;
     });
+    if(matched.length===0){
+        return false;
+    }else{
+        return true;
+    }
 }
 /**
  * 添加crontab定时任务
@@ -252,7 +210,6 @@ export function termux_notification(options){
     Object.keys(options).forEach(function(key){
         args.push(key,options[key]);
     });
-    install_program("termux-notification",{program:"pkg",args:["install","termux-api","-y"]},function(){
-        start_process({program:"termux-notification",args:args});
-    });
+    install_program("termux-notification",{program:"pkg",args:["install","termux-api","-y"]});
+    start_process({program:"termux-notification",args:args});
 }

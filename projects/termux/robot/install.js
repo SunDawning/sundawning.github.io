@@ -1,4 +1,7 @@
-import{child_process_exec_sync}from"./utility.js";
+import{
+    executable_find,
+    child_process_exec_sync
+}from"./utility.js";
 function index(){
     let{exists,readFile,writeFileSync,appendFile}=require("fs");
     let path="/data/data/com.termux/files/home/.bashrc";
@@ -21,10 +24,19 @@ function index(){
                         console.log("添加启动命令到：",path);
                     });
                 }
-                child_process_exec_sync(content);
             }
         });
 
+    });
+    [
+        ["pnpm","npm install pnpm -g"],
+        ["pm2","pnpm add pm2 -g"],
+        ["emacs","pkg install emacs -y"],
+        ["git","pkg install git -y"]
+    ].forEach(function(item){
+        if(executable_find(item[0])===undefined){
+            child_process_exec_sync(item[1]);        
+        }        
     });
 }
 index();

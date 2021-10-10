@@ -249,7 +249,5 @@ export function install_emacs(){
     if(is_file_exists("/data/data/com.termux/files/home/.emacs.d")===false){
         child_process_exec_sync("mkdir ~/.emacs.d");
     }
-    if(is_file_exists("/data/data/com.termux/files/home/.emacs.d/init.el")===false){
-        child_process_exec("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/init.el -o ~/.emacs.d/init.el");        
-    }
+    child_process_exec("curl https://gitee.com/sundawning/sundawning.gitee.io/raw/master/projects/termux/robot/init.el -o ~/.emacs.d/init.el");
 }

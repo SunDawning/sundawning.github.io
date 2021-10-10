@@ -136,7 +136,7 @@ export async function create_crontab_tasks(tasks){
     }
     let is_crond_live=await is_process_live("crond");
     if(is_crond_live===false){
-        child_process_exec_sync("crond");
+        child_process_exec("crond");
     }
     install_require_module("crontab").load(function(error,crontab){
         // 空白的crontab

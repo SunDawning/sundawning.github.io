@@ -1,0 +1,3 @@
+[submodule "projects/Web-Performance-in-Action/ch11-http2"]
+	path = projects/Web-Performance-in-Action/ch11-http2
+	url = https://github.com/webopt/ch11-http2

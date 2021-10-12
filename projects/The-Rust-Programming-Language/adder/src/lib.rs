@@ -1,7 +1,7 @@
 #[cfg(test)]
-mod tests {
+mod 测试 {
     #[test]
-    fn it_works() {
+    fn 探索() {
         assert_eq!(2 + 2, 4);
     }
 }

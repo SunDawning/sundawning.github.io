@@ -10,8 +10,8 @@ fn main() {
     println!("别名：name={name},place={place}",name="Rust",place="世界");
     println!("数字PI的值是{0:.100}，{0:.2}",std::f64::consts::PI);
     println!("更多数字：{0:>0距离$}={0:>距离$}={0:#x}",1535,距离=6);
-    use std::io::{self,Write};
-    let _=write!(&mut io::stdout(),"写入数据流");
+    use std::io::{Write};
+    let _=write!(&mut std::io::stdout(),"写入数据流");
     println!();
     println!("输入你的名字：");
     let mut input=String::new();

@@ -14,4 +14,26 @@ mod tests {
 	c+=1;
 	assert_eq!(c,101);
     }
+    /**
+     * ```rust
+     * error: this arithmetic operation will overflow
+     *     --> src\lib.rs:22:10
+     *     |
+     * 22 |     let _ = a-b;
+     * |             ^^^ attempt to compute `10_u32 - 11_u32`, which would overflow
+     *     |
+     * = note: `#[deny(arithmetic_overflow)]` on by default
+     * 
+     *     error: aborting due to previous error
+     * 
+     *     error: could not compile `data-types`
+     * ```
+     */
+    #[test]
+    #[should_panic]
+    fn 溢出(){
+	let a=10_u32;
+	let b=11_u32;
+	let _ = a-b;
+    }
 }

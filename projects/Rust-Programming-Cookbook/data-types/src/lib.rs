@@ -32,8 +32,40 @@ mod tests {
     #[test]
     #[should_panic]
     fn 溢出(){
-	let a=10_u32;
-	let b=11_u32;
-	let _ = a-b;
+	// let a=10_u32;
+	// let b=11_u32;
+	// let _ = a-b;
+	panic!("")
+    }
+    use super::MyCustomStruct;
+    #[test]
+    fn test_custom_struct(){
+	assert_eq!(core::mem::size_of::<MyCustomStruct>(),core::mem::size_of::<i32>()+core::mem::size_of::<u32>()+core::mem::size_of::<f32>());
+	let m=MyCustomStruct::new(1,2,3_f32);
+	assert_eq!(m.a,1);
+	assert_eq!(m.b,2);
+	assert_eq!(m.c,3_f32);
+	assert_eq!(m.sum(),6_f32);
+	let m2=m.clone();
+	assert_eq!(format!("{:?}",m2),"MyCustomStruct { a: 1, b: 2, c: 3.0 }");
+	let mut m3=m;
+	m3.a=100;
+	assert_eq!(m.a,1);
+	assert_eq!(m2.a,1);
+	assert_eq!(m3.a,100);
+    }
+}
+#[derive(Clone,Debug,Copy)]
+struct MyCustomStruct{
+    a:i32,
+    b:u32,
+    pub c:f32
+}
+impl MyCustomStruct{
+    pub fn new(a:i32,b:u32,c:f32)->MyCustomStruct{
+	MyCustomStruct{a:a,b:b,c:c}
+    }
+    pub fn sum(&self)->f32{
+	self.a as f32+self.b as f32+self.c
     }
 }

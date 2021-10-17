@@ -67,3 +67,6 @@
                   ivy-count-format ""
                   projectile-completion-system 'ivy)
     (define-key ivy-minibuffer-map (kbd "RET") (function ivy-alt-done))))
+(setf ring-bell-function 'ignore
+      (symbol-function 'yes-or-no-p) (symbol-function 'y-or-n-p)
+      enable-recursive-minibuffers t)

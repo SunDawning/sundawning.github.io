@@ -3,11 +3,13 @@ export function hello(){
 }
 /**
  * 启动一个异步程序
- * ```
- * child_process_exec("npm config set registry https://registry.npm.taobao.org")
- * ```
-* @param {string} cmd 一串命令
-* @returns {object} 一个ChildProcess对象
+ * 
+ * @param {string} cmd 一串命令
+ * @returns {object} 一个ChildProcess对象
+ *
+ * @example
+ * // 异步修改npm源为淘宝源
+ * child_process_exec("npm config set registry https://registry.npm.taobao.org");
  */
 export function child_process_exec(cmd){
     let{exec}=require("child_process");
@@ -16,11 +18,13 @@ export function child_process_exec(cmd){
 }
 /**
  * 启动一个同步程序
- * ```Javascript
- * child_process_exec_sync("npm config set registry https://registry.npm.taobao.org")
- * ```
+ *
  * @param {string} cmd 一串命令
  * @returns {object} 一个Buffer对象
+ *
+ * @example
+ * // 同步修改npm源为淘宝源
+ * child_process_exec_sync("npm config set registry https://registry.npm.taobao.org")
  */
 export function child_process_exec_sync(cmd){
     let{execSync}=require("child_process");
@@ -64,15 +68,13 @@ export function get_platform_which_command(){
 }
 /**
  * 查找是否存在命令
- * ```JavaScript
- * executable_find("pnpm")
- * ```
- * =>
- * ```text
- * <Buffer 43 3a 5c 55 73 65 72 73 5c 73 67 73 5c 41 70 70 44 61 74 61 5c 52 6f 61 6d 69 6e 67 5c 6e 70 6d 5c 70 6e 70 6d 0d 0a 43 3a 5c 55 73 65 72 73 5c 73 67 ... 32 more bytes>
- * ```
+ *
  * @param {string} command - 命令
  * @returns {undefined|buffer} 存在该命令则返回buffer，不存在时则返回undefined。
+ *
+ * @example
+ * // returns <Buffer 43 3a 5c 55 73 65 72 73 5c 73 67 73 5c 41 70 70 44 61 74 61 5c 52 6f 61 6d 69 6e 67 5c 6e 70 6d 5c 70 6e 70 6d 0d 0a 43 3a 5c 55 73 65 72 73 5c 73 67 ... 32 more bytes>
+ * executable_find("pnpm");
  */
 export function executable_find(command){
     try{
@@ -97,14 +99,12 @@ export function pnpm_init_y(){
     };
 }
 /**
- * 在命令行安装模块：
- * ```shell
- * pnpm add module --save-dev
- * ```
- * 对应为：
- * ```JavaScript
+ * 在命令行安装模块
+ *
+ * @param {string} module 模块名
+ * 
+ * @example
  * pnpm_add_save_dev("cross-spawn")
- * ```
  */
 export function pnpm_add_save_dev(module){
     // 已经添加了模型
@@ -147,12 +147,13 @@ export async function is_process_live(name){
  * - crontab终端命令
  * - crontab模块
  *
- * ```JavaScript
+ * @param {Array} tasks crontab定时任务
+ *
+ * @example
  * create_crontab_tasks([
  *     ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
  *     ["0 18 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"]
  * ]);
- * ```
  */
 export async function create_crontab_tasks(tasks){
     if(tasks===undefined){return;}
@@ -181,24 +182,6 @@ export async function create_crontab_tasks(tasks){
 /**
  * 使用termux-notification发送消息到下拉消息栏
  *
- * 命令：
- * ```shell
- * termux-notification --id "test" --content "内容" --title "标题" --button1-action "termux-open-url https://bing.com" --button1 "必应搜索" --button2-action "am start -a android.settings.BLUETOOTH_SETTINGS" --button2 "设置Bluetooth" --led-color 00A4FF --led-on 500
- * ```
- * 对应为：
- * ```JavaScript
- * termux_notification({
- *     "--id":"test",
- *     "--content":"内容",
- *     "--title":"标题",
- *     "--button1-action":"termux-open-url https://bing.com",
- *     "--button1":"必应搜索",
- *     "--button2-action":"am start -a android.settings.BLUETOOTH_SETTINGS",
- *     "--button2":"设置Blutetooth",
- *     "--led-color":"00A4FF",
- *     "--led-on":"500"
- * })
- * ```
  * termux-notification命令行支持的参数：
  * ```text
  * termux-notification --help
@@ -245,7 +228,22 @@ export async function create_crontab_tasks(tasks){
  *   --media-play             action to execute on the media-play button
  *   --media-previous         action to execute on the media-previous button
  * ```
+ *
  * @param {Object} options
+ *
+ * @example
+ * // 相当于：termux-notification --id "test" --content "内容" --title "标题" --button1-action "termux-open-url https://bing.com" --button1 "必应搜索" --button2-action "am start -a android.settings.BLUETOOTH_SETTINGS" --button2 "设置Bluetooth" --led-color 00A4FF --led-on 500
+ * termux_notification({
+ *     "--id":"test",
+ *     "--content":"内容",
+ *     "--title":"标题",
+ *     "--button1-action":"termux-open-url https://bing.com",
+ *     "--button1":"必应搜索",
+ *     "--button2-action":"am start -a android.settings.BLUETOOTH_SETTINGS",
+ *     "--button2":"设置Blutetooth",
+ *     "--led-color":"00A4FF",
+ *     "--led-on":"500"
+ * });
  */
 export function termux_notification(options){
     if(options===undefined){options={};}

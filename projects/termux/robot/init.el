@@ -60,3 +60,10 @@
   (termux::package-install-ivy-counsel-smex)
   (call-interactively (function counsel-switch-buffer)))
 (global-set-key (kbd "C-x b") (function termux:counsel-switch-buffer))
+(with-eval-after-load (quote ivy)
+  (unless ivy-use-virtual-buffers
+    (ivy-mode)
+    (setq-default ivy-use-virtual-buffers t
+                  ivy-count-format ""
+                  projectile-completion-system 'ivy)
+    (define-key ivy-minibuffer-map (kbd "RET") (function ivy-alt-done))))

@@ -1,3 +1,6 @@
+/**
+ * 显示一行欢迎的文字
+ */
 export function hello(){
     console.log("欢迎使用Node.js来管理程序");
 }
@@ -5,9 +8,6 @@ export function hello(){
  * 启动一个异步程序
  * @param {string} cmd 一串命令
  * @returns {object} 一个ChildProcess对象
- * @example
- * // 异步修改npm源为淘宝源
- * child_process_exec("npm config set registry https://registry.npm.taobao.org");
  * @example
  * // 异步修改npm源为淘宝源
  * child_process_exec("npm config set registry https://registry.npm.taobao.org");

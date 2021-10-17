@@ -2,10 +2,12 @@ export function hello(){
     console.log("欢迎使用Node.js来管理程序");
 }
 /**
- * @description
+ * 启动一个异步程序
  * ```
  * child_process_exec("npm config set registry https://registry.npm.taobao.org")
  * ```
+* @param {string} cmd 一串命令
+* @returns {object} 一个ChildProcess对象
  */
 export function child_process_exec(cmd){
     let{exec}=require("child_process");
@@ -13,9 +15,12 @@ export function child_process_exec(cmd){
     return exec(cmd);
 }
 /**
+ * 启动一个同步程序
  * ```Javascript
  * child_process_exec_sync("npm config set registry https://registry.npm.taobao.org")
  * ```
+ * @param {string} cmd 一串命令
+ * @returns {object} 一个Buffer对象
  */
 export function child_process_exec_sync(cmd){
     let{execSync}=require("child_process");
@@ -23,7 +28,6 @@ export function child_process_exec_sync(cmd){
     return execSync(cmd);
 }
 /**
- * @description
  * 设置为淘宝源：
  * ```shell
  * npm config set registry https://registry.npm.taobao.org
@@ -34,7 +38,6 @@ export function npm_config_set_regisitry_taobao(){
     return child_process_exec_sync("npm config set registry https://registry.npm.taobao.org");
 }
 /**
- * @description
  * ```shell
  * npm init -y
  * ```
@@ -47,7 +50,6 @@ export function npm_init_y(){
     child_process_exec_sync("npm init -y");
 }
 /**
- * @description
  * 获取不同操作系统查找命令的程序
  */
 export function get_platform_which_command(){
@@ -61,7 +63,6 @@ export function get_platform_which_command(){
     }
 }
 /**
- * @description
  * 查找是否存在命令
  * ```JavaScript
  * executable_find("pnpm")
@@ -81,7 +82,6 @@ export function executable_find(command){
     }
 }
 /**
- * @description
  * 使用：
  * ```shell
  * pnpm init -y
@@ -97,7 +97,6 @@ export function pnpm_init_y(){
     };
 }
 /**
- * @description
  * 在命令行安装模块：
  * ```shell
  * pnpm add module --save-dev
@@ -118,7 +117,6 @@ export function pnpm_add_save_dev(module){
     console.log(`已安装模块：${module}`);
 }
 /**
- * @description
  * 安装与导入模块
  */
 export function install_require_module(module){
@@ -126,7 +124,6 @@ export function install_require_module(module){
     return require(module);
 }
 /**
- * @description
  * 获取系统正在运行的程序
  */
 export async function get_process_list(){
@@ -144,12 +141,12 @@ export async function is_process_live(name){
     }
 }
 /**
- * @description
  * 添加crontab定时任务
  *
  * 依赖：
  * - crontab终端命令
  * - crontab模块
+ *
  * ```JavaScript
  * create_crontab_tasks([
  *     ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
@@ -182,8 +179,8 @@ export async function create_crontab_tasks(tasks){
     });
 }
 /**
- * @description
  * 使用termux-notification发送消息到下拉消息栏
+ *
  * 命令：
  * ```shell
  * termux-notification --id "test" --content "内容" --title "标题" --button1-action "termux-open-url https://bing.com" --button1 "必应搜索" --button2-action "am start -a android.settings.BLUETOOTH_SETTINGS" --button2 "设置Bluetooth" --led-color 00A4FF --led-on 500
@@ -262,7 +259,7 @@ export function termux_notification(options){
     child_process_exec_sync(`termux-notification ${args.join(" ")}`);
 }
 /**
- * @description 检测路径是否存在
+ * 检测路径是否存在
  * @param {string} path - 文件或文件夹的路径
  * @returns {boolean} 存在为true，不存在为false。
  */
@@ -270,7 +267,6 @@ export function is_file_exists(path){
     return require("fs").existsSync(path);
 }
 /**
- * @description
  * 下载、安装、配置、启动sshd
  */
 export async function start_sshd(){
@@ -284,10 +280,9 @@ export async function start_sshd(){
     }
 }
 /**
- * @description
  * 下载、安装、配置Emacs
  */
-function install_emacs(){
+export function install_emacs(){
     if(executable_find("emacs")===undefined){
         child_process_exec("pkg install emacs -y");
     }

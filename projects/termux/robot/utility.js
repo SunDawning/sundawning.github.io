@@ -2,8 +2,8 @@ export function hello(){
     console.log("欢迎使用Node.js来管理程序");
 }
 /**
- * @example
- * ```Javascript
+ * @description
+ * ```
  * child_process_exec("npm config set registry https://registry.npm.taobao.org")
  * ```
  */
@@ -13,7 +13,6 @@ export function child_process_exec(cmd){
     return exec(cmd);
 }
 /**
- * @example
  * ```Javascript
  * child_process_exec_sync("npm config set registry https://registry.npm.taobao.org")
  * ```
@@ -64,7 +63,6 @@ export function get_platform_which_command(){
 /**
  * @description
  * 查找是否存在命令
- * @example 
  * ```JavaScript
  * executable_find("pnpm")
  * ```
@@ -152,7 +150,6 @@ export async function is_process_live(name){
  * 依赖：
  * - crontab终端命令
  * - crontab模块
- * @example
  * ```JavaScript
  * create_crontab_tasks([
  *     ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],

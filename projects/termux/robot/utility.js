@@ -2,6 +2,7 @@ export function hello(){
     console.log("欢迎使用Node.js来管理程序");
 }
 /**
+ * @example
  * ```Javascript
  * child_process_exec("npm config set registry https://registry.npm.taobao.org")
  * ```
@@ -12,6 +13,7 @@ export function child_process_exec(cmd){
     return exec(cmd);
 }
 /**
+ * @example
  * ```Javascript
  * child_process_exec_sync("npm config set registry https://registry.npm.taobao.org")
  * ```
@@ -22,14 +24,21 @@ export function child_process_exec_sync(cmd){
     return execSync(cmd);
 }
 /**
+ * @description
+ * 设置为淘宝源：
+ * ```shell
  * npm config set registry https://registry.npm.taobao.org
+ * ```
  * 设置npm源的几种方式 - 云+社区 - 腾讯云: https://cloud.tencent.com/developer/article/1588050
  */
 export function npm_config_set_regisitry_taobao(){
     return child_process_exec_sync("npm config set registry https://registry.npm.taobao.org");
 }
 /**
+ * @description
+ * ```shell
  * npm init -y
+ * ```
  */
 export function npm_init_y(){
     // 不存在 ./node_modules
@@ -39,6 +48,7 @@ export function npm_init_y(){
     child_process_exec_sync("npm init -y");
 }
 /**
+ * @description
  * 获取不同操作系统查找命令的程序
  */
 export function get_platform_which_command(){
@@ -52,10 +62,18 @@ export function get_platform_which_command(){
     }
 }
 /**
+ * @description
  * 查找是否存在命令
+ * @example 
  * ```JavaScript
  * executable_find("pnpm")
  * ```
+ * =>
+ * ```text
+ * <Buffer 43 3a 5c 55 73 65 72 73 5c 73 67 73 5c 41 70 70 44 61 74 61 5c 52 6f 61 6d 69 6e 67 5c 6e 70 6d 5c 70 6e 70 6d 0d 0a 43 3a 5c 55 73 65 72 73 5c 73 67 ... 32 more bytes>
+ * ```
+ * @param {string} command - 命令
+ * @returns {undefined|buffer} 存在该命令则返回buffer，不存在时则返回undefined。
  */
 export function executable_find(command){
     try{
@@ -65,7 +83,11 @@ export function executable_find(command){
     }
 }
 /**
- * 使用pnpm init -y
+ * @description
+ * 使用：
+ * ```shell
+ * pnpm init -y
+ * ```
  * 强制初始化
  */
 export function pnpm_init_y(){
@@ -77,8 +99,12 @@ export function pnpm_init_y(){
     };
 }
 /**
- * 安装模块
+ * @description
+ * 在命令行安装模块：
+ * ```shell
  * pnpm add module --save-dev
+ * ```
+ * 对应为：
  * ```JavaScript
  * pnpm_add_save_dev("cross-spawn")
  * ```
@@ -94,6 +120,7 @@ export function pnpm_add_save_dev(module){
     console.log(`已安装模块：${module}`);
 }
 /**
+ * @description
  * 安装与导入模块
  */
 export function install_require_module(module){
@@ -101,6 +128,7 @@ export function install_require_module(module){
     return require(module);
 }
 /**
+ * @description
  * 获取系统正在运行的程序
  */
 export async function get_process_list(){
@@ -118,10 +146,13 @@ export async function is_process_live(name){
     }
 }
 /**
+ * @description
  * 添加crontab定时任务
+ *
  * 依赖：
  * - crontab终端命令
  * - crontab模块
+ * @example
  * ```JavaScript
  * create_crontab_tasks([
  *     ["30 8 * * *","am start -n com.alibaba.android.rimet/com.alibaba.android.rimet.biz.LaunchHomeActivity"],
@@ -154,10 +185,12 @@ export async function create_crontab_tasks(tasks){
     });
 }
 /**
+ * @description
  * 使用termux-notification发送消息到下拉消息栏
- * @param options Object
  * 命令：
+ * ```shell
  * termux-notification --id "test" --content "内容" --title "标题" --button1-action "termux-open-url https://bing.com" --button1 "必应搜索" --button2-action "am start -a android.settings.BLUETOOTH_SETTINGS" --button2 "设置Bluetooth" --led-color 00A4FF --led-on 500
+ * ```
  * 对应为：
  * ```JavaScript
  * termux_notification({
@@ -218,6 +251,7 @@ export async function create_crontab_tasks(tasks){
  *   --media-play             action to execute on the media-play button
  *   --media-previous         action to execute on the media-previous button
  * ```
+ * @param {Object} options
  */
 export function termux_notification(options){
     if(options===undefined){options={};}
@@ -230,9 +264,18 @@ export function termux_notification(options){
     }
     child_process_exec_sync(`termux-notification ${args.join(" ")}`);
 }
+/**
+ * @description 检测路径是否存在
+ * @param {string} path - 文件或文件夹的路径
+ * @returns {boolean} 存在为true，不存在为false。
+ */
 export function is_file_exists(path){
     return require("fs").existsSync(path);
 }
+/**
+ * @description
+ * 下载、安装、配置、启动sshd
+ */
 export async function start_sshd(){
     if(executable_find("sshd")===undefined){
         child_process_exec_sync("pkg install openssh -y");
@@ -243,7 +286,11 @@ export async function start_sshd(){
         child_process_exec("sshd -p 8022");
     }
 }
-export function install_emacs(){
+/**
+ * @description
+ * 下载、安装、配置Emacs
+ */
+function install_emacs(){
     if(executable_find("emacs")===undefined){
         child_process_exec("pkg install emacs -y");
     }

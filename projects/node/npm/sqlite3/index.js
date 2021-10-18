@@ -53,6 +53,16 @@ WHERE name = ?
     }else{
         console.log(`查找到数据：${JSON.stringify(rows)}`);
     }
-});    
+});
+    db.run(`
+DELETE FROM user
+WHERE name = ?
+`,[`SunDawning`],function(error){
+    if(error){
+        console.log(error);
+    }else{
+        console.log(`删除数据：${JSON.stringify(this)}`);
+    }
+});
 });
 db.close();

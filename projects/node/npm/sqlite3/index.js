@@ -3,7 +3,7 @@
  */
 let sqlite3=require(`sqlite3`).verbose();
 let fs=require(`fs`);
-let total=Math.pow(10,2);
+let total=Math.pow(10,5);
 let dbFile=`./user.db`;
 fs.writeFileSync(dbFile,``);
 let db=new sqlite3.Database(dbFile,sqlite3.OPEN_READWRITE,function(error){
@@ -81,27 +81,34 @@ CREATE TABLE IF NOT EXISTS user(name text)
         console.log(error);
     }else{
         console.log(`已创建表：user`);
-        let counts=[];
+        let sql=``;
         for(let c=0;c<total;c=c+1){
-            counts.push(c);
+            sql=sql+`
+INSERT INTO user(name) VALUES("梅尘");
+`;
         }
-        counts.forEach(function(c){
-            db.run(`
-INSERT INTO user(name) VALUES(?)
-`,[`梅尘`],function(error){
-    if(error){
-        console.log(error);
-    }else{
-        // console.log(`${c} 新增数据：${JSON.stringify(this)}`);
-    }
-});        
+        sql=`
+BEGIN TRANSACTION;
+${sql}
+END TRANSACTION;
+
+BEGIN TRANSACTION;
+${sql}
+END TRANSACTION;
+`;
+        db.exec(sql,function(error){
+            if(error){
+                console.log(error);
+            }else{
+                console.log(`新增数据：${JSON.stringify(this)}`);
+            }
         });
-    }
-});
-db.close(function(error){
-    if(error){
-        console.log(error);
-    }else{
-        console.log(`关闭数据库连接`);
+        db.close(function(error){
+            if(error){
+                console.log(error);
+            }else{
+                console.log(`关闭数据库连接`);
+            }
+        });
     }
 });

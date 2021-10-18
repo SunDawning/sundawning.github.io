@@ -2,8 +2,13 @@
  * @see SQLite快速上手 — Node.js小册: https://nodejs.fasionchan.com/zh_CN/latest/database/sqlite/index.html
  */
 let sqlite3=require(`sqlite3`).verbose();
-let fs=require(`fs`);
-let db=new sqlite3.Database(`:memory:`);
+let db=new sqlite3.Database(`:memory:`,function(error){
+    if(error){
+        console.log(error);
+    }else{
+        console.log("连接数据库");
+    }
+});
 db.serialize(function(){
     db.run(`
 CREATE TABLE IF NOT EXISTS user(name text)
@@ -65,4 +70,10 @@ WHERE name = ?
     }
 });
 });
-db.close();
+db.close(function(error){
+    if(error){
+        console.log(error);
+    }else{
+        console.log(`关闭数据库连接`);
+    }
+});

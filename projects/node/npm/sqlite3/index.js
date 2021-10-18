@@ -14,3 +14,13 @@ let db=new sqlite3.Database(dbFile,sqlite3.OPEN_READWRITE,function(error){
         console.log("已连接数据库");
     }
 });
+db.run(`
+CREATE TABLE IF NOT EXISTS user(name text)
+`,
+       function(error){
+           if(error){
+               console.log(error);               
+           }else{
+               console.log("已创建表：user");
+           }
+       });

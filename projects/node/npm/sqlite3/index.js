@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS user(name text)
 });
     db.run(`
 INSERT INTO user(name) VALUES(?)
-`,["梅尘"],function(error){
+`,[`梅尘`],function(error){
     if(error){
         console.log(error);
     }else{
@@ -26,12 +26,33 @@ INSERT INTO user(name) VALUES(?)
     db.all(`
 SELECT name From user
 WHERE name = ?
-`,["梅尘"],function(error,rows){
+`,[`梅尘`],function(error,rows){
     if(error){
         console.log(error);
     }else{
         console.log(`查找到数据：${JSON.stringify(rows)}`);
     }
 });
+    db.run(`
+UPDATE user
+SET name = ?
+WHERE name = ?
+`,[`SunDawning`,`梅尘`],function(error){
+    if(error){
+        console.log(error);
+    }else{
+        console.log(`已更新`);
+    }
+});
+    db.all(`
+SELECT name From user
+WHERE name = ?
+`,[`SunDawning`],function(error,rows){
+    if(error){
+        console.log(error);
+    }else{
+        console.log(`查找到数据：${JSON.stringify(rows)}`);
+    }
+});    
 });
 db.close();

@@ -2,7 +2,11 @@
  * @see SQLite快速上手 — Node.js小册: https://nodejs.fasionchan.com/zh_CN/latest/database/sqlite/index.html
  */
 let sqlite3=require(`sqlite3`).verbose();
-let db=new sqlite3.Database(`:memory:`,function(error){
+let fs=require(`fs`);
+let total=Math.pow(10,2);
+let dbFile=`./user.db`;
+fs.writeFileSync(dbFile,``);
+let db=new sqlite3.Database(dbFile,sqlite3.OPEN_READWRITE,function(error){
     if(error){
         console.log(error);
     }else{
@@ -69,6 +73,30 @@ WHERE name = ?
         console.log(`删除数据：${JSON.stringify(this)}`);
     }
 });
+});
+db.run(`
+CREATE TABLE IF NOT EXISTS user(name text)
+`, function(error){
+    if(error){
+        console.log(error);
+    }else{
+        console.log(`已创建表：user`);
+        let counts=[];
+        for(let c=0;c<total;c=c+1){
+            counts.push(c);
+        }
+        counts.forEach(function(c){
+            db.run(`
+INSERT INTO user(name) VALUES(?)
+`,[`梅尘`],function(error){
+    if(error){
+        console.log(error);
+    }else{
+        // console.log(`${c} 新增数据：${JSON.stringify(this)}`);
+    }
+});        
+        });
+    }
 });
 db.close(function(error){
     if(error){

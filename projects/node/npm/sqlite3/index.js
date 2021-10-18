@@ -3,15 +3,7 @@
  */
 let sqlite3=require(`sqlite3`).verbose();
 let fs=require(`fs`);
-let dbFile=`./user.db`;
-fs.writeFileSync(dbFile,``);
-let db=new sqlite3.Database(dbFile,sqlite3.OPEN_READWRITE,function(error){
-    if(error){
-        console.log(error);
-    }else{
-        console.log(`已连接数据库`);
-    }
-});
+let db=new sqlite3.Database(`:memory:`);
 db.serialize(function(){
     db.run(`
 CREATE TABLE IF NOT EXISTS user(name text)
@@ -42,3 +34,4 @@ WHERE name = ?
     }
 });
 });
+db.close();

@@ -16,11 +16,19 @@ let db=new sqlite3.Database(dbFile,sqlite3.OPEN_READWRITE,function(error){
 });
 db.run(`
 CREATE TABLE IF NOT EXISTS user(name text)
-`,
-       function(error){
-           if(error){
-               console.log(error);               
-           }else{
-               console.log("已创建表：user");
-           }
-       });
+`, function(error){
+    if(error){
+        console.log(error);
+    }else{
+        console.log("已创建表：user");
+    }
+});
+db.run(`
+INSERT INTO user(name) VALUES(?)
+`,["梅尘"],function(error){
+    if(error){
+        console.log(error);
+    }else{
+        console.log("新增数据：",this);
+    }
+});

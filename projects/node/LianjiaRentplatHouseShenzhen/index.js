@@ -1,5 +1,6 @@
 let axios=require(`axios`);
 let fs=require(`fs-extra`);
+let assert=require(`assert`);
 /**
  * condition
  */
@@ -243,4 +244,51 @@ function filterBusinessCircles(data){
         });
     });
     return regions;
+}
+/**
+ * 测试程序的功能
+ */
+function test(){
+    /**
+     * filterBusinessCircles
+     */
+    assert.equal(JSON.stringify([ 'buxin', 'bagualing' ]),JSON.stringify(filterBusinessCircles({
+        "d": {
+            "name": "全深圳",
+            "options": [
+                {
+                    "pinyin": "/",
+                    "children": []
+                },
+                {
+                    "name": "罗湖区",
+                    "pinyin": "luohuqu/",
+                    "children": [
+                        {
+                            "name": "不限",
+                            "pinyin": "/"
+                        },
+                        {
+                            "name": "布心",
+                            "pinyin": "buxin/"
+                        },
+                    ]
+                },
+                {
+                    "name": "福田区",
+                    "pinyin": "futianqu/",
+                    "children": [
+                        {
+                            "name": "不限",
+                            "pinyin": "/"
+                        },
+                        {
+                            "name": "八卦岭",
+                            "pinyin": "bagualing/"
+                        },
+                    ]
+                },
+            ]
+        },
+    })));
 }

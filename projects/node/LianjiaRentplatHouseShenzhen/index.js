@@ -427,16 +427,22 @@ function index(){
                  * ```
                  */
                 let data=response.data.data;
-                let list=data.list;
-                list.forEach(function(item){
-                    let line=[];
-                    keys.forEach(function(key){
-                        line.push(item[key]);
+                /**
+                 * 数据保存到文件里
+                 * @param {object} list 一组数据
+                 */
+                function appendFile(list){
+                    list.forEach(function(item){
+                        let line=[];
+                        keys.forEach(function(key){
+                            line.push(item[key]);
+                        });
+                        console.log(n,line);
+                        n=n+1;
+                        fs.appendFile(dbFile,line.join(`,`)+`\n`);
                     });
-                    console.log(n,line);
-                    n=n+1;
-                    fs.appendFile(dbFile,line.join(`,`)+`\n`);
-                });
+                }
+                appendFile(data.list);
                 let total=data.total;
                 let offsets=[];
                 for(let c=0;c<Math.ceil(total/limit);c=c+1){
@@ -446,19 +452,10 @@ function index(){
                 offsets.forEach(function(offset){
                     axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`).then(function(response){
                         let data=response.data.data;
-                        let list=data.list;
-                        list.forEach(function(item){
-                            let line=[];
-                            keys.forEach(function(key){
-                                line.push(item[key]);
-                            });
-                            console.log(n,line);
-                            n=n+1;
-                            fs.appendFile(dbFile,line.join(`,`)+`\n`);
-                        });                        
+                        appendFile(data.list);
                     });
                 });
-            });            
+            });
         });
     });
 }
@@ -575,6 +572,53 @@ function filterDistrictNames(data){
         return regions.push(district.pinyin.replace(`\/`,``));
     });
     return regions;
+}
+/**
+ * 从详情页面里再获取数据
+ * @param {string} data 详情页面的HTML源码
+ */
+function filterDetailHtmlData(data){
+    /**
+     * ```text
+     *   g_conf.coord = {
+     *       longitude: '114.420268',
+     *       latitude: '22.620305'
+     *   };
+     * ```
+     */
+    let coord=data.match(`
+  g_conf.coord = {
+      longitude: '(.*)',
+      latitude: '(.*)'
+  };
+`);
+    let longitude=coord[1];
+    let latitude=coord[2];
+    let floor=data.match(`                        <label>楼层：</label>
+                        <span>(.*)</span>`)[1];
+    let elevator=data.match(`                        <label>电梯：</label>
+                        <span>(.*)</span>`)[1];
+    let maintain=data.match(`                        <label>维护：</label>
+                        <span>(.*)</span>`)[1];
+    let checkin=data.match(`                        <label>入住：</label>
+                        <span>(.*)</span>`)[1];
+    let carport=data.match(`                        <label>车位：</label>
+                        <span>(.*)</span>`)[1];
+    let water=data.match(`                        <label>用水：</label>
+                        <span>(.*)</span>`)[1];
+    let electricity=data.match(`                        <label>用电：</label>
+                        <span>(.*)</span>`)[1];
+    let gas=data.match(`                        <label>燃气：</label>
+                        <span>(.*)</span>`)[1];
+    let tenancy_period=data.match(`            <span>租期：</span>
+            <label href="javascript:null">(.*)</label>
+`)[1];
+    let see_house=data.match(`            <span>看房：</span>
+            <label href="javascript:null">(.*)</label>`)[1];
+    return{
+        longitude,latitude,
+        floor,elevator,maintain,checkin,carport,water,electricity,gas,tenancy_period,see_house
+    };
 }
 /**
  * 测试程序的功能

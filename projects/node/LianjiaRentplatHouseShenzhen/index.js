@@ -171,7 +171,11 @@ axios.get(`https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300`).then(fu
      */
     let data=response.data.data;
     fs.writeFile(`https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300`.replaceAll(/[:\/\?]/g,`_`)+`.json`,JSON.stringify(data,undefined,4));
-    
+    let businessCircles=filterBusinessCircles(data);
+    /**
+     * @see https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=luohuqu/rt200600000001&limit=30&offset=0&request_ts=1634648306&scene=list
+     */
+    `https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=buxin/rt200600000001&limit=30&offset=0&scene=list`
 });
 /**
  * 过滤出商业圈
@@ -246,6 +250,48 @@ function filterBusinessCircles(data){
     return regions;
 }
 /**
+ * 过滤出深圳的几个行政区
+ * @param {object} data 访问API＂https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300＂之后所得到的JSON数据
+ * @returns {array} 一组行政区的名字
+ * @example
+ * ```JavaScript
+ * filterDistrictNames({
+ *     "d": {
+ *         "name": "全深圳",
+ *         "options": [
+ *             {
+ *                 "name": "不限",
+ *                 "id": 0,
+ *                 "pinyin": "/",
+ *                 "children": []
+ *             },
+ *             {
+ *                 "name": "罗湖区",
+ *                 "id": 23008678,
+ *                 "pinyin": "luohuqu/",
+ *             },
+ *             {
+ *                 "name": "福田区",
+ *                 "id": 23008674,
+ *                 "pinyin": "futianqu/",
+ *             },
+ *         ]
+ *     },
+ * });
+ * ```
+ * =>
+ * ```json
+ * [ 'luohuqu', 'futianqu' ]
+ * ```
+ */
+function filterDistrictNames(data){
+    let regions=[];
+    data.d.options.slice(1).forEach(function(district){
+        return regions.push(district.pinyin.replace(`\/`,``));
+    });
+    return regions;
+}
+/**
  * 测试程序的功能
  */
 function test(){
@@ -287,6 +333,32 @@ function test(){
                             "pinyin": "bagualing/"
                         },
                     ]
+                },
+            ]
+        },
+    })));
+    /**
+     * filterDistrictNames
+     */
+    assert.equal(JSON.stringify([ 'luohuqu', 'futianqu' ]),JSON.stringify(filterDistrictNames({
+        "d": {
+            "name": "全深圳",
+            "options": [
+                {
+                    "name": "不限",
+                    "id": 0,
+                    "pinyin": "/",
+                    "children": []
+                },
+                {
+                    "name": "罗湖区",
+                    "id": 23008678,
+                    "pinyin": "luohuqu/",
+                },
+                {
+                    "name": "福田区",
+                    "id": 23008674,
+                    "pinyin": "futianqu/",
                 },
             ]
         },

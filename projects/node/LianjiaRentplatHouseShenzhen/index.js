@@ -452,7 +452,7 @@ async function index(){
                             });
                             let m_url=item[`m_url`];
                             try{
-                                let response=await axios.get(m_url,{timeout:5000});
+                                let response=await axios.get(m_url,{timeout:60000});
                                 {
                                     let filteredDetail=filterDetailHtmlData(response.data);
                                     detailKeys.forEach(function(key){
@@ -476,7 +476,7 @@ async function index(){
                     }
                     async.mapLimit(offsets,limit,async function(offset){
                         try{
-                            let response=await axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:10000});
+                            let response=await axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:60000});
                             {
                                 let data=response.data.data;
                                 await appendFile(data.list);

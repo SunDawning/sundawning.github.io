@@ -175,7 +175,8 @@ function index(){
         let districtNames=filterDistrictNames(data);
         let dbFile=`${new Date().getTime()}.csv`;
         let keys=["house_title","resblock_name","bizcircle_name","district_name","layout","rent_area","rent_price_listing","frame_orientation","m_url"];
-        fs.writeFileSync(dbFile,keys.join(`,`)+`\n`);
+        let detailKeys=["longitude","latitude","floor","elevator","maintain","checkin","carport","water","electricity","gas","tenancy_period","see_house"];
+        fs.writeFileSync(dbFile,keys.concat(detailKeys).join(`,`)+`\n`);
         let n=0;
         districtNames.forEach(function(districtName){
             /**
@@ -437,9 +438,28 @@ function index(){
                         keys.forEach(function(key){
                             line.push(item[key]);
                         });
-                        console.log(n,line);
-                        n=n+1;
-                        fs.appendFile(dbFile,line.join(`,`)+`\n`);
+                        let url=item["m_url"];
+                        axios.get(url).then(function(response){
+                            let data=response.data;
+                            try{
+                                let filteredDetail=filterDetailHtmlData(data);
+                                detailKeys.forEach(function(key){
+                                    line.push(filteredDetail[key]);
+                                });
+                                console.log(n,line);
+                                n=n+1;
+                                fs.appendFile(dbFile,line.join(`,`)+`\n`);
+                            }catch(error){
+                                let fileName=url.replaceAll(/[:\/\?]/g,`_`)+`.txt`;
+                                let directory=`error`;
+                                fs.exists(directory,function(exists){
+                                    if(exists===false){
+                                        fs.mkdirSync(directory);
+                                    }
+                                    fs.writeFile(`${directory}/${fileName}`,`${url}\n${error}\n`);
+                                });
+                            }
+                        });
                     });
                 }
                 appendFile(data.list);

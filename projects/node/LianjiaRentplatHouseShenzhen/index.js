@@ -1,13 +1,12 @@
 let axios=require(`axios`);
 let fs=require(`fs-extra`);
 let assert=require(`assert`);
-let commandLineArguments=require(`minimist`)(process.argv);
-console.log(`命令行：${JSON.stringify(commandLineArguments,null,4)}`);
-function index(){
+async function index(){
     /**
      * 从API获取行政区
-     */
-    axios.get(`https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300`).then(function(response){
+         */
+    let response=await axios.get(`https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300`);
+    {
         /**
          * 返回的JSON里的数据
          * @type {object}
@@ -177,148 +176,152 @@ function index(){
         let districtNames=filterDistrictNames(data);
         let dbFile=`${new Date().getTime()}.csv`;
         let keys=["house_title","resblock_name","bizcircle_name","district_name","layout","rent_area","rent_price_listing","frame_orientation","m_url"];
-        fs.writeFileSync(dbFile,keys.join(`,`)+`\n`);
+        let detailKeys=["longitude","latitude","floor","elevator","maintain","checkin","carport","water","electricity","gas","tenancy_period","see_house"];
+        fs.writeFileSync(dbFile,keys.concat(detailKeys).join(`,`)+`\n`);
         let n=0;
-        districtNames.forEach(function(districtName){
-            /**
-             * 从API里获取下一级的详情页面
-             * @see https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=luohuqu/rt200600000001&limit=30&offset=0&request_ts=1634648306&scene=list
-             */
-            let limit=30;
-            axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=0&scene=list`).then(function(response){
+        for(let c=0;c<districtNames.length;c=c+1){
+            let districtName=districtNames[c];
+            {
                 /**
-                 * 返回的JSON里的数据
-                 * @type {object}
-                 * ```json
-                 * {
-                 *     "monthly_icon": "",
-                 *     "monthly_desc": "",
-                 *     "advertise_list": [],
-                 *     "list": [
-                 *         {
-                 *             "ad_code": 0,
-                 *             "ad_type": 0,
-                 *             "position": -1,
-                 *             "rent_type": "200600000001",
-                 *             "city_id": 440300,
-                 *             "rent_area": "94.00",
-                 *             "house_attention_type": "",
-                 *             "house_code": "SZ2881132036557643776",
-                 *             "lianjia_house_code": "105108817443",
-                 *             "house_title": "整租·碧岭华庭 3室2厅 北",
-                 *             "resblock_id": "2411048753635",
-                 *             "resblock_name": "碧岭华庭",
-                 *             "bizcircle_id": "612400033",
-                 *             "bizcircle_name": "布心",
-                 *             "district_name": "罗湖区",
-                 *             "match_desc": "",
-                 *             "color": "",
-                 *             "layout": "3室2厅2卫",
-                 *             "desc": "链家 94.00㎡ 布心",
-                 *             "list_picture": "https://image1.ljcdn.com/110000-inspection/pc1_UUSIZX4g8.jpg.280x210.jpg",
-                 *             "rent_price_listing": "7500",
-                 *             "rent_price_unit": "元/月",
-                 *             "house_tags": [
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "F1F4F9",
-                 *                     "key": "gov_certification",
-                 *                     "name": "官方核验"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "decoration",
-                 *                     "name": "精装修"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "has_elevator",
-                 *                     "name": "有电梯"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "two_bathroom",
-                 *                     "name": "双卫生间"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "water_elec_type",
-                 *                     "name": "民水民电"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "is_key",
-                 *                     "name": "随时看房"
-                 *                 }
-                 *             ],
-                 *             "operation_tags": [],
-                 *             "house_status": "202300000001",
-                 *             "app_source": "200100000004",
-                 *             "app_source_type": "200201000000",
-                 *             "app_source_brand": "200301001000",
-                 *             "app_source_pkid": "105108817443",
-                 *             "frame_orientation": "北",
-                 *             "detail_scheme": "lianjiabeike://rentplat/house/detail/distribute?house_code=SZ2881132036557643776&parentSceneId=5801806037532552704&ad_code=0",
-                 *             "distribution_type": "203500000001",
-                 *             "quality_icon": "",
-                 *             "activity_phrase": {
-                 *                 "color_txt": "F6804D",
-                 *                 "txt": ""
-                 *             },
-                 *             "stress_content": null,
-                 *             "vr_icon": "https://image1.ljcdn.com/rent-front-image/68c2bcb27bad2faa3b5968a305431ca2.1521791109090_ed60db63-2265-448f-af81-3357e1e96de5.90x90.png",
-                 *             "shop_id": "0",
-                 *             "c_type": 1,
-                 *             "divider_desc": "",
-                 *             "reason_id": null,
-                 *             "reason_value": null,
-                 *             "m_url": "https://m.lianjia.com/chuzu/sz/zufang/SZ2881132036557643776.html",
-                 *             "pc_url": "https://sz.zu.ke.com/zufang/SZ2881132036557643776.html",
-                 *             "exp_type": "default",
-                 *             "coupon_template_id": [],
-                 *             "rentable_num": "",
-                 *             "bizcircle_url": "",
-                 *             "frame_bedroom_num": "3",
-                 *             "frame_hall_num": "2",
-                 *             "frame_bathroom_num": "2",
-                 *             "frame_kitchen_num": 1,
-                 *             "app_source_brand_name": "链家",
-                 *             "rent_price_trans": 0,
-                 *             "house_quality_type": 1,
-                 *             "attention": 2,
-                 *             "fb_expo_id": "502953935066501120",
-                 *             "bid_version": ""
-                 *         },
-                 *         {
-                 *             "ad_code": 41616720240460710,
-                 *             "ad_type": 40,
-                 *             "position": -1,
-                 *             "rent_type": "200600000001",
-                 *             "city_id": 440300,
-                 *             "rent_area": "88.61",
-                 *             "house_attention_type": "",
-                 *             "house_code": "SZ2898392543106973696",
-                 *             "lianjia_house_code": "",
-                 *             "house_title": "整租·宝湖名园 3室1厅 南",
-                 *             "resblock_id": "2411048724525",
-                 *             "resblock_name": "宝湖名园",
-                 *             "bizcircle_id": "612400033",
-                 *             "bizcircle_name": "布心",
-                 *             "district_name": "罗湖区",
-                 *             "match_desc": "",
-                 *             "color": "",
-                 *             "layout": "3室1厅1卫",
-                 *             "desc": "驿点公寓 88.61㎡ 布心",
-                 *             "list_picture": "https://image1.ljcdn.com/rent-user-avatar/5f0fdbbf-b5bd-46d0-ae23-d99cad1db758.280x210.jpg",
-                 *             "rent_price_listing": "6800",
-                 *             "rent_price_unit": "元/月",
-                 *             "house_tags": [
-                 *                 {
+                 * 从API里获取下一级的详情页面
+                 * @see https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=luohuqu/rt200600000001&limit=30&offset=0&request_ts=1634648306&scene=list
+                 */
+                let limit=30;
+                let response=await axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=0&scene=list`);
+                {
+                    /**
+                     * 返回的JSON里的数据
+                     * @type {object}
+                     * ```json
+                     * {
+                     *     "monthly_icon": "",
+                     *     "monthly_desc": "",
+                     *     "advertise_list": [],
+                     *     "list": [
+                     *         {
+                     *             "ad_code": 0,
+                     *             "ad_type": 0,
+                     *             "position": -1,
+                     *             "rent_type": "200600000001",
+                     *             "city_id": 440300,
+                     *             "rent_area": "94.00",
+                     *             "house_attention_type": "",
+                     *             "house_code": "SZ2881132036557643776",
+                     *             "lianjia_house_code": "105108817443",
+                     *             "house_title": "整租·碧岭华庭 3室2厅 北",
+                     *             "resblock_id": "2411048753635",
+                     *             "resblock_name": "碧岭华庭",
+                     *             "bizcircle_id": "612400033",
+                     *             "bizcircle_name": "布心",
+                     *             "district_name": "罗湖区",
+                     *             "match_desc": "",
+                     *             "color": "",
+                     *             "layout": "3室2厅2卫",
+                     *             "desc": "链家 94.00㎡ 布心",
+                     *             "list_picture": "https://image1.ljcdn.com/110000-inspection/pc1_UUSIZX4g8.jpg.280x210.jpg",
+                     *             "rent_price_listing": "7500",
+                     *             "rent_price_unit": "元/月",
+                     *             "house_tags": [
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "F1F4F9",
+                     *                     "key": "gov_certification",
+                     *                     "name": "官方核验"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "decoration",
+                     *                     "name": "精装修"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "has_elevator",
+                     *                     "name": "有电梯"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "two_bathroom",
+                     *                     "name": "双卫生间"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "water_elec_type",
+                     *                     "name": "民水民电"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "is_key",
+                     *                     "name": "随时看房"
+                     *                 }
+                     *             ],
+                     *             "operation_tags": [],
+                     *             "house_status": "202300000001",
+                     *             "app_source": "200100000004",
+                     *             "app_source_type": "200201000000",
+                     *             "app_source_brand": "200301001000",
+                     *             "app_source_pkid": "105108817443",
+                     *             "frame_orientation": "北",
+                     *             "detail_scheme": "lianjiabeike://rentplat/house/detail/distribute?house_code=SZ2881132036557643776&parentSceneId=5801806037532552704&ad_code=0",
+                     *             "distribution_type": "203500000001",
+                     *             "quality_icon": "",
+                     *             "activity_phrase": {
+                     *                 "color_txt": "F6804D",
+                     *                 "txt": ""
+                     *             },
+                     *             "stress_content": null,
+                     *             "vr_icon": "https://image1.ljcdn.com/rent-front-image/68c2bcb27bad2faa3b5968a305431ca2.1521791109090_ed60db63-2265-448f-af81-3357e1e96de5.90x90.png",
+                     *             "shop_id": "0",
+                     *             "c_type": 1,
+                     *             "divider_desc": "",
+                     *             "reason_id": null,
+                     *             "reason_value": null,
+                     *             "m_url": "https://m.lianjia.com/chuzu/sz/zufang/SZ2881132036557643776.html",
+                     *             "pc_url": "https://sz.zu.ke.com/zufang/SZ2881132036557643776.html",
+                     *             "exp_type": "default",
+                     *             "coupon_template_id": [],
+                     *             "rentable_num": "",
+                     *             "bizcircle_url": "",
+                     *             "frame_bedroom_num": "3",
+                     *             "frame_hall_num": "2",
+                     *             "frame_bathroom_num": "2",
+                     *             "frame_kitchen_num": 1,
+                     *             "app_source_brand_name": "链家",
+                     *             "rent_price_trans": 0,
+                     *             "house_quality_type": 1,
+                     *             "attention": 2,
+                     *             "fb_expo_id": "502953935066501120",
+                     *             "bid_version": ""
+                     *         },
+                     *         {
+                     *             "ad_code": 41616720240460710,
+                     *             "ad_type": 40,
+                     *             "position": -1,
+                     *             "rent_type": "200600000001",
+                     *             "city_id": 440300,
+                     *             "rent_area": "88.61",
+                     *             "house_attention_type": "",
+                     *             "house_code": "SZ2898392543106973696",
+                     *             "lianjia_house_code": "",
+                     *             "house_title": "整租·宝湖名园 3室1厅 南",
+                     *             "resblock_id": "2411048724525",
+                     *             "resblock_name": "宝湖名园",
+                     *             "bizcircle_id": "612400033",
+                     *             "bizcircle_name": "布心",
+                     *             "district_name": "罗湖区",
+                     *             "match_desc": "",
+                     *             "color": "",
+                     *             "layout": "3室1厅1卫",
+                     *             "desc": "驿点公寓 88.61㎡ 布心",
+                     *             "list_picture": "https://image1.ljcdn.com/rent-user-avatar/5f0fdbbf-b5bd-46d0-ae23-d99cad1db758.280x210.jpg",
+                     *             "rent_price_listing": "6800",
+                     *             "rent_price_unit": "元/月",
+                     *             "house_tags": [
+                     *                 {
                      *                     "color_bg": "F1F4F9",
                      *                     "color_txt": "5373B2",
                      *                     "key": "decoration",
@@ -433,34 +436,50 @@ function index(){
                      * 数据保存到文件里
                      * @param {object} list 一组数据
                      */
-                    function appendFile(list){
-                        list.forEach(function(item){
+                    async function appendFile(list){
+                        let length=list.length;
+                        for(let c=0;c<length;c=c+1){
+                            let item=list[c];
                             let line=[];
                             keys.forEach(function(key){
                                 line.push(item[key]);
                             });
-                            console.log(n,line);
-                            n=n+1;
-                            fs.appendFile(dbFile,line.join(`,`)+`\n`);
-                        });
+                            let m_url=item[`m_url`];
+                            try{
+                                let response=await axios.get(m_url,{timeout:5000});
+                                {
+                                    let filteredDetail=filterDetailHtmlData(response.data);
+                                    detailKeys.forEach(function(key){
+                                        line.push(filteredDetail[key]);
+                                    });
+                                    console.log(n,line);
+                                    n=n+1;
+                                    fs.appendFile(dbFile,line.join(`,`)+`\n`);
+                                }
+                            }catch(error){
+                                console.log(error);
+                            }
+                        }
                     }
-                    appendFile(data.list);
+                    await appendFile(data.list);
                     let total=data.total;
-                    let offsets=[];
                     for(let c=0;c<Math.ceil(total/limit);c=c+1){
                         let offset=limit+c*limit;
-                        offsets.push(offset);
+                        try{
+                            let response=await axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:10000});
+                            {
+                                let data=response.data.data;
+                                await appendFile(data.list);
+                            }
+                        }catch(error){
+                            console.log(error);
+                        }
                     }
-                    offsets.forEach(function(offset){
-                        axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`).then(function(response){
-                            let data=response.data.data;
-                            appendFile(data.list);
-                        });
-                    });
-                });
-            });
-        });
+                }
+            }
+        }
     }
+}
 /**
  * 过滤出商业圈
  * @param {object} data 访问API＂https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300＂之后所得到的JSON数据
@@ -576,6 +595,19 @@ function filterDistrictNames(data){
     return regions;
 }
 /**
+ * 避免match错误，返回正则表达式的第一个所匹配到的字符串，没找到则返回空字符串。
+ * @param {Regex|String} regex 正则
+ * @param {String} string 字符串
+ * @returns {String}
+ */
+function matchAsString(regex,string){
+    try{
+        return string.match(regex)[1];
+    }catch(error){
+        return "";
+    }
+}
+/**
  * 从详情页面里再获取数据
  * @param {string} data 详情页面的HTML源码
  */
@@ -588,35 +620,41 @@ function filterDetailHtmlData(data){
      *   };
      * ```
      */
-    let coord=data.match(`
+    let coord=(function(){
+        try{
+            return data.match(`
   g_conf.coord = {
       longitude: '(.*)',
       latitude: '(.*)'
   };
 `);
-    let longitude=coord[1];
-    let latitude=coord[2];
-    let floor=data.match(`                        <label>楼层：</label>
-                        <span>(.*)</span>`)[1];
-    let elevator=data.match(`                        <label>电梯：</label>
-                        <span>(.*)</span>`)[1];
-    let maintain=data.match(`                        <label>维护：</label>
-                        <span>(.*)</span>`)[1];
-    let checkin=data.match(`                        <label>入住：</label>
-                        <span>(.*)</span>`)[1];
-    let carport=data.match(`                        <label>车位：</label>
-                        <span>(.*)</span>`)[1];
-    let water=data.match(`                        <label>用水：</label>
-                        <span>(.*)</span>`)[1];
-    let electricity=data.match(`                        <label>用电：</label>
-                        <span>(.*)</span>`)[1];
-    let gas=data.match(`                        <label>燃气：</label>
-                        <span>(.*)</span>`)[1];
-    let tenancy_period=data.match(`            <span>租期：</span>
+        }catch(error){
+            return ["","",""];
+        }
+    })();
+    let longitude=matchAsString(`longitude: '(.*)',`,data);
+    let latitude=matchAsString(`latitude: '(.*)'`,data);
+    let floor=matchAsString(`                        <label>楼层：</label>
+                        <span>(.*)</span>`,data);
+    let elevator=matchAsString(`                        <label>电梯：</label>
+                        <span>(.*)</span>`,data);
+    let maintain=matchAsString(`                        <label>维护：</label>
+                        <span>(.*)</span>`,data);
+    let checkin=matchAsString(`                        <label>入住：</label>
+                        <span>(.*)</span>`,data);
+    let carport=matchAsString(`                        <label>车位：</label>
+                        <span>(.*)</span>`,data);
+    let water=matchAsString(`                        <label>用水：</label>
+                        <span>(.*)</span>`,data);
+    let electricity=matchAsString(`                        <label>用电：</label>
+                        <span>(.*)</span>`,data);
+    let gas=matchAsString(`                        <label>燃气：</label>
+                        <span>(.*)</span>`,data);
+    let tenancy_period=matchAsString(`            <span>租期：</span>
             <label href="javascript:null">(.*)</label>
-`)[1];
-    let see_house=data.match(`            <span>看房：</span>
-            <label href="javascript:null">(.*)</label>`)[1];
+`,data);
+    let see_house=matchAsString(`            <span>看房：</span>
+            <label href="javascript:null">(.*)</label>`,data);
     return{
         longitude,latitude,
         floor,elevator,maintain,checkin,carport,water,electricity,gas,tenancy_period,see_house
@@ -697,9 +735,4 @@ function test(){
     })));
     console.log(`通过测试`);
 }
-if(commandLineArguments.test===true){
-    test();
-}else{
-    index();    
-}
-
+index();

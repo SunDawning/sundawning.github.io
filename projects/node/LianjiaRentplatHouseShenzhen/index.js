@@ -474,7 +474,7 @@ async function index(){
                         let offset=limit+c*limit;
                         offsets.push(offset);
                     }
-                    async.mapLimit(offsets,10,async function(offset){
+                    async.mapLimit(offsets,limit,async function(offset){
                         try{
                             let response=await axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:10000});
                             {

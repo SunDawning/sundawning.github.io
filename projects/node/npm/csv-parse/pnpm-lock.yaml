@@ -1,0 +1,13 @@
+lockfileVersion: 5.3
+
+specifiers:
+  csv-parse: ^4.16.3
+
+devDependencies:
+  csv-parse: 4.16.3
+
+packages:
+
+  /csv-parse/4.16.3:
+    resolution: {integrity: sha512-cO1I/zmz4w2dcKHVvpCr7JVRu8/FymG5OEpmvsZYlccYolPBLoVGKUHgNoc4ZGkFeFlWGEDmMyBM+TTqRdW/wg==}
+    dev: true

@@ -1,6 +1,8 @@
 let axios=require(`axios`);
 let fs=require(`fs-extra`);
 let assert=require(`assert`);
+let commandLineArguments=require(`minimist`)(process.argv);
+console.log(`命令行：${JSON.stringify(commandLineArguments,null,4)}`);
 function index(){
     /**
      * 从API获取行政区
@@ -317,148 +319,148 @@ function index(){
                  *             "rent_price_unit": "元/月",
                  *             "house_tags": [
                  *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "decoration",
-                 *                     "name": "精装修"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "has_elevator",
-                 *                     "name": "有电梯"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "is_new",
-                 *                     "name": "新上"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "has_parking_place",
-                 *                     "name": "有车位"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "rent_period_month",
-                 *                     "name": "月租"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "water_elec_type",
-                 *                     "name": "民水民电"
-                 *                 },
-                 *                 {
-                 *                     "color_bg": "F1F4F9",
-                 *                     "color_txt": "5373B2",
-                 *                     "key": "is_key",
-                 *                     "name": "随时看房"
-                 *                 }
-                 *             ],
-                 *             "operation_tags": [],
-                 *             "house_status": "202300000001",
-                 *             "app_source": "200100000003",
-                 *             "app_source_type": "200202000000",
-                 *             "app_source_brand": "200306007652",
-                 *             "app_source_pkid": "2898392540321416198",
-                 *             "frame_orientation": "南",
-                 *             "detail_scheme": "lianjiabeike://rentplat/house/detail/distribute?house_code=SZ2898392543106973696&parentSceneId=5801806037532552705&ad_code=41616720240460712",
-                 *             "distribution_type": "203500000001",
-                 *             "quality_icon": "",
-                 *             "activity_phrase": {
-                 *                 "color_txt": "F6804D",
-                 *                 "txt": ""
-                 *             },
-                 *             "stress_content": null,
-                 *             "vr_icon": "https://image1.ljcdn.com/rent-front-image/68c2bcb27bad2faa3b5968a305431ca2.1521791109090_ed60db63-2265-448f-af81-3357e1e96de5.90x90.png",
-                 *             "shop_id": "0",
-                 *             "c_type": 1,
-                 *             "divider_desc": "",
-                 *             "reason_id": null,
-                 *             "reason_value": null,
-                 *             "m_url": "https://m.lianjia.com/chuzu/sz/zufang/SZ2898392543106973696.html",
-                 *             "pc_url": "https://sz.zu.ke.com/zufang/SZ2898392543106973696.html",
-                 *             "exp_type": "default",
-                 *             "coupon_template_id": [],
-                 *             "rentable_num": "",
-                 *             "bizcircle_url": "",
-                 *             "frame_bedroom_num": "3",
-                 *             "frame_hall_num": "1",
-                 *             "frame_bathroom_num": "1",
-                 *             "frame_kitchen_num": 1,
-                 *             "app_source_brand_name": "驿点公寓",
-                 *             "rent_price_trans": 0,
-                 *             "house_quality_type": null,
-                 *             "attention": 2,
-                 *             "fb_expo_id": "502953935066501121",
-                 *             "bid_version": "v41616720274539432"
-                 *         }
-                 *     ],
-                 *     "total": 237,
-                 *     "ext_filter": [
-                 *         {
-                 *             "name": "月租",
-                 *             "pinyin": "rmp1"
-                 *         },
-                 *         {
-                 *             "name": "朝南",
-                 *             "pinyin": "f100500000003"
-                 *         },
-                 *         {
-                 *             "name": "近地铁",
-                 *             "pinyin": "su1"
-                 *         },
-                 *         {
-                 *             "name": "精装修",
-                 *             "pinyin": "de1"
-                 *         },
-                 *         {
-                 *             "name": "集中供暖",
-                 *             "pinyin": "ct1"
-                 *         }
-                 *     ],
-                 *     "subway_avg_price": null,
-                 *     "recommend_list": null
-                 * }
-                 * ```
-                 */
-                let data=response.data.data;
-                /**
-                 * 数据保存到文件里
-                 * @param {object} list 一组数据
-                 */
-                function appendFile(list){
-                    list.forEach(function(item){
-                        let line=[];
-                        keys.forEach(function(key){
-                            line.push(item[key]);
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "decoration",
+                     *                     "name": "精装修"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "has_elevator",
+                     *                     "name": "有电梯"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "is_new",
+                     *                     "name": "新上"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "has_parking_place",
+                     *                     "name": "有车位"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "rent_period_month",
+                     *                     "name": "月租"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "water_elec_type",
+                     *                     "name": "民水民电"
+                     *                 },
+                     *                 {
+                     *                     "color_bg": "F1F4F9",
+                     *                     "color_txt": "5373B2",
+                     *                     "key": "is_key",
+                     *                     "name": "随时看房"
+                     *                 }
+                     *             ],
+                     *             "operation_tags": [],
+                     *             "house_status": "202300000001",
+                     *             "app_source": "200100000003",
+                     *             "app_source_type": "200202000000",
+                     *             "app_source_brand": "200306007652",
+                     *             "app_source_pkid": "2898392540321416198",
+                     *             "frame_orientation": "南",
+                     *             "detail_scheme": "lianjiabeike://rentplat/house/detail/distribute?house_code=SZ2898392543106973696&parentSceneId=5801806037532552705&ad_code=41616720240460712",
+                     *             "distribution_type": "203500000001",
+                     *             "quality_icon": "",
+                     *             "activity_phrase": {
+                     *                 "color_txt": "F6804D",
+                     *                 "txt": ""
+                     *             },
+                     *             "stress_content": null,
+                     *             "vr_icon": "https://image1.ljcdn.com/rent-front-image/68c2bcb27bad2faa3b5968a305431ca2.1521791109090_ed60db63-2265-448f-af81-3357e1e96de5.90x90.png",
+                     *             "shop_id": "0",
+                     *             "c_type": 1,
+                     *             "divider_desc": "",
+                     *             "reason_id": null,
+                     *             "reason_value": null,
+                     *             "m_url": "https://m.lianjia.com/chuzu/sz/zufang/SZ2898392543106973696.html",
+                     *             "pc_url": "https://sz.zu.ke.com/zufang/SZ2898392543106973696.html",
+                     *             "exp_type": "default",
+                     *             "coupon_template_id": [],
+                     *             "rentable_num": "",
+                     *             "bizcircle_url": "",
+                     *             "frame_bedroom_num": "3",
+                     *             "frame_hall_num": "1",
+                     *             "frame_bathroom_num": "1",
+                     *             "frame_kitchen_num": 1,
+                     *             "app_source_brand_name": "驿点公寓",
+                     *             "rent_price_trans": 0,
+                     *             "house_quality_type": null,
+                     *             "attention": 2,
+                     *             "fb_expo_id": "502953935066501121",
+                     *             "bid_version": "v41616720274539432"
+                     *         }
+                     *     ],
+                     *     "total": 237,
+                     *     "ext_filter": [
+                     *         {
+                     *             "name": "月租",
+                     *             "pinyin": "rmp1"
+                     *         },
+                     *         {
+                     *             "name": "朝南",
+                     *             "pinyin": "f100500000003"
+                     *         },
+                     *         {
+                     *             "name": "近地铁",
+                     *             "pinyin": "su1"
+                     *         },
+                     *         {
+                     *             "name": "精装修",
+                     *             "pinyin": "de1"
+                     *         },
+                     *         {
+                     *             "name": "集中供暖",
+                     *             "pinyin": "ct1"
+                     *         }
+                     *     ],
+                     *     "subway_avg_price": null,
+                     *     "recommend_list": null
+                     * }
+                     * ```
+                     */
+                    let data=response.data.data;
+                    /**
+                     * 数据保存到文件里
+                     * @param {object} list 一组数据
+                     */
+                    function appendFile(list){
+                        list.forEach(function(item){
+                            let line=[];
+                            keys.forEach(function(key){
+                                line.push(item[key]);
+                            });
+                            console.log(n,line);
+                            n=n+1;
+                            fs.appendFile(dbFile,line.join(`,`)+`\n`);
                         });
-                        console.log(n,line);
-                        n=n+1;
-                        fs.appendFile(dbFile,line.join(`,`)+`\n`);
-                    });
-                }
-                appendFile(data.list);
-                let total=data.total;
-                let offsets=[];
-                for(let c=0;c<Math.ceil(total/limit);c=c+1){
-                    let offset=limit+c*limit;
-                    offsets.push(offset);
-                }
-                offsets.forEach(function(offset){
-                    axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`).then(function(response){
-                        let data=response.data.data;
-                        appendFile(data.list);
+                    }
+                    appendFile(data.list);
+                    let total=data.total;
+                    let offsets=[];
+                    for(let c=0;c<Math.ceil(total/limit);c=c+1){
+                        let offset=limit+c*limit;
+                        offsets.push(offset);
+                    }
+                    offsets.forEach(function(offset){
+                        axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`).then(function(response){
+                            let data=response.data.data;
+                            appendFile(data.list);
+                        });
                     });
                 });
             });
         });
-    });
-}
+    }
 /**
  * 过滤出商业圈
  * @param {object} data 访问API＂https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300＂之后所得到的JSON数据
@@ -624,6 +626,7 @@ function filterDetailHtmlData(data){
  * 测试程序的功能
  */
 function test(){
+    console.log(`开始测试程序的功能`);
     /**
      * filterBusinessCircles
      */
@@ -692,5 +695,11 @@ function test(){
             ]
         },
     })));
+    console.log(`通过测试`);
 }
-index();
+if(commandLineArguments.test===true){
+    test();
+}else{
+    index();    
+}
+

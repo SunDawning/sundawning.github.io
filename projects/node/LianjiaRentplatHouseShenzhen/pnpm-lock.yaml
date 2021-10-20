@@ -3,10 +3,12 @@ lockfileVersion: 5.3
 specifiers:
   axios: ^0.23.0
   fs-extra: ^10.0.0
+  minimist: ^1.2.5
 
 devDependencies:
   axios: 0.23.0
   fs-extra: 10.0.0
+  minimist: 1.2.5
 
 packages:
 
@@ -47,6 +49,10 @@ packages:
       universalify: 2.0.0
     optionalDependencies:
       graceful-fs: 4.2.8
+    dev: true
+
+  /minimist/1.2.5:
+    resolution: {integrity: sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==}
     dev: true
 
   /universalify/2.0.0:

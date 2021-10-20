@@ -2,9 +2,15 @@ let axios=require(`axios`);
 let fs=require(`fs-extra`);
 let assert=require(`assert`);
 async function index(){
+    let n=0;
+    let total;
+    {
+        let response=await axios.get(`https://m.lianjia.com/chuzu/sz/zufang/rt200600000001/`);
+        total=matchAsString(`data-item-count="(.*)"`,response.data);
+    }
     /**
      * 从API获取行政区
-         */
+     */
     let response=await axios.get(`https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300`);
     {
         /**
@@ -178,7 +184,6 @@ async function index(){
         let keys=["house_title","resblock_name","bizcircle_name","district_name","layout","rent_area","rent_price_listing","frame_orientation","m_url"];
         let detailKeys=["longitude","latitude","floor","elevator","maintain","checkin","carport","water","electricity","gas","tenancy_period","see_house"];
         fs.writeFileSync(dbFile,keys.concat(detailKeys).join(`,`)+`\n`);
-        let n=0;
         for(let c=0;c<districtNames.length;c=c+1){
             let districtName=districtNames[c];
             {
@@ -452,7 +457,7 @@ async function index(){
                                     detailKeys.forEach(function(key){
                                         line.push(filteredDetail[key]);
                                     });
-                                    console.log(n,line);
+                                    console.log(`${n}/${total}[${(n/total)*100}%]`,line);
                                     n=n+1;
                                     fs.appendFile(dbFile,line.join(`,`)+`\n`);
                                 }
@@ -462,8 +467,8 @@ async function index(){
                         }
                     }
                     await appendFile(data.list);
-                    let total=data.total;
-                    for(let c=0;c<Math.ceil(total/limit);c=c+1){
+                    let length=data.total;
+                    for(let c=0;c<Math.ceil(length/limit);c=c+1){
                         let offset=limit+c*limit;
                         try{
                             let response=await axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:10000});

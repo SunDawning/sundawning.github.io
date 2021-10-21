@@ -181,7 +181,12 @@ async function index(){
         let data=response.data.data;
         fs.writeFile(`https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300`.replaceAll(/[:\/\?]/g,`_`)+`.json`,JSON.stringify(data,undefined,4));
         let districtNames=filterDistrictNames(data);
-        let dbFile=`${new Date().getTime()}.csv`;
+        let dbDirectory=`dbDirectory`;
+        if(fs.existsSync(dbDirectory)===false){
+            console.log(`创建数据库文件夹：${dbDirectory}`);
+            fs.mkdirSync(dbDirectory);
+        }
+        let dbFile=`${dbDirectory}/${new Date().getTime()}.csv`;
         let keys=["house_title","resblock_name","bizcircle_name","district_name","layout","rent_area","rent_price_listing","frame_orientation","m_url"];
         let detailKeys=[
             "distance",

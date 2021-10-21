@@ -183,7 +183,11 @@ async function index(){
         let districtNames=filterDistrictNames(data);
         let dbFile=`${new Date().getTime()}.csv`;
         let keys=["house_title","resblock_name","bizcircle_name","district_name","layout","rent_area","rent_price_listing","frame_orientation","m_url"];
-        let detailKeys=["longitude","latitude","floor","elevator","maintain","checkin","carport","water","electricity","gas","tenancy_period","see_house"];
+        let detailKeys=[
+            "distance",
+            "longitude","latitude",
+            "floor","elevator","maintain","checkin","carport","water","electricity","gas","tenancy_period","see_house"
+        ];
         fs.writeFileSync(dbFile,keys.concat(detailKeys).join(`,`)+`\n`);
         for(let c=0;c<districtNames.length;c=c+1){
             let districtName=districtNames[c];
@@ -665,7 +669,9 @@ function filterDetailHtmlData(data){
 `,data);
     let see_house=matchAsString(`            <span>看房：</span>
             <label href="javascript:null">(.*)</label>`,data);
+    let distance=matchAsString(`<span class="fr">(.*)米</span>`,data);
     return{
+        distance,
         longitude,latitude,
         floor,elevator,maintain,checkin,carport,water,electricity,gas,tenancy_period,see_house
     };

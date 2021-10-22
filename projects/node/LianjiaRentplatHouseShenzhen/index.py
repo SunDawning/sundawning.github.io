@@ -20,7 +20,8 @@ def update(file):
     path="{}/{}".format(dbDirectory,file)
     # 不处理正在下载数据的CSV文件
     from time import time
-    if((time()-os.path.getmtime(path))>120):
+    passed=time()-os.path.getmtime(path)
+    if(passed>120):
         print("Import csv to mongodb: {}".format(path))
         name=os.path.splitext(file)[0]
         # 导入csv文件里的数据到mongodb数据库
@@ -48,7 +49,8 @@ def update(file):
         move(path,backupPath)
         pass
     else:
-        print("Locked: {}".format(path))
+        print("Locked: {}.".format(path))
+        print("Passed: {}s".format(passed))
         pass
     pass
 from threading import Thread

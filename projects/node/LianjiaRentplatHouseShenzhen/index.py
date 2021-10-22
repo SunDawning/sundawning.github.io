@@ -16,7 +16,7 @@ if(os.path.exists(dbDirectoryBackup)==False):
     os.makedirs(dbDirectoryBackup)
     pass
 files=os.listdir(dbDirectory)
-for file in files:
+def update(file):
     path="{}/{}".format(dbDirectory,file)
     # 不处理正在下载数据的CSV文件
     from time import time
@@ -47,4 +47,8 @@ for file in files:
         print("Locked: {}".format(path))
         pass
     pass
-
+from threading import Thread
+for file in files:
+    thread=Thread(target=update,args=(file,))
+    thread.start()
+    pass

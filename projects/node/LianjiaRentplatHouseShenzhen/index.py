@@ -33,7 +33,7 @@ for file in files:
                 item["timestamp"]=name;
                 exists=db["zufang"].find_one({"m_url":item["m_url"]})
                 # 数据库里不存在记录;数据不存在时间戳;数据时间戳比当前的要旧
-                if((exists==None)|(exists.get("timestamp")==None)|(int(exists.get("timestamp"))<int(name))):
+                if((exists==None) or (exists.get("timestamp")==None) or (int(exists.get("timestamp"))<int(name))):
                     db['zufang'].update_one({'m_url': item['m_url']}, {'$set': item}, upsert=True)
                     pass
                 pass

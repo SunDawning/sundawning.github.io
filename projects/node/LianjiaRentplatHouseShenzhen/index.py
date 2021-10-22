@@ -58,8 +58,6 @@ def update(file):
         print("Passed: {}s".format(passed))
         pass
     pass
-from threading import Thread
 for file in files:
-    thread=Thread(target=update,args=(file,))
-    thread.start()
+    update(file)
     pass

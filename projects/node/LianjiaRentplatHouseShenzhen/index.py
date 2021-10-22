@@ -31,7 +31,11 @@ for file in files:
                 item["city"]="深圳";
                 item["type"]="整租";
                 item["timestamp"]=name;
-                db['zufang'].update_one({'m_url': item['m_url']}, {'$set': item}, upsert=True)
+                exists=db["zufang"].find_one({"m_url":item["m_url"]})
+                # 数据库里不存在记录;数据不存在时间戳;数据时间戳比当前的要旧
+                if((exists==None)|(exists.get("timestamp")==None)|(int(exists.get("timestamp"))<int(name))):
+                    db['zufang'].update_one({'m_url': item['m_url']}, {'$set': item}, upsert=True)
+                    pass
                 pass
             pass
         backupPath="{}/{}".format(dbDirectoryBackup,file)

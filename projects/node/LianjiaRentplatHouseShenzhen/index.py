@@ -58,6 +58,10 @@ def update(file):
         print("Passed: {}s".format(passed))
         pass
     pass
+n=0
+total=len(files)
 for file in files:
     update(file)
+    n=n+1
+    print("Imported Files: [{}/{}]".format(n,total))
     pass

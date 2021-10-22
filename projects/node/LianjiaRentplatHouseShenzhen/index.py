@@ -28,7 +28,10 @@ def update(file):
         with open(path,'r',encoding='utf-8')as csvfile:
             from csv import DictReader
             reader=DictReader(csvfile)
+            total=0
+            n=0
             for item in reader:
+                total=total+1
                 item["city"]="深圳";
                 item["type"]="整租";
                 item["timestamp"]=name;
@@ -40,8 +43,10 @@ def update(file):
                 # 数据库里不存在记录;数据不存在时间戳;数据时间戳比当前的要旧
                 if((exists==None) or (exists.get("timestamp")==None) or (int(exists.get("timestamp"))<int(name))):
                     db['zufang'].update_one({'m_url': item['m_url']}, {'$set': item}, upsert=True)
+                    n=n+1
                     pass
                 pass
+            print("Update [{}/{}]".format(n,total))
             pass
         backupPath="{}/{}".format(dbDirectoryBackup,file)
         print("Move {} => {}".format(path,backupPath))

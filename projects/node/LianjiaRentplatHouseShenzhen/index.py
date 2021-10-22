@@ -32,6 +32,10 @@ def update(file):
                 item["type"]="整租";
                 item["timestamp"]=name;
                 exists=db["zufang"].find_one({"m_url":item["m_url"]})
+                # 记录首次将该租房数据存到数据库的时间戳
+                if((exists==None) or (exists.get("timestamp")==None)):
+                    item["first_timestamp"]=name
+                    pass
                 # 数据库里不存在记录;数据不存在时间戳;数据时间戳比当前的要旧
                 if((exists==None) or (exists.get("timestamp")==None) or (int(exists.get("timestamp"))<int(name))):
                     db['zufang'].update_one({'m_url': item['m_url']}, {'$set': item}, upsert=True)

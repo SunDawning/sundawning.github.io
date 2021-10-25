@@ -11,8 +11,10 @@
     <script type="text/javascript">
       let viewer=new Cesium.Viewer(document.body.appendChild(document.createElement("div")));
       viewer.camera.setView({destination:{x: -2487022.5181193757, y: 5531599.850967436, z: 2541274.1065146397}});
-      // ESRI World Imagery
-      document.querySelector("div.cesium-baseLayerPicker-dropDown > div:nth-child(2) > div:nth-child(2) > div.cesium-baseLayerPicker-choices > div:nth-child(1)").click();
+      viewer.imageryLayers.removeAll();
+      viewer.scene.mode=Cesium.SceneMode.SCENE2D;
+      // https://sandcastle.cesium.com/index.html?src=Cartographic%20Limit%20Rectangle.html
+      viewer.scene.globe.cartographicLimitRectangle=Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567);
       [
         // 街道图
         "http://61.144.226.123:10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3Ashenzhenwgb@EPSG%3A4326@png/{z}/{x}/{reverseY}.png?d="+parseInt(Math.random()*100),

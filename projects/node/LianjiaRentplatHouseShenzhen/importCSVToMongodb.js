@@ -29,7 +29,7 @@ async function index(){
         {
             let csvFile=`${dbDirectory}/${file}`;
             let data=fs.readFileSync(csvFile,{encoding:`utf-8`});
-            console.log(`Import csv to mongodb: ${csvFile}`);
+            console.log(`导入csv文件到mongodb: ${csvFile}`);
             let output=csv_parse(data.trim());
             let header=output[0];
             let lines=output.slice(1);
@@ -66,10 +66,10 @@ async function index(){
                     n=n+1;
                 }
             }
-            console.log(`Update [${n}/${total}]`);
+            console.log(`已更新数据：[${n}/${total}]`);
             let backupPath=`${dbDirectoryBackup}/${file}`;
             fs.renameSync(csvFile,backupPath);
-            console.log(`Move ${csvFile} => ${backupPath}`);
+            console.log(`移动文件：${csvFile} => ${backupPath}`);
         }
     }
 }

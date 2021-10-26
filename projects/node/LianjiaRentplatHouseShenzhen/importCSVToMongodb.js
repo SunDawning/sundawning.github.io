@@ -70,9 +70,16 @@ async function index(){
                 }
             }
             console.log(`已更新数据：[${n}/${total}]`);
-            let backupPath=`${dbDirectoryBackup}/${file}`;
-            fs.renameSync(csvFile,backupPath);
-            console.log(`移动文件：${csvFile} => ${backupPath}`);
+            let stat=fs.statSync(csvFile);
+            let passed=new Date().getTime()-stat["mtimeMs"];
+            if(passed>20*1000){
+                let backupPath=`${dbDirectoryBackup}/${file}`;
+                fs.renameSync(csvFile,backupPath);
+                console.log(`移动文件：${csvFile} => ${backupPath}`);
+            }else{
+                console.log(`文件可能刚被修改了，暂时不移动文件：${csvFile}`);
+                console.log(`已过去：${passed}ms`);
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ async function index(){
         {
             let csvFile=`${dbDirectory}/${file}`;
             let data=fs.readFileSync(csvFile,{encoding:`utf-8`});
-            console.log(`导入csv文件到mongodb: ${csvFile}`);
+            console.log(`将导入csv文件到mongodb: ${csvFile}`);
             let output=csv_parse(data.trim());
             let header=output[0];
             let lines=output.slice(1);

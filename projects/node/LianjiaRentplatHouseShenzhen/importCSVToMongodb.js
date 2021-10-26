@@ -20,7 +20,7 @@ if(fs.existsSync(dbDirectoryBackup)===false){
 let files=fs.readdirSync(dbDirectory);
 async function index(){
     await mongoClient.connect();
-    console.log(`已连接数据库`);
+    console.log(`已连接数据库：${url}`);
     let db=mongoClient.db(dbName);
     let collection=db.collection(collectionName);
     await collection.createIndex({"m_url":1},{"unique":true});

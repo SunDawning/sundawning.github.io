@@ -61,12 +61,13 @@ async function index(){
                     item["first_timestamp"]=name;
                     await collection.insertMany([item]);
                     n=n+1;
+                    console.log(`已添加数据：[${n}/${total}]`);
                 }else if(one["timestamp"]<name){
                     await collection.updateOne(index,{"$set":item});
                     n=n+1;
+                    console.log(`已更新数据：[${n}/${total}]`);
                 }
             }
-            console.log(`已更新数据：[${n}/${total}]`);
             let backupPath=`${dbDirectoryBackup}/${file}`;
             fs.renameSync(csvFile,backupPath);
             console.log(`移动文件：${csvFile} => ${backupPath}`);

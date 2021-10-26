@@ -24,8 +24,10 @@ async function index(){
     let db=mongoClient.db(dbName);
     let collection=db.collection(collectionName);
     await collection.createIndex({"m_url":1},{"unique":true});
-    for(let c=0;c<files.length;c=c+1){
+    let totalFiles=files.length;
+    for(let c=0;c<totalFiles;c=c+1){
         let file=files[c];
+        console.log(`导入文件数量：[${c+1}/${totalFiles}]`);
         {
             let csvFile=`${dbDirectory}/${file}`;
             let data=fs.readFileSync(csvFile,{encoding:`utf-8`});
@@ -61,13 +63,13 @@ async function index(){
                     item["first_timestamp"]=name;
                     await collection.insertMany([item]);
                     n=n+1;
-                    console.log(`已添加数据：[${n}/${total}]`);
                 }else if(one["timestamp"]<name){
                     await collection.updateOne(index,{"$set":item});
                     n=n+1;
-                    console.log(`已更新数据：[${n}/${total}]`);
+
                 }
             }
+            console.log(`已更新数据：[${n}/${total}]`);
             let backupPath=`${dbDirectoryBackup}/${file}`;
             fs.renameSync(csvFile,backupPath);
             console.log(`移动文件：${csvFile} => ${backupPath}`);

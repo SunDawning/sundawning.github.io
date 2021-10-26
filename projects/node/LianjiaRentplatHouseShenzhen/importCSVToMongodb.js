@@ -36,13 +36,11 @@ async function index(){
             let total=lines.length;
             if(total===0){
                 console.log(`没有数据`);
+                fs.unlinkSync(csvFile);
+                console.log(`删除文件：${csvFile}`);
                 continue;
             }
             let m_url_index=header.indexOf(`m_url`);
-            if(m_url_index===-1){
-                console.log(`没有找到m_url`);
-                continue;
-            }
             let n=0;
             for(let c=0;c<total;c=c+1){
                 let line=lines[c];

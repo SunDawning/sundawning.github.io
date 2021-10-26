@@ -21,7 +21,7 @@ def update(file):
     # 不处理正在下载数据的CSV文件
     from time import time
     passed=time()-os.path.getmtime(path)
-    if(passed>120):
+    if(passed>20):
         print("Import csv to mongodb: {}".format(path))
         name=os.path.splitext(file)[0]
         # 导入csv文件里的数据到mongodb数据库

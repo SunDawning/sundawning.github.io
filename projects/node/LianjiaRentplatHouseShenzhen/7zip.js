@@ -56,7 +56,7 @@ if(files.length>0){
                 }
             }
             if(executable_find(`7za`)===undefined){
-                child_process_exec_sync(`pkg install p7za`);   
+                child_process_exec_sync(`pkg install p7zip -y`);
             }
             child_process_exec_sync(`7za a ${packedFile} ${directory}`);
         }

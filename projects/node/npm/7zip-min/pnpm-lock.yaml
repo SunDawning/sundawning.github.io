@@ -1,0 +1,19 @@
+lockfileVersion: 5.3
+
+specifiers:
+  7zip-min: ^1.4.0
+
+devDependencies:
+  7zip-min: 1.4.0
+
+packages:
+
+  /7zip-bin/5.1.1:
+    resolution: {integrity: sha512-sAP4LldeWNz0lNzmTird3uWfFDWWTeg6V/MsmyyLR9X1idwKBWIgt/ZvinqQldJm3LecKEs1emkbquO6PCiLVQ==}
+    dev: true
+
+  /7zip-min/1.4.0:
+    resolution: {integrity: sha512-Sb8q5YvvCgnZr0tbeXGlDAjcPbIHfUOjFBA/xNIpZK37EAunR6bVTZNXkRyLStnxaA2RH2/nQtMyKHtDnn8Pgg==}
+    dependencies:
+      7zip-bin: 5.1.1
+    dev: true

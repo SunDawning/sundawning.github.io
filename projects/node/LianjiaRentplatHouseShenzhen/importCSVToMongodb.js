@@ -43,6 +43,7 @@ async function index(){
                 continue;
             }
             let m_url_index=header.indexOf(`m_url`);
+            let m=0;
             let n=0;
             for(let c=0;c<total;c=c+1){
                 let line=lines[c];
@@ -67,7 +68,7 @@ async function index(){
                         "rent_price_listing":rent_price_listing
                     });
                     await collection.insertOne(item);
-                    n=n+1;
+                    m=m+1;
                 }else{
                     let existsRentPrices=one["rent_price_listings"].filter(function(rent_price){
                         // - 已经记录相应时间的房租：避免导入相同时间的数据
@@ -80,13 +81,13 @@ async function index(){
                             "timestamp":name,
                             "rent_price_listing":rent_price_listing
                         });
-                        console.log(`房价发生变化：`,index,item["rent_price_listings"]);
+                        console.log(`房价发生变化：`,Object.assign(index,{"rent_price_listings":item["rent_price_listings"]}));
                         await collection.updateOne(index,{"$set":item});
                         n=n+1;
                     }
                 }
             }
-            console.log(`已更新数据：[${n}/${total}]`);
+            console.log(`总数：${total}|新增：${m}|更新：${n}`);
             let stat=fs.statSync(csvFile);
             let passed=new Date().getTime()-stat["mtimeMs"];
             if(passed>20*1000){

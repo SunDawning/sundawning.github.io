@@ -81,9 +81,9 @@ async function index(){
                             "rent_price_listing":rent_price_listing
                         });
                         console.log(`房价发生变化：`,index,item["rent_price_listings"]);
+                        await collection.updateOne(index,{"$set":item});
+                        n=n+1;
                     }
-                    await collection.updateOne(index,{"$set":item});
-                    n=n+1;
                 }
             }
             console.log(`已更新数据：[${n}/${total}]`);

@@ -23,10 +23,7 @@ if(files.length>0){
             function child_process_exec_sync(cmd){
                 let{execSync}=require("child_process");
                 console.log("同步启动程序：",cmd);
-                let childProcess=execSync(cmd);
-                childProcess.stdout.pipe(process.stdout);
-                childProcess.stderr.pipe(process.stderr);
-                return childProcess;
+                return execSync(cmd);
             }
             /**
              * 获取不同操作系统查找命令的程序

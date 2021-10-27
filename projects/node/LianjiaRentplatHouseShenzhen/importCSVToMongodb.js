@@ -44,44 +44,32 @@ async function index(){
             }
             let m_url_index=header.indexOf(`m_url`);
             let n=0;
-            let start=new Date().getTime();
-            let session=mongoClient.startSession();
-            console.log(`创建数据导入事务`);
-            try{
-                await session.withTransaction(async function(){
-                    for(let c=0;c<total;c=c+1){
-                        let line=lines[c];
-                        let name=path.basename(file,".csv");
-                        let item={};
-                        item["city"]="深圳";
-                        item["type"]="整租";
-                        item["timestamp"]=name;
-                        header.forEach(function(columnName){
-                            let columnIndex=header.indexOf(columnName);
-                            item[columnName]=line[columnIndex];
-                        });
-                        let index={"m_url":line[m_url_index]};
-                        let exists=await collection.find(index).toArray();
-                        let one=exists[0];
-                        if(one===undefined){
-                            // 记录首次将该租房数据存到数据库的时间戳
-                            item["first_timestamp"]=name;
-                            await collection.insertOne(item,{session});
-                            n=n+1;
-                        }else if(one["timestamp"]<name){
-                            await collection.updateOne(index,{"$set":item});
-                            n=n+1;
-
-                        }
-                    }
+            for(let c=0;c<total;c=c+1){
+                let line=lines[c];
+                let name=path.basename(file,".csv");
+                let item={};
+                item["city"]="深圳";
+                item["type"]="整租";
+                item["timestamp"]=name;
+                header.forEach(function(columnName){
+                    let columnIndex=header.indexOf(columnName);
+                    item[columnName]=line[columnIndex];
                 });
-            }catch(error){
-                console.log(`错误：${error}`);
-            }finally{
-                await session.endSession();
+                let index={"m_url":line[m_url_index]};
+                let exists=await collection.find(index).toArray();
+                let one=exists[0];
+                if(one===undefined){
+                    // 记录首次将该租房数据存到数据库的时间戳
+                    item["first_timestamp"]=name;
+                    await collection.insertMany([item]);
+                    n=n+1;
+                }else if(one["timestamp"]<name){
+                    await collection.updateOne(index,{"$set":item});
+                    n=n+1;
+
+                }
             }
             console.log(`已更新数据：[${n}/${total}]`);
-            console.log(`用时：${new Date().getTime()-start}ms`);
             let stat=fs.statSync(csvFile);
             let passed=new Date().getTime()-stat["mtimeMs"];
             if(passed>20*1000){

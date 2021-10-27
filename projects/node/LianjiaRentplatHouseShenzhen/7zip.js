@@ -26,6 +26,7 @@ if(files.length>0){
                 let childProcess=execSync(cmd);
                 childProcess.stdout.pipe(process.stdout);
                 childProcess.stderr.pipe(process.stderr);
+                return childProcess;
             }
             /**
              * 获取不同操作系统查找命令的程序

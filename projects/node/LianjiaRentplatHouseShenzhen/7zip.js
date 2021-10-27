@@ -8,5 +8,9 @@ let directory=`dbDirectory`;
 let files=fs.readdirSync(directory);
 console.log(`files:`,files);
 if(files.length>0){
-    p7zip.pack(directory,`${directory}.7z`,function(error){});
+    p7zip.pack(directory,`${directory}.7z`,function(error){
+        if(error){
+            console.log(error);
+        }
+    });
 }

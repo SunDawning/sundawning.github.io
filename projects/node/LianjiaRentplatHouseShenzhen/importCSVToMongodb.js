@@ -7,7 +7,7 @@ let path=require(`path`);
  */
 let host=`127.0.0.1`;
 let port=`27017`;
-let dbName="Lianjia";
+let dbName="lianjia";
 let collectionName=`zufang`;
 let url=`mongodb://${host}:${port}`;
 let mongoClient=new MongoClient(url);
@@ -50,23 +50,40 @@ async function index(){
                 let item={};
                 item["city"]="深圳";
                 item["type"]="整租";
-                item["timestamp"]=name;
                 header.forEach(function(columnName){
+                    if(columnName==="rent_price_listing"){return;}
                     let columnIndex=header.indexOf(columnName);
                     item[columnName]=line[columnIndex];
                 });
                 let index={"m_url":line[m_url_index]};
                 let exists=await collection.find(index).toArray();
                 let one=exists[0];
+                let rent_price_listing=line[header.indexOf("rent_price_listing")];
+                // 没有该房子的记录
                 if(one===undefined){
-                    // 记录首次将该租房数据存到数据库的时间戳
-                    item["first_timestamp"]=name;
-                    await collection.insertMany([item]);
+                    item["rent_price_listings"]=[];
+                    item["rent_price_listings"].push({
+                        "timestamp":name,
+                        "rent_price_listing":rent_price_listing
+                    });
+                    await collection.insertOne(item);
                     n=n+1;
-                }else if(one["timestamp"]<name){
+                }else{
+                    let existsRentPrices=one["rent_price_listings"].filter(function(rent_price){
+                        // - 已经记录相应时间的房租：避免导入相同时间的数据
+                        // - 房租相同：避免导入没有变化的数据
+                        return (rent_price["timestamp"]===name)||(rent_price["rent_price_listing"]===rent_price_listing);
+                    });
+                    if(existsRentPrices.length===0){
+                        item["rent_price_listings"]=one["rent_price_listings"];
+                        item["rent_price_listings"].push({
+                            "timestamp":name,
+                            "rent_price_listing":rent_price_listing
+                        });
+                        console.log(`房价发生变化：`,index,item["rent_price_listings"]);
+                    }
                     await collection.updateOne(index,{"$set":item});
                     n=n+1;
-
                 }
             }
             console.log(`已更新数据：[${n}/${total}]`);

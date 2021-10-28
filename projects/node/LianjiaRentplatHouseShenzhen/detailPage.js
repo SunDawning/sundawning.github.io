@@ -52,6 +52,13 @@ interface.on(`close`,function(){
             n=n+1;
             console.log(`[${n}/${total}] ${url}`);
         }
+    },function(error,result){
+        if(error){
+            console.log(error);
+        }else{
+            console.log(`已下载完增量索引数据里的详情数据`);
+            fs.unlink(indexPageIncrementFile);
+        }
     });
 });
 /**

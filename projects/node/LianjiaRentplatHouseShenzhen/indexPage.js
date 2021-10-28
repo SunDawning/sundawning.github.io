@@ -217,12 +217,7 @@ function filterDistrictNames(data){
         let data=response.data.data;
         fs.writeFile(`https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300`.replaceAll(/[:\/\?]/g,`_`)+`.json`,JSON.stringify(data,undefined,4));
         let districtNames=filterDistrictNames(data);
-        let dbDirectory=`dbDirectory`;
-        if(fs.existsSync(dbDirectory)===false){
-            console.log(`创建数据库文件夹：${dbDirectory}`);
-            fs.mkdirSync(dbDirectory);
-        }
-        let dbFile=`${dbDirectory}/${new Date().getTime()}.txt`;
+        let dbFile=`indexPage.txt`;
         let n=0;
         districtNames.forEach(function(districtName){
             /**
@@ -480,6 +475,7 @@ function filterDistrictNames(data){
                  */
                 function appendFile(list){
                     list.forEach(function(item){
+                        item["timestamp"]=new Date().getTime();
                         let line=JSON.stringify(item);
                         console.log(n);
                         n=n+1;

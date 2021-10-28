@@ -1,11 +1,13 @@
 let fs=require(`fs-extra`);
 let readline=require(`readline`);
 let axios=require(`axios`);
+let async=require(`async`);
 /**
  * 读取索引页面的数据，从中提取出详情页面的链接，在已有的详情数据里查找，如果已经存在，则忽略该链接，不存在则访问详情页面，获取详情数据。
  */
-let indexPageFile=`scratch.txt`;
+let indexPageFile=`indexPage.txt`;
 let detailPageFile=`detailPage.txt`;
+// 加载整个详情数据（因为详情数据数量少，不会更新）
 let content=fs.readFileSync(detailPageFile,{encoding:"utf-8"});
 let detailPageURLs=[];
 content.split(/\r?\n/).forEach(function(line){
@@ -17,19 +19,30 @@ let interface=readline.createInterface({
     output:process.stdout,
     terminal:false
 });
-let n=0;
+// 一行一行读取索引数据（不直接加载整个文件，因为索引数据总是更新），只处理不在详情数据里的链接。
+let indexPageRestURLS=[];
 interface.on(`line`,function(line){
     if(line===""){return;}
     let url=JSON.parse(line)["m_url"];
     if(detailPageURLs.includes(url)===true){return;}
-    axios.get(url,{timeout:600000}).then(function(response){
-        let item=filterDetailHtmlData(response.data);
-        item["m_url"]=url;
-        item["timestamp"]=new Date().getTime();
-        fs.appendFile(detailPageFile,JSON.stringify(item)+"\n");
-        n=n+1;
-        console.log(n);
-    });
+    indexPageRestURLS.push(url);
+});
+// 索引数据读取完成，并发访问详情页面，获取详情数据。
+interface.on(`close`,function(){
+    let limit=30;
+    let n=0;
+    let total=indexPageRestURLS.length;
+    async.mapLimit(indexPageRestURLS,limit,async function(url){
+            let response=await axios.get(url,{timeout:600000});
+            {
+                let item=filterDetailHtmlData(response.data);
+                item["m_url"]=url;
+                item["timestamp"]=new Date().getTime();
+                fs.appendFile(detailPageFile,JSON.stringify(item)+"\n");
+                n=n+1;
+                console.log(`[${n}/${total}] ${url}`);
+            }
+        });
 });
 /**
  * 避免match错误，返回正则表达式的第一个所匹配到的字符串，没找到则返回空字符串。

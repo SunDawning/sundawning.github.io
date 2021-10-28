@@ -222,9 +222,7 @@ function filterDistrictNames(data){
             console.log(`创建数据库文件夹：${dbDirectory}`);
             fs.mkdirSync(dbDirectory);
         }
-        let dbFile=`${dbDirectory}/${new Date().getTime()}.csv`;
-        let keys=["house_title","resblock_name","bizcircle_name","district_name","layout","rent_area","rent_price_listing","frame_orientation","m_url"];
-        fs.writeFileSync(dbFile,keys.join(`,`)+`\n`);
+        let dbFile=`${dbDirectory}/${new Date().getTime()}.txt`;
         let n=0;
         districtNames.forEach(function(districtName){
             /**
@@ -482,13 +480,10 @@ function filterDistrictNames(data){
                  */
                 function appendFile(list){
                     list.forEach(function(item){
-                        let line=[];
-                        keys.forEach(function(key){
-                            line.push(item[key]);
-                        });
-                        console.log(n,line);
+                        let line=JSON.stringify(item);
+                        console.log(n);
                         n=n+1;
-                        fs.appendFile(dbFile,line.join(`,`)+`\n`);
+                        fs.appendFile(dbFile,line+`\n`);
                     });
                 }
                 appendFile(data.list);
@@ -499,7 +494,7 @@ function filterDistrictNames(data){
                     offsets.push(offset);
                 }
                 offsets.forEach(function(offset){
-                    axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`).then(function(response){
+                    axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:60000}).then(function(response){
                         let data=response.data.data;
                         appendFile(data.list);
                     });

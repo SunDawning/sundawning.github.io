@@ -33,16 +33,16 @@ interface.on(`close`,function(){
     let n=0;
     let total=indexPageRestURLS.length;
     async.mapLimit(indexPageRestURLS,limit,async function(url){
-            let response=await axios.get(url,{timeout:600000});
-            {
-                let item=filterDetailHtmlData(response.data);
-                item["m_url"]=url;
-                item["timestamp"]=new Date().getTime();
-                fs.appendFile(detailPageFile,JSON.stringify(item)+"\n");
-                n=n+1;
-                console.log(`[${n}/${total}] ${url}`);
-            }
-        });
+        let response=await axios.get(url,{timeout:600000});
+        {
+            let item=filterDetailHtmlData(response.data);
+            item["m_url"]=url;
+            item["timestamp"]=new Date().getTime();
+            fs.appendFile(detailPageFile,JSON.stringify(item)+"\n");
+            n=n+1;
+            console.log(`[${n}/${total}] ${url}`);
+        }
+    });
 });
 /**
  * 避免match错误，返回正则表达式的第一个所匹配到的字符串，没找到则返回空字符串。

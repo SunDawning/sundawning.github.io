@@ -234,6 +234,7 @@ function getDetailPageURLs(detailPageFile){
         let districtNames=filterDistrictNames(data);
         let indexPageFile=`indexPage.txt`;
         let n=0;
+        let totals=0;
         let detailPageFile=`detailPage.txt`;
         let detailPageURLs=getDetailPageURLs(detailPageFile);
         let indexPageIncrementFile=`indexPageIncrement.txt`;
@@ -495,7 +496,7 @@ function getDetailPageURLs(detailPageFile){
                     list.forEach(function(item){
                         item["timestamp"]=new Date().getTime();
                         let line=JSON.stringify(item)+`\n`;
-                        console.log(n);
+                        console.log(`[${n}/${totals}]`);
                         n=n+1;
                         fs.appendFile(indexPageFile,line);
                         let url=item["m_url"];
@@ -506,13 +507,14 @@ function getDetailPageURLs(detailPageFile){
                 }
                 appendFile(data.list);
                 let total=data.total;
+                totals=totals+total;
                 let offsets=[];
                 for(let c=0;c<Math.ceil(total/limit);c=c+1){
                     let offset=limit+c*limit;
                     offsets.push(offset);
                 }
                 offsets.forEach(function(offset){
-                    axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:60000}).then(function(response){
+                    axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:60000*2}).then(function(response){
                         let data=response.data.data;
                         appendFile(data.list);
                     });

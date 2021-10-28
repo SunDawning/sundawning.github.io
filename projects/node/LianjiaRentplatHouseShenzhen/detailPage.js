@@ -6,6 +6,10 @@ let async=require(`async`);
  * 读取增量的索引页面的数据，从中提取出详情页面的链接，在已有的详情数据里查找，如果已经存在，则忽略该链接，不存在则访问详情页面，获取详情数据。
  */
 let indexPageIncrementFile=`indexPageIncrement.txt`;
+if(fs.existsSync(indexPageIncrementFile)===false){
+    console.error(`不存在：${indexPageIncrementFile}`);
+    process.exit();
+}
 let detailPageFile=`detailPage.txt`;
 /**
  * 读取所有详情数据

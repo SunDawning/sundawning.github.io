@@ -37,19 +37,20 @@ let interface=readline.createInterface({
     terminal:false
 });
 // 一行一行读取索引数据（不直接加载整个文件，因为索引数据总是更新），只处理不在详情数据里的链接。
-let indexPageRestURLS=[];
+let indexPageRestURLs=[];
 interface.on(`line`,function(line){
     if(line===""){return;}
     let url=JSON.parse(line)["m_url"];
+    if(indexPageRestURLs.includes(url)===true){return;}
     if(detailPageURLs.includes(url)===true){return;}
-    indexPageRestURLS.push(url);
+    indexPageRestURLs.push(url);
 });
 // 索引数据读取完成，并发访问详情页面，获取详情数据。
 interface.on(`close`,function(){
     let limit=30;
     let n=0;
-    let total=indexPageRestURLS.length;
-    async.mapLimit(indexPageRestURLS,limit,async function(url){
+    let total=indexPageRestURLs.length;
+    async.mapLimit(indexPageRestURLs,limit,async function(url){
         let response=await axios.get(url,{timeout:600000});
         {
             let item=filterDetailHtmlData(response.data);

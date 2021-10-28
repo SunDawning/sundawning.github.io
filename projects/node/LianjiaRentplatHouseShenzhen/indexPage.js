@@ -1,5 +1,5 @@
 /**
- * 全量下载索引页面的数据：`${new Date().getTime()}.csv`
+ * 全量下载索引页面的数据到indexPage.txt，将不在详情页面数据里的数据写到增量索引页面indexPageIncrement.txt
  */
 let axios=require(`axios`);
 let fs=require(`fs-extra`);
@@ -44,6 +44,21 @@ function filterDistrictNames(data){
         return regions.push(district.pinyin.replace(`\/`,``));
     });
     return regions;
+}
+/**
+ * 读取所有详情数据
+ * @param {String} detailPageFile
+ */
+function getDetailPageURLs(detailPageFile){
+    let fs=require(`fs`);
+    if(fs.existsSync(detailPageFile)===false){return [];};
+    let content=fs.readFileSync(detailPageFile,{encoding:"utf-8"});
+    let detailPageURLs=[];
+    content.split(/\r?\n/).forEach(function(line){
+        if(line===""){return;}
+        detailPageURLs.push(JSON.parse(line)["m_url"]);
+    });
+    return detailPageURLs;
 }
 {
     /**
@@ -217,8 +232,11 @@ function filterDistrictNames(data){
         let data=response.data.data;
         fs.writeFile(`https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300`.replaceAll(/[:\/\?]/g,`_`)+`.json`,JSON.stringify(data,undefined,4));
         let districtNames=filterDistrictNames(data);
-        let dbFile=`indexPage.txt`;
+        let indexPageFile=`indexPage.txt`;
         let n=0;
+        let detailPageFile=`detailPage.txt`;
+        let detailPageURLs=getDetailPageURLs(detailPageFile);
+        let indexPageIncrementFile=`indexPageIncrement.txt`;
         districtNames.forEach(function(districtName){
             /**
              * 从API里获取下一级的详情页面
@@ -476,10 +494,14 @@ function filterDistrictNames(data){
                 function appendFile(list){
                     list.forEach(function(item){
                         item["timestamp"]=new Date().getTime();
-                        let line=JSON.stringify(item);
+                        let line=JSON.stringify(item)+`\n`;
                         console.log(n);
                         n=n+1;
-                        fs.appendFile(dbFile,line+`\n`);
+                        fs.appendFile(indexPageFile,line);
+                        let url=item["m_url"];
+                        if(detailPageURLs.includes(url)===false){
+                            fs.appendFile(indexPageIncrementFile,line);
+                        }
                     });
                 }
                 appendFile(data.list);

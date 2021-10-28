@@ -3,19 +3,29 @@ let readline=require(`readline`);
 let axios=require(`axios`);
 let async=require(`async`);
 /**
- * 读取索引页面的数据，从中提取出详情页面的链接，在已有的详情数据里查找，如果已经存在，则忽略该链接，不存在则访问详情页面，获取详情数据。
+ * 读取增量的索引页面的数据，从中提取出详情页面的链接，在已有的详情数据里查找，如果已经存在，则忽略该链接，不存在则访问详情页面，获取详情数据。
  */
-let indexPageFile=`indexPage.txt`;
+let indexPageIncrementFile=`indexPageIncrement.txt`;
 let detailPageFile=`detailPage.txt`;
+/**
+ * 读取所有详情数据
+ * @param {String} detailPageFile
+ */
+function getDetailPageURLs(detailPageFile){
+    let fs=require(`fs`);
+    if(fs.existsSync(detailPageFile)===false){return [];};
+    let content=fs.readFileSync(detailPageFile,{encoding:"utf-8"});
+    let detailPageURLs=[];
+    content.split(/\r?\n/).forEach(function(line){
+        if(line===""){return;}
+        detailPageURLs.push(JSON.parse(line)["m_url"]);
+    });
+    return detailPageURLs;
+}
 // 加载整个详情数据（因为详情数据数量少，不会更新）
-let content=fs.readFileSync(detailPageFile,{encoding:"utf-8"});
-let detailPageURLs=[];
-content.split(/\r?\n/).forEach(function(line){
-    if(line===""){return;}
-    detailPageURLs.push(JSON.parse(line)["m_url"]);
-});
+let detailPageURLs=getDetailPageURLs(detailPageFile);
 let interface=readline.createInterface({
-    input:fs.createReadStream(indexPageFile),
+    input:fs.createReadStream(indexPageIncrementFile),
     output:process.stdout,
     terminal:false
 });

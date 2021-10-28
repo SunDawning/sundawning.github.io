@@ -16,10 +16,17 @@ function getDetailPageURLs(detailPageFile){
     if(fs.existsSync(detailPageFile)===false){return [];};
     let content=fs.readFileSync(detailPageFile,{encoding:"utf-8"});
     let detailPageURLs=[];
-    content.split(/\r?\n/).forEach(function(line){
-        if(line===""){return;}
-        detailPageURLs.push(JSON.parse(line)["m_url"]);
-    });
+    let lines=content.split(/\r?\n/);
+    let total=lines.length;
+    for(let c=0;c<total;c=c+1){
+        let line=lines[c];
+        {
+            if(line===""){continue;}
+            let url=JSON.parse(line)["m_url"];
+            if(detailPageURLs.includes(url)===true){continue;}
+            detailPageURLs.push(url);
+        }
+    }
     return detailPageURLs;
 }
 // 加载整个详情数据（因为详情数据数量少，不会更新）

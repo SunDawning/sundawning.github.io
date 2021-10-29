@@ -29,6 +29,7 @@ async function index(){
         let files=fs.readdirSync(dbDirectory);
         let collectionName=`index`;
         let collection=db.collection(collectionName);
+        await collection.createIndex({"m_url":1,"timestamp":1},{"unique":true});
         let totalFiles=files.length;
         console.log(`导入文件数量：${totalFiles}`);
         for(let c=0;c<files.length;c=c+1){

@@ -3,6 +3,7 @@
  */
 let axios=require(`axios`);
 let fs=require(`fs-extra`);
+let async=require(`async`);
 /**
  * 过滤出深圳的几个行政区
  * @param {object} data 访问API＂https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300＂之后所得到的JSON数据
@@ -520,12 +521,14 @@ function getDetailPageURLs(detailPageFile){
                     let offset=limit+c*limit;
                     offsets.push(offset);
                 }
-                offsets.forEach(function(offset){
-                    axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:60000*2}).then(function(response){
+                async.mapLimit(offsets,limit,async function(offset){
+                    let response=await axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`);
+                    {
                         let data=response.data.data;
                         appendFile(data.list);
-                    });
+                    }
                 });
+
             });
         });
     });

@@ -55,7 +55,7 @@ interface.on(`close`,function(){
     let n=0;
     let total=indexPageRestURLs.length;
     async.mapLimit(indexPageRestURLs,limit,async function(url){
-        let response=await axios.get(url,{timeout:600000});
+        let response=await axios.get(url);
         {
             let item=filterDetailHtmlData(response.data);
             item["m_url"]=url;

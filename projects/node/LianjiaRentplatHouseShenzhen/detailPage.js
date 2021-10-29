@@ -27,10 +27,11 @@ function getDetailPageURLs(detailPageFile){
         {
             if(line===""){continue;}
             let url=JSON.parse(line)["m_url"];
-            if(detailPageURLs.includes(url)===true){continue;}
+            if(detailPageURLs.indexOf(url)>-1){continue;}
             detailPageURLs.push(url);
         }
     }
+    console.log(`已读取所有详情数据：[${detailPageURLs.length}/${total}]`);
     return detailPageURLs;
 }
 // 加载整个详情数据（因为详情数据数量少，不会更新）

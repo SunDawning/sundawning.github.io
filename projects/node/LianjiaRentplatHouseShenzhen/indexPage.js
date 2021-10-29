@@ -528,7 +528,7 @@ function getDetailPageURLs(detailPageFile){
                     offsets.push(offset);
                 }
                 async.mapLimit(offsets,limit,async function(offset){
-                    let response=await axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`);
+                    let response=await axios.get(`https://app.api.lianjia.com/Rentplat/v1/house/list?city_id=440300&condition=${districtName}/rt200600000001&limit=${limit}&offset=${offset}&scene=list`,{timeout:60000});
                     {
                         let data=response.data.data;
                         appendFile(data.list);

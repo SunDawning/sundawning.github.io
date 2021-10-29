@@ -7,7 +7,7 @@
 数据采集与数据保存：
 1. 数据采集（在其他设备上采集）
    1. 获取最新的detailPage.txt
-      curl http://192.168.1.3:8080/detailPage.txt -O
+      curl http://192.168.10.3:8080/detailPage.txt -O
    2. 全量下载索引数据到indexPage文件夹
       node indexPage.js
    3. 使用＂＂增量下载详情数据到detailPage.txt

@@ -241,7 +241,12 @@ function getDetailPageURLs(detailPageFile){
         let data=response.data.data;
         fs.writeFile(`https://m.lianjia.com/chuzu/aj/config/filter?city_id=440300`.replaceAll(/[:\/\?]/g,`_`)+`.json`,JSON.stringify(data,undefined,4));
         let districtNames=filterDistrictNames(data);
-        let indexPageFile=`indexPage.txt`;
+        let indexPageDirectory=`indexPage`;
+        if(fs.existsSync(indexPageDirectory)===false){
+            console.log(`创建数据库文件夹：${indexPageDirectory}`);
+            fs.mkdirSync(indexPageDirectory);
+        }
+        let indexPageFile=`${indexPageDirectory}/${new Date().getTime()}.txt`;
         let n=0;
         let totals=0;
         let detailPageFile=`detailPage.txt`;

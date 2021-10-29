@@ -66,7 +66,7 @@ function getDetailPageURLs(detailPageFile){
             detailPageURLs.push(url);
         }
     }
-    console.log(`已读取所有详情数据：[${detailPageURLs.length}/${total}]`);    
+    console.log(`已读取所有详情数据：[${detailPageURLs.length}/${total}]`);
     return detailPageURLs;
 }
 {

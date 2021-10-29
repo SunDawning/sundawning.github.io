@@ -41,21 +41,21 @@ let interface=readline.createInterface({
     output:process.stdout,
     terminal:false
 });
-// 一行一行读取索引数据（不直接加载整个文件，因为索引数据总是更新），只处理不在详情数据里的链接。
-let indexPageRestURLs=[];
+// 一行一行读取增量索引数据（不直接加载整个文件，因为索引数据总是更新，其全量一直在增长，直接判断增量索引文件里的数据），只处理不在详情数据里的链接。
+let indexPageIncrementURLs=[];
 interface.on(`line`,function(line){
     if(line===""){return;}
     let url=JSON.parse(line)["m_url"];
-    if(indexPageRestURLs.includes(url)===true){return;}
-    if(detailPageURLs.includes(url)===true){return;}
-    indexPageRestURLs.push(url);
+    if(indexPageIncrementURLs.indexOf(url)>-1){return;}
+    if(detailPageURLs.indexOf(url)>-1){return;}
+    indexPageIncrementURLs.push(url);
 });
 // 索引数据读取完成，并发访问详情页面，获取详情数据。
 interface.on(`close`,function(){
     let limit=30;
     let n=0;
-    let total=indexPageRestURLs.length;
-    async.mapLimit(indexPageRestURLs,limit,async function(url){
+    let total=indexPageIncrementURLs.length;
+    async.mapLimit(indexPageIncrementURLs,limit,async function(url){
         let response=await axios.get(url);
         {
             let item=filterDetailHtmlData(response.data);
@@ -71,9 +71,66 @@ interface.on(`close`,function(){
         }else{
             console.log(`已下载完增量索引数据里的详情数据`);
             fs.unlink(indexPageIncrementFile);
+            packTo7z(detailPageFile);
+            console.log(`使用7z打包详情数据，便于共享。`);
         }
     });
 });
+/**
+ * 使用7z打包
+ * @example
+ * packTo7z("detailPage.txt");
+ */
+function packTo7z(file){
+    let path=require(`path`);
+    let packedName=path.basename(file,`.txt`);
+    let packedFile=`${packedName}.7z`;
+    console.log(`将打包到：${packedFile}`);
+    if(process.platform==="android"){
+        /**
+         * 启动一个同步程序
+         * @param {string} cmd 一串命令
+         * @returns {object} 一个Buffer对象
+         * @example
+         * // 同步修改npm源为淘宝源
+         * child_process_exec_sync("npm config set registry https://registry.npm.taobao.org")
+         */
+        function child_process_exec_sync(cmd){
+            let{execSync}=require("child_process");
+            console.log("同步启动程序：",cmd);
+            return execSync(cmd);
+        }
+        /**
+         * 查找是否存在命令
+         * @param {string} command 命令
+         * @returns {undefined|buffer} 存在该命令则返回buffer，不存在时则返回undefined。
+         * @example
+         * // returns <Buffer 43 3a 5c 55 73 65 72 73 5c 73 67 73 5c 41 70 70 44 61 74 61 5c 52 6f 61 6d 69 6e 67 5c 6e 70 6d 5c 70 6e 70 6d 0d 0a 43 3a 5c 55 73 65 72 73 5c 73 67 ... 32 more bytes>
+         * executable_find("pnpm");
+         */
+        function executable_find(command){
+            try{
+                return child_process_exec_sync(`which ${command}`);
+            }catch(error){
+                return undefined;
+            }
+        }
+        if(executable_find(`7za`)===undefined){
+            child_process_exec_sync(`pkg install p7zip -y`);
+        }
+        child_process_exec_sync(`7za a ${packedFile} ${file}`);
+    }else{
+        /**
+         * @see https://www.npmjs.com/package/7zip-min
+         */
+        let p7zip=require(`7zip-min`);
+        p7zip.pack(file,packedFile,function(error){
+            if(error){
+                console.log(error);
+            }
+        });
+    }
+}
 /**
  * 避免match错误，返回正则表达式的第一个所匹配到的字符串，没找到则返回空字符串。
  * @param {Regex|String} regex 正则

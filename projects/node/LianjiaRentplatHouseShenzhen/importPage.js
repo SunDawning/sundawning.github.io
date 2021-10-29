@@ -17,9 +17,10 @@ async function index(){
     await mongoClient.connect();
     console.log(`已连接数据库：${url}`);
     let db=mongoClient.db(dbName);
-
-    {
-        // 导入indexPage文件夹
+    /**
+     * 导入indexPage文件夹
+     */
+    async function importIndexPage(){
         let dbDirectory=`indexPage`;
         let dbDirectoryBackup=`indexPageBackup`;
         if(fs.existsSync(dbDirectoryBackup)===false){
@@ -29,51 +30,50 @@ async function index(){
         let collectionName=`index`;
         let collection=db.collection(collectionName);
         let totalFiles=files.length;
-        for(let c=0;c<totalFiles;c=c+1){
-            let file=files[c];
-            console.log(`导入文件数量：[${c+1}/${totalFiles}]`);
-            {
-                let dataFile=`${dbDirectory}/${file}`;
-                let data=fs.readFileSync(dataFile,{encoding:`utf-8`});
-                console.log(`将导入文件到mongodb: ${dataFile}`);
-                let lines=data.split(/\r?\n/);
-                let total=lines.length;
-                if(total===0){
-                    console.log(`没有数据`);
-                    fs.unlinkSync(dataFile);
-                    console.log(`删除文件：${dataFile}`);
-                    continue;
-                }
-                let n=0;
-                for(let c=0;c<total;c=c+1){
-                    let line=lines[c];
-                    if(line===""){continue;}
-                    let item=JSON.parse(line);
-                    let index={"m_url":item["m_url"],"timestamp":item["timestamp"]};
-                    let exists=await collection.find(index).toArray();
-                    let one=exists[0];
-                    // 没有该时刻该房子的记录
-                    if(one===undefined){
-                        await collection.insertOne(item);
-                        n=n+1;
-                    }
-                }
-                console.log(`[${n}/${total}]`);
-                let stat=fs.statSync(dataFile);
-                let passed=new Date().getTime()-stat["mtimeMs"];
-                if(passed>20*1000){
-                    let backupPath=`${dbDirectoryBackup}/${file}`;
-                    fs.renameSync(dataFile,backupPath);
-                    console.log(`移动文件：${dataFile} => ${backupPath}`);
-                }else{
-                    console.log(`文件可能刚被修改了，暂时不移动文件：${dataFile}`);
-                    console.log(`已过去：${passed}ms`);
+        console.log(`导入文件数量：${totalFiles}`);
+        files.forEach(async function(file){
+            let dataFile=`${dbDirectory}/${file}`;
+            let data=fs.readFileSync(dataFile,{encoding:`utf-8`});
+            console.log(`将导入文件到mongodb: ${dataFile}`);
+            let lines=data.split(/\r?\n/);
+            let total=lines.length;
+            if(total===0){
+                console.log(`没有数据`);
+                fs.unlinkSync(dataFile);
+                console.log(`删除文件：${dataFile}`);
+                return;
+            }
+            let n=0;
+            for(let c=0;c<total;c=c+1){
+                let line=lines[c];
+                if(line===""){continue;}
+                let item=JSON.parse(line);
+                let index={"m_url":item["m_url"],"timestamp":item["timestamp"]};
+                let exists=await collection.find(index).toArray();
+                let one=exists[0];
+                // 没有该时刻该房子的记录
+                if(one===undefined){
+                    await collection.insertOne(item);
+                    n=n+1;
                 }
             }
-        }
+            console.log(`[${n}/${total}]`);
+            let stat=fs.statSync(dataFile);
+            let passed=new Date().getTime()-stat["mtimeMs"];
+            if(passed>20*1000){
+                let backupPath=`${dbDirectoryBackup}/${file}`;
+                fs.renameSync(dataFile,backupPath);
+                console.log(`移动文件：${dataFile} => ${backupPath}`);
+            }else{
+                console.log(`文件可能刚被修改了，暂时不移动文件：${dataFile}`);
+                console.log(`已过去：${passed}ms`);
+            }
+        });
     }
-    // 导入detailPage.txt文件
-    {
+    /**
+     * 导入detailPage.txt文件
+     */
+    async function importDetailPage(){
         let collectionName=`detail`;
         let collection=db.collection(collectionName);
         await collection.createIndex({"m_url":1},{"unique":true});
@@ -103,8 +103,8 @@ async function index(){
         }
         console.log(`[${n}/${total}]`);
     }
+    importDetailPage();
+    importIndexPage();
 }
-index().then(console.log).catch(console.error).finally(function(){
-    mongoClient.close();
-});
+index().then(console.log).catch(console.error);
 

@@ -112,6 +112,15 @@ export function pnpm_add_save_dev(module){
     console.log(`已安装模块：${module}`);
 }
 /**
+ * 在命令行全局安装模块，这样就会存在全局命令
+ */
+export function pnpm_add_g(module){
+    // 确保命令存在
+    if(executable_find(module)===undefined){
+        child_process_exec_sync(`pnpm add ${module} -g`);
+    };
+}
+/**
  * 安装与导入模块
  */
 export function install_require_module(module){

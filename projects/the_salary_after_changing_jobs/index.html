@@ -1,18 +1,142 @@
 <title>换工作后的工资</title>
 <h1>工资变化</h1>
-<h2><span id="current-hour-salary">65.68144499178982</span>元/小时</h2>
+<h2><span name="x">65.68144499178982</span>元/小时</h2>
 <form name="current">
-  <div>每月总工资：<input type="number"/>元</div>
-  <div>法定工作日法定八小时之内的工作时长：<input type="number"/>小时</div>
-  <div>法定工作日八小时之外加班的至少1.5倍时薪的工作时长：<input type="number"/>小时</div>
-  <div>是否是大小周：<input type="radio"/></div>
-  <div>法定休息日周六加班的至少2倍时薪的工作时长：<input type="number"/>小时</div>
-  <div>法定休息日周日加班的至少2倍时薪的工作时长：<input type="number"/>小时</div>
-  <div>法定节假日加班的至少3倍的时薪工作时长：<input type="number"/>小时</div>
+  <div>每月总工资：<input type="number" name="y" />元</div>
+  <div>法定工作日法定八小时之内的工作时长：<input type="number" name="a" />小时</div>
+  <div>法定工作日八小时之外加班的至少1.5倍时薪的工作时长：<input type="number" name="b" />小时</div>
+  <div>是否是大小周：<input type="radio" name="m" /></div>
+  <div>法定休息日周六加班的至少2倍时薪的工作时长：<input type="number" name="c" />小时</div>
+  <div>法定休息日周日加班的至少2倍时薪的工作时长：<input type="number" name="d" />小时</div>
+  <div>法定节假日加班的至少3倍的时薪工作时长：<input type="number" name="e" />小时</div>
 </form>
 <form name="after">
 
 </form>
 <script type="text/javascript">
-  
+  /**
+   * 每月总工资
+   * @param {0|1} m 是大小周时为1，不是大小周时为0。
+   */
+  function getY(x,a,b,c,d,e,m){
+    return (x*a+x*b*1.5+x*c*2*(1+m*52/12/2)+x*d*2*(1+52/12)+x*e*3)*21.75;
+  }
+  /**
+   * 日薪
+   */
+  function getX(y,a,b,c,d,e,m){
+    console.log(arguments);
+    return y/(a+b*1.5+c*2*(1+m*52/12/2)+d*2*(1+52/12)+e*3)/21.75;
+  }
+  function getCurrentX(){
+    let form=document.getElementsByName("current")[0];
+    let elements=form.elements;
+    let y;
+    {
+      let value=elements.y.value;
+      if(value===""){
+        y=0;
+      }else{
+        let float=parseFloat(value);
+        if(float<0){
+          y=0;
+        }else{
+          y=float;
+        }
+      }
+    }
+    let a;
+    {
+      let value=elements.a.value;
+      if(value===""){
+        a=8;
+      }else{
+        let float=parseFloat(value);
+        if(float<0){
+          a=8;
+        }else if(float===0){
+          a=8;
+        }else if(float>8){
+          a=8;
+        }else{
+          a=float;
+        }
+      }
+    }
+    let b;
+    {
+      let value=elements.b.value;
+      if(value===""){
+        b=0;
+      }else{
+        let float=parseFloat(value);
+        if(float<0){
+          b=0;
+        }else if(float>(24-8)){
+          b=24-8;
+        }else{
+          b=float;
+        }
+      }
+    }
+    let c;
+    {
+      let value=elements.c.value;
+      if(value===""){
+        c=0;
+      }else{
+        let float=parseFloat(value);
+        if(float<0){
+          c=0;
+        }else if(float>24){
+          c=24;
+        }else{
+          c=float;
+        }
+      }
+    }
+    let d;
+    {
+      let value=elements.d.value;
+      if(value===""){
+        d=0;
+      }else{
+        let float=parseFloat(value);
+        if(float<0){
+          d=0;
+        }else if(float>24){
+          d=24;
+        }else{
+          d=float;
+        }
+      }
+    }
+    let e;
+    {
+      let value=elements.e.value;
+      if(value===""){
+        e=0;
+      }else{
+        let float=parseFloat(value);
+        if(float<0){
+          e=0;
+        }else if(float>24){
+          e=24;
+        }else{
+          e=float;
+        }
+      }
+    }
+    let m;
+    {
+      let checked=elements.m.checked;
+      if(checked===false){
+        m=0;
+      }else{
+        m=1;
+      }
+    }
+    let x=getX(y,a,b,c,d,e,m);
+    return x;
+  }
 </script>

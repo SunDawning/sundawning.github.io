@@ -70,111 +70,13 @@
        */
       function computeFormX(form){
         let elements=form.elements;
-        let y;
-        {
-          let value=elements.y.value;
-          if(value===""){
-            y=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              y=0;
-            }else{
-              y=float;
-            }
-          }
-        }
-        let a;
-        {
-          let value=elements.a.value;
-          if(value===""){
-            a=8;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              a=8;
-            }else if(float===0){
-              a=8;
-            }else if(float>8){
-              a=8;
-            }else{
-              a=float;
-            }
-          }
-        }
-        let b;
-        {
-          let value=elements.b.value;
-          if(value===""){
-            b=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              b=0;
-            }else if(float>(24-8)){
-              b=24-8;
-            }else{
-              b=float;
-            }
-          }
-        }
-        let c;
-        {
-          let value=elements.c.value;
-          if(value===""){
-            c=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              c=0;
-            }else if(float>24){
-              c=24;
-            }else{
-              c=float;
-            }
-          }
-        }
-        let d;
-        {
-          let value=elements.d.value;
-          if(value===""){
-            d=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              d=0;
-            }else if(float>24){
-              d=24;
-            }else{
-              d=float;
-            }
-          }
-        }
-        let e;
-        {
-          let value=elements.e.value;
-          if(value===""){
-            e=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              e=0;
-            }else if(float>24){
-              e=24;
-            }else{
-              e=float;
-            }
-          }
-        }
-        let m;
-        {
-          let checked=elements.m.checked;
-          if(checked===false){
-            m=0;
-          }else{
-            m=1;
-          }
-        }
+        let y=getY(elements.y.value);
+        let a=getA(elements.a.value);
+        let b=getB(elements.b.value);
+        let c=getC(elements.c.value);
+        let d=getD(elements.d.value);        
+        let e=getE(elements.e.value);
+        let m=getM(elements.m.checked);
         let x=computeX(y,a,b,c,d,e,m);
         return x;
       }
@@ -183,145 +85,180 @@
        */
       function computeFormY(form){
         let elements=form.elements;
-        let x;
-        {
-          let value=elements.x.value;
-          if(value===""){
-            x=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              x=0;
-            }else{
-              x=float;
-            }
-          }
-        }
-        let a;
-        {
-          let value=elements.a.value;
-          if(value===""){
-            a=8;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              a=8;
-            }else if(float===0){
-              a=8;
-            }else if(float>8){
-              a=8;
-            }else{
-              a=float;
-            }
-          }
-        }
-        let b;
-        {
-          let value=elements.b.value;
-          if(value===""){
-            b=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              b=0;
-            }else if(float>(24-8)){
-              b=24-8;
-            }else{
-              b=float;
-            }
-          }
-        }
-        let c;
-        {
-          let value=elements.c.value;
-          if(value===""){
-            c=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              c=0;
-            }else if(float>24){
-              c=24;
-            }else{
-              c=float;
-            }
-          }
-        }
-        let d;
-        {
-          let value=elements.d.value;
-          if(value===""){
-            d=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              d=0;
-            }else if(float>24){
-              d=24;
-            }else{
-              d=float;
-            }
-          }
-        }
-        let e;
-        {
-          let value=elements.e.value;
-          if(value===""){
-            e=0;
-          }else{
-            let float=parseFloat(value);
-            if(float<0){
-              e=0;
-            }else if(float>24){
-              e=24;
-            }else{
-              e=float;
-            }
-          }
-        }
-        let m;
-        {
-          let checked=elements.m.checked;
-          if(checked===false){
-            m=0;
-          }else{
-            m=1;
-          }
-        }
+        let x=getX(elements.x.value);
+        let a=getA(elements.a.value);
+        let b=getB(elements.b.value);
+        let c=getC(elements.c.value);
+        let d=getD(elements.d.value);        
+        let e=getE(elements.e.value);
+        let m=getM(elements.m.checked);
         let y=computeY(x,a,b,c,d,e,m);
         return y;
       }
+      /**
+       * 从输入的数值里提取出合法的时薪
+       */
       function getX(value){
-        let x;
+        let item;
         {
           if(value===""){
-            x=0;
+            item=0;
           }else{
             let float=parseFloat(value);
             if(float<0){
-              x=0;
+              item=0;
             }else{
-              x=float;
+              item=float;
             }
           }
         }
-        return x;
+        return item;
       }
+      /**
+       * 从输入的数值里提取出合法的每月总工资
+       */
       function getY(value){
-        let y;
+        let item;
         {
           if(value===""){
-            y=0;
+            item=0;
           }else{
             let float=parseFloat(value);
             if(float<0){
-              y=0;
+              item=0;
             }else{
-              y=float;
+              item=float;
             }
           }
         }
-        return y;
+        return item;
+      }
+      /**
+       * 从输入的数值里提取出合法的
+       * 法定工作日法定八小时之内的工作时长
+       */
+      function getA(value){
+        let item;
+        {
+          if(value===""){
+            item=8;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              item=8;
+            }else if(float===0){
+              item=8;
+            }else if(float>8){
+              item=8;
+            }else{
+              item=float;
+            }
+          }
+        }
+        return item;
+      }
+      /**
+       * 从输入的数值里提取出合法的
+       * 法定工作日八小时之外加班的至少1.5倍时薪的工作时长
+       */
+      function getB(value){
+        let item;
+        {
+          if(value===""){
+            item=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              item=0;
+            }else if(float>(24-8)){
+              item=24-8;
+            }else{
+              item=float;
+            }
+          }
+        }
+        return item;
+      }
+      /**
+       * 从输入的数值里提取出合法的
+       * 法定休息日周六加班的至少2倍时薪的工作时长
+       */
+      function getC(value){
+        let item;
+        {
+          if(value===""){
+            item=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              item=0;
+            }else if(float>24){
+              item=24;
+            }else{
+              item=float;
+            }
+          }
+        }
+        return item;
+      }
+      /**
+       * 从输入的数值里提取出合法的
+       * 法定休息日周日加班的至少2倍时薪的工作时长
+       */
+      function getD(value){
+        let item;
+        {
+          if(value===""){
+            item=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              item=0;
+            }else if(float>24){
+              item=24;
+            }else{
+              item=float;
+            }
+          }
+        }
+        return item;
+      }
+      /**
+       * 从输入的数值里提取出合法的
+       * 法定节假日加班的至少3倍的时薪工作时长
+       */
+      function getE(value){
+        let item;
+        {
+          if(value===""){
+            item=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              item=0;
+            }else if(float>24){
+              item=24;
+            }else{
+              item=float;
+            }
+          }
+        }
+        return item;
+      }
+      /**
+       * 从多选框里提取出合法的
+       * 是否是大小周
+       */
+      function getM(checked){
+        let item;
+        {
+          if(checked===false){
+            item=0;
+          }else{
+            item=1;
+          }
+        }
+        return item;
       }
       let form=document.getElementsByName("current")[0];
       let n=form.elements.n.value;
@@ -346,9 +283,9 @@
           let y=document.getElementsByName("y")[0];
           y.value=computeFormY(form);
         }
-        document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${getY(form.y.value)/getX(form.x.value)}<sub>小时</sub> = ${getY(form.y.value)}<sub>元</sub>`;
+        document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${getY(form.y.value)/getX(form.x.value)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;
       });
-      document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${getY(form.y.value)/getX(form.x.value)}<sub>小时</sub> = ${getY(form.y.value)}<sub>元</sub>`;
+      document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${getY(form.y.value)/getX(form.x.value)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;
     </script>
   </body>
 </html>

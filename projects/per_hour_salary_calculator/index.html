@@ -5,150 +5,281 @@
     <title>时薪计算器</title>
   </head>
   <body>
-    <h1>时薪（元/小时）</h1>
-    <h2 name="x">65.68144499178982</h2>
     <form name="current">
-      <div>每月总工资：<input type="number" name="y" />元</div>
-      <div>法定工作日法定八小时之内的工作时长：<input type="number" name="a" />小时</div>
-      <div>法定工作日八小时之外加班的至少1.5倍时薪的工作时长：<input type="number" name="b" />小时</div>
-      <div>是否是大小周：<input type="checkbox" name="m" /></div>
-      <div>法定休息日周六加班的至少2倍时薪的工作时长：<input type="number" name="c" />小时</div>
-      <div>法定休息日周日加班的至少2倍时薪的工作时长：<input type="number" name="d" />小时</div>
-      <div>法定节假日加班的至少3倍的时薪工作时长：<input type="number" name="e" />小时</div>
+      <div><input type="radio" name="n" value="x"/>时薪(元/小时)：<input type="number" name="x"/></div>
+      <div><input type="radio" name="n" value="y" checked="true"/>每月总工资(元)：<input type="number" name="y"/></div>
+      <div>法定工作日法定八小时之内的工作时长(小时)：<input type="number" name="a"/></div>
+      <div>法定工作日八小时之外加班的至少1.5倍时薪的工作时长(小时)：<input type="number" name="b"/></div>
+      <div>是否是大小周：<input type="checkbox" name="m"/></div>
+      <div>法定休息日周六加班的至少2倍时薪的工作时长(小时)：<input type="number" name="c"/></div>
+      <div>法定休息日周日加班的至少2倍时薪的工作时长(小时)：<input type="number" name="d"/></div>
+      <div>法定节假日加班的至少3倍的时薪工作时长(小时)：<input type="number" name="e"/></div>
     </form>
     <script type="text/javascript">
       /**
        * 每月总工资：法定工作天数21.75，一年共52周(52个双休)，11天法定节假日。
        * @param {0|1} m 是大小周时为1，不是大小周时为0。
        */
-    function getY(x,a,b,c,d,e,m){
-      return (x*a*21.75+x*b*1.5*21.75+x*c*2*(52/12)*(1-m*0.5)+x*d*2*(52/12)+x*e*3*(11/12));
-    }
-    /**
-     * 时薪
-     */
-    function getX(y,a,b,c,d,e,m){
-      console.log(arguments);
-      return y/(a*21.75+b*1.5*21.75+c*2*(52/12)*(1-m*0.5)+d*2*(52/12)+e*3*(11/12));
-    }
-    /**
-     * 计算表单所填数据的时薪
-     */
-    function getFormX(form){
-      let elements=form.elements;
-      let y;
-      {
-        let value=elements.y.value;
-        if(value===""){
-          y=0;
-        }else{
-          let float=parseFloat(value);
-          if(float<0){
+      function getY(x,a,b,c,d,e,m){
+        return (x*a*21.75+x*b*1.5*21.75+x*c*2*(52/12)*(1-m*0.5)+x*d*2*(52/12)+x*e*3*(11/12));
+      }
+      /**
+       * 时薪
+       */
+      function getX(y,a,b,c,d,e,m){
+        console.log(arguments);
+        return y/(a*21.75+b*1.5*21.75+c*2*(52/12)*(1-m*0.5)+d*2*(52/12)+e*3*(11/12));
+      }
+      /**
+       * 计算表单所填数据的时薪
+       */
+      function getFormX(form){
+        let elements=form.elements;
+        let y;
+        {
+          let value=elements.y.value;
+          if(value===""){
             y=0;
           }else{
-            y=float;
+            let float=parseFloat(value);
+            if(float<0){
+              y=0;
+            }else{
+              y=float;
+            }
           }
         }
-      }
-      let a;
-      {
-        let value=elements.a.value;
-        if(value===""){
-          a=8;
-        }else{
-          let float=parseFloat(value);
-          if(float<0){
-            a=8;
-          }else if(float===0){
-            a=8;
-          }else if(float>8){
+        let a;
+        {
+          let value=elements.a.value;
+          if(value===""){
             a=8;
           }else{
-            a=float;
+            let float=parseFloat(value);
+            if(float<0){
+              a=8;
+            }else if(float===0){
+              a=8;
+            }else if(float>8){
+              a=8;
+            }else{
+              a=float;
+            }
           }
         }
-      }
-      let b;
-      {
-        let value=elements.b.value;
-        if(value===""){
-          b=0;
-        }else{
-          let float=parseFloat(value);
-          if(float<0){
+        let b;
+        {
+          let value=elements.b.value;
+          if(value===""){
             b=0;
-          }else if(float>(24-8)){
-            b=24-8;
           }else{
-            b=float;
+            let float=parseFloat(value);
+            if(float<0){
+              b=0;
+            }else if(float>(24-8)){
+              b=24-8;
+            }else{
+              b=float;
+            }
           }
         }
-      }
-      let c;
-      {
-        let value=elements.c.value;
-        if(value===""){
-          c=0;
-        }else{
-          let float=parseFloat(value);
-          if(float<0){
+        let c;
+        {
+          let value=elements.c.value;
+          if(value===""){
             c=0;
-          }else if(float>24){
-            c=24;
           }else{
-            c=float;
+            let float=parseFloat(value);
+            if(float<0){
+              c=0;
+            }else if(float>24){
+              c=24;
+            }else{
+              c=float;
+            }
           }
         }
-      }
-      let d;
-      {
-        let value=elements.d.value;
-        if(value===""){
-          d=0;
-        }else{
-          let float=parseFloat(value);
-          if(float<0){
+        let d;
+        {
+          let value=elements.d.value;
+          if(value===""){
             d=0;
-          }else if(float>24){
-            d=24;
           }else{
-            d=float;
+            let float=parseFloat(value);
+            if(float<0){
+              d=0;
+            }else if(float>24){
+              d=24;
+            }else{
+              d=float;
+            }
           }
         }
-      }
-      let e;
-      {
-        let value=elements.e.value;
-        if(value===""){
-          e=0;
-        }else{
-          let float=parseFloat(value);
-          if(float<0){
+        let e;
+        {
+          let value=elements.e.value;
+          if(value===""){
             e=0;
-          }else if(float>24){
-            e=24;
           }else{
-            e=float;
+            let float=parseFloat(value);
+            if(float<0){
+              e=0;
+            }else if(float>24){
+              e=24;
+            }else{
+              e=float;
+            }
           }
         }
-      }
-      let m;
-      {
-        let checked=elements.m.checked;
-        if(checked===false){
-          m=0;
-        }else{
-          m=1;
+        let m;
+        {
+          let checked=elements.m.checked;
+          if(checked===false){
+            m=0;
+          }else{
+            m=1;
+          }
         }
+        let x=getX(y,a,b,c,d,e,m);
+        return x;
       }
-      let x=getX(y,a,b,c,d,e,m);
-      return x;
-    }
-    let form=document.getElementsByName("current")[0];
-    form.addEventListener("change",function(event){
-      let x=document.getElementsByName("x")[0];
-      x.innerText=getFormX(form);
-    })
-  </script>
-</body>
+      /**
+       * 计算表单所填数据的每月总工资
+       */
+      function getFormY(form){
+        let elements=form.elements;
+        let x;
+        {
+          let value=elements.x.value;
+          if(value===""){
+            x=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              x=0;
+            }else{
+              x=float;
+            }
+          }
+        }
+        let a;
+        {
+          let value=elements.a.value;
+          if(value===""){
+            a=8;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              a=8;
+            }else if(float===0){
+              a=8;
+            }else if(float>8){
+              a=8;
+            }else{
+              a=float;
+            }
+          }
+        }
+        let b;
+        {
+          let value=elements.b.value;
+          if(value===""){
+            b=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              b=0;
+            }else if(float>(24-8)){
+              b=24-8;
+            }else{
+              b=float;
+            }
+          }
+        }
+        let c;
+        {
+          let value=elements.c.value;
+          if(value===""){
+            c=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              c=0;
+            }else if(float>24){
+              c=24;
+            }else{
+              c=float;
+            }
+          }
+        }
+        let d;
+        {
+          let value=elements.d.value;
+          if(value===""){
+            d=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              d=0;
+            }else if(float>24){
+              d=24;
+            }else{
+              d=float;
+            }
+          }
+        }
+        let e;
+        {
+          let value=elements.e.value;
+          if(value===""){
+            e=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              e=0;
+            }else if(float>24){
+              e=24;
+            }else{
+              e=float;
+            }
+          }
+        }
+        let m;
+        {
+          let checked=elements.m.checked;
+          if(checked===false){
+            m=0;
+          }else{
+            m=1;
+          }
+        }
+        let y=getY(x,a,b,c,d,e,m);
+        return y;
+      }      
+      let form=document.getElementsByName("current")[0];
+      let n=form.elements.n.value;
+      if(n==="y"){
+        form.x.disabled=true;
+        form.y.disabled=false;
+      }
+      if(n==="x"){
+        form.x.disabled=false;
+        form.y.disabled=true;
+      }
+      form.addEventListener("change",function(event){
+        let n=form.elements.n.value;
+        if(n==="y"){
+          form.x.disabled=true;
+          form.y.disabled=false;
+          let x=document.getElementsByName("x")[0];
+          x.value=getFormX(form);
+        }else if(n==="x"){
+          form.x.disabled=false;
+          form.y.disabled=true;
+          let y=document.getElementsByName("y")[0];
+          y.value=getFormY(form);
+        }
+      });
+    </script>
+  </body>
 </html>

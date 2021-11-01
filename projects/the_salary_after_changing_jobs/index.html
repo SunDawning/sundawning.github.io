@@ -22,14 +22,16 @@
     return (x*a+x*b*1.5+x*c*2*(1+m*52/12/2)+x*d*2*(1+52/12)+x*e*3)*21.75;
   }
   /**
-   * 日薪
+   * 时薪
    */
   function getX(y,a,b,c,d,e,m){
     console.log(arguments);
     return y/(a+b*1.5+c*2*(1+m*52/12/2)+d*2*(1+52/12)+e*3)/21.75;
   }
-  function getCurrentX(){
-    let form=document.getElementsByName("current")[0];
+  /**
+   * 计算表单所填数据的时薪
+   */
+  function getFormX(form){
     let elements=form.elements;
     let y;
     {
@@ -139,4 +141,9 @@
     let x=getX(y,a,b,c,d,e,m);
     return x;
   }
+  let form=document.getElementsByName("current")[0];
+  form.addEventListener("change",function(event){
+    let x=document.getElementsByName("x")[0];
+    x.innerText=getFormX(form);
+  })
 </script>

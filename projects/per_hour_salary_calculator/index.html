@@ -5,15 +5,15 @@
     <title>时薪计算器</title>
   </head>
   <body>
-    <form name="current">
+    <form name="current" style="text-align:right;line-height:32px;max-width:320px;margin:0 auto;">
       <div><input type="radio" name="n" value="x"/>时薪(元/小时)：<input type="number" name="x"/></div>
       <div><input type="radio" name="n" value="y" checked="true"/>每月总工资(元)：<input type="number" name="y"/></div>
-      <div>法定工作日法定八小时之内的工作时长(小时)：<input type="number" name="a"/></div>
-      <div>法定工作日八小时之外加班的至少1.5倍时薪的工作时长(小时)：<input type="number" name="b"/></div>
+      <div><strong>法定工作日</strong><strong>法定八小时</strong>之内的工作时长(小时)：<input type="number" name="a"/></div>
+      <div><strong>法定工作日</strong>八小时之外加班的至少<strong>1.5</strong>倍时薪的工作时长(小时)：<input type="number" name="b"/></div>
       <div>是否是大小周：<input type="checkbox" name="m"/></div>
-      <div>法定休息日周六加班的至少2倍时薪的工作时长(小时)：<input type="number" name="c"/></div>
-      <div>法定休息日周日加班的至少2倍时薪的工作时长(小时)：<input type="number" name="d"/></div>
-      <div>法定节假日加班的至少3倍的时薪工作时长(小时)：<input type="number" name="e"/></div>
+      <div><strong>法定休息日</strong>周六加班的至少<strong>2</strong>倍时薪的工作时长(小时)：<input type="number" name="c"/></div>
+      <div><strong>法定休息日</strong>周日加班的至少<strong>2</strong>倍时薪的工作时长(小时)：<input type="number" name="d"/></div>
+      <div><strong>法定节假日</strong>加班的至少<strong>3</strong>倍的时薪工作时长(小时)：<input type="number" name="e"/></div>
     </form>
     <script type="text/javascript">
       /**

@@ -96,6 +96,20 @@
         return y;
       }
       /**
+       * 计算表单所填数据的每月总工作时长
+       */
+      function computeFormHours(form){
+        let elements=form.elements;
+        let a=getA(elements.a.value);
+        let b=getB(elements.b.value);
+        let c=getC(elements.c.value);
+        let d=getD(elements.d.value);        
+        let e=getE(elements.e.value);
+        let m=getM(elements.m.checked);
+        let hours=computeHours(a,b,c,d,e,m);
+        return hours;
+      }      
+      /**
        * 从输入的数值里提取出合法的时薪
        */
       function getX(value){
@@ -283,9 +297,9 @@
           let y=document.getElementsByName("y")[0];
           y.value=computeFormY(form);
         }
-        document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${getY(form.y.value)/getX(form.x.value)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;
+        document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${computeFormHours(form)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;
       });
-      document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${getY(form.y.value)/getX(form.x.value)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;
+      document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${computeFormHours(form)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;
     </script>
   </body>
 </html>

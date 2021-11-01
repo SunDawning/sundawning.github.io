@@ -284,7 +284,7 @@
         form.x.disabled=false;
         form.y.disabled=true;
       }
-      form.addEventListener("change",function(event){
+      form.addEventListener("input",function(event){
         let n=form.elements.n.value;
         if(n==="y"){
           form.x.disabled=true;

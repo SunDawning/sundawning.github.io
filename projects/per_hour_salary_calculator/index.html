@@ -26,11 +26,7 @@
   </head>
   <body>
     <div id="app">
-      <div id="logo">
-        <a href="../../index.html">
-          <script type="text/javascript" src="../../projects/random-bing-image/index.js"></script><script type="text/javascript">new RandomBingImage().randomBingImageAfterDOMElement(document.currentScript);</script>
-        </a>
-      </div>
+      <h1 id="title"></h1>
       <form name="current" style="text-align:right;line-height:32px;max-width:320px;margin:0 auto;">
         <div><input type="radio" name="n" value="x"/>时薪(元/小时)：<input type="number" name="x"/></div>
         <div><input type="radio" name="n" value="y" checked="true"/>每月总工资(元)：<input type="number" name="y"/></div>
@@ -41,26 +37,37 @@
         <div><strong>法定休息日</strong>周日加班的至少<strong>2</strong>倍时薪的工作时长(小时)：<input type="number" name="d"/></div>
         <div><strong>法定节假日</strong>加班的至少<strong>3</strong>倍的时薪工作时长(小时)：<input type="number" name="e"/></div>
       </form>
+      <div id="logo">
+        <a href="../../index.html">
+          <script type="text/javascript" src="../../projects/random-bing-image/index.js"></script><script type="text/javascript">new RandomBingImage().randomBingImageAfterDOMElement(document.currentScript);</script>
+        </a>
+      </div>
     </div>
     <script type="text/javascript">
+      /**
+       * 计算每月工作时长
+       */
+      function computeHours(a,b,c,d,e,m){
+        return (a*21.75+b*1.5*21.75+c*2*(52/12)*(1-m*0.5)+d*2*(52/12)+e*3*(11/12));
+      }
       /**
        * 每月总工资：法定工作天数21.75，一年共52周(52个双休)，11天法定节假日。
        * @param {0|1} m 是大小周时为1，不是大小周时为0。
        */
-      function getY(x,a,b,c,d,e,m){
-        return (x*a*21.75+x*b*1.5*21.75+x*c*2*(52/12)*(1-m*0.5)+x*d*2*(52/12)+x*e*3*(11/12));
+      function computeY(x,a,b,c,d,e,m){
+        return x*computeHours(a,b,c,d,e,m);
       }
       /**
        * 时薪
        */
-      function getX(y,a,b,c,d,e,m){
+      function computeX(y,a,b,c,d,e,m){
         console.log(arguments);
-        return y/(a*21.75+b*1.5*21.75+c*2*(52/12)*(1-m*0.5)+d*2*(52/12)+e*3*(11/12));
+        return y/computeHours(a,b,c,d,e,m);
       }
       /**
        * 计算表单所填数据的时薪
        */
-      function getFormX(form){
+      function computeFormX(form){
         let elements=form.elements;
         let y;
         {
@@ -167,13 +174,13 @@
             m=1;
           }
         }
-        let x=getX(y,a,b,c,d,e,m);
+        let x=computeX(y,a,b,c,d,e,m);
         return x;
       }
       /**
        * 计算表单所填数据的每月总工资
        */
-      function getFormY(form){
+      function computeFormY(form){
         let elements=form.elements;
         let x;
         {
@@ -280,9 +287,41 @@
             m=1;
           }
         }
-        let y=getY(x,a,b,c,d,e,m);
+        let y=computeY(x,a,b,c,d,e,m);
         return y;
-      }      
+      }
+      function getX(value){
+        let x;
+        {
+          if(value===""){
+            x=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              x=0;
+            }else{
+              x=float;
+            }
+          }
+        }
+        return x;
+      }
+      function getY(value){
+        let y;
+        {
+          if(value===""){
+            y=0;
+          }else{
+            let float=parseFloat(value);
+            if(float<0){
+              y=0;
+            }else{
+              y=float;
+            }
+          }
+        }
+        return y;
+      }
       let form=document.getElementsByName("current")[0];
       let n=form.elements.n.value;
       if(n==="y"){
@@ -299,14 +338,16 @@
           form.x.disabled=true;
           form.y.disabled=false;
           let x=document.getElementsByName("x")[0];
-          x.value=getFormX(form);
+          x.value=computeFormX(form);
         }else if(n==="x"){
           form.x.disabled=false;
           form.y.disabled=true;
           let y=document.getElementsByName("y")[0];
-          y.value=getFormY(form);
+          y.value=computeFormY(form);
         }
+        document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${getY(form.y.value)/getX(form.x.value)}<sub>小时</sub> = ${getY(form.y.value)}<sub>元</sub>`;
       });
+      document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${getY(form.y.value)/getX(form.x.value)}<sub>小时</sub> = ${getY(form.y.value)}<sub>元</sub>`;
     </script>
   </body>
 </html>

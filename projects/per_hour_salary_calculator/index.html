@@ -46,10 +46,26 @@
       </div>
     </div>
     <script type="text/javascript">
-      let VERSION="0.0.3";
+      /**
+       * @todo 每月总工资上涨10%时的情况
+       * @todo 保存方案，可以对比。
+       */
+      /**
+       * 版本号
+       * @constant
+       * @type {String}
+       */
+      let VERSION="0.0.4";
       document.title=`${document.title}-v${VERSION}`;
       /**
        * 计算每月工作时长
+       * @param {Number} a 法定工作日法定八小时之内的工作时长(小时)
+       * @param {Number} b 法定工作日八小时之外加班的至少1.5倍时薪的工作时长(小时)
+       * @param {Number} c 法定休息日周六加班的至少2倍时薪的工作时长(小时)
+       * @param {Number} d 法定休息日周日加班的至少2倍时薪的工作时长(小时)
+       * @param {Number} e 法定节假日加班的至少3倍时薪的工作时长(小时)
+       * @param {Number} m 是否是大小周，是大小周时是1，不是大小周时是0。
+       * @returns {Number}
        */
       function computeHours(a,b,c,d,e,m){
         return (a*21.75+b*1.5*21.75+c*2*(52/12)*(1-m*0.5)+d*2*(52/12)+e*3*(11/12));

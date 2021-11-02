@@ -37,7 +37,7 @@
         <div>是否是大小周：<input type="checkbox" name="m"/></div>
         <div><strong>法定休息日</strong>周六加班的至少<strong>2</strong>倍时薪的工作时长(小时)：<input type="number" name="c"/></div>
         <div><strong>法定休息日</strong>周日加班的至少<strong>2</strong>倍时薪的工作时长(小时)：<input type="number" name="d"/></div>
-        <div><strong>法定节假日</strong>加班的至少<strong>3</strong>倍的时薪工作时长(小时)：<input type="number" name="e"/></div>
+        <div><strong>法定节假日</strong>加班的至少<strong>3</strong>倍时薪的工作时长(小时)：<input type="number" name="e"/></div>
       </form>
       <div id="logo">
         <a href="../../index.html">
@@ -46,7 +46,7 @@
       </div>
     </div>
     <script type="text/javascript">
-      let VERSION="0.0.2";
+      let VERSION="0.0.3";
       document.title=`${document.title}-v${VERSION}`;
       /**
        * 计算每月工作时长
@@ -277,17 +277,10 @@
         }
         return item;
       }
-      let form=document.getElementsByName("current")[0];
-      let n=form.elements.n.value;
-      if(n==="y"){
-        form.x.disabled=true;
-        form.y.disabled=false;
-      }
-      if(n==="x"){
-        form.x.disabled=false;
-        form.y.disabled=true;
-      }
-      form.addEventListener("input",function(event){
+      /**
+       * 更新表单内容
+       */
+      function renderForm(form){
         let n=form.elements.n.value;
         if(n==="y"){
           form.x.disabled=true;
@@ -300,9 +293,13 @@
           let y=document.getElementsByName("y")[0];
           y.value=computeFormY(form);
         }
-        document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${computeFormHours(form)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;
+        document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${computeFormHours(form)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;        
+      }
+      let form=document.getElementsByName("current")[0];
+      renderForm(form);
+      form.addEventListener("input",function(event){
+        renderForm(form);
       });
-      document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${computeFormHours(form)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;
     </script>
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="fb0d2b60-2560-4229-909a-d66bec4a56a2";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
   </body>

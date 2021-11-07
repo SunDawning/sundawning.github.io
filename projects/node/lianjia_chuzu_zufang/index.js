@@ -27,6 +27,6 @@
  */
 let CONFIG={
     input:`index.js`,
-    output:{file:`index.rollup.js`,format:`umd`,name:`lianjia_chuzu_zufang`}
+    output:{file:`index.bundle.js`,format:`umd`,name:`lianjia_chuzu_zufang`}
 };
 export default CONFIG;

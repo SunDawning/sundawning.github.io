@@ -10,6 +10,8 @@ async def echo(websocket, path):
     async for message in websocket:
         print("收到信息：{}".format(message))
         await websocket.send(message)
+        pass
+    pass
 
 async def main():
     """
@@ -17,5 +19,7 @@ async def main():
     """
     async with serve(echo, "localhost", 8765):
         await asyncio.Future()  # run forever
+        pass
+    pass
 
 asyncio.run(main())

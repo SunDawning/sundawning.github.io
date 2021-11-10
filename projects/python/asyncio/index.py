@@ -1,6 +1,7 @@
 import asyncio
 from websockets import serve
 from datetime import datetime
+from time import sleep
 
 websockets=set()
 
@@ -29,26 +30,19 @@ async def broadcast():
     """
     广播通知所有用户
     """
-    while True:
-        if(len(websockets)>0):
-            tasks=[]
-            for websocket in websockets:
-                tasks.append(asyncio.create_task(websocket.send("{}".format(datetime.now()))))
-                pass
-            await asyncio.gather(*tasks)
+    if(len(websockets)>0):
+        tasks=[]
+        for websocket in websockets:
+            tasks.append(asyncio.create_task(websocket.send("{}".format(datetime.now()))))
             pass
-        print("{} broadcast: {}".format(datetime.now(),asyncio.get_event_loop()))
-        from time import sleep
-        sleep(1)
+        await asyncio.gather(*tasks)
         pass
+    print("{} broadcast: {}".format(datetime.now(),asyncio.get_event_loop()))
     pass
 
 def broadcastThreadTarget():
     asyncio.run(broadcast())
     pass
-from threading import Thread
-broadcastThread=Thread(target=broadcastThreadTarget,daemon=True)
-broadcastThread.start()
 
 def websocketServeThreadTarget():
     asyncio.run(websocketServe())
@@ -56,3 +50,10 @@ def websocketServeThreadTarget():
 from threading import Thread
 websocketServeThread=Thread(target=websocketServeThreadTarget,daemon=True)
 websocketServeThread.start()
+
+while True:
+    sleep(1)
+    from threading import Thread
+    broadcastThread=Thread(target=broadcastThreadTarget,daemon=True)
+    broadcastThread.start()
+    

@@ -1,3 +1,7 @@
+# 性能调试：
+# pip install line_profiler
+# python -m kernprof -l -v index.py
+
 import asyncio
 from websockets import serve
 from datetime import datetime
@@ -40,10 +44,12 @@ async def broadcast():
     print("{} broadcast: {}".format(datetime.now(),asyncio.get_event_loop()))
     pass
 
+@profile
 def broadcastThreadTarget():
     asyncio.run(broadcast())
     pass
 
+@profile
 def websocketServeThreadTarget():
     asyncio.run(websocketServe())
     pass
@@ -52,6 +58,7 @@ websocketServeThread=Thread(target=websocketServeThreadTarget,daemon=True)
 websocketServeThread.start()
 
 while True:
+    from random import randint
     sleep(1)
     from threading import Thread
     broadcastThread=Thread(target=broadcastThreadTarget,daemon=True)

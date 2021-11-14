@@ -1,8 +1,33 @@
 import console;
- 
-console.setTitle("websockets");
+console.open();
+import py3;
+// 1. https://pypi.org/project/websockets/9.1/#files
+// 2. websockets-9.1-cp36-cp36m-win32.whl
+// 3. => websockets-9.1-cp36-cp36m-win32.zip
+// 4. websockets-9.1-cp36-cp36m-win32/websockets => lib\py3\.res\DLLs\websockets
+var pyCode=/**
+﻿import asyncio
+from websockets import serve
 
-var str = console.getText("请输入一行文本,然后回车:");
-console.log("您输入的是" ,str );
- 
+async def echo(websocket, path):
+    await websocket.send("来自Python里的WebSockets服务器")
+    async for message in websocket:
+        print("收到信息：{}".format(message))
+        await websocket.send(message)
+
+async def main():
+    """
+    https://pypi.org/project/websockets/
+    """
+    async with serve(echo, "localhost", 8765):
+        await asyncio.Future()  # run forever
+
+print("启动WebSocket服务器：ws://localhost:8765")
+
+loop = asyncio.get_event_loop()
+# Blocking call which returns when the hello_world() coroutine is done
+loop.run_until_complete(main())
+loop.close()
+**/
+py3.exec(pyCode);
 console.pause();

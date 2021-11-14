@@ -1,0 +1,5 @@
+import console; 
+console.open();
+import py;
+py.eval(`print("拼")`);
+console.pause();

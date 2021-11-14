@@ -1,0 +1,19 @@
+import console; 
+console.open();
+import py3;
+// 1. https://pypi.org/project/pyodbc/#files
+// 2. pyodbc-4.0.32-cp36-cp36m-win32.whl
+// 3. => pyodbc-4.0.32-cp36-cp36m-win32.zip
+// 4. pyodbc-4.0.32-cp36-cp36m-win32/pyodbc.cp36-win32.pyd => lib\py3\.res\DLLs\pyodbc.pyd
+var pyCode=/**
+﻿import pyodbc
+print("支持的数据库：{}".format(pyodbc.drivers()))
+# ['SQL Server', 'SQL Server Native Client 11.0', 'ODBC Driver 17 for SQL Server', 'SQL Server Native Client RDA 11.0']
+connection=pyodbc.connect("Driver={SQL Server Native Client 11.0};Server=localhost;Database=master;UID=test;PwD=test")
+cursor=connection.cursor()
+cursor.execute("select * from [master].[dbo].[spt_fallback_db]")
+row=cursor.fetchone()
+print("第一行数据：{}".format(row))
+**/
+py3.exec(pyCode);
+console.pause();

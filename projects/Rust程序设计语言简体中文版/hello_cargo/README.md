@@ -1,7 +1,9 @@
 cargo new hello_cargo
 
-cargo build
+编译：cargo build
 
-cargo run
+编译并运行：cargo run
 
-cargo check
+检查错误：cargo check
+
+发布最终版：cargo build --release

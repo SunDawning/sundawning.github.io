@@ -1,10 +1,10 @@
-import console; 
+import console;
 console.open();
 import py3;
 // 1. https://pypi.org/project/pyodbc/#files
 // 2. pyodbc-4.0.32-cp36-cp36m-win32.whl
 // 3. => pyodbc-4.0.32-cp36-cp36m-win32.zip
-// 4. pyodbc-4.0.32-cp36-cp36m-win32/pyodbc.cp36-win32.pyd => lib\py3\.res\DLLs\pyodbc.pyd
+// 4. pyodbc-4.0.32-cp36-cp36m-win32/pyodbc.cp36-win32.pyd => lib\py3\.res\DLLs\pyodbc.cp36-win32.pyd
 var pyCode=/**
 ﻿import pyodbc
 print("支持的数据库：{}".format(pyodbc.drivers()))

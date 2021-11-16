@@ -1,8 +1,21 @@
+//文件对话框
+import fonts.fontAwesome;
 import win.ui;
 /*DSG{{*/
-mainForm = win.form(text="尚逸背景墙图库下载器";right=959;bottom=591)
-mainForm.add()
+var winform = win.form(text="尚逸背景墙图库下载器";right=652;bottom=195;bgcolor=16777215;border="dialog frame";max=false;min=false)
+winform.add(
+btnOpen={cls="button";text="打开文件";left=31;top=41;right=137;bottom=76;db=1;dl=1;z=1};
+editPath={cls="plus";left=159;top=49;right=555;bottom=75;align="right";border={bottom=1;color=-6908266};dl=1;dr=1;dt=1;editable=1;font=LOGFONT(h=-13);textPadding={top=6;bottom=2};z=2}
+)
 /*}}*/
 
-mainForm.show();
-return win.loopMessage();
+import fsys.dlg;
+winform.btnOpen.oncommand = function(id,event){
+	var path = fsys.dlg.open('所有文件|*.*|文本文件|*.txt||',,,winform);
+	if(path){
+		winform.editPath.text = path;
+	}
+}
+
+winform.show();
+win.loopMessage();

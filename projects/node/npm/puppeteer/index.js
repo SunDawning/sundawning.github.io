@@ -1,4 +1,14 @@
 let puppeteer=require("puppeteer");
+/**
+ * 配置文件，形如：
+ * ```js
+ * module.exports={
+ *     loginname:"loginname",
+ *     password:"password"
+ * };
+ * 
+ *```
+ */
 let config=require("./config.js");
 /**
  * ```sh

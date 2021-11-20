@@ -3,8 +3,12 @@ fn main() {
     println!("你先猜一个数字：");
     // "1"
     let mut guessed_number = String::new();
-    std::io::stdin()
-        .read_line(&mut guessed_number)
-        .expect("无法获取所猜的数字");
-    println!("你猜的数字是：{}", guessed_number);
+    match std::io::stdin().read_line(&mut guessed_number) {
+        Ok(number) => {
+            println!("你猜的数字是：{}", number)
+        }
+        Err(error) => {
+            println!("无法获取所猜的数字，因为：{}", error)
+        }
+    };
 }

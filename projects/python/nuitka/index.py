@@ -1,2 +1,2 @@
-# python -m nuitka --standalone index.py
+# python -m nuitka --standalone --onefile index.py
 print(1)

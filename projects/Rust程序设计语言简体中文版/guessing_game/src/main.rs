@@ -1,5 +1,9 @@
+use rand::{Rng,thread_rng};
+/// 猜数字游戏
 fn main() {
     println!("已进入猜数字游戏");
+    let rand_number = thread_rng().gen_range(1..101);
+    println!("随机数：{}", rand_number);
     println!("你先猜一个数字：");
     // "1"
     let mut guessed_number = String::new();

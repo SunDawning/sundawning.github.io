@@ -36,6 +36,7 @@ app.use(async function(context,next){
         let directory=path.dirname(local_path);
         mkdirsSync(directory);
         fs.writeFileSync(local_path,response.data);
+        console.log(online_url,"=>",local_path);
         context.set("content-type",response.headers["content-type"]);
         context.body=response.data;
     }

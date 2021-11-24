@@ -30,7 +30,7 @@ app.use(async function(context,next){
     console.log(context.method,url);
     if(context.url.search("^/assets/")>-1){
         // "/assets/61.144.226.124@10000/AddressWeb/favicon.ico"
-        let online_url=url.replace("/assets/","http://").replace("@",":");
+        let online_url=url.replace("/assets/","http://").replace("@",":").replaceAll("@3A@","%3A");
         let response=await axios.get(online_url,{responseType:"arraybuffer"});
         let local_path="."+new URL(`http://localhost${url}`).pathname;
         let directory=path.dirname(local_path);

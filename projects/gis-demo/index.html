@@ -1,0 +1,34 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>深圳市房屋统一编码地址</title>
+    <link rel="icon" href="http://61.144.226.124:10000/AddressWeb/favicon.ico">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/cesium/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/cesium/Build/CesiumUnminified/Cesium.js"></script>
+    <script type="text/javascript">
+      let viewer=new Cesium.Viewer(document.body.appendChild(document.createElement("div")));
+      viewer.camera.setView({destination:{x: -2487022.5181193757, y: 5531599.850967436, z: 2541274.1065146397}});
+      viewer.imageryLayers.removeAll();
+      viewer.scene.mode=Cesium.SceneMode.SCENE2D;
+      // https://sandcastle.cesium.com/index.html?src=Cartographic%20Limit%20Rectangle.html
+      viewer.scene.globe.cartographicLimitRectangle=Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567);
+      [
+        // 街道图
+        "http://61.144.226.123:10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3Ashenzhenwgb@EPSG%3A4326@png/{z}/{x}/{reverseY}.png?d="+parseInt(Math.random()*100),
+        // 房屋图
+        "http://61.144.226.123:10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3AWgbLoudongExt@EPSG%3A4326@png/{z}/{x}/{reverseY}.png?d="+parseInt(Math.random()*100)
+      ].forEach(function(url){
+        viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+          url:url,
+          minimumLevel:9,
+          maximumLevel:18,
+          tilingScheme:new Cesium.GeographicTilingScheme(),
+          rectangle:Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567)
+        }));
+      });
+    </script>
+  </body>
+</html>

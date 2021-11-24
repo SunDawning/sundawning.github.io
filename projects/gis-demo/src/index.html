@@ -10,7 +10,8 @@
     <script src="./assets/cdn.jsdelivr.net/npm/cesium/Build/Cesium/Cesium.js"></script>
     <script type="text/javascript">
       let viewer=new Cesium.Viewer(document.body.appendChild(document.createElement("div")));
-      viewer.camera.setView({destination:{x: -2487022.5181193757, y: 5531599.850967436, z: 2541274.1065146397}});
+      // 在SCENE3D模式下获取
+      viewer.camera.setView({destination:{x: -2403336.9226434263, y: 5382248.523583019, z: 2429527.748840435}});
       viewer.imageryLayers.removeAll();
       viewer.scene.mode=Cesium.SceneMode.SCENE2D;
       // https://sandcastle.cesium.com/index.html?src=Cartographic%20Limit%20Rectangle.html

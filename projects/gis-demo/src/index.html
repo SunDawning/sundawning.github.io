@@ -9,7 +9,12 @@
   <body>
     <script src="./assets/cdn.jsdelivr.net/npm/cesium/Build/Cesium/Cesium.js"></script>
     <script type="text/javascript">
-      let viewer=new Cesium.Viewer(document.body.appendChild(document.createElement("div")));
+      let viewer=new Cesium.Viewer(document.body.appendChild(document.createElement("div")),{
+	  baseLayerPicker:false,
+	  homeButton:false,
+	  sceneModePicker:false,
+	  geocoder:false,
+      });
       // 在SCENE3D模式下获取
       viewer.camera.setView({destination:{x: -2403336.9226434263, y: 5382248.523583019, z: 2429527.748840435}});
       viewer.imageryLayers.removeAll();

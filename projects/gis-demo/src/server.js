@@ -32,7 +32,7 @@ app.use(async function(context,next){
         // "/assets/61.144.226.124@10000/AddressWeb/favicon.ico"
         let online_url=url.replace("/assets/","http://").replace("@",":");
         let response=await axios.get(online_url,{responseType:"arraybuffer"});
-        let local_path=`.${url}`;
+        let local_path="."+new URL(`http://localhost${url}`).pathname;
         let directory=path.dirname(local_path);
         mkdirsSync(directory);
         fs.writeFileSync(local_path,response.data);

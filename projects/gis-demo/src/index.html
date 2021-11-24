@@ -17,9 +17,9 @@
       viewer.scene.globe.cartographicLimitRectangle=Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567);
       [
         // 街道图
-        "http://61.144.226.123:10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3Ashenzhenwgb@EPSG%3A4326@png/{z}/{x}/{reverseY}.png?d="+parseInt(Math.random()*100),
+        "./assets/61.144.226.123@10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3Ashenzhenwgb@EPSG%3A4326@png/{z}/{x}/{reverseY}.png?d="+parseInt(Math.random()*100),
         // 房屋图
-        "http://61.144.226.123:10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3AWgbLoudongExt@EPSG%3A4326@png/{z}/{x}/{reverseY}.png?d="+parseInt(Math.random()*100)
+        "./assets/61.144.226.123@10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3AWgbLoudongExt@EPSG%3A4326@png/{z}/{x}/{reverseY}.png?d="+parseInt(Math.random()*100)
       ].forEach(function(url){
         viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
           url:url,

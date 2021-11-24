@@ -4,4 +4,5 @@
  * node server.js
  */
 let child_process=require("child_process");
-child_process.exec("http-server -p 9080");
+let http_server_process=child_process.exec("http-server -p 9080");
+http_server_process.stdout.pipe(process.stdout);

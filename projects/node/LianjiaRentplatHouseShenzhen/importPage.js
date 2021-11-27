@@ -3,10 +3,9 @@
  */
 let{MongoClient}=require(`mongodb`);
 let fs=require(`fs-extra`);
-let csv_parse=require(`csv-parse/lib/sync`);
 let path=require(`path`);
 /**
- * 导入CSV文件里的数据到mongodb数据库
+ * 导入文件里的数据到mongodb数据库
  */
 let host=`127.0.0.1`;
 let port=`27017`;

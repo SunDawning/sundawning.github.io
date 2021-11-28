@@ -1,4 +1,7 @@
 /**
+ * deno run --allow-net index.js
+ */
+/**
  * deno 1.15.3 (release, x86_64-pc-windows-msvc)
  * v8 9.5.172.19
  * typescript 4.4.2

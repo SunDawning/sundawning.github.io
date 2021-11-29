@@ -17,4 +17,13 @@
     // map.getZoom()
     zoom:11.76
   });
+  [
+    "touchstart","mousedown"
+  ].forEach(function(name){
+    map.on(name,function(event){
+      console.log("经纬度",["getLng","getLat"].map(function(item){
+        return event.lnglat[item]();
+      }));
+    });    
+  });
 </script>

@@ -11,5 +11,10 @@
 <div id="container"></div>
 <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=4682cf1de58ebd0089fd407b9708279f"></script>
 <script type="text/javascript">
-  let map=new AMap.Map("container");
+  let map=new AMap.Map("container",{
+    // map.getCenter()
+    center:[114.05386699999997,22.568135],
+    // map.getZoom()
+    zoom:11.76
+  });
 </script>

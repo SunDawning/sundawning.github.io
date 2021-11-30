@@ -1,0 +1,35 @@
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0">
+<title>交通规划工具</title>
+
+<!--高德地图的依赖文件-->
+
+<!--引入高德地图JSAPI -->
+<script src="https://webapi.amap.com/maps?v=2.0&key=4682cf1de58ebd0089fd407b9708279f&plugin=AMap.Transfer"></script>
+
+<!--引入UI组件库（1.1版本） -->
+<script src="https://webapi.amap.com/ui/1.1/main.js"></script>
+
+<script type="text/javascript">
+  var database={
+    // 地理坐标
+    coordinates:{},
+  };
+  database.coordinates={
+    "hdjy":[114.136534,22.546297],
+    "黄贝岭地铁站":[114.267937, 22.590357],
+    "cart":[114.110184,22.567114]
+  };
+  function index(){
+    var transferOption={
+      city:'深圳市',
+      policy:AMap.TransferPolicy.LEAST_TIME// 其它policy取值请参照 https://lbs.amap.com/api/javascript-api/reference/route-search#m_TransferPolicy
+    }
+    var transfer=new AMap.Transfer(transferOption)
+    //根据起、终点坐标查询公交换乘路线
+    transfer.search(new AMap.LngLat(114.267937,22.590357),new AMap.LngLat(114.136534,22.546297),function(status,result){
+      // result即是对应的公交路线数据信息，相关数据结构文档请参考  https://lbs.amap.com/api/javascript-api/reference/route-search#m_TransferResult
+      console.log(status,result);
+    });
+  }
+</script>

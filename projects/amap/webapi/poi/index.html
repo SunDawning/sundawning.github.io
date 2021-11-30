@@ -1,0 +1,87 @@
+<html lang="zh-CN">
+  <head>
+    <title>Amap JavaScript WebAPI</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0,user-scalable=no">
+    <link rel="shortcut icon" href="https://a.amap.com/pc/static/favicon.ico"/>
+    <style type="text/css">
+      #container{
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        height:100%;
+      }
+      .amap-icon img,
+      .amap-marker-content img{
+        width: 25px;
+        height: 34px;
+      }
+      #panel{
+          position:absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container" class="map" tabindex="0"></div>
+    <div id="panel" class="scrollbar1">
+      <div id="searchBar">
+        <input id="searchInput" placeholder="输入关键字搜素POI" />
+      </div>
+      <div id="searchResults"></div>
+    </div>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=4682cf1de58ebd0089fd407b9708279f"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/ui/1.1/main.js?v=1.1.1"></script>
+    <script type="text/javascript">
+      let map=new AMap.Map("container",{
+        // map.getCenter()
+        center:[114.05386699999997,22.568135],
+        // map.getZoom()
+        zoom:11.76
+      });
+      [
+        "touch","click"
+      ].forEach(function(name){
+        map.on(name,function(event){
+          let longitude=event.lnglat.getLng();
+          let latitude=event.lnglat.getLat();
+          let marker=new AMap.Marker({
+            // https://lbs.amap.com/demo/javascript-api/example/marker/marker-content
+            // https://a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png
+            // https://tiomg.org/compress-image-pro
+            // https://tool.jisuapi.com/pic2base64.html
+            icon:"data:image/webp;base64,UklGRs4DAABXRUJQVlA4WAoAAAAQAAAANAAAQwAAQUxQSAECAAABkENtm2k7/7HWUnFtVDyYi06xzcr2xJVtVUnp7jJ22osqVmXbmmDuv+f/gzoiJgD+mv4eaxqvPPv06dmVxjU9/DxsvQ69V+j3h3rZ6AZdVAYvDiLKPaoMH82jGP5SGX813NxSRbrKZmi7It5hZokiX2Ji8He674Ot5bxQDF/kWGpRLFus9FFM+1po5dKG66LYdkXt5bMP43vL560P0UUx7oJYxWkVop5TPeIyp8uIx5yeID5w+oj4zOkL4hmn54gbnG4gjnA6gtjCaTNiAKcBiPAXPl/CCGjhcxiww/kMRzlvc7ntRMFELpMA7+jg0eGwABWfOXyuAMsLOSwE67b9dPttBsB9heqqG4wmtdG0JYHh4AWK80Ew7jts7rAPCN0NphrcQOo+bOawG4jdZ0yccQN5qM1aawgYpt2xcicVWJa+xb0rBaajcaOB7R7MbuDrv9HZLT8jqP6u+94VWB/QHQLeOR9++5DDDLb/tgv42vxJ2YVF3T8r9bVPUWF2kt/GIJgfFdrDSp0U2mhekChQJLSV/cesV2rDmP5VQlsUoAgnhLZuhpTy4UMp5Yw6jUiECUqFfpqUUh4+LKWU03SilMvqNVzCCV3dDNnpjDpdIkIAgSKNqOo/ZvrcudPH9K8S2qIA0Abzo8JyNC8I9LZAUnZhUTQmRCxaVJidFLDB/zcAVlA4IKYBAADQCgCdASo1AEQAPpFAmEklo6IhLNYKALASCWgAxF3sPj5DdifbAeYDz//QzvCG8WuidlAmWRsGaUYsAZsE0UPdl5Uh1MgBxdAzR6dzdir2xSfPh7FD838LLlWsslFmoAD+/aMQbKG7jy5nFhGjkdCzZXxkM+efLfHME9MdAbGF78ilMmLIzkhgm7VJP8r4WK/yBjSvEqSYlOw53VZWV+ncMBDQNoJGdLHe6Op23855u5+1QJM3uou8v8Pnj9Jsak06YBBX/zMQAM0x34ubOZs+5Pc1d31IvBbbG+GeXp9TA3WAAFNId6HFf9q36YIlpIg8jJxQnY9Ar6uslmNx6zSjbSYbo/gbEACIeFr2Qqrtn6aP8e6PYupl1BlJ7f+NnZ2dG5gf4xr0oVX6pe9ZwL3JurO7/AWWCoOC9HLFbFoNJA15M31WofIvcWvOeYHfTC9a5XffX71ZkG1wkNPe/BvSQOhMtJLfWsgSlD1mIgjB+8CoSVGl9MtNbLyHNSus3l4J3sRY1yL/Oe2Fpzm26lbEXS4AoziCHnwFe+z02ZRLbXab8AAAAA==",
+            position:new AMap.LngLat(longitude,latitude),
+            offset:new AMap.Pixel(-13,-30)
+          });
+          map.add(marker);
+          console.log("经纬度",[longitude,latitude]);
+        });
+      });
+      AMapUI.loadUI(["misc/PoiPicker"],function(PoiPicker){
+          var poiPicker=new PoiPicker({
+              input:"searchInput",
+              placeSearchOptions:{
+                  map:map,
+                  pageSize:10
+              },
+              searchResultsContainer:"searchResults"
+          });
+          poiPicker.on("poiPicked",function(poiResult){
+              poiPicker.hideSearchResults();
+              var source=poiResult.source;
+              var poi=poiResult.item;
+              if(source!=="search"){
+                  //suggest来源的，同样调用搜索
+                  poiPicker.searchByKeyword(poi.name);
+              }else{
+                  //console.log(poi);
+              }
+          });
+          poiPicker.onCityReady(function(){
+              poiPicker.searchByKeyword("美食");
+          });
+      });
+    </script>
+  </body>
+</html>

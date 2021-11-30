@@ -30,7 +30,7 @@
         zoom:11.76
       });
       [
-        "touchend","click"
+        "touch","click"
       ].forEach(function(name){
         map.on(name,function(event){
           let longitude=event.lnglat.getLng();

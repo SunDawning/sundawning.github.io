@@ -14,8 +14,9 @@
 <script type="text/javascript">
   /**
    * 数据库：保存内存里的数据便于下次打开时也能恢复。
-   * @version 0.0.2
+   * @version 0.0.3
    * @constructor
+   * @param {String} id 唯一的标识
    */
   function Database(id){
     let SELF={};
@@ -105,6 +106,26 @@
       let exists=localStorage.getItem(id);
       if(exists===null){return;}
       SELF.data=JSON.parse(exists);
+    };
+    /**
+     * 导出数据库
+     * @since 0.0.3
+     * @version 0.0.1
+     * @method Database.prototype.export
+     * @param {String} filename 文件名
+     */
+    SELF.export=function(filename){
+      console.log("导出数据库",filename);
+    };
+    /**
+     * 导入数据库
+     * @since 0.0.3
+     * @version 0.0.1
+     * @method Database.prototype.import
+     * @param {String} url
+     */
+    SELF.import=function(url){
+      console.log("导入数据库",url);
     };
     SELF.init();
     return SELF;

@@ -10,38 +10,95 @@
 <!--引入UI组件库（1.1版本） -->
 <script src="https://webapi.amap.com/ui/1.1/main.js"></script>
 
+<!-- 工具包 -->
 <script type="text/javascript">
+  
+</script>
+<script type="text/javascript">
+  /**
+   * 数据库：保存内存里的数据便于下次打开时也能恢复。
+   * @version 0.0.1
+   * @constructor
+   */
   function Database(id){
     let SELF={};
-    SELF.db={};
+    /**
+     * 数据
+     * @since 0.0.1
+     * @version 0.0.1
+     * @member {Object} Database.prototype.data
+     */
+    SELF.data={};
+    /**
+     * 查
+     * @since 0.0.1
+     * @version 0.0.1
+     * @method Database.prototype.select
+     */
     SELF.select=function(key){
-      return SELF.db[key];
+      return SELF.data[key];
     };
+    /**
+     * 增
+     * @since 0.0.1
+     * @version 0.0.1
+     * @method Database.prototype.insert
+     */
     SELF.insert=function(key,value){
       if(!(SELF.select(key)===undefined)){return;}
-      SELF.db[key]=value;
+      SELF.data[key]=value;
       SELF.store();
     };
+    /**
+     * 改
+     * @since 0.0.1
+     * @version 0.0.1
+     * @method Database.prototype.update
+     */
     SELF.update=function(key,value){
       if(SELF.select(key)===undefined){return;}
-      SELF.db[key]=value;
+      SELF.data[key]=value;
       SELF.store();
     };
+    /**
+     * 删
+     * @since 0.0.1
+     * @version 0.0.1
+     * @method Database.prototype.delete
+     */
     SELF.delete=function(key){
       if(SELF.select(key)===undefined){return;}
-      delete SELF.db[key];
+      delete SELF.data[key];
       SELF.store();
     };
+    /**
+     * 删除数据库
+     * @since 0.0.1
+     * @version 0.0.1
+     * @method Database.prototype.drop
+     */
     SELF.drop=function(){
       localStorage.removeItem(id);
-    }
-    SELF.store=function(){
-      localStorage.setItem(id,JSON.stringify(SELF.db));
     };
+    /**
+     * 保存数据库
+     * @since 0.0.1
+     * @version 0.0.1
+     * @method Database.prototype.store
+     */
+    SELF.store=function(){
+      localStorage.setItem(id,JSON.stringify(SELF.data));
+    };
+    /**
+     * 恢复数据库
+     * @since 0.0.1
+     * @version 0.0.1
+     * @method Database.prototype.restore
+     */
     SELF.restore=function(){
       let exists=localStorage.getItem(id);
       if(exists===null){return;}
-      SELF.db=JSON.parse(exists);
+      SELF.data=JSON.parse(exists);
     };
     SELF.restore();
     return SELF;

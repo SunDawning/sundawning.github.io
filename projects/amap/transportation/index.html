@@ -11,15 +11,47 @@
 <script src="https://webapi.amap.com/ui/1.1/main.js"></script>
 
 <script type="text/javascript">
-  var database={
-    // 地理坐标
-    coordinates:{},
-  };
-  database.coordinates={
+  function Database(id){
+    let SELF={};
+    SELF.db={};
+    SELF.select=function(key){
+      return SELF.db[key];
+    };
+    SELF.insert=function(key,value){
+      if(!(SELF.select(key)===undefined)){return;}
+      SELF.db[key]=value;
+      SELF.store();
+    };
+    SELF.update=function(key,value){
+      if(SELF.select(key)===undefined){return;}
+      SELF.db[key]=value;
+      SELF.store();
+    };
+    SELF.delete=function(key){
+      if(SELF.select(key)===undefined){return;}
+      delete SELF.db[key];
+      SELF.store();
+    };
+    SELF.drop=function(){
+      localStorage.removeItem(id);
+    }
+    SELF.store=function(){
+      localStorage.setItem(id,JSON.stringify(SELF.db));
+    };
+    SELF.restore=function(){
+      let exists=localStorage.getItem(id);
+      if(exists===null){return;}
+      SELF.db=JSON.parse(exists);
+    };
+    SELF.restore();
+    return SELF;
+  }
+  var database=new Database("amap-transportation");
+  database.insert("coordinates",{
     "hdjy":[114.136534,22.546297],
     "黄贝岭地铁站":[114.267937, 22.590357],
     "cart":[114.110184,22.567114]
-  };
+  });
   function index(){
     var transferOption={
       city:'深圳市',

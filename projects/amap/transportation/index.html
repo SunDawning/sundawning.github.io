@@ -12,16 +12,22 @@
 
 <!-- 工具包 -->
 <script type="text/javascript">
-  
-</script>
-<script type="text/javascript">
   /**
    * 数据库：保存内存里的数据便于下次打开时也能恢复。
-   * @version 0.0.1
+   * @version 0.0.2
    * @constructor
    */
   function Database(id){
     let SELF={};
+    /**
+     * 初始化
+     * @since 0.0.2
+     * @version 0.0.1
+     * @method Database.prototype.init
+     */
+    SELF.init=function(){
+      SELF.restore(); // 恢复数据库
+    }
     /**
      * 数据
      * @since 0.0.1
@@ -100,9 +106,11 @@
       if(exists===null){return;}
       SELF.data=JSON.parse(exists);
     };
-    SELF.restore();
+    SELF.init();
     return SELF;
   }
+</script>
+<script type="text/javascript">
   var database=new Database("amap-transportation");
   database.insert("coordinates",{
     "hdjy":[114.136534,22.546297],

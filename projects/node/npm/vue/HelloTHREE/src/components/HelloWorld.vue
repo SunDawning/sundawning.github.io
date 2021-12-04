@@ -1,12 +1,13 @@
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 
 import * as THREE from "three";
 
 /**
+ * @param {HTMLElement} container
  * @see https://threejs.org/docs/index.html#manual/zh/introduction/Creating-a-scene
  */
-function init() {
+function init(container) {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(
     75,
@@ -17,7 +18,7 @@ function init() {
 
   const renderer = new THREE.WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
+  container.appendChild(renderer.domElement);
 
   const geometry = new THREE.BoxGeometry();
   const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
@@ -37,11 +38,15 @@ function init() {
 
   animate();
 }
-
-onMounted(init);
+let containerRef = ref();
+onMounted(function () {
+  init(containerRef.value);
+});
 </script>
 
-<template></template>
+<template>
+  <div ref="containerRef"></div>
+</template>
 
 <style scoped>
 </style>

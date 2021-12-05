@@ -2,10 +2,12 @@ lockfileVersion: 5.3
 
 specifiers:
   '@vitejs/plugin-vue': ^1.9.3
+  three: ^0.135.0
   vite: ^2.6.4
   vue: ^3.2.16
 
 dependencies:
+  three: registry.npmmirror.com/three/0.135.0
   vue: registry.npmmirror.com/vue/3.2.23
 
 devDependencies:
@@ -452,6 +454,12 @@ packages:
     name: source-map-js
     version: 1.0.1
     engines: {node: '>=0.10.0'}
+
+  registry.npmmirror.com/three/0.135.0:
+    resolution: {integrity: sha512-kuEpuuxRzLv0MDsXai9huCxOSQPZ4vje6y0gn80SRmQvgz6/+rI0NAvCRAw56zYaWKMGMfqKWsxF9Qa2Z9xymQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/three/download/three-0.135.0.tgz}
+    name: three
+    version: 0.135.0
+    dev: false
 
   registry.npmmirror.com/vite/2.6.14:
     resolution: {integrity: sha512-2HA9xGyi+EhY2MXo0+A2dRsqsAG3eFNEVIo12olkWhOmc8LfiM+eMdrXf+Ruje9gdXgvSqjLI9freec1RUM5EA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite/download/vite-2.6.14.tgz}

@@ -32,16 +32,16 @@
       });
   }
   onMounted(function(){
-      init(document.querySelector("#container"));
+      init(document.querySelector(".main"));
   });
 </script>
 
 <template>
-  <div id="container"></div>
+  <div class="main"></div>
 </template>
 
 <style>
-  #container{
+  .main{
       position:absolute;
       left:0;
       top:0;

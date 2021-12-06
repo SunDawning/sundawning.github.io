@@ -2,7 +2,7 @@
     "name": "gis-demo",
     "version": "0.0.0",
     "scripts": {
-        "dev": "vite",
+        "dev": "vite --host",
         "build": "vite build --base=./",
         "serve": "vite preview --host"
     },

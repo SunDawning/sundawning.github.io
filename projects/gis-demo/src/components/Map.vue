@@ -18,6 +18,16 @@
       // 版权控件的显示隐藏
       viewer._cesiumWidget._creditContainer.style.display="none";
       // 点击获取经纬度
+      let handler=new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+      handler.setInputAction(function(event){
+	  let cartesian=viewer.camera.pickEllipsoid(event.position,viewer.scene.globe.ellipsoid);
+	  let cartographic=Cesium.Cartographic.fromCartesian(cartesian);
+	  let longitude=Cesium.Math.toDegrees(cartographic.longitude);
+	  let latitude=Cesium.Math.toDegrees(cartographic.latitude);
+	  let height=viewer.camera.positionCartographic.height;
+	  let position=[longitude,latitude,height];
+	  console.log("点击获取经纬度",position);
+      },Cesium.ScreenSpaceEventType.LEFT_CLICK);
       viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(113.9517791569233,22.530534267425537,500)});
       viewer.imageryLayers.removeAll();
       viewer.scene.mode=Cesium.SceneMode.SCENE2D;

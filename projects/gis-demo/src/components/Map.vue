@@ -1,14 +1,21 @@
 <script setup>
-  import{ref,onMounted}from"vue";
+  import{onMounted}from"vue";
   import * as Cesium from"cesium";
   function init(container){
       // 深圳市房屋统一编码地址 http://61.144.226.124:10000/AddressWeb/#/
+      // Cesium隐藏控件_MZ_的博客-CSDN博客: https://blog.csdn.net/shijie_nihao/article/details/100065997
       let viewer=new Cesium.Viewer(container,{
 	  baseLayerPicker:false,
 	  homeButton:false,
 	  sceneModePicker:false,
 	  geocoder:false,
+	  timeline:false,
+	  fullscreenButton:false,
+	  animation:false,
+	  navigationHelpButton:false,
       });
+      // 版权控件的显示隐藏
+      viewer._cesiumWidget._creditContainer.style.display="none";
       // 在SCENE3D模式下获取
       viewer.camera.setView({destination:{x: -2403336.9226434263, y: 5382248.523583019, z: 2429527.748840435}});
       viewer.imageryLayers.removeAll();

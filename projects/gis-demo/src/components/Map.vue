@@ -17,10 +17,8 @@
       });
       // 版权控件的显示隐藏
       viewer._cesiumWidget._creditContainer.style.display="none";
-      // 在SCENE3D模式下获取
-      // JSON.stringify(viewer.camera.position);
-      window.viewer=viewer;
-      viewer.camera.setView({destination:{"x":-2393025.214286956,"y":5387119.331578442,"z":2428973.8691612994}});
+      // 点击获取经纬度
+      viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(113.9517791569233,22.530534267425537,500)});
       viewer.imageryLayers.removeAll();
       viewer.scene.mode=Cesium.SceneMode.SCENE2D;
       // https://sandcastle.cesium.com/index.html?src=Cartographic%20Limit%20Rectangle.html

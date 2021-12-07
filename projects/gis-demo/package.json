@@ -1,0 +1,19 @@
+{
+    "name": "gis-demo",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "offline": "cd src && http-server -p 8080",
+        "online": "cd src && node server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "axios": "^0.24.0",
+        "http-server": "^14.0.0",
+        "koa": "^2.13.4",
+        "nodemon": "^2.0.15"
+    }
+}

@@ -1,0 +1,8 @@
+安装：
+
+pnpm install
+
+运行：
+
+- 离线版：pnpm run offline
+- 在线版：pnpm run online

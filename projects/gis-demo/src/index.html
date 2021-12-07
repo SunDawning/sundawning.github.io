@@ -11,11 +11,17 @@
     <script type="text/javascript">
       // 深圳市房屋统一编码地址 http://61.144.226.124:10000/AddressWeb/#/
       let viewer=new Cesium.Viewer(document.body.appendChild(document.createElement("div")),{
-	  baseLayerPicker:false,
-	  homeButton:false,
-	  sceneModePicker:false,
-	  geocoder:false,
+          baseLayerPicker:false,
+          homeButton:false,
+          sceneModePicker:false,
+          geocoder:false,
+          timeline:false,
+          fullscreenButton:false,
+          animation:false,
+          navigationHelpButton:false,
       });
+      // 版权控件的显示隐藏
+      viewer._cesiumWidget._creditContainer.style.display="none";
       // 在SCENE3D模式下获取
       viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(113.9517791569233,22.530534267425537,500)});
       viewer.imageryLayers.removeAll();

@@ -6,14 +6,14 @@
       // 深圳市房屋统一编码地址 http://61.144.226.124:10000/AddressWeb/#/
       // Cesium隐藏控件_MZ_的博客-CSDN博客: https://blog.csdn.net/shijie_nihao/article/details/100065997
       let viewer=new Cesium.Viewer(container,{
-          baseLayerPicker:false,
-          homeButton:false,
-          sceneModePicker:false,
-          geocoder:false,
-          timeline:false,
-          fullscreenButton:false,
-          animation:false,
-          navigationHelpButton:false,
+	  baseLayerPicker:false,
+	  homeButton:false,
+	  sceneModePicker:false,
+	  geocoder:false,
+	  timeline:false,
+	  fullscreenButton:false,
+	  animation:false,
+	  navigationHelpButton:false,
       });
       // 版权控件的显示隐藏
       viewer._cesiumWidget._creditContainer.style.display="none";
@@ -32,20 +32,27 @@
       viewer.imageryLayers.removeAll();
       viewer.scene.mode=Cesium.SceneMode.SCENE2D;
       // https://sandcastle.cesium.com/index.html?src=Cartographic%20Limit%20Rectangle.html
-      viewer.scene.globe.cartographicLimitRectangle=Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567);
+      // viewer.scene.globe.cartographicLimitRectangle=Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567);
+      // Cesium加载高德地图_牛code的博客-CSDN博客: https://blog.csdn.net/qq_25064691/article/details/114494076
+      let tdtLayer = new Cesium.UrlTemplateImageryProvider({
+		url: "http://webrd02.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}",
+		minimumLevel: 3,
+		maximumLevel: 18
+      });
+      viewer.imageryLayers.addImageryProvider(tdtLayer);
       [
-          // 街道图
-          "http://61.144.226.123:10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3Ashenzhenwgb@EPSG%3A4326@png/{z}/{x}/{reverseY}.png",
-          // 房屋图
-          "http://61.144.226.123:10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3AWgbLoudongExt@EPSG%3A4326@png/{z}/{x}/{reverseY}.png"
+	  // 街道图
+	  "http://61.144.226.123:10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3Ashenzhenwgb@EPSG%3A4326@png/{z}/{x}/{reverseY}.png",
+	  // 房屋图
+	  "http://61.144.226.123:10000/geoserver/gwc/service/tms/1.0.0/shenzhen%3AWgbLoudongExt@EPSG%3A4326@png/{z}/{x}/{reverseY}.png"
       ].forEach(function(url){
-          viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
-              url:url,
-              minimumLevel:9,
-              maximumLevel:18,
-              tilingScheme:new Cesium.GeographicTilingScheme(),
-              rectangle:Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567)
-          }));
+	  viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+	      url:url,
+	      minimumLevel:9,
+	      maximumLevel:18,
+	      tilingScheme:new Cesium.GeographicTilingScheme(),
+	      rectangle:Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567)
+	  }));
       });
   }
   onMounted(function(){

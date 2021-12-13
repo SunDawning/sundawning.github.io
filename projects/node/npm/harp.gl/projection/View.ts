@@ -8,6 +8,7 @@ import { Theme } from "@here/harp-datasource-protocol";
 import { MapControls } from "@here/harp-map-controls";
 import { MapView } from "@here/harp-mapview";
 import { VectorTileDataSource } from "@here/harp-vectortile-datasource";
+import { sphereProjection } from "@here/harp-geoutils";
 
 const defaultTheme = "resources/berlin_tilezen_base.json";
 
@@ -32,6 +33,7 @@ export class View {
         const mapView = new MapView({
             canvas: this.canvas,
             theme: this.theme,
+            projection: sphereProjection,
             decoderUrl: "decoder.bundle.js"
         });
 

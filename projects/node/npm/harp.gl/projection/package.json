@@ -1,0 +1,30 @@
+{
+    "name": "projection",
+    "version": "0.1.0",
+    "description": "Generated with generator-harp.gl 0.27.1",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack",
+        "start": "webpack serve"
+    },
+    "author": "",
+    "private": true,
+    "dependencies": {
+        "@here/harp-datasource-protocol": "^0.27.1",
+        "@here/harp-geoutils": "^0.27.1",
+        "@here/harp-map-controls": "^0.27.1",
+        "@here/harp-map-theme": "^0.27.1",
+        "@here/harp-mapview": "^0.27.1",
+        "@here/harp-vectortile-datasource": "^0.27.1",
+        "@here/harp-webpack-utils": "^0.27.1",
+        "three": "^0.129.0"
+    },
+    "devDependencies": {
+        "@types/node": "^16.11.12",
+        "ts-loader": "^9.2.6",
+        "typescript": "^4.5.3",
+        "webpack": "^5.65.0",
+        "webpack-cli": "^4.9.1",
+        "webpack-dev-server": "^4.6.0"
+    }
+}

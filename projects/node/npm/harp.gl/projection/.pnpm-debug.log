@@ -1,0 +1,20 @@
+{
+  "0 debug pnpm:scope": {
+    "selected": 1
+  },
+  "1 error pnpm": {
+    "shortMessage": "Command failed with exit code 1: pnpm add -p --global --global-dir C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560 --dir C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560",
+    "command": "pnpm add -p --global --global-dir C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560 --dir C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560",
+    "escapedCommand": "pnpm add -p --global --global-dir \"C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560\" --dir \"C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560\"",
+    "exitCode": 1,
+    "failed": true,
+    "timedOut": false,
+    "isCanceled": false,
+    "killed": false,
+    "err": {
+      "name": "pnpm",
+      "message": "Command failed with exit code 1: pnpm add -p --global --global-dir C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560 --dir C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560",
+      "stack": "pnpm: Command failed with exit code 1: pnpm add -p --global --global-dir C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560 --dir C:\\Users\\sgs\\AppData\\Local\\Temp\\dlx-10560\n    at makeError (C:\\Users\\sgs\\AppData\\Roaming\\npm\\pnpm-global\\5\\node_modules\\.pnpm\\pnpm@6.15.0\\node_modules\\pnpm\\dist\\pnpm.cjs:48498:17)\n    at handlePromise (C:\\Users\\sgs\\AppData\\Roaming\\npm\\pnpm-global\\5\\node_modules\\.pnpm\\pnpm@6.15.0\\node_modules\\pnpm\\dist\\pnpm.cjs:49069:33)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\n    at async Object.handler [as dlx] (C:\\Users\\sgs\\AppData\\Roaming\\npm\\pnpm-global\\5\\node_modules\\.pnpm\\pnpm@6.15.0\\node_modules\\pnpm\\dist\\pnpm.cjs:128853:7)\n    at async C:\\Users\\sgs\\AppData\\Roaming\\npm\\pnpm-global\\5\\node_modules\\.pnpm\\pnpm@6.15.0\\node_modules\\pnpm\\dist\\pnpm.cjs:133329:20\n    at async run (C:\\Users\\sgs\\AppData\\Roaming\\npm\\pnpm-global\\5\\node_modules\\.pnpm\\pnpm@6.15.0\\node_modules\\pnpm\\dist\\pnpm.cjs:133304:34)\n    at async runPnpm (C:\\Users\\sgs\\AppData\\Roaming\\npm\\pnpm-global\\5\\node_modules\\.pnpm\\pnpm@6.15.0\\node_modules\\pnpm\\dist\\pnpm.cjs:133514:5)\n    at async C:\\Users\\sgs\\AppData\\Roaming\\npm\\pnpm-global\\5\\node_modules\\.pnpm\\pnpm@6.15.0\\node_modules\\pnpm\\dist\\pnpm.cjs:133506:7"
+    }
+  }
+}

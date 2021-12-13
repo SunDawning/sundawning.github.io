@@ -64,6 +64,10 @@ export class View {
         const tiltButton = ui.domElement.querySelector("#harp-gl_controls_tilt-button-ui");
         tiltButton.remove();
 
+        // TODO 在移动设备上，一个手指转动地图
+        // https://github.com/heremaps/harp.gl/blob/9ee5cac7/@here/harp-map-controls/lib/MapControls.ts
+        // 源码 touchMove无法直接修改
+
         return mapView;
     }
 }

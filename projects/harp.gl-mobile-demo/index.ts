@@ -11,6 +11,7 @@ import { View } from "./View";
 const app = new View({
     canvas: document.getElementById("map") as HTMLCanvasElement
 });
+console.log("app",app);
 
 const mapView = app.mapView;
 
@@ -23,7 +24,13 @@ window.addEventListener("resize", () => {
 });
 
 // center the camera to New York
-mapView.lookAt({ target: new GeoCoordinates(22.606020,113.998273), zoomLevel: 17, tilt: 40 });
+mapView.lookAt({
+    // 查找经纬度，https://www.latlong.net/
+    target: new GeoCoordinates(22.606020,113.998273),
+    zoomLevel: 17,
+    // 倾斜 mapView.tilt
+    tilt: 70
+});
 
 // make sure the map is rendered
 mapView.update();

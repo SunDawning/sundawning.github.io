@@ -54,7 +54,10 @@ export class View {
         const mapControls = new MapControls(mapView);
 
         // 添加界面
-        const ui = new MapControlsUI(mapControls);
+        const ui = new MapControlsUI(mapControls, {
+            // 可以手动输入地图的缩放级别
+            zoomLevel: "input",
+        });
         this.canvas.parentElement!.appendChild(ui.domElement);
         console.log("ui",ui);
         // 不显示＂3D＂按钮

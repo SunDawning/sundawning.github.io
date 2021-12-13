@@ -17,6 +17,7 @@
         "@here/harp-mapview": "^0.27.1",
         "@here/harp-vectortile-datasource": "^0.27.1",
         "@here/harp-webpack-utils": "^0.27.1",
+        "@here/harp-webtile-datasource": "^0.27.1",
         "three": "^0.129.0"
     },
     "devDependencies": {

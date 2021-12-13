@@ -9,6 +9,7 @@ import { MapControls } from "@here/harp-map-controls";
 import { MapView } from "@here/harp-mapview";
 import { VectorTileDataSource } from "@here/harp-vectortile-datasource";
 import { sphereProjection } from "@here/harp-geoutils";
+import { HereTileProvider, HereWebTileDataSource } from "@here/harp-webtile-datasource";
 
 const defaultTheme = "resources/berlin_tilezen_base.json";
 
@@ -41,6 +42,13 @@ export class View {
             authenticationCode: "q3APtmHHMHQYazxrvQ-_4YEXPwL5VO3bKCZzSyD2KqI"
         });
         mapView.addDataSource(dataSource);
+
+        // 影像地图 https://www.harp.gl/docs/master/examples/#datasource_satellite-tile.html
+        const webTileDataSource = new HereWebTileDataSource({
+            apikey: "q3APtmHHMHQYazxrvQ-_4YEXPwL5VO3bKCZzSyD2KqI",
+            tileBaseAddress: HereTileProvider.TILE_AERIAL_SATELLITE
+        });
+        mapView.addDataSource(webTileDataSource);
 
         MapControls.create(mapView);
 

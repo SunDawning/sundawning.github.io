@@ -57,6 +57,9 @@ export class View {
         const ui = new MapControlsUI(mapControls);
         this.canvas.parentElement!.appendChild(ui.domElement);
         console.log("ui",ui);
+        // 不显示＂3D＂按钮
+        const tiltButton = ui.domElement.querySelector("#harp-gl_controls_tilt-button-ui");
+        tiltButton.remove();
 
         return mapView;
     }

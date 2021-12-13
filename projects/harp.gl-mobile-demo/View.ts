@@ -38,17 +38,17 @@ export class View {
             decoderUrl: "decoder.bundle.js"
         });
 
-        const dataSource = new VectorTileDataSource({
-            authenticationCode: "q3APtmHHMHQYazxrvQ-_4YEXPwL5VO3bKCZzSyD2KqI"
-        });
-        mapView.addDataSource(dataSource);
-
         // 影像地图 https://www.harp.gl/docs/master/examples/#datasource_satellite-tile.html
         const webTileDataSource = new HereWebTileDataSource({
             apikey: "q3APtmHHMHQYazxrvQ-_4YEXPwL5VO3bKCZzSyD2KqI",
             tileBaseAddress: HereTileProvider.TILE_AERIAL_SATELLITE
         });
         mapView.addDataSource(webTileDataSource);
+
+        const dataSource = new VectorTileDataSource({
+            authenticationCode: "q3APtmHHMHQYazxrvQ-_4YEXPwL5VO3bKCZzSyD2KqI"
+        });
+        mapView.addDataSource(dataSource);
 
         MapControls.create(mapView);
 

@@ -23,7 +23,7 @@ window.addEventListener("resize", () => {
 });
 
 // center the camera to New York
-mapView.lookAt({ target: new GeoCoordinates(40.70398928, -74.01319808), zoomLevel: 17, tilt: 40 });
+mapView.lookAt({ target: new GeoCoordinates(22.606020,113.998273), zoomLevel: 17, tilt: 40 });
 
 // make sure the map is rendered
 mapView.update();

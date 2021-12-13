@@ -10,6 +10,7 @@ import { MapView } from "@here/harp-mapview";
 import { VectorTileDataSource } from "@here/harp-vectortile-datasource";
 import { sphereProjection } from "@here/harp-geoutils";
 import { HereTileProvider, HereWebTileDataSource } from "@here/harp-webtile-datasource";
+import { MapControlsUI } from "@here/harp-map-controls";
 
 const defaultTheme = "resources/berlin_tilezen_base.json";
 
@@ -50,7 +51,12 @@ export class View {
         });
         mapView.addDataSource(dataSource);
 
-        MapControls.create(mapView);
+        const mapControls = new MapControls(mapView);
+
+        // 添加界面
+        const ui = new MapControlsUI(mapControls);
+        this.canvas.parentElement!.appendChild(ui.domElement);
+        console.log("ui",ui);
 
         return mapView;
     }

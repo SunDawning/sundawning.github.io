@@ -52,23 +52,6 @@ export class View {
         });
         mapView.addDataSource(dataSource);
 
-        const mapControls = new MapControls(mapView);
-
-        // 添加界面
-        const ui = new MapControlsUI(mapControls, {
-            // 可以手动输入地图的缩放级别
-            zoomLevel: "input",
-        });
-        this.canvas.parentElement!.appendChild(ui.domElement);
-        console.log("ui",ui);
-        // 不显示＂3D＂按钮
-        const tiltButton = ui.domElement.querySelector("#harp-gl_controls_tilt-button-ui");
-        tiltButton.remove();
-
-        // TODO 在移动设备上，一个手指转动地图
-        // https://github.com/heremaps/harp.gl/blob/9ee5cac7/@here/harp-map-controls/lib/MapControls.ts
-        // 源码 touchMove无法直接修改
-
         return mapView;
     }
 }

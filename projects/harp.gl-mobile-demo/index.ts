@@ -7,6 +7,9 @@ import { TransformControls } from "three/examples/jsm/controls/TransformControls
 
 import { GeoCoordinates } from "@here/harp-geoutils";
 
+import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
+
+
 import { View } from "./View";
 
 const app = new View({
@@ -68,6 +71,7 @@ const onLoad = (object: any) => {
     });
     figure.renderOrder = 10000;
     // figure.rotateX(Math.PI / 2);
+    figure.rotation.set(0.38301767159470745, 0.10773774308833531, 0.38685412993645246);
     console.log("figure",figure);
     figure.scale.set(0.3, 0.3, 0.3);
     figure.name = "guy";
@@ -81,7 +85,7 @@ const onLoad = (object: any) => {
     // 调整位置
     const transformControls = new TransformControls(mapView.camera, mapView.canvas);
     transformControls.setSpace("local");
-    transformControls.setMode( 'rotate' );
+    transformControls.setMode("rotate");
     transformControls.setSize(0.0001);
     mapView.scene.add(transformControls);
     transformControls.attach(figure);
@@ -100,3 +104,23 @@ mapView.beginAnimation();
 
 // make sure the map is rendered
 mapView.update();
+
+import { MapControls } from "@here/harp-map-controls";
+const mapControls = new MapControls(mapView);
+console.log("mapControls",mapControls);
+
+// 添加界面
+import { MapControlsUI } from "@here/harp-map-controls";
+const ui = new MapControlsUI(mapControls, {
+    // 可以手动输入地图的缩放级别
+    zoomLevel: "input",
+});
+mapView.canvas.parentElement!.appendChild(ui.domElement);
+console.log("ui",ui);
+// 不显示＂3D＂按钮
+const tiltButton = ui.domElement.querySelector("#harp-gl_controls_tilt-button-ui");
+tiltButton.remove();
+
+// TODO 在移动设备上，一个手指转动地图
+// https://github.com/heremaps/harp.gl/blob/9ee5cac7/@here/harp-map-controls/lib/MapControls.ts
+// 源码 touchMove无法直接修改

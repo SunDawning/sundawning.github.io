@@ -137,7 +137,9 @@ homeButton.addEventListener("click", event => {
     mapView.lookAt({ target: figureGeoPosition, zoomLevel: 18});    
 });
 const markButton = document.createElement("button");
-markButton.innerText = "C";
+markButton.innerHTML = `
+<img style="width:100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAVUExURUxpcdTU19TW19TU1tXV19TV19TV12FsSSYAAAAGdFJOUwBBvoAf38yblZoAAAKFSURBVHja7Zo/b8IwEMUJAWZSqsy0VTNDkTLThRl1YAZC/f0/QqWShebsvPM5VK3e21CMfo7/vDtfPBpRFEVRFEX9C2Wv7oc+5skhpevolBxy6EI+UzNyJ2iVGDKWIEtCCCHktyDN5lv1oJDj9deMEEIIIYQQQgghhBBCrposNrLeJMiLp/F6G4TULqxbiFeN+iAdAQkevutUkNCrVKkgZ0IIIeSvQM6FV20BNfO3qFCIJfAQQgghhBBCCCFRkI1BlT1bQUUIIYTYIHUqSKhYUKaCnCy1FVSh2sroIQ3jKezU74V5yE7FY29AaCd/Xai1AIpdt8t4ro9XmYNjXnsLZhtRW8TvzBhu17T9g7tzjo/vwCBk+Oz51kz/dOZ2yAqtMkddqyrRmvT02vASA9ld/7vvbThDG/o7eER7E1WGH6OjUBruh+XofNZ2SDOgdSnMC7YGi3kZXAXu4cQEAc3LYl2weeUGV4GXprCfxr7d2X0AmpfgKjvfNu4+mGG+InzcK30D2H0AmpfgKgoIGCdsEHDZCItQD2mw7TSKg4BbWXAfBaT9u9O7igYCZYaSq2ggUKCQlocGAvlKLkRpDQQK3tKW1UCgpEhKiDQQyLykhEgDgVJDaUw1EMi8pNCmgUC+IriKCgIlRQcjBDqnSR2JgDjAupp4CGBemRkCJEWSq0RBVv0J0TEeAiRFU8l6VBDgoCbedoqBHLXHLBUE8JVSWhsqCJAU1dJWUkGAU0FlhgBJ0UFyHhWk37xEV1FCen0lc8k0H75iG/KVu0DG6SDLPutKoX1fQpRCl+G/B4R8pU4HaYb/RhOC3OVN7jInd9knCT+cBRKv/DmRoqqLFEVRFEVRlFFfEumzImAJwbEAAAAASUVORK5CYII=">
+`;
 markButton.title = "Clear markers";
 markButton.classList.add("harp-gl_controls-button");
 markButton.classList.add("harp-gl_controls_button-bottom");

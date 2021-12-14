@@ -41,7 +41,7 @@ const atmosphere = new MapViewAtmosphere(
 );
 atmosphere.lightMode = AtmosphereLightMode.LightDynamic;
 
-// center the camera to New York
+// center the camera
 mapView.lookAt({
     // 查找经纬度，https://www.latlong.net/
     target: new GeoCoordinates(22.606020,113.998273),
@@ -120,7 +120,17 @@ mapView.canvas.parentElement!.appendChild(ui.domElement);
 console.log("ui",ui);
 // 不显示＂3D＂按钮
 const tiltButton = ui.domElement.querySelector("#harp-gl_controls_tilt-button-ui");
+const buttonsElement = tiltButton.parentElement;
 tiltButton.remove();
+const homeButton = document.createElement("button");
+homeButton.innerText = "H";
+homeButton.title = "Reset to home view";
+homeButton.classList.add("harp-gl_controls-button");
+homeButton.classList.add("harp-gl_controls_button-bottom");
+buttonsElement.appendChild(homeButton);
+homeButton.addEventListener("click", event => {
+    mapView.lookAt({ target: figureGeoPosition, zoomLevel: 18});    
+});
 
 // TODO 在移动设备上，一个手指转动地图
 // https://github.com/heremaps/harp.gl/blob/9ee5cac7/@here/harp-map-controls/lib/MapControls.ts

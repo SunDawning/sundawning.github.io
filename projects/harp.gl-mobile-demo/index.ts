@@ -46,5 +46,47 @@ mapView.lookAt({
     tilt: 70
 });
 
+// 添加动画模型
+import { MapAnchor, MapViewEventNames, RenderEvent } from "@here/harp-mapview";
+import * as THREE from "three";
+import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
+const figureGeoPosition = new GeoCoordinates(22.606020,113.998273);
+// mapView.lookAt({ target: figureGeoPosition, zoomLevel: 20, tilt: 40, heading: 40 });
+const clock = new THREE.Clock();
+let figure: MapAnchor<THREE.Group> | undefined;
+let mixer: THREE.AnimationMixer | undefined;
+const onLoad = (object: any) => {
+    mixer = new THREE.AnimationMixer(object);
+
+    const action = mixer.clipAction(object.animations[0]);
+    action.play();
+
+    figure = object as THREE.Group;
+    figure.traverse((child: THREE.Object3D) => {
+        child.renderOrder = 10000;
+    });
+    figure.renderOrder = 10000;
+    figure.rotateX(Math.PI / 2);
+    console.log("figure",figure);
+    figure.scale.set(0.3, 0.3, 0.3);
+    figure.name = "guy";
+
+    // snippet:harp_gl_threejs_add_animated-object_add_to_scene.ts
+    figure.anchor = figureGeoPosition;
+    // Make sure the object is rendered on top of labels
+    figure.overlay = true;
+    mapView.mapAnchors.add(figure);
+};
+const loader = new FBXLoader();
+loader.load("resources/dancing.fbx", onLoad);
+const onRender = (event: RenderEvent) => {
+    if (mixer) {
+        const delta = clock.getDelta();
+        mixer.update(delta);
+    }
+};
+mapView.addEventListener(MapViewEventNames.Render, onRender);
+mapView.beginAnimation();
+
 // make sure the map is rendered
 mapView.update();

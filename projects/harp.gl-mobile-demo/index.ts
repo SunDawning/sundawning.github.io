@@ -123,7 +123,12 @@ const tiltButton = ui.domElement.querySelector("#harp-gl_controls_tilt-button-ui
 const buttonsElement = tiltButton.parentElement;
 tiltButton.remove();
 const homeButton = document.createElement("button");
-homeButton.innerText = "H";
+// 1. https://www.iconfont.cn/search/index?searchType=icon&q=clear&page=1&fromCollection=1&fills=&tag=
+// 2. https://tiomg.org/compress-image
+// 3. https://oktools.net/image2base64
+homeButton.innerHTML = `
+<img style="width:100%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADIBAMAAABfdrOtAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAPUExURUxpcdTW19TU1tXV19TV11XGEd8AAAAEdFJOUwC/gUQuuPM0AAACN0lEQVR42u2abXKCMBRFTdIFaMsCrGYBoCxAIftfU+1YqEQgX+/O6My9v8Uj75Dk6XOzYRiGYRiGYRiGYVZizmc44+Sc24MZ+sZwVzDE/kLcF5Sh3D01Unr1B+mAkMYNwbk3IwPo3v5DYO61ewzIfTWBdGDrOPfGY0DcD9Y7i3M/Wt9rnPvBer/ZtCj3g/Vr/bC5CLs3Ew8Nxr2dFmh0v4VY99d+DbF+D8D9o3XvYBFzb2YMKGn3dq40wu71bGWE3VfzW9XovodYl3c/vtd+qT0ScN8uLwgx93pFr5h7u3ZANTLu1YJ1SffL1gXdt6FtUMC9DorV5bdiw21JsXsV8ykL3YesewXrMNYF3OvI5WxK3NvYZrTAvYr/fFXuFhZnvdB9m3JdpnudVIFM9zbtK8jo/oKxnu0+xXq2+yb9wbepW5hZPQ6F3NucBzLRvc5bWmnuq7wDQqdsYU3udtfG34rOsO49+D3GeuISNiWHqY2sly5pC2IvVkUNThtXapVpfeI+DpLddKoESHaTrgkhhBBCCCHkZSDmsNsdaizkr708IiGnoRM94iAmOJoTgNjgaK4coh4HgFsQxIYHpsUQb5pZQyBqCtlCINaFB8ylkKfZbw2AaBcxxS6FKB+yBUA+fMgFAGl9SP+uEOtDOkIIIYQQQgghhBBCCCHkdSGHmTxD5l6VACkMIe8H0RKQ0O+kRgJSh350FWCE/8HQlkPCM11T4at1o3zvivIZwWAYhmEYhmEYhnnOD6nzOTwrW3mgAAAAAElFTkSuQmCC">
+`;
 homeButton.title = "Reset to home view";
 homeButton.classList.add("harp-gl_controls-button");
 homeButton.classList.add("harp-gl_controls_button-bottom");
@@ -132,7 +137,7 @@ homeButton.addEventListener("click", event => {
     mapView.lookAt({ target: figureGeoPosition, zoomLevel: 18});    
 });
 const markButton = document.createElement("button");
-markButton.innerText = "M";
+markButton.innerText = "C";
 markButton.title = "Clear markers";
 markButton.classList.add("harp-gl_controls-button");
 markButton.classList.add("harp-gl_controls_button-bottom");

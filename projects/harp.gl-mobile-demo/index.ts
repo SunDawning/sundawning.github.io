@@ -160,7 +160,7 @@ earthButton.classList.add("harp-gl_controls_button-bottom");
 buttonsElement.appendChild(earthButton);
 earthButton.addEventListener("click", event => {
     mapView.lookAt({
-	bounds: { latitudeSpan: 180, longitudeSpan: 360 } ,
+	zoomLevel:2,
 	tilt:0,
 	target:figureGeoPosition,
     });

@@ -2,6 +2,7 @@ lockfileVersion: 5.3
 
 specifiers:
   '@here/harp-datasource-protocol': ^0.27.1
+  '@here/harp-features-datasource': ^0.27.1
   '@here/harp-geoutils': ^0.27.1
   '@here/harp-map-controls': ^0.27.1
   '@here/harp-map-theme': ^0.27.1
@@ -19,6 +20,7 @@ specifiers:
 
 dependencies:
   '@here/harp-datasource-protocol': registry.npmmirror.com/@here/harp-datasource-protocol/0.27.1_three@0.129.0
+  '@here/harp-features-datasource': registry.npmmirror.com/@here/harp-features-datasource/0.27.1_three@0.129.0
   '@here/harp-geoutils': registry.npmmirror.com/@here/harp-geoutils/0.27.1_three@0.129.0
   '@here/harp-map-controls': registry.npmmirror.com/@here/harp-map-controls/0.27.1_three@0.129.0
   '@here/harp-map-theme': registry.npmmirror.com/@here/harp-map-theme/0.27.1
@@ -2182,6 +2184,22 @@ packages:
       '@here/harp-geoutils': registry.npmmirror.com/@here/harp-geoutils/0.27.1_three@0.129.0
       '@here/harp-utils': registry.npmmirror.com/@here/harp-utils/0.27.1
       csscolorparser: registry.npmmirror.com/csscolorparser/1.0.3
+      three: registry.npmmirror.com/three/0.129.0
+    dev: false
+
+  registry.npmmirror.com/@here/harp-features-datasource/0.27.1_three@0.129.0:
+    resolution: {integrity: sha1-gZjPvVxIroxogQ6SF3BTKQmTrnc=, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@here/harp-features-datasource/download/@here/harp-features-datasource-0.27.1.tgz}
+    id: registry.npmmirror.com/@here/harp-features-datasource/0.27.1
+    name: '@here/harp-features-datasource'
+    version: 0.27.1
+    peerDependencies:
+      three: ^0.129.0
+    dependencies:
+      '@here/harp-datasource-protocol': registry.npmmirror.com/@here/harp-datasource-protocol/0.27.1_three@0.129.0
+      '@here/harp-geoutils': registry.npmmirror.com/@here/harp-geoutils/0.27.1_three@0.129.0
+      '@here/harp-mapview': registry.npmmirror.com/@here/harp-mapview/0.27.1_three@0.129.0
+      '@here/harp-utils': registry.npmmirror.com/@here/harp-utils/0.27.1
+      '@here/harp-vectortile-datasource': registry.npmmirror.com/@here/harp-vectortile-datasource/0.27.1_three@0.129.0
       three: registry.npmmirror.com/three/0.129.0
     dev: false
 

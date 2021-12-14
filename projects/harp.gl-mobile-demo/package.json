@@ -11,6 +11,7 @@
     "private": true,
     "dependencies": {
         "@here/harp-datasource-protocol": "^0.27.1",
+        "@here/harp-features-datasource": "^0.27.1",
         "@here/harp-geoutils": "^0.27.1",
         "@here/harp-map-controls": "^0.27.1",
         "@here/harp-map-theme": "^0.27.1",

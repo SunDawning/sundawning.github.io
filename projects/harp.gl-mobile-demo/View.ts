@@ -35,7 +35,29 @@ export class View {
         const mapView = new MapView({
             canvas: this.canvas,
             // 太空背景
-            theme: "resources/berlin_tilezen_base_globe.json",
+            theme: {
+                extends: "resources/berlin_tilezen_base_globe.json",
+                styles: {
+                    // Specify the styling for the markers.
+                    geojson: [
+                        {
+                            when: ["==", ["geometry-type"], "Point"],
+                            technique: "labeled-icon",
+                            imageTexture: ["get", "icon"],
+                            text: ["get", "text"],
+                            size: 15,
+                            priority: 1000,
+                            color: "black",
+                            iconMayOverlap: true,
+                            textMayOverlap: true,
+                            renderOrder: ["get", "renderOrder"],
+                            iconFadeTime: 0,
+                            textFadeTime: 0
+                        }
+                    ]
+                }
+            },
+            delayLabelsUntilMovementFinished: false,
             projection: sphereProjection,
             decoderUrl: "decoder.bundle.js"
         });

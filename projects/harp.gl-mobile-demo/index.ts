@@ -131,6 +131,15 @@ buttonsElement.appendChild(homeButton);
 homeButton.addEventListener("click", event => {
     mapView.lookAt({ target: figureGeoPosition, zoomLevel: 18});    
 });
+const markButton = document.createElement("button");
+markButton.innerText = "M";
+markButton.title = "Clear markers";
+markButton.classList.add("harp-gl_controls-button");
+markButton.classList.add("harp-gl_controls_button-bottom");
+buttonsElement.appendChild(markButton);
+markButton.addEventListener("click", event => {
+    clearMarkers();
+});
 
 // TODO 在移动设备上，一个手指转动地图
 // https://github.com/heremaps/harp.gl/blob/9ee5cac7/@here/harp-map-controls/lib/MapControls.ts

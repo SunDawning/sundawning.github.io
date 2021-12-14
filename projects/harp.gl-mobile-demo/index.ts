@@ -135,7 +135,7 @@ homeButton.classList.add("harp-gl_controls-button");
 homeButton.classList.add("harp-gl_controls_button-bottom");
 buttonsElement.appendChild(homeButton);
 homeButton.addEventListener("click", event => {
-    mapView.lookAt({ target: figureGeoPosition, zoomLevel: 18});    
+    mapView.lookAt({ target: figureGeoPosition, zoomLevel: 18, tilt: 70});    
 });
 const markButton = document.createElement("button");
 markButton.innerHTML = `
@@ -159,7 +159,11 @@ earthButton.classList.add("harp-gl_controls-button");
 earthButton.classList.add("harp-gl_controls_button-bottom");
 buttonsElement.appendChild(earthButton);
 earthButton.addEventListener("click", event => {
-    mapView.lookAt({ bounds: { latitudeSpan: 180, longitudeSpan: 360 } ,tilt:0});
+    mapView.lookAt({
+	bounds: { latitudeSpan: 180, longitudeSpan: 360 } ,
+	tilt:0,
+	target:figureGeoPosition,
+    });
 });
 
 // TODO 在移动设备上，一个手指转动地图

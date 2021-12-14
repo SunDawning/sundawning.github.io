@@ -23,6 +23,20 @@ window.addEventListener("resize", () => {
     mapView.resize(window.innerWidth, window.innerHeight);
 });
 
+// 大气层
+import { MapViewAtmosphere, AtmosphereLightMode } from "@here/harp-mapview";
+const map = mapView;
+const { camera, projection, mapAnchors } = map;
+const updateCallback = () => map.update();
+const atmosphere = new MapViewAtmosphere(
+    mapAnchors,
+    camera,
+    projection,
+    map.renderer.capabilities,
+    updateCallback
+);
+atmosphere.lightMode = AtmosphereLightMode.LightDynamic;
+
 // center the camera to New York
 mapView.lookAt({
     // 查找经纬度，https://www.latlong.net/

@@ -34,7 +34,7 @@ export class View {
     protected initialize(): MapView {
         const mapView = new MapView({
             canvas: this.canvas,
-            theme: this.theme,
+            theme: "resources/berlin_tilezen_base.json",
             projection: sphereProjection,
             decoderUrl: "decoder.bundle.js"
         });

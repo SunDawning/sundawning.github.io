@@ -55,7 +55,7 @@ import { MapAnchor, MapViewEventNames, RenderEvent } from "@here/harp-mapview";
 import * as THREE from "three";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 const figureGeoPosition = new GeoCoordinates(22.606020,113.998273);
-// mapView.lookAt({ target: figureGeoPosition, zoomLevel: 20, tilt: 40, heading: 40 });
+mapView.lookAt({ target: figureGeoPosition, zoomLevel: 18});
 const clock = new THREE.Clock();
 let figure: MapAnchor<THREE.Group> | undefined;
 let mixer: THREE.AnimationMixer | undefined;
@@ -71,6 +71,7 @@ const onLoad = (object: any) => {
     });
     figure.renderOrder = 10000;
     // figure.rotateX(Math.PI / 2);
+    // figure.rotateZ(Math.PI / 2);
     figure.rotation.set(0.38301767159470745, 0.10773774308833531, 0.38685412993645246);
     console.log("figure",figure);
     figure.scale.set(0.3, 0.3, 0.3);
@@ -87,8 +88,8 @@ const onLoad = (object: any) => {
     transformControls.setSpace("local");
     transformControls.setMode("rotate");
     transformControls.setSize(0.0001);
-    mapView.scene.add(transformControls);
-    transformControls.attach(figure);
+    // mapView.scene.add(transformControls);
+    // transformControls.attach(figure);
     console.log("transformControls",transformControls,figure);
 };
 const loader = new FBXLoader();

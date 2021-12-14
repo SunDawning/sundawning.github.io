@@ -3,6 +3,7 @@
  * Licensed under Apache 2.0, see full license in LICENSE
  * SPDX-License-Identifier: Apache-2.0
  */
+import { TransformControls } from "three/examples/jsm/controls/TransformControls";
 
 import { GeoCoordinates } from "@here/harp-geoutils";
 
@@ -66,7 +67,7 @@ const onLoad = (object: any) => {
         child.renderOrder = 10000;
     });
     figure.renderOrder = 10000;
-    figure.rotateX(Math.PI / 2);
+    // figure.rotateX(Math.PI / 2);
     console.log("figure",figure);
     figure.scale.set(0.3, 0.3, 0.3);
     figure.name = "guy";
@@ -76,6 +77,15 @@ const onLoad = (object: any) => {
     // Make sure the object is rendered on top of labels
     figure.overlay = true;
     mapView.mapAnchors.add(figure);
+
+    // 调整位置
+    const transformControls = new TransformControls(mapView.camera, mapView.canvas);
+    transformControls.setSpace("local");
+    transformControls.setMode( 'rotate' );
+    transformControls.setSize(0.0001);
+    mapView.scene.add(transformControls);
+    transformControls.attach(figure);
+    console.log("transformControls",transformControls,figure);
 };
 const loader = new FBXLoader();
 loader.load("resources/dancing.fbx", onLoad);

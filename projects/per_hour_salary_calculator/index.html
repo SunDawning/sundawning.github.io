@@ -30,6 +30,7 @@
     <div id="app">
       <h2 id="title"></h2>
       <form name="current" style="text-align:right;line-height:32px;max-width:320px;margin:0 auto;">
+        <div>名称：<input/></div>
         <div><input type="radio" name="n" value="x"/>时薪(元/小时)：<input type="number" name="x"/></div>
         <div><input type="radio" name="n" value="y" checked="true"/>每月总工资(元)：<input type="number" name="y"/></div>
         <div><strong>法定工作日</strong><strong>法定八小时</strong>之内的工作时长(小时)：<input type="number" name="a"/></div>
@@ -309,7 +310,7 @@
           let y=document.getElementsByName("y")[0];
           y.value=computeFormY(form);
         }
-        document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${computeFormHours(form)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;        
+        document.querySelector("#title").innerHTML=`${getX(form.x.value)}<sub>元/小时</sub> * ${computeFormHours(form)}<sub>小时/月</sub> = ${getY(form.y.value)}<sub>元/月</sub>`;
       }
       let form=document.getElementsByName("current")[0];
       renderForm(form);

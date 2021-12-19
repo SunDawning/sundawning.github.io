@@ -10,19 +10,47 @@ let mongoClient=new MongoClient(url);
 async function index(){
     await mongoClient.connect();
     let db=mongoClient.db(dbName);
-    let collectionName=`index`;
-    let collection=db.collection(collectionName);
-    let exists=await collection.find({
-        'm_url': 'https://m.lianjia.com/chuzu/sz/zufang/SZ2636962691410821120.html'
-    },{
-        sort:{
-            'timestamp': -1
-        },
-        limit:1
-    }).toArray();
-    let one=exists[0];
-    let rent_price_listing=one.rent_price_listing;
-    console.log(rent_price_listing);
+    let heatmapData=[];
+    {
+        let collectionName="detail";
+        let collection=db.collection(collectionName);
+        let exists=await collection.find({},{
+            projection:{
+                'longitude': 1, 
+                'latitude': 1,
+                'm_url':1,
+                '_id': 0
+            }
+        }).toArray();
+        heatmapData=exists;
+    }
+    {
+        let collectionName=`index`;
+        let collection=db.collection(collectionName);
+        for(let item of heatmapData){
+            let m_url=item["m_url"];
+            let exists=await collection.find({
+                'm_url': m_url
+            },{
+                sort:{
+                    'timestamp': -1
+                },
+                limit:1
+            }).toArray();
+            let one=exists[0];
+            let rent_price_listing=one.rent_price_listing;
+            item["lng"]=parseFloat(item["longitude"]);
+            delete item["longitude"];
+            item["lat"]=parseFloat(item["latitude"]);
+            delete item["latitude"];
+            item["count"]=parseFloat(rent_price_listing);
+            delete item["m_url"];
+        }
+    }
+    let fs=require("fs-extra");
+    fs.writeFile(`heatmapData.js`,`
+var heatmapData=${JSON.stringify(heatmapData)}
+`);
     mongoClient.close();
 }
 index();

@@ -43,10 +43,28 @@
     }
   ];
 </script>
+<script type="text/javascript">
+  function bMap2QQMap (lng, lat) {
+    let xPi = 3.14159265358979324 * 3000.0 / 180.0
+    let x = lng - 0.0065
+    let y = lat - 0.006
+    let z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * xPi)
+    let theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * xPi)
+    let lng2 = z * Math.cos(theta)
+    let lat2 = z * Math.sin(theta)
+    return {
+      "lng":lng2,
+      "lat":lat2
+    };
+  }
+  for(let item of heatmapData){
+    Object.assign(item,bMap2QQMap(item["lng"],item["lat"]))
+  }
+</script>
 <script>
   var map = new AMap.Map("container", {
     resizeEnable: true,
-    center: [113.899967, 22.780876],
+    center: Object.values(bMap2QQMap.apply(null,[113.899967, 22.780876])),
     zoom: 11
   });
 

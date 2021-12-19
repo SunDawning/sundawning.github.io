@@ -1,5 +1,5 @@
 /**
- * 查询索引数据里某租房的最新一条数据
+ * 查询租房的热力地图数据
  */
 const MongoClient = require('mongodb').MongoClient;
 let host=`127.0.0.1`;
@@ -16,7 +16,7 @@ async function index(){
         let collection=db.collection(collectionName);
         let exists=await collection.find({},{
             projection:{
-                'longitude': 1, 
+                'longitude': 1,
                 'latitude': 1,
                 'm_url':1,
                 '_id': 0

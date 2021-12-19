@@ -1,13 +1,19 @@
 {
-        "devDependencies": {
-                "7zip-min": "^1.4.0",
-                "async": "^3.2.1",
-                "axios": "^0.23.0",
-                "csv-parse": "^4.16.3",
-                "fs-extra": "^10.0.0",
-                "minimist": "^1.2.5",
-                "mongodb": "^4.1.3",
-                "ora": "^6.0.1",
-                "progress": "^2.0.3"
-        }
+    "scripts":{
+        "index":"node indexPage.js",
+        "detail":"node detailPage.js",
+        "import":"node importPage.js",
+        "all":"npm run index && npm run detail && npm run import"
+    },
+    "devDependencies": {
+        "7zip-min": "^1.4.0",
+        "async": "^3.2.1",
+        "axios": "^0.23.0",
+        "csv-parse": "^4.16.3",
+        "fs-extra": "^10.0.0",
+        "minimist": "^1.2.5",
+        "mongodb": "^4.1.3",
+        "ora": "^6.0.1",
+        "progress": "^2.0.3"
+    }
 }

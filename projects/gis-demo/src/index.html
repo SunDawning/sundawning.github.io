@@ -25,9 +25,14 @@
       // 在SCENE3D模式下获取
       viewer.camera.setView({destination:Cesium.Cartesian3.fromDegrees(113.9517791569233,22.530534267425537,500)});
       viewer.imageryLayers.removeAll();
-      viewer.scene.mode=Cesium.SceneMode.SCENE2D;
+      //viewer.scene.mode=Cesium.SceneMode.SCENE2D;
       // https://sandcastle.cesium.com/index.html?src=Cartographic%20Limit%20Rectangle.html
-      viewer.scene.globe.cartographicLimitRectangle=Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567);
+      // viewer.scene.globe.cartographicLimitRectangle=Cesium.Rectangle.fromDegrees(113.698237, 22.459566, 114.693814, 23.267567);
+      viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+        url:"./assets/server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png",
+        maximumLevel:18,
+      }));
+      
       [
         // 街道图
         "./assets/61.144.226.123@10000/geoserver/gwc/service/tms/1.0.0/shenzhen@3A@shenzhenwgb@EPSG@3A@4326@png/{z}/{x}/{reverseY}.png",

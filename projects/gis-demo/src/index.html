@@ -32,7 +32,17 @@
         url:"./assets/server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png",
         maximumLevel:18,
       }));
-      
+      // https://blog.csdn.net/A873054267/article/details/86652620
+      viewer.imageryLayers.addImageryProvider(new Cesium.WebMapTileServiceImageryProvider({
+        url: './assets/61.175.211.102/arcgis/rest/services/TDT/SLDT/MapServer/WMTS/tile/1.0.0/TDT_SLDT/{Style}/{TileMatrixSet}/{TileMatrix}/{TileRow}/{TileCol}.png',
+        layer: 'wzmap_map',
+        style: 'default',
+        tileMatrixSetID: 'default028mm',
+        format: 'image/png',
+        tilingScheme: new Cesium.GeographicTilingScheme(),
+        maximumLevel: 21,
+        tileMatrixLabels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21']
+      }));
       [
         // 街道图
         "./assets/61.144.226.123@10000/geoserver/gwc/service/tms/1.0.0/shenzhen@3A@shenzhenwgb@EPSG@3A@4326@png/{z}/{x}/{reverseY}.png",

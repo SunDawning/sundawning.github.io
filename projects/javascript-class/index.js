@@ -15,10 +15,19 @@ var student2=new Student("李四",81);
 student1.printScore();
 student2.printScore();
 
-var person={
+var person1={
     name:"张三",
     age:18,
     sayName:function(){
         console.log(this.name);
     }
 };
+var person2={
+    name:"李四",
+    age:16,
+    sayName:function(){
+        console.log(this.name);
+    }
+};
+person1.sayName();
+person2.sayName();

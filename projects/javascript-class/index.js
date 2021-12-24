@@ -18,6 +18,7 @@ student2.printScore();
 function Person(name,age){
     this.name=name;
     this.age=age;
+    this.type="学生";
     this.sayName=function(){
         console.log(this.name);
     };
@@ -29,4 +30,3 @@ person2.sayName();
 console.log("person1.constructor",person1.constructor);
 console.log("person1.constructor===Person",person1.constructor===Person);
 console.log("person1 instanceof Person",person1 instanceof Person);
-

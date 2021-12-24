@@ -30,3 +30,5 @@ person2.sayName();
 console.log("person1.constructor",person1.constructor);
 console.log("person1.constructor===Person",person1.constructor===Person);
 console.log("person1 instanceof Person",person1 instanceof Person);
+console.log("person1.sayName===person2.sayName",person1.sayName===person2.sayName);
+

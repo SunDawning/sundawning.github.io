@@ -26,3 +26,7 @@ var person1=new Person("张三",18);
 var person2=new Person("李四",16);
 person1.sayName();
 person2.sayName();
+console.log("person1.constructor",person1.constructor);
+console.log("person1.constructor===Person",person1.constructor===Person);
+console.log("person1 instanceof Person",person1 instanceof Person);
+

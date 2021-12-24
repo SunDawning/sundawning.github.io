@@ -14,3 +14,11 @@ var student2=new Student("李四",81);
 // 3. 指挥Instance得结果
 student1.printScore();
 student2.printScore();
+
+var person=new Object();
+person.name="张三";
+person.age=18;
+person.sayName=function(){
+    console.log(this.name);
+};
+person.sayName();

@@ -15,16 +15,14 @@ var student2=new Student("李四",81);
 student1.printScore();
 student2.printScore();
 
-function createPerson(name,age){
-    return {
-        name:name,
-        age:age,
-        sayName:function(){
-            console.log(this.name);
-        }
+function Person(name,age){
+    this.name=name;
+    this.age=age;
+    this.sayName=function(){
+        console.log(this.name);
     };
 }
-var person1=createPerson("张三",18);
-var person2=createPerson("李四",16);
+var person1=new Person("张三",18);
+var person2=new Person("李四",16);
 person1.sayName();
 person2.sayName();

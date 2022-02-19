@@ -5,6 +5,7 @@ const container = document.createElement("div");
 container.className = "container";
 document.body.appendChild(container);
 const viewer = new Cesium.Viewer(container);
+viewer.scene.terrainProvider = Cesium.createWorldTerrain();
 
 function getDistrictRectangleByAmap() {
   // https://zhuanlan.zhihu.com/p/409983169
@@ -104,7 +105,10 @@ function importAmapDistrict() {
   // 加载JSON文件并显示属性 https://blog.csdn.net/qq_41553157/article/details/91040920
   Cesium.GeoJsonDataSource.load("../public/440300.geoJson", {
     fill: new Cesium.Color(0, 0, 0, 0),
+    // clampToGround: true,
+    // height:0
   }).then(function (dataSource) {
+    const instances = [];
     viewer.dataSources.add(dataSource);
     const labels = viewer.scene.primitives.add(new Cesium.LabelCollection());
     dataSource.entities.values.forEach(function (entity) {
@@ -116,6 +120,32 @@ function importAmapDistrict() {
         text: entity.name,
         scaleByDistance: new Cesium.NearFarScalar(50000, 1, 1000000, 0),
       });
+      // Cesium环境实现Geojson河流效果并实现贴地（任何Polygon均可） https://its304.com/article/qq_38370387/118668228
+      {
+        let geometry = new Cesium.GeometryInstance({
+          geometry: new Cesium.PolygonGeometry({
+            polygonHierarchy: new Cesium.PolygonHierarchy(
+              entity.polygon.hierarchy.getValue().positions
+            ),
+            extrudedHeight: 0,
+            height: 0,
+            vertexFormat: Cesium.EllipsoidSurfaceAppearance.VERTEX_FORMAT,
+          }),
+          attributes: {
+            color: Cesium.ColorGeometryInstanceAttribute.fromColor(
+              Cesium.Color.fromRandom({
+                alpha: 0.5,
+              })
+            ),
+          },
+        });
+        instances.push(geometry);
+      }
     });
+    viewer.scene.primitives.add(
+        new Cesium.GroundPrimitive({
+            geometryInstances:instances
+        })
+    )
   });
 }

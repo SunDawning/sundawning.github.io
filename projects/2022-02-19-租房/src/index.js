@@ -106,15 +106,16 @@ function importAmapDistrict() {
     fill: new Cesium.Color(0, 0, 0, 0),
   }).then(function (dataSource) {
     viewer.dataSources.add(dataSource);
+    const labels = viewer.scene.primitives.add(new Cesium.LabelCollection());
     dataSource.entities.values.forEach(function (entity) {
-      entity.position = Cesium.Cartesian3.fromDegrees.apply(
-        null,
-        entity.properties.centroid._value
-      );
-      entity.label = {
+      labels.add({
+        position: Cesium.Cartesian3.fromDegrees.apply(
+          null,
+          entity.properties.centroid._value
+        ),
         text: entity.name,
-        scaleByDistance: new Cesium.NearFarScalar(100000, 1, 1000000, 0),
-      };
+        scaleByDistance: new Cesium.NearFarScalar(50000, 1, 1000000, 0),
+      });
     });
   });
 }

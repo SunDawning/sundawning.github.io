@@ -1,0 +1,11 @@
+#+SETUPFILE: org-head.org
+#+STARTUP: indent
+#+AUTHOR: SunDawning ([[https://github.com/SunDawning][Github]]/[[https://steemit.com/@SunDawning][Steemit]])
+#+EMAIL: dpmeichen@gmail.com
+#+TITLE: 2022年2月19日租房
+
+［创建时间］：<2022-02-19 Sat 16:37:50 UTC+08:00>
+
+［更新时间］：<2022-02-19 Sat 16:37:50 UTC+08:00>
+
+记录租房过程里内容

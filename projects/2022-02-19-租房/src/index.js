@@ -31,10 +31,10 @@ function getDistrictRectangleByAmap(){
 }
 {
     // 飞到指定范围 https://www.cnblogs.com/xym0710/p/14949107.html
-    // 某地的行政区域
+    // 某地的行政区域 https://www.zhoulujun.cn/html/GIS/WebGIS/8155.html
     viewer.camera.setView({destination:new Cesium.Rectangle.fromDegrees(113.751453,22.396344,114.628466,22.861748)});
 }
-{
+function importAmapDistrict(){
     const src="../public/district_440300.js";
     {
         const baseURL=window.location.href;
@@ -51,7 +51,36 @@ function getDistrictRectangleByAmap(){
             document.head.appendChild(script);
             script.addEventListener("load",function(event){
                 console.log("script load",script);
+                {
+                    const polyline=district_440300.districts[0].polyline.split(/[,;]/).map(function(item){
+                        return Number.parseFloat(item);
+                    });
+                    let hierarchy=Cesium.Cartesian3.fromDegreesArray(polyline);
+                    hierarchy=hierarchy.slice(0,hierarchy.length-100);
+                    viewer.entities.add({
+                        name:"district_440300",
+                        polygon:{
+                            hierarchy:hierarchy,
+                            outline:true,
+                            outlineColor:Cesium.Color.RED,
+                            fill:false,
+                        },                        
+                    });
+                }                
             });
         }
     }
+}
+{
+    // https://zhuanlan.zhihu.com/p/344395928
+    // https://github.com/TangSY/echarts-map-demo
+    // https://hxkj.vip/demo/echartsMap/
+    // https://sandcastle.cesium.com/index.html?src=GeoJSON%20and%20TopoJSON.html
+    viewer.dataSources.add(
+        Cesium.GeoJsonDataSource.load(
+            "../public/440300.geoJson",{
+                fill: new Cesium.Color(0,0,0,0),
+            }
+        )
+    );
 }

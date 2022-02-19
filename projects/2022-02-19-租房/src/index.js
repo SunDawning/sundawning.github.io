@@ -34,3 +34,24 @@ function getDistrictRectangleByAmap(){
     // 某地的行政区域
     viewer.camera.setView({destination:new Cesium.Rectangle.fromDegrees(113.751453,22.396344,114.628466,22.861748)});
 }
+{
+    const src="../public/district_440300.js";
+    {
+        const baseURL=window.location.href;
+        const fullSrc=new URL(src,baseURL).href;
+        const isAppend=(Object.values(document.scripts).filter(function(item){
+            return item.src===fullSrc;
+        }).length>0);
+        if(isAppend===true){
+            console.log("script load",src);
+        }else{
+            const script=document.createElement("script");
+            script.type="text/javascript";
+            script.src=src;
+            document.head.appendChild(script);
+            script.addEventListener("load",function(event){
+                console.log("script load",script);
+            });
+        }
+    }
+}

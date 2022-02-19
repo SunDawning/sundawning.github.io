@@ -30,5 +30,5 @@ function getDistrictRectangleByAmap(){
 {
     // 飞到指定范围 https://www.cnblogs.com/xym0710/p/14949107.html
     // 某地的行政区域
-    viewer.camera.flyTo({destination:new Cesium.Rectangle.fromDegrees(113.751453,22.396344,114.628466,22.861748)});
+    viewer.camera.setView({destination:new Cesium.Rectangle.fromDegrees(113.751453,22.396344,114.628466,22.861748)});
 }

@@ -1,0 +1,11 @@
+{
+    "scripts": {
+        "start": "npx http-server"
+    },
+    "devDependencies": {
+        "http-server": "^14.1.0"
+    },
+    "dependencies": {
+        "cesium": "^1.90.0"
+    }
+}

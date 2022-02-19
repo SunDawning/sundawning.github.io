@@ -101,6 +101,7 @@ function importAmapDistrict() {
   // https://github.com/TangSY/echarts-map-demo
   // https://hxkj.vip/demo/echartsMap/
   // https://sandcastle.cesium.com/index.html?src=GeoJSON%20and%20TopoJSON.html
+  // 加载JSON文件并显示属性 https://blog.csdn.net/qq_41553157/article/details/91040920
   Cesium.GeoJsonDataSource.load("../public/440300.geoJson", {
     fill: new Cesium.Color(0, 0, 0, 0),
   }).then(function (dataSource) {

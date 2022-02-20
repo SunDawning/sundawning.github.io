@@ -5,7 +5,20 @@ const container = document.createElement("div");
 container.className = "container";
 document.body.appendChild(container);
 const viewer = new Cesium.Viewer(container);
-viewer.scene.terrainProvider = Cesium.createWorldTerrain();
+{
+  // 添加地形
+  viewer.scene.terrainProvider = Cesium.createWorldTerrain();
+}
+{
+  // 添加地图
+  // https://www.cnblogs.com/fuckgiser/p/5647429.html
+  viewer.imageryLayers.removeAll();
+  viewer.imageryLayers.addImageryProvider(
+    new Cesium.ArcGisMapServerImageryProvider({
+      url: "http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
+    })
+  );
+}
 
 function getDistrictRectangleByAmap() {
   // https://zhuanlan.zhihu.com/p/409983169

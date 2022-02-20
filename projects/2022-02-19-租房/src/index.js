@@ -13,8 +13,10 @@ const viewer = new Cesium.Viewer(container);
   // https://www.cnblogs.com/fuckgiser/p/5647429.html
   viewer.imageryLayers.removeAll();
   viewer.imageryLayers.addImageryProvider(
-    new Cesium.ArcGisMapServerImageryProvider({
-      url: "http://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer",
+    new Cesium.UrlTemplateImageryProvider({
+      url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      minimumLevel: 3,
+      maximumLevel: 18,
     })
   );
 }
@@ -40,6 +42,7 @@ const rectangle = Cesium.Rectangle.fromDegrees(
   Cesium.GeoJsonDataSource.load("../public/440300.geoJson", {
     fill: new Cesium.Color(0, 0, 0, 0),
   }).then(function (dataSource) {
+    console.log("dataSource", dataSource);
     viewer.dataSources.add(dataSource);
     const labels = viewer.scene.primitives.add(new Cesium.LabelCollection());
     dataSource.entities.values.forEach(function (entity) {
@@ -247,7 +250,8 @@ const rectangle = Cesium.Rectangle.fromDegrees(
     // 链接：https://juejin.cn/post/7049681493685174286
     // 来源：稀土掘金
     // 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-    viewer.imageryLayers.addImageryProvider(
+    // 设置图层透明度 https://www.jianshu.com/p/98d4c0b2c618
+    const imageryLayer = viewer.imageryLayers.addImageryProvider(
       new Cesium.UrlTemplateImageryProvider({
         url: "http://webst01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8",
         minimumLevel: 3,
@@ -256,5 +260,7 @@ const rectangle = Cesium.Rectangle.fromDegrees(
         tilingScheme: new AmapMercatorTilingScheme(),
       })
     );
+    console.log("imageryLayer", imageryLayer);
+    imageryLayer.alpha = 0.6;
   }
 }

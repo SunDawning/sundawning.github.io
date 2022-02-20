@@ -4,6 +4,22 @@ const container = document.createElement("div");
 container.className = "container";
 document.body.appendChild(container);
 const viewer = new Cesium.Viewer(container);
+const rectangle = Cesium.Rectangle.fromDegrees(
+  113.751453,
+  22.396344,
+  114.628466,
+  22.861748
+);
+{
+  // 只显示一定区域的地球
+  const scene = viewer.scene;
+  const globe = scene.globe;
+  globe.cartographicLimitRectangle = rectangle;
+  globe.showSkirts = false;
+  globe.backFaceCulling = false;
+  globe.undergroundColor = undefined;
+  scene.skyAtmosphere.show = false;
+}
 {
   // 添加地形
   viewer.scene.terrainProvider = Cesium.createWorldTerrain();
@@ -20,12 +36,6 @@ const viewer = new Cesium.Viewer(container);
     })
   );
 }
-const rectangle = Cesium.Rectangle.fromDegrees(
-  113.751453,
-  22.396344,
-  114.628466,
-  22.861748
-);
 {
   // 飞到指定范围 https://www.cnblogs.com/xym0710/p/14949107.html
   // 某地的行政区域 https://www.zhoulujun.cn/html/GIS/WebGIS/8155.html

@@ -261,6 +261,48 @@ const rectangle = Cesium.Rectangle.fromDegrees(
       })
     );
     console.log("imageryLayer", imageryLayer);
-    imageryLayer.alpha = 0.6;
+    imageryLayer.alpha = 0.5;
   }
+}
+{
+  // 左键点击获取经纬度 https://www.jianshu.com/p/f6fc8ed7eefc
+  new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas).setInputAction(
+    function (event) {
+      const { longitude, latitude } = Cesium.Cartographic.fromCartesian(
+        viewer.camera.pickEllipsoid(
+          event.position,
+          viewer.scene.globe.ellipsoid
+        )
+      );
+      console.log(
+        JSON.stringify(
+          [longitude, latitude].map(function (item) {
+            return Cesium.Math.toDegrees(item);
+          })
+        )
+      );
+    },
+    Cesium.ScreenSpaceEventType.LEFT_CLICK
+  );
+}
+{
+  const positions = {
+    铁路公园: [113.88505822363172, 22.50586341859473],
+    车公庙: [114.02082413481095, 22.53899868556823],
+    农林: [114.01305395943092, 22.54322075899385],
+    西丽: [113.94947657111055, 22.583676913934585],
+    南山: [113.91874213381998, 22.52699829284238],
+  };
+  const labels = viewer.scene.primitives.add(new Cesium.LabelCollection());
+  Object.keys(positions).forEach(function (key) {
+    const value = positions[key];
+    labels.add({
+      position: Cesium.Cartesian3.fromDegrees.apply(null, value),
+      text: key,
+      scaleByDistance: new Cesium.NearFarScalar(50000, 1, 1000000, 0),
+      font: "16px",
+      showBackground: true,
+      backgroundColor: Cesium.Color.fromCssColorString("#5bbc7e"),
+    });
+  });
 }

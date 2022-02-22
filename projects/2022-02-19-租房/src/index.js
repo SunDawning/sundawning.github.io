@@ -3,7 +3,14 @@ Cesium.Ion.defaultAccessToken =
 const container = document.createElement("div");
 container.className = "container";
 document.body.appendChild(container);
-const viewer = new Cesium.Viewer(container);
+const viewer = new Cesium.Viewer(container, {
+  contextOptions: {
+    //cesium状态下允许canvas转图片convertToImage
+    webgl: {
+      preserveDrawingBuffer: true,
+    },
+  },
+});
 const rectangle = Cesium.Rectangle.fromDegrees(
   113.751453,
   22.396344,

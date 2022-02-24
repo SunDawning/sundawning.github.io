@@ -3,14 +3,7 @@ Cesium.Ion.defaultAccessToken =
 const container = document.createElement("div");
 container.className = "container";
 document.body.appendChild(container);
-const viewer = new Cesium.Viewer(container, {
-  contextOptions: {
-    //cesium状态下允许canvas转图片convertToImage
-    webgl: {
-      preserveDrawingBuffer: true,
-    },
-  },
-});
+const viewer = new Cesium.Viewer(container);
 const rectangle = Cesium.Rectangle.fromDegrees(
   113.751453,
   22.396344,
@@ -341,8 +334,7 @@ function setGlobeToRectangle(viewer) {
 }
 function snapshot() {
   // Cesium场景导出为图片功能 https://blog.csdn.net/xietao20/article/details/109401838
-  function saveToFile(scene) {
-    let canvas = scene.canvas;
+  function canvasToFile(canvas) {
     let image = canvas
       .toDataURL("image/png")
       .replace("image/png", "image/octet-stream");
@@ -364,5 +356,6 @@ function snapshot() {
     }
     return new Blob([u8arr], { type: mime });
   }
-  saveToFile(viewer.scene);
+  viewer.render();
+  canvasToFile(viewer.scene.canvas);
 }

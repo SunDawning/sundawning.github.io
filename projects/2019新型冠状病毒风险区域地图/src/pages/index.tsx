@@ -1,9 +1,4 @@
-import styles from './index.less';
-
+import PageIndex from '@/components/UmiJSDefaultPageIndex';
 export default function IndexPage() {
-  return (
-    <div>
-      <h1 className={styles.title}>Page index</h1>
-    </div>
-  );
+  return <PageIndex></PageIndex>;
 }

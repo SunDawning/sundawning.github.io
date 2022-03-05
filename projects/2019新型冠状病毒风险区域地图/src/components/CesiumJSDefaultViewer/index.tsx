@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styles from './index.less';
 import { Viewer } from 'cesium';
-import 'cesium/Build/Cesium/Widgets/widgets.css';
+import '@/../node_modules/cesium/Build/Cesium/Widgets/widgets.css';
 /**
  * CesiumJS默认的界面
  */

@@ -9,7 +9,7 @@ export default function IndexPage() {
   useEffect(function () {
     const container = document.querySelector('.' + className);
     const widget = new CesiumWidget(container);
-    console.log('widget', widget);
+    // console.log('widget', widget);
     return function () {
       widget.destroy();
     };

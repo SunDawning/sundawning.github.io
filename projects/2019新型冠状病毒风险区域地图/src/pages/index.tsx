@@ -1,4 +1,4 @@
-import PageIndex from '@/components/CesiumJSDefaultViewer';
+import PageIndex from '@/components/CesiumJSDefaultCesiumWidget';
 export default function IndexPage() {
   return <PageIndex></PageIndex>;
 }

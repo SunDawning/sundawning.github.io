@@ -1,6 +1,7 @@
 import { ArcGisMapServerImageryProvider } from 'cesium';
 /**
- * Cesium.CesiumWidget的配置
+ * Cesium.CesiumWidget配置：
+ * 使用Arcgis全球影像地图
  */
 export default {
   imageryProvider: new ArcGisMapServerImageryProvider({

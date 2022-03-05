@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styles from './index.less';
 import { CesiumWidget } from 'cesium';
-import cesiumWidgetConfig from './cesiumWidgetConfig';
+import cesiumWidgetConfig from '@/modules/cesiumWidgetArcGisWorldImageryConfig';
 /**
  * 基于CesiumJS默认的简化界面所配置的界面
  */

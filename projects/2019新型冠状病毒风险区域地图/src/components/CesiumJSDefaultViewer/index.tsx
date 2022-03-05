@@ -10,6 +10,10 @@ export default function IndexPage() {
   useEffect(function () {
     const container = document.querySelector('.' + className);
     const viewer = new Viewer(container);
+    console.log('viewer', viewer);
+    return function () {
+      viewer.destroy();
+    };
   }, []);
   return <div className={className}></div>;
 }

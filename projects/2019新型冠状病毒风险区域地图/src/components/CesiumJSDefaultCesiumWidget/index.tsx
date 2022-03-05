@@ -10,6 +10,9 @@ export default function IndexPage() {
     const container = document.querySelector('.' + className);
     const widget = new CesiumWidget(container);
     console.log('widget', widget);
+    return function () {
+      widget.destroy();
+    };
   }, []);
   return <div className={className}></div>;
 }

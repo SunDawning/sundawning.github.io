@@ -5,6 +5,13 @@ const config = {
   },
   fastRefresh: {},
 };
+// 配置HTML模板：标题、图标
+{
+  Object.assign(config, {
+    title: '2019新型冠状病毒风险区域地图',
+    favicon: 'https://map.wap.qq.com/online/h5-theme-map/favicon.ico',
+  });
+}
 // 配置Cesium
 {
   const CESIUM_BASE_URL = 'Cesium/';

@@ -1,5 +1,6 @@
 import { defineConfig } from 'umi';
 const config = {
+  mfsu: {},
   nodeModulesTransform: {
     type: 'none',
   },

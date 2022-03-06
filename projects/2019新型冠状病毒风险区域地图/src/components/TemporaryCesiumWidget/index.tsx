@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import styles from './index.less';
-import { CesiumWidget } from 'cesium';
+import createWidget from '@/modules/createDefaultWidget';
 import ArcGIS_World_Imagery from '@/modules/ArcGIS_World_Imagery';
 import Sky_Atmosphere from '@/modules/Sky_Atmosphere_Sandcastle_Demo';
 /**
@@ -10,10 +10,11 @@ export default function IndexPage() {
   const className = styles.container;
   useEffect(function () {
     const container = document.querySelector('.' + className);
-    const widget = new CesiumWidget(container, {
-      imageryProvider: false,
-    });
-    console.log('widget', widget);
+    // Argument of type 'Element | null' is not assignable to parameter of type 'Element'.
+    if (container === null) {
+      return null;
+    }
+    const widget = createWidget(container);
     const { scene } = widget;
     scene.imageryLayers.addImageryProvider(ArcGIS_World_Imagery);
     scene.skyAtmosphere = Sky_Atmosphere;

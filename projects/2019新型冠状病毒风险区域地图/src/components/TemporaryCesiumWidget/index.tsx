@@ -12,7 +12,8 @@ export default function IndexPage() {
     const container = document.querySelector('.' + className);
     // Argument of type 'Element | null' is not assignable to parameter of type 'Element'.
     if (container === null) {
-      return null;
+      // Argument of type '() => (() => void) | null' is not assignable to parameter of type 'EffectCallback'.
+      return;
     }
     const widget = createWidget(container);
     const { scene } = widget;

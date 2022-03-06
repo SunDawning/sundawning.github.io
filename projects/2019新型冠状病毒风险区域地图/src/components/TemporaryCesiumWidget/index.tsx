@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import styles from './index.less';
 import createWidget from '@/modules/createDefaultWidget';
 import ArcGIS_World_Imagery from '@/modules/ArcGIS_World_Imagery';
-import Sky_Atmosphere from '@/modules/Sky_Atmosphere_Sandcastle_Demo';
+import Sky_Atmosphere from '@/modules/Sandcastle_Sky_Atmosphere';
 /**
  * 基于CesiumJS默认的简化界面所配置的界面
  */

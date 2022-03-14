@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+  </style>
+  <body>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.19/esri/themes/light/main.css"
+    />
+    <script type="text/javascript" src="https://js.arcgis.com/4.19/"></script>
+    <style type="text/css">
+      #container {
+        height: 100%;
+      }
+    </style>
+    <div id="container"></div>
+    <script type="text/javascript">
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/layers/TileLayer",
+      ], function (Map, SceneView, TileLayer) {
+        const map = new Map();
+        map.add(
+          new TileLayer({
+            // http://61.175.211.102/arcgis/rest/services/wzmap_wz2000/MapServer
+            url: "./arcgis/rest/services/wzmap_wz2000/MapServer",
+          })
+        );
+        new SceneView({
+          map: map,
+          container: "container",
+        });
+      });
+    </script>
+  </body>
+</html>

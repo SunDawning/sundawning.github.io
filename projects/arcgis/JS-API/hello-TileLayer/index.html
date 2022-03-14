@@ -28,10 +28,16 @@
         "esri/views/SceneView",
         "esri/layers/TileLayer",
       ], function (Map, SceneView, TileLayer) {
-        const map = new Map();
+        const map = new Map({
+          layers: [
+            new TileLayer({
+              url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+            }),
+          ],
+        });
         map.add(
           new TileLayer({
-            url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+            url: "http://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer",
           })
         );
         new SceneView({

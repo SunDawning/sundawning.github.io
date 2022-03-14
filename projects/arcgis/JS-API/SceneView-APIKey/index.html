@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+  </style>
+  <body>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.19/esri/themes/light/main.css"
+    />
+    <script type="text/javascript" src="https://js.arcgis.com/4.19/"></script>
+    <style type="text/css">
+      #container {
+        height: 100%;
+      }
+    </style>
+    <div id="container"></div>
+    <script type="text/javascript">
+      require(["esri/config", "esri/Map", "esri/views/SceneView"], function (
+        Config,
+        Map,
+        SceneView
+      ) {
+        Config.apiKey =
+          "AAPKd589f1da3f68471e82bc5e8606f459d9zk3zjJbKykx_wtqcmQSZFXmR9ls4JUziRQ_R2dp9uspuTNlC6OSa6hTo4d7yRaUE";
+        const view = new SceneView({
+          map: new Map({
+            basemap: "arcgis-topographic",
+          }),
+          container: "container",
+        });
+      });
+    </script>
+  </body>
+</html>

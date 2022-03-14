@@ -24,21 +24,18 @@
     <div id="container"></div>
     <script type="text/javascript">
       require([
-        "esri/Basemap",
         "esri/Map",
         "esri/views/SceneView",
         "esri/layers/TileLayer",
-      ], function (Basemap, Map, SceneView, TileLayer) {
+      ], function (Map, SceneView, TileLayer) {
+        const map = new Map();
+        map.add(
+          new TileLayer({
+            url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+          })
+        );
         new SceneView({
-          map: new Map({
-            basemap: new Basemap({
-              baseLayers: [
-                new TileLayer({
-                  url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
-                }),
-              ],
-            }),
-          }),
+          map: map,
           container: "container",
         });
       });

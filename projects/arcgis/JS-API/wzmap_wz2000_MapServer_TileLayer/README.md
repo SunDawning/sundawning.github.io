@@ -1,4 +1,4 @@
-使用 MapImageLayer 加载在线的 温州 2000 的 WMTS 影像服务
+使用 TileLayer 加载在线的 温州 2000 的 WMTS 影像服务
 
 https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-MapImageLayer.html
 
@@ -11,4 +11,5 @@ https://blog.csdn.net/A873054267/article/details/86652620
 
 ```sh
 npm run start
+# 访问 http://localhost:8080
 ```

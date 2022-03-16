@@ -1,0 +1,8 @@
+<script type="module">
+  (async function () {
+    const { default: a } = await import("./a.js");
+    const { default: b } = await import("./b.js");
+    a();
+    b();
+  })();
+</script>

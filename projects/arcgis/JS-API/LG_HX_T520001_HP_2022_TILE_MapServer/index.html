@@ -27,7 +27,8 @@
         "esri/Map",
         "esri/views/SceneView",
         "esri/layers/TileLayer",
-      ], function (Map, SceneView, TileLayer) {
+        "esri/geometry/support/webMercatorUtils",
+      ], function (Map, SceneView, TileLayer, webMercatorUtils) {
         const map = new Map();
         // map.add(
         //   new TileLayer({
@@ -39,9 +40,15 @@
             url: "http://10.89.9.234:8080/geoserver/rest/services/LG/HX_T520001_HP_2022_TILE/MapServer",
           })
         );
-        new SceneView({
+
+        const view = new SceneView({
           map: map,
           container: "container",
+        });
+        // ArcGIS API 4.x for Js 点击地图获取经纬度 https://blog.csdn.net/qq_41615323/article/details/115202387
+        view.on("click", function (e) {
+          geom = webMercatorUtils.xyToLngLat(e.mapPoint.x, e.mapPoint.y);
+          console.log(geom[0], geom[1]);
         });
       });
     </script>

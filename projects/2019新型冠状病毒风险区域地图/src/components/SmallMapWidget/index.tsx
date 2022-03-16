@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { SceneMode, Cartesian3 } from 'cesium';
+import { SceneMode, Cartesian3, Matrix4 } from 'cesium';
 import createWidget from '@/modules/createDefaultWidget';
 import Amap_webrd_Imagery from '@/modules/Amap_webrd_Imagery';
 import getCameraWorldPositionAndDistance from '@/modules/getCameraWorldPositionAndDistance';
@@ -34,6 +34,7 @@ export default function IndexPage({ widget }) {
         }
         const [worldPosition, distance] = data;
         camera.lookAt(worldPosition, new Cartesian3(0.0, 0.0, distance));
+        camera.lookAtTransform(Matrix4.IDENTITY);
       }
       camera0.changed.addEventListener(onChanged);
       return function () {
@@ -55,6 +56,7 @@ export default function IndexPage({ widget }) {
         }
         const [worldPosition, distance] = data;
         camera0.lookAt(worldPosition, new Cartesian3(0.0, 0.0, distance));
+        camera0.lookAtTransform(Matrix4.IDENTITY);
       }
       camera.changed.addEventListener(onChanged);
       return function () {

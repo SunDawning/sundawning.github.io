@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 
-import { SceneMode, Cartesian3, Matrix4 } from 'cesium';
 import createWidget from '@/modules/createDefaultWidget';
 import Amap_webrd_Imagery from '@/modules/Amap_webrd_Imagery';
-import getCameraWorldPositionAndDistance from '@/modules/getCameraWorldPositionAndDistance';
+import syncTwoCamera from '@/modules/syncTwoCamera';
 
 import styles from './index.less';
 
@@ -27,40 +26,17 @@ export default function IndexPage({ widget }) {
       let camera0 = widget.camera;
       let canvas0 = widget.canvas;
       console.log('widget', widget, camera0, canvas0);
-      function onChanged() {
-        let data = getCameraWorldPositionAndDistance(canvas0, camera0);
-        if (data === undefined) {
-          return;
-        }
-        const [worldPosition, distance] = data;
-        camera.lookAt(worldPosition, new Cartesian3(0.0, 0.0, distance));
-        camera.lookAtTransform(Matrix4.IDENTITY);
+      function onCamera0Changed() {
+        syncTwoCamera(canvas0, camera0, camera);
       }
-      camera0.changed.addEventListener(onChanged);
+      camera0.changed.addEventListener(onCamera0Changed);
+      function onCameraChanged() {
+        syncTwoCamera(canvas, camera, camera0);
+      }
+      camera.changed.addEventListener(onCameraChanged);
       return function () {
-        camera0.changed.removeEventListener(onChanged);
-      };
-    },
-    [widget],
-  );
-  useEffect(
-    function () {
-      if (widget === undefined) {
-        return;
-      }
-      function onChanged() {
-        let camera0 = widget.camera;
-        let data = getCameraWorldPositionAndDistance(canvas, camera);
-        if (data === undefined) {
-          return;
-        }
-        const [worldPosition, distance] = data;
-        camera0.lookAt(worldPosition, new Cartesian3(0.0, 0.0, distance));
-        camera0.lookAtTransform(Matrix4.IDENTITY);
-      }
-      camera.changed.addEventListener(onChanged);
-      return function () {
-        camera.changed.removeEventListener(onChanged);
+        camera0.changed.removeEventListener(onCamera0Changed);
+        camera.changed.removeEventListener(onCameraChanged);
       };
     },
     [widget],

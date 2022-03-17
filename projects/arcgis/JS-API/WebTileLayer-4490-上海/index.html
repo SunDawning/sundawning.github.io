@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+  </style>
+  <body>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.19/esri/themes/light/main.css"
+    />
+    <script type="text/javascript" src="https://js.arcgis.com/4.19/"></script>
+    <style type="text/css">
+      #container {
+        height: 100%;
+      }
+    </style>
+    <div id="container"></div>
+    <script type="text/javascript">
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/layers/TileLayer",
+        "esri/layers/WebTileLayer",
+        "esri/layers/support/TileInfo",
+        "esri/geometry/support/webMercatorUtils",
+      ], function (
+        Map,
+        SceneView,
+        TileLayer,
+        WebTileLayer,
+        TileInfo,
+        webMercatorUtils
+      ) {
+        const map = new Map({});
+        const view = new SceneView({
+          map: map,
+          container: "container",
+        });
+        // 区域
+        // 4490
+        {
+          const layer = new WebTileLayer({
+            urlTemplate:
+              // 完整的网址，不然会出错误，error: TypeError: Cannot read properties of null (reading 'indexOf')
+              "http://127.0.0.1:8080/arcgis/rest/services/1994_yx_2000/MapServer/tile/{level}/{row}/{col}",
+            tileInfo: new TileInfo({
+              rows: 256,
+              cols: 256,
+              dpi: 96,
+              format: "Mixed",
+              compressionQuality: 75,
+              origin: {
+                x: -180,
+                y: 90,
+              },
+              spatialReference: {
+                wkid: 4490,
+              },
+              lods: [
+                {
+                  level: 9,
+                  levelValue: 1,
+                  resolution: 0.0013732910156250004,
+                  scale: 577143.7364428712,
+                },
+                {
+                  level: 10,
+                  levelValue: 2,
+                  resolution: 6.866455078125002e-4,
+                  scale: 288571.8682214356,
+                },
+              ],
+            }),
+            spatialReference: {
+              wkid: 4490,
+            },
+            // 图层自身的边界
+            fullExtent: {
+              xmin: 119.12698301863307,
+              ymin: 30.788627076958676,
+              xmax: 122.99057332240378,
+              ymax: 32.171118470004465,
+              spatialReference: {
+                cs: "gcs",
+                wkid: 4490,
+              },
+            },
+          });
+          map.add(layer);
+          layer.on("layerview-create", function (event) {
+            view.goTo({
+              center: [121.492, 31.257],
+              zoom: 10,
+            });
+          });
+        }
+        // ArcGIS API 4.x for Js 点击地图获取经纬度 https://blog.csdn.net/xaishujin/article/details/120563721
+        view.on("click", function (event) {
+          const point = view.toMap({ x: event.x, y: event.y }); //将鼠标的像素位置转为经纬度
+          const lon = Math.round(point.x * 1000) / 1000; //经纬度保留小数位
+          const lat = Math.round(point.y * 1000) / 1000;
+          console.log([lon, lat]);
+        });
+        // console.log(map);
+      });
+    </script>
+  </body>
+</html>

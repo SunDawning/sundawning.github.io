@@ -1,0 +1,133 @@
+{
+  "currentVersion": 10.2,
+  "serviceDescription": "",
+  "mapName": "Layers",
+  "description": "",
+  "copyrightText": "",
+  "supportsDynamicLayers": false,
+  "layers": [
+    {
+      "id": 0,
+      "name": "SMIMAP.SHEXTENT",
+      "parentLayerId": -1,
+      "defaultVisibility": true,
+      "subLayerIds": null,
+      "minScale": 0,
+      "maxScale": 0
+    }
+  ],
+  "tables": [],
+  "spatialReference": {
+    "wkid": 4326,
+    "latestWkid": 4326
+  },
+  "singleFusedMapCache": true,
+  "tileInfo": {
+    "rows": 256,
+    "cols": 256,
+    "dpi": 96,
+    "format": "PNG24",
+    "compressionQuality": 0,
+    "origin": {
+      "x": -180,
+      "y": 90
+    },
+    "spatialReference": {
+      "wkid": 4326,
+      "latestWkid": 4326
+    },
+    "lods": [
+      {
+        "level": 0,
+        "resolution": 0.0013732910156250004,
+        "scale": 577143.7364428712
+      },
+      {
+        "level": 1,
+        "resolution": 6.866455078125002e-4,
+        "scale": 288571.8682214356
+      },
+      {
+        "level": 2,
+        "resolution": 3.433227539062501e-4,
+        "scale": 144285.9341107178
+      },
+      {
+        "level": 3,
+        "resolution": 1.7166137695312505e-4,
+        "scale": 72142.9670553589
+      },
+      {
+        "level": 4,
+        "resolution": 8.583068847656253e-5,
+        "scale": 36071.48352767945
+      },
+      {
+        "level": 5,
+        "resolution": 4.2915344238281264e-5,
+        "scale": 18035.741763839724
+      },
+      {
+        "level": 6,
+        "resolution": 2.1457672119140632e-5,
+        "scale": 9017.870881919862
+      },
+      {
+        "level": 7,
+        "resolution": 1.0728836059570316e-5,
+        "scale": 4508.935440959931
+      },
+      {
+        "level": 8,
+        "resolution": 5.364418029785158e-6,
+        "scale": 2254.4677204799655
+      },
+      {
+        "level": 9,
+        "resolution": 2.682209014892579e-6,
+        "scale": 1127.2338602399827
+      }
+    ]
+  },
+  "initialExtent": {
+    "xmin": 119.47779886461464,
+    "ymin": 30.788627076958676,
+    "xmax": 123.34138916838535,
+    "ymax": 32.171118470004465,
+    "spatialReference": {
+      "cs": "gcs",
+      "wkid": 4326
+    }
+  },
+  "fullExtent": {
+    "xmin": 120.80012536879065,
+    "ymin": 30.54553222673087,
+    "xmax": 122.27874755895266,
+    "ymax": 31.945383160404504,
+    "spatialReference": {
+      "cs": "gcs",
+      "wkid": 4326
+    }
+  },
+  "minScale": 577143.7364428712,
+  "maxScale": 1127.2338602399827,
+  "units": "esriDecimalDegrees",
+  "supportedImageFormatTypes": "PNG32,PNG24,PNG,JPG,DIB,TIFF,EMF,PS,PDF,GIF,SVG,SVGZ,BMP",
+  "documentInfo": {
+    "Title": "SHMAP_D",
+    "Author": "Administrator",
+    "Comments": "",
+    "Subject": "",
+    "Category": "",
+    "AntialiasingMode": "None",
+    "TextAntialiasingMode": "Force",
+    "Keywords": ""
+  },
+  "capabilities": "Map,Query,Data",
+  "supportedQueryFormats": "JSON, AMF",
+  "exportTilesAllowed": false,
+  "maxRecordCount": 1000,
+  "maxImageHeight": 4096,
+  "maxImageWidth": 4096,
+  "supportedExtensions": "KmlServer"
+}

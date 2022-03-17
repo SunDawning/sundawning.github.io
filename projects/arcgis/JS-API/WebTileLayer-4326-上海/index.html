@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+  </style>
+  <body>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.19/esri/themes/light/main.css"
+    />
+    <script type="text/javascript" src="https://js.arcgis.com/4.19/"></script>
+    <style type="text/css">
+      #container {
+        height: 100%;
+      }
+    </style>
+    <div id="container"></div>
+    <script type="text/javascript">
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/layers/TileLayer",
+        "esri/layers/WebTileLayer",
+        "esri/layers/support/TileInfo",
+      ], function (Map, SceneView, TileLayer, WebTileLayer, TileInfo) {
+        const map = new Map({});
+        new SceneView({
+          map: map,
+          container: "container",
+        });
+        // 全球
+        [
+          // "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+          // "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_TXT_3857/MapServer",
+        ].forEach(function (url) {
+          map.add(
+            new TileLayer({
+              url: url,
+            })
+          );
+        });
+        // 区域
+        // 4326
+        map.add(
+          new WebTileLayer({
+            urlTemplate:
+              // 完整的网址，不然会出错误，error: TypeError: Cannot read properties of null (reading 'indexOf')
+              "http://127.0.0.1:8080/arcgis/rest/services/wxmap/MapServer/tile/{level}/{row}/{col}",
+            tileInfo: new TileInfo({
+              rows: 256,
+              cols: 256,
+              dpi: 96,
+              format: "PNG24",
+              compressionQuality: 0,
+              origin: {
+                x: -180,
+                y: 90,
+              },
+              spatialReference: {
+                wkid: 4326,
+              },
+              lods: [
+                {
+                  level: 9,
+                  levelValue: 0,
+                  resolution: 0.0013732910156250004,
+                  scale: 577143.7364428712,
+                },
+                {
+                  level: 10,
+                  levelValue: 1,
+                  resolution: 6.866455078125002e-4,
+                  scale: 288571.8682214356,
+                },
+              ],
+            }),
+            spatialReference: {
+              wkid: 4326,
+            },
+            // 图层自身的边界
+            fullExtent: {
+              xmin: 120.80012536879065,
+              ymin: 30.54553222673087,
+              xmax: 122.27874755895266,
+              ymax: 31.945383160404504,
+              spatialReference: {
+                wkid: 4326,
+              },
+            },
+          })
+        );
+        // console.log(map);
+      });
+    </script>
+  </body>
+</html>

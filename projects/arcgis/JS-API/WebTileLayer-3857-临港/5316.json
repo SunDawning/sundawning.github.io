@@ -1,0 +1,192 @@
+{
+  "currentVersion": 10.71,
+  "serviceDescription": "Kort frá 1900",
+  "mapName": "Layers",
+  "description": "",
+  "copyrightText": "©Umhvørvisstovan",
+  "supportsDynamicLayers": true,
+  "layers": [
+    {
+      "id": 3,
+      "name": "F20 1900",
+      "parentLayerId": -1,
+      "defaultVisibility": true,
+      "subLayerIds": [0, 1, 2],
+      "minScale": 4096000,
+      "maxScale": 0,
+      "type": "Mosaic Layer"
+    },
+    {
+      "id": 0,
+      "name": "Boundary",
+      "parentLayerId": 3,
+      "defaultVisibility": false,
+      "subLayerIds": null,
+      "minScale": 0,
+      "maxScale": 0,
+      "type": "Feature Layer",
+      "geometryType": "esriGeometryPolygon"
+    },
+    {
+      "id": 1,
+      "name": "Footprint",
+      "parentLayerId": 3,
+      "defaultVisibility": false,
+      "subLayerIds": null,
+      "minScale": 0,
+      "maxScale": 0,
+      "type": "Feature Layer",
+      "geometryType": "esriGeometryPolygon"
+    },
+    {
+      "id": 2,
+      "name": "Image",
+      "parentLayerId": 3,
+      "defaultVisibility": true,
+      "subLayerIds": null,
+      "minScale": 0,
+      "maxScale": 0,
+      "type": "Raster Layer"
+    }
+  ],
+  "tables": [],
+  "spatialReference": {
+    "wkid": 5316,
+    "latestWkid": 5316
+  },
+  "singleFusedMapCache": true,
+  "tileInfo": {
+    "rows": 256,
+    "cols": 256,
+    "dpi": 96,
+    "format": "JPEG",
+    "compressionQuality": 80,
+    "origin": {
+      "x": -5423100,
+      "y": 4002100
+    },
+    "spatialReference": {
+      "wkid": 5316,
+      "latestWkid": 5316
+    },
+    "lods": [
+      {
+        "level": 0,
+        "resolution": 1083.735500804335,
+        "scale": 4096000
+      },
+      {
+        "level": 1,
+        "resolution": 541.8677504021675,
+        "scale": 2048000
+      },
+      {
+        "level": 2,
+        "resolution": 270.93387520108377,
+        "scale": 1024000
+      },
+      {
+        "level": 3,
+        "resolution": 135.46693760054188,
+        "scale": 512000
+      },
+      {
+        "level": 4,
+        "resolution": 67.73346880027094,
+        "scale": 256000
+      },
+      {
+        "level": 5,
+        "resolution": 33.86673440013547,
+        "scale": 128000
+      },
+      {
+        "level": 6,
+        "resolution": 16.933367200067735,
+        "scale": 64000
+      },
+      {
+        "level": 7,
+        "resolution": 8.466683600033868,
+        "scale": 32000
+      },
+      {
+        "level": 8,
+        "resolution": 4.233341800016934,
+        "scale": 16000
+      },
+      {
+        "level": 9,
+        "resolution": 2.116670900008467,
+        "scale": 8000
+      },
+      {
+        "level": 10,
+        "resolution": 1.0583354500042335,
+        "scale": 4000
+      },
+      {
+        "level": 11,
+        "resolution": 0.5291677250021167,
+        "scale": 2000
+      },
+      {
+        "level": 12,
+        "resolution": 0.26458386250105836,
+        "scale": 1000
+      },
+      {
+        "level": 13,
+        "resolution": 0.13229193125052918,
+        "scale": 500
+      },
+      {
+        "level": 14,
+        "resolution": 0.06614596562526459,
+        "scale": 250
+      }
+    ]
+  },
+  "initialExtent": {
+    "xmin": 202560.25105576662,
+    "ymin": 876130.1283561296,
+    "xmax": 214096.10746081275,
+    "ymax": 883697.2268236598,
+    "spatialReference": {
+      "wkid": 5316,
+      "latestWkid": 5316
+    }
+  },
+  "fullExtent": {
+    "xmin": 163556.63129999954,
+    "ymin": 808899.2465488143,
+    "xmax": 239109.7681,
+    "ymax": 921003.7970041361,
+    "spatialReference": {
+      "wkid": 5316,
+      "latestWkid": 5316
+    }
+  },
+  "minScale": 4096000,
+  "maxScale": 4000,
+  "units": "esriMeters",
+  "supportedImageFormatTypes": "PNG32,PNG24,PNG,JPG,DIB,TIFF,EMF,PS,PDF,GIF,SVG,SVGZ,BMP",
+  "documentInfo": {
+    "Title": "F20 1900",
+    "Author": "",
+    "Comments": "Topografiskt kort 1:20.000 frá 1.900",
+    "Subject": "Topografiskt kort 1:20.000 frá 1.900",
+    "Category": "",
+    "AntialiasingMode": "None",
+    "TextAntialiasingMode": "Force",
+    "Keywords": "1900,raster"
+  },
+  "capabilities": "Map,Query,Data",
+  "supportedQueryFormats": "JSON, geoJSON",
+  "exportTilesAllowed": false,
+  "supportsDatumTransformation": true,
+  "maxRecordCount": 1000,
+  "maxImageHeight": 4096,
+  "maxImageWidth": 4096,
+  "supportedExtensions": "WMSServer"
+}

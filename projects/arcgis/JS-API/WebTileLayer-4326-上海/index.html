@@ -31,14 +31,13 @@
         "esri/layers/support/TileInfo",
       ], function (Map, SceneView, TileLayer, WebTileLayer, TileInfo) {
         const map = new Map({});
-        new SceneView({
+        const view = new SceneView({
           map: map,
           container: "container",
         });
         // 全球
         [
-          // "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
-          // "https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_TXT_3857/MapServer",
+          // "http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_Imagery_World_2D/MapServer",
         ].forEach(function (url) {
           map.add(
             new TileLayer({
@@ -48,11 +47,12 @@
         });
         // 区域
         // 4326
-        map.add(
-          new WebTileLayer({
+        {
+          const layer = new WebTileLayer({
             urlTemplate:
               // 完整的网址，不然会出错误，error: TypeError: Cannot read properties of null (reading 'indexOf')
               "http://127.0.0.1:8080/arcgis/rest/services/wxmap/MapServer/tile/{level}/{row}/{col}",
+
             tileInfo: new TileInfo({
               rows: 256,
               cols: 256,
@@ -94,8 +94,14 @@
                 wkid: 4326,
               },
             },
-          })
-        );
+          });
+          map.add(layer);
+          layer.on("layerview-create", function (event) {
+            view.goTo({
+              zoom: 10,
+            });
+          });
+        }
         // console.log(map);
       });
     </script>

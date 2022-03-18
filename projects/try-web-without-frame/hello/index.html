@@ -23,10 +23,7 @@
                 color:darkgreen;
             }
           </style>
-          <p>
-            拼
-            <span id="name"></span>
-          </p>
+          <p>拼<span id="name"></span></p>
           `;
           this.shadowRoot.appendChild(template.content.cloneNode(true));
         }
@@ -36,6 +33,22 @@
       }
       window.customElements.define("hello-world", HelloWorld);
     </script>
-    <hello-world></hello-world>
+    <hello-world name="音"></hello-world>
+    <select id="change">
+      <option value="音">音</option>
+      <option value="Hi">Hi</option>
+    </select>
+    <script type="text/javascript">
+      console.log(
+        'document.querySelector("#name")',
+        document.querySelector("#name")
+      );
+      document.querySelector("#change").addEventListener("change", onChange);
+      function onChange(event) {
+        document
+          .querySelector("hello-world")
+          .setAttribute("name", event.target.value);
+      }
+    </script>
   </body>
 </html>

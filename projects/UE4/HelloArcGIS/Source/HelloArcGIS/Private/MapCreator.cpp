@@ -55,7 +55,7 @@ void AMapCreator::CreateArcGISMap()
 	// Add a basemap
 	// auto arcGISBasemap = Esri::GameEngine::Map::ArcGISBasemap("https://www.arcgis.com/sharing/rest/content/items/86265e5a4bbb4187a59719cf134e0018/data", apiKey);
 	// 使用MapServer地址
-	auto arcGISBasemap = Esri::GameEngine::Map::ArcGISBasemap("https://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer", Esri::GameEngine::Layers::Base::ArcGISLayerType::ArcGISImageLayer, apiKey);
+	auto arcGISBasemap = Esri::GameEngine::Map::ArcGISBasemap("http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_Imagery_World_2D/MapServer", Esri::GameEngine::Layers::Base::ArcGISLayerType::ArcGISImageLayer, apiKey);
 	// Set the basemap
 	arcGISMap->SetBasemap(arcGISBasemap);
 
@@ -88,6 +88,8 @@ void AMapCreator::CreateArcGISMap()
 	// https://mape.shanghai-map.net/arcgis/rest/services/metro_l/MapServer
 	// https://services.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/MapServer
 	// https://geoappext.nrcan.gc.ca/arcgis/rest/services/BaseMaps/CBMT_TXT_3857/MapServer
+	// https://mape.shanghai-map.net/arcgis/rest/services/wxmap/MapServer
+	// http://server.arcgisonline.com/ArcGIS/rest/services/ESRI_Imagery_World_2D/MapServer
 	// auto layer_0 = Esri::GameEngine::Layers::ArcGISImageLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer", "MyLayer_0", 1.0f, true, apiKey);
 	// arcGISMap->GetLayers().Add(layer_0);
 	// UE_LOG(LogTemp, Warning, TEXT("添加图层：World_Imagery"));
@@ -99,8 +101,8 @@ void AMapCreator::CreateArcGISMap()
 	// UE_LOG(LogTemp, Warning, TEXT("添加图层：ChinaOnlineCommunity"));
 	// auto layer_2 = Esri::GameEngine::Layers::ArcGISImageLayer("http://10.89.9.234:8080/geoserver/rest/services/LG/HX_T520001_HP_2022_TILE/MapServer", "MyLayer_2", 1.0f, true, apiKey);
 	// arcGISMap->GetLayers().Add(layer_2);
-	// auto layer_3 = Esri::GameEngine::Layers::ArcGISImageLayer("https://services.nationalmap.gov/arcgis/rest/services/USGSNAIPImagery/MapServer", "MyLayer_3", 1.0f, true, apiKey);
-	// arcGISMap->GetLayers().Add(layer_3);
+	auto layer_3 = Esri::GameEngine::Layers::ArcGISImageLayer("https://map.geoq.cn/arcgis/rest/services/ChinaOnlineCommunity/MapServer", "MyLayer_3", 1.0f, true, apiKey);
+	arcGISMap->GetLayers().Add(layer_3);
 }
 
 // Called every frame

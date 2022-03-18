@@ -6,7 +6,34 @@
   </head>
   <body>
     <script type="text/javascript">
-      class HelloWorld extends HTMLElement {}
+      class HelloWorld extends HTMLElement {
+        static get observedAttributes() {
+          return ["name"];
+        }
+        constructor() {
+          super();
+          this.attachShadow({ mode: "open" });
+          this.render();
+        }
+        render() {
+          const template = document.createElement("template");
+          template.innerHTML = `
+          <style>
+            :host{
+                color:darkgreen;
+            }
+          </style>
+          <p>
+            拼
+            <span id="name"></span>
+          </p>
+          `;
+          this.shadowRoot.appendChild(template.content.cloneNode(true));
+        }
+        attributeChangedCallback(name, oldValue, newValue) {
+          this.shadowRoot.getElementById(name).innerText = newValue;
+        }
+      }
       window.customElements.define("hello-world", HelloWorld);
     </script>
     <hello-world></hello-world>

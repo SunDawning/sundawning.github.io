@@ -19,11 +19,12 @@
           const template = document.createElement("template");
           template.innerHTML = `
           <style>
-            :host{
-                color:darkgreen;
+            :host {
+              position:absolute;
+              color:darkgreen;
             }
           </style>
-          <p>拼<span id="name"></span></p>
+          <span id="name"></span>
           `;
           this.shadowRoot.appendChild(template.content.cloneNode(true));
         }
@@ -33,7 +34,7 @@
       }
       window.customElements.define("hello-world", HelloWorld);
     </script>
-    <hello-world name="音"></hello-world>
+    <p>拼<hello-world name="音"></hello-world></p>
     <select id="change">
       <option value="音">音</option>
       <option value="Hi">Hi</option>

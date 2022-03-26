@@ -1,3 +1,4 @@
 2022-03-26 10:18:30
 
-`<canvas>`
+- 使用`<canvas>`标签
+- DrawRectangle.js

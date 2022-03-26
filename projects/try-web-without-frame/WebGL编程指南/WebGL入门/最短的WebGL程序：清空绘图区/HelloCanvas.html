@@ -3,11 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <title>清空绘图区</title>
-  </head>
-  <body>
+    <script type="importmap">
+      {
+        "imports": {
+          "Canvas": "./Canvas.js"
+        }
+      }
+    </script>
     <script type="module">
       {
-        const { Canvas } = await import("./Canvas.js");
+        const { Canvas } = await import("Canvas");
         class HelloCanvas extends Canvas {
           constructor() {
             super();
@@ -19,6 +24,8 @@
         window.customElements.define("hello-canvas", HelloCanvas);
       }
     </script>
+  </head>
+  <body>
     <hello-canvas></hello-canvas>
   </body>
 </html>

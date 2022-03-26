@@ -12,23 +12,28 @@
           this.attachShadow({ mode: "open" });
           this.render();
           console.log("已添加canvas");
+          // 1. 获取<canvas>标签
+          const canvas = this.shadowRoot.querySelector("canvas");
+          // 2. 获取绘制二维图形的地方
+          const context = canvas.getContext("2d");
+          console.log("context", context);
+          // 3. 绘制蓝色矩形
+          // 3.1 取画笔
+          context.fillStyle = "rgba(0,0,255,1.0";
+          // 3.2 上色
+          context.fillRect(120, 10, 150, 150);
         }
         render() {
           const template = document.createElement("template");
           template.innerHTML = `
-<style type="text/css">
-  canvas{
-    width: 400px;
-    height: 400px;
-  }
-</style>
-<canvas> 请使用能支持“canvas”功能的浏览器 </canvas>
+          <canvas width="400" height="400">请使用能支持“canvas”功能的浏览</canvas>      
           `;
           this.shadowRoot.appendChild(template.content.cloneNode(true));
         }
       }
       window.customElements.define("draw-rectangle", DrawRectangle);
     </script>
+
     <draw-rectangle></draw-rectangle>
   </body>
 </html>

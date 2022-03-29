@@ -3,6 +3,7 @@
  */
 window.importmap({
   imports: {
+    Component: "./Component.js",
     Canvas: "./Canvas.js",
   },
 });

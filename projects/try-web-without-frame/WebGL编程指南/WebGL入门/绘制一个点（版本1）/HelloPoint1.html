@@ -3,8 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <title>绘制一个点（版本1）</title>
-    <script type="text/javascript" src="./importmapHelper.js"></script>
-    <script type="text/javascript" src="./importmap.js"></script>
+    <script type="importmap">
+      {
+        "imports": {
+          "Component": "./Component.js",
+          "Canvas": "./Canvas.js"
+        }
+      }
+    </script>
     <script type="module">
       {
         const { Canvas } = await import("Canvas");

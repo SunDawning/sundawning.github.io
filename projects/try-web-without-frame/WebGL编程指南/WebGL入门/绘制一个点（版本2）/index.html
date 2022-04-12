@@ -57,12 +57,9 @@ void main(){
       `,
         {
           onProgram: function (program) {
-            gl.vertexAttrib4f(
+            gl.vertexAttrib4fv(
               gl.getAttribLocation(program, "a_Position"),
-              0,
-              0,
-              0,
-              1
+              new Float32Array(0, 0, 0, 1)
             );
           },
         }

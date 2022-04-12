@@ -57,11 +57,12 @@ void main(){
       `,
         {
           onProgram: function (program) {
-            gl.vertexAttrib3f(
+            gl.vertexAttrib4f(
               gl.getAttribLocation(program, "a_Position"),
               0,
               0,
-              0
+              0,
+              1
             );
           },
         }

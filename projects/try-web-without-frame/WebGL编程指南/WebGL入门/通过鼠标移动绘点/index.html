@@ -73,7 +73,7 @@ void main(){
       // 公共的顶点属性
       const index = gl.getAttribLocation(program, "a_Position");
       gl.vertexAttrib1f(gl.getAttribLocation(program, "a_PointSize"), 10);
-      canvas.addEventListener("mousemove", function (event) {
+      canvas.addEventListener("pointermove", function (event) {
         points.push(
           (event.offsetX / canvas.width) * 2 - 1,
           1 - (event.offsetY / canvas.height) * 2

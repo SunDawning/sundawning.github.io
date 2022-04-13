@@ -73,15 +73,15 @@ void main(){
       const index = gl.getAttribLocation(program, "a_Position");
       gl.vertexAttrib1f(gl.getAttribLocation(program, "a_PointSize"), 10);
       canvas.addEventListener("click", function (event) {
-        points.push([
+        points.push(
           (event.offsetX / canvas.width) * 2 - 1,
-          1 - (event.offsetY / canvas.height) * 2,
-        ]);
+          1 - (event.offsetY / canvas.height) * 2
+        );
         gl.clear(gl.COLOR_BUFFER_BIT); // 清除<canvas>
-        points.forEach(function ([x, y]) {
-          gl.vertexAttrib2f(index, x, y); // 设置不同顶点的位置
+        for (let c = 0; c < points.length; c = c + 2) {
+          gl.vertexAttrib2f(index, points[c], points[c + 1]); // 设置不同顶点的位置
           gl.drawArrays(gl.POINTS, 0, 1); // 绘图
-        });
+        }
       });
     </script>
   </body>

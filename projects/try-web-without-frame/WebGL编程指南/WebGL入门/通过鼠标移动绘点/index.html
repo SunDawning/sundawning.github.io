@@ -79,6 +79,7 @@ void main(){
           1 - (event.offsetY / canvas.height) * 2
         );
         gl.clear(gl.COLOR_BUFFER_BIT); // 清除<canvas>
+        // 设置不同顶点的位置
         {
           const buffer = gl.createBuffer();
           gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
@@ -86,8 +87,8 @@ void main(){
           gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
           gl.vertexAttribPointer(index, 2, gl.FLOAT, false, 0, 0);
           gl.enableVertexAttribArray(vertices);
-          gl.drawArrays(gl.POINTS, 0, points.length / 2); // 绘图
         }
+        gl.drawArrays(gl.POINTS, 0, points.length / 2); // 绘图
       });
     </script>
   </body>

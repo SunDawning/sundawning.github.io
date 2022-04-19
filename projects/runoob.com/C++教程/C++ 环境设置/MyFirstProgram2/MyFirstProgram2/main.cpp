@@ -1,8 +1,7 @@
 #include <iostream>
-#include <stdlib.h>
 int main()
 {
     std::cout << "拼";
-    system("pause");
+    getchar();
     return 0;
 }

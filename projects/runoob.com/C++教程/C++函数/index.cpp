@@ -1,16 +1,6 @@
 #include <iostream>
 #include <string>
-int max(int m, int n)
-{
-    if (m > n)
-    {
-        return m;
-    }
-    else
-    {
-        return n;
-    }
-}
+#include "max.cpp"
 void print(std::string out)
 {
     std::cout << out << std::endl;

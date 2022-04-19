@@ -11,11 +11,18 @@ int max(int m, int n)
         return n;
     }
 }
+void print(std::string out)
+{
+    std::cout << out << std::endl;
+}
 int main()
 {
-    int m = 1;
-    int n = 2;
-    std::string out = "Max value is:" + std::to_string(max(m, n));
-    std::cout << out << std::endl;
+    int list[4] = {1, 2, 4, 3};
+    for (int c = 0; c < 3; c = c + 2)
+    {
+        int m = list[c];
+        int n = list[c + 1];
+        print(std::to_string(m) + std::to_string(n) + std::to_string(max(m, n)));
+    }
     getchar();
 }

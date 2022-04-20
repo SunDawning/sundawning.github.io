@@ -5,8 +5,10 @@ void print(std::string out)
 {
     std::cout << out << std::endl;
 }
-void prints(int list[], int total)
+template <class T>
+void prints(T &list)
 {
+    int total = sizeof(list) / sizeof(list[0]);
     for (int c = 0; c < total; c = c + 2)
     {
         int m = list[c];
@@ -16,7 +18,7 @@ void prints(int list[], int total)
 }
 int main()
 {
-    int list[4] = {1, 2, 4, 3};
-    prints(list, sizeof(list) / sizeof(list[0]));
+    int list[] = {1, 2, 4, 3};
+    prints(list);
     getchar();
 }

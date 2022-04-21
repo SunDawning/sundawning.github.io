@@ -8,13 +8,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "cesium": "^1.92.0",
-    "mars3d": "^3.3.5",
     "vue": "^3.2.25"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.1",
-    "vite": "^2.9.5",
-    "vite-plugin-cesium": "^1.2.16"
+    "vite": "^2.9.5"
   }
 }

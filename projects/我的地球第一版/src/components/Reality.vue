@@ -27,6 +27,20 @@ function init(container) {
       },
     ],
   });
+  /**
+   * 全球城市白膜(OSM在线)
+   * http://mars3d.cn/editor.html?id=layer-tileset/type/osmBuildings
+   */
+  {
+    const tiles3dLayer = new mars3d.layer.OsmBuildingsLayer({
+      highlight: {
+        type: "click",
+        color: "#00FF00",
+      },
+      popup: "all",
+    });
+    map.addLayer(tiles3dLayer);
+  }
 }
 </script>
 

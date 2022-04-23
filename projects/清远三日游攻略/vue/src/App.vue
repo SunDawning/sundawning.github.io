@@ -1,5 +1,11 @@
 <template>
-  <a-col class="container"> <div class="map" ref="mapRef"></div></a-col>
+  <a-layout class="container">
+    <a-layout-header>清远三日游攻略</a-layout-header>
+    <a-layout-content class="map"></a-layout-content>
+    <a-layout-footer
+      >Copyright © 2022 SunDawning, All Rights Reserved
+    </a-layout-footer>
+  </a-layout>
 </template>
 <style scoped>
 .container {
@@ -10,15 +16,16 @@
   top: 0;
 }
 .map {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   height: 100%;
 }
 </style>
 <script setup>
-import { ref, onMounted } from "vue";
-const mapRef = ref(null);
+import { onMounted } from "vue";
 onMounted(function () {
-  init(mapRef.value);
+  init(document.querySelector(".map"));
 });
 </script>
 <script>

@@ -45,10 +45,10 @@ function init(container) {
   const map = new mars3d.Map(container, {
     scene: {
       center: {
-        lat: 20.648193,
-        lng: 113.518305,
-        alt: 961591,
-        heading: 0,
+        lat: 21.846991,
+        lng: 113.494748,
+        alt: 809958,
+        heading: 360,
         pitch: -78,
       },
       globe: {
@@ -60,10 +60,27 @@ function init(container) {
       show: true,
     },
     basemaps: [
+      { id: 10, name: "地图底图", type: "group" },
       {
-        name: "高德电子",
-        type: "gaode",
-        layer: "vec",
+        id: 2021,
+        pid: 10,
+        name: "天地图影像",
+        icon: "http://mars3d.cn/img/basemaps/tdt_img.png",
+        type: "group",
+        layers: [
+          {
+            name: "底图",
+            type: "tdt",
+            layer: "img_d",
+            key: ["789e558be762ff832392a0393fd8a4f1"],
+          },
+          {
+            name: "注记",
+            type: "tdt",
+            layer: "img_z",
+            key: ["789e558be762ff832392a0393fd8a4f1"],
+          },
+        ],
         show: true,
       },
     ],

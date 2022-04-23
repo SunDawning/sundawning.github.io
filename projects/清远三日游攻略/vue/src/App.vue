@@ -129,7 +129,7 @@ function init(container) {
       },
     },
     terrain: {
-      url: "http://data.mars3d.cn/terrain",
+      url: "https://data.mars3d.cn/terrain",
       show: true,
     },
     basemaps: [

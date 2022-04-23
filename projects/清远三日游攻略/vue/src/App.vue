@@ -1,6 +1,19 @@
 <template>
-  <a-col> <div ref="mapRef"></div></a-col>
+  <a-col class="container"> <div class="map" ref="mapRef"></div></a-col>
 </template>
+<style scoped>
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.map {
+  width: 100%;
+  height: 100%;
+}
+</style>
 <script setup>
 import { ref, onMounted } from "vue";
 const mapRef = ref(null);

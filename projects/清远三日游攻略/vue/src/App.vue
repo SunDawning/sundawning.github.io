@@ -30,9 +30,14 @@ footer {
 }
 </style>
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
+let map;
 onMounted(function () {
-  init(document.querySelector("main"));
+  map = init(document.querySelector("main"));
+});
+onUnmounted(function () {
+  map.destroy();
+  map = null;
 });
 </script>
 <script>
@@ -138,5 +143,6 @@ function init(container) {
       scene.skyAtmosphere.show = false;
     }
   }
+  return map;
 }
 </script>

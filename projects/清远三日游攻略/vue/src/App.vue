@@ -179,7 +179,7 @@ function init(container) {
                     distanceDisplayCondition_far: 100000,
                     distanceDisplayCondition_near: 0,
                     clampToGround: true,
-                    visibleDepth: false,
+                    visibleDepth: true,
                   },
                   scaleByDistance: false,
                   scaleByDistance_far: 1000000,
@@ -190,7 +190,7 @@ function init(container) {
                   distanceDisplayCondition_far: 10000,
                   distanceDisplayCondition_near: 0,
                   clampToGround: true,
-                  visibleDepth: false,
+                  visibleDepth: true,
                 },
                 edittype: "billboard",
                 _layer: "",
@@ -207,7 +207,7 @@ function init(container) {
     control: {
       homeButton: true,
       vrButton: false,
-      fullscreenButton: true,
+      fullscreenButton: false,
       fullscreenElement: "centerDiv3D",
       navigationHelpButton: true,
       animation: false,
@@ -229,22 +229,11 @@ function init(container) {
       },
       overviewMap: {
         basemap: {
-          name: "天地图电子",
-          type: "group",
-          layers: [
-            {
-              name: "底图",
-              type: "tdt",
-              layer: "vec_d",
-              key: ["789e558be762ff832392a0393fd8a4f1"],
-            },
-            {
-              name: "注记",
-              type: "tdt",
-              layer: "vec_z",
-              key: ["789e558be762ff832392a0393fd8a4f1"],
-            },
-          ],
+          name: "高德电子",
+          icon: "img/basemaps/gaode_vec.png",
+          type: "gaode",
+          layer: "vec",
+          show: true,
         },
         rectangle: {
           color: "#fecd78",

@@ -40,11 +40,11 @@ function init(container) {
   const map = new mars3d.Map(container, {
     scene: {
       center: {
-        lat: 16.257272,
-        lng: 115.916176,
-        alt: 1111135,
-        heading: 353,
-        pitch: -58,
+        lat: 20.648193,
+        lng: 113.518305,
+        alt: 961591,
+        heading: 0,
+        pitch: -78,
       },
       globe: {
         depthTestAgainstTerrain: true,
@@ -105,6 +105,7 @@ function init(container) {
       defaultContextMenu: true,
       mouseDownView: true,
       zoom: { insertIndex: 1 },
+      compass: { bottom: "toolbar", left: "5px" },
       distanceLegend: { left: "100px", bottom: "24px" },
       locationBar: {
         fps: true,
@@ -115,5 +116,27 @@ function init(container) {
       },
     },
   });
+  /**
+   * 只显示一定区域
+   */
+  {
+    const { viewer } = map;
+    {
+      const scene = viewer.scene;
+      const globe = scene.globe;
+      // Tropics of Cancer and Capricorn
+      const coffeeBeltRectangle = Cesium.Rectangle.fromDegrees(
+        109 + 39 / 60,
+        20 + 13 / 60,
+        117 + 19 / 60,
+        25 + 31 / 60
+      );
+      globe.cartographicLimitRectangle = coffeeBeltRectangle;
+      globe.showSkirts = false;
+      globe.backFaceCulling = false;
+      globe.undergroundColor = undefined;
+      scene.skyAtmosphere.show = false;
+    }
+  }
 }
 </script>

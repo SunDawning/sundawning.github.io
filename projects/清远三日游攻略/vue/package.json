@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "ant-design-vue": "^3.2.0",
     "vue": "^3.2.25"
   },
   "devDependencies": {
@@ -17,6 +18,7 @@
     "mars3d-space": "^3.3.6",
     "rollup-plugin-copy": "^3.4.0",
     "turf": "^3.0.14",
+    "unplugin-vue-components": "^0.19.3",
     "vite": "^2.9.5"
   }
 }

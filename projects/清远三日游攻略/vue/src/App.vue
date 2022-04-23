@@ -17,7 +17,8 @@
   left: 12px;
   right: auto;
 }
-.cesium-toolbar-button {
+.cesium-toolbar-button,
+.cesium-navigationHelpButton-wrapper {
   margin-bottom: 5px;
   float: left;
   clear: both;
@@ -226,27 +227,6 @@ function init(container) {
         crsDecimal: 0,
         template:
           "<div>经度:{lng}</div> <div>纬度:{lat}</div> <div class='hide1000'>横{crsx}  纵{crsy}</div> <div>海拔：{alt}米</div> <div class='hide700'>层级：{level}</div><div>方向：{heading}°</div> <div>俯仰角：{pitch}°</div><div class='hide700'>视高：{cameraHeight}米</div>",
-      },
-      overviewMap: {
-        basemap: {
-          name: "高德电子",
-          icon: "img/basemaps/gaode_vec.png",
-          type: "gaode",
-          layer: "vec",
-          show: true,
-        },
-        rectangle: {
-          color: "#fecd78",
-          opacity: 0.2,
-          outline: 1,
-          outlineColor: "#ff7800",
-        },
-        style: {
-          right: "5px",
-          top: "5px",
-          width: "200px",
-          height: "150px",
-        },
       },
     },
   });

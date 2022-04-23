@@ -1,5 +1,5 @@
 <template>
-  <a-layout class="container">
+  <a-layout>
     <a-layout-header>清远三日游攻略</a-layout-header>
     <a-layout-content></a-layout-content>
     <a-layout-footer
@@ -9,7 +9,7 @@
   </a-layout>
 </template>
 <style scoped>
-.container {
+section {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -89,7 +89,7 @@ function init(container) {
       defaultContextMenu: true,
       mouseDownView: true,
       zoom: { insertIndex: 1 },
-      distanceLegend: { left: "100px", bottom: "2px" },
+      distanceLegend: { left: "100px", bottom: "24px" },
       locationBar: {
         fps: true,
         crs: "CGCS2000_GK_Zone_3",

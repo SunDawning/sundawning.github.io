@@ -127,6 +127,18 @@ function init(container) {
       globe: {
         depthTestAgainstTerrain: true,
       },
+      scene3DOnly: true,
+      cameraController: {
+        zoomFactor: 3.0,
+        constrainedAxis: false,
+        minimumZoomDistance: 1,
+        maximumZoomDistance: 2200000,
+        enableRotate: true,
+        enableTranslate: true,
+        enableTilt: true,
+        enableZoom: true,
+        enableCollisionDetection: true,
+      },
     },
     control: {
       homeButton: true,
@@ -441,7 +453,7 @@ function init(container) {
             },
             {
               text: "清远新城粤运汽车站",
-              coordinates: [113.03879, 23.687822],
+              coordinates: [113.03879, 23.687822, 65.9],
               color: "#ffffff",
               font_size: 16,
               image: "https://mars3d.cn/img/marker/mark4.png",

@@ -82,8 +82,8 @@ function init(container) {
       {
         show: true,
         type: "geojson",
-        name: "广东省边界墙",
-        url: "https://data.mars3d.cn/file/geojson/areas/440000.json",
+        name: "清远市边界墙",
+        url: "https://data.mars3d.cn/file/geojson/areas/441800.json",
         symbol: {
           type: "wallP",
           styleOptions: {
@@ -92,28 +92,6 @@ function init(container) {
             materialType: mars3d.MaterialType.Image2,
             image: "https://mars3d.cn/img/textures/grawall.png",
             color: "rgba(0,255,255,0.6)",
-          },
-        },
-      },
-      {
-        show: true,
-        type: "geojson",
-        name: "广东省各市边界线",
-        url: "https://data.mars3d.cn/file/geojson/areas/440000_full.json",
-        symbol: {
-          type: "wallP",
-          styleOptions: {
-            setHeight: -15000,
-            diffHeight: 30000, // 墙高
-            materialType: mars3d.MaterialType.Image2,
-            image: "https://mars3d.cn/img/textures/grawall.png",
-            color: "rgba(255,255,255,0.3)",
-          },
-          styleField: "name",
-          styleFieldOptions: {
-            广州市: { color: "rgba(0,255,255,0.3)" },
-            深圳市: { color: "rgba(0,255,255,0.3)" },
-            清远市: { color: "rgba(0,255,255,0.3)" },
           },
         },
       },

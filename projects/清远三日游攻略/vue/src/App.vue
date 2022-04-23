@@ -1,7 +1,15 @@
 <template>
   <a-layout>
     <a-layout-header>清远三日游攻略</a-layout-header>
-    <a-layout-content></a-layout-content>
+    <a-layout-content>
+      <a-col class="right-bottom-tools">
+        <a-button @click="locate">广东省</a-button>
+        <a-button @click="locate">清远市</a-button>
+        <a-button @click="locate">洞天仙境</a-button>
+        <a-button @click="locate">英西峰林走廊</a-button>
+        <a-button @click="locate">笔架山</a-button>
+      </a-col>
+    </a-layout-content>
     <a-layout-footer
       >Copyright © 2022 SunDawning
       <a href="mailto:jobsimi@qq.com">jobsimi@qq.com</a>, All Rights Reserved
@@ -28,6 +36,13 @@ main {
 footer {
   text-align: center;
 }
+.right-bottom-tools {
+  position: absolute;
+  right: 0px;
+  bottom: 24px;
+  z-index: 1;
+  display: grid;
+}
 </style>
 <script setup>
 import { onMounted, onUnmounted } from "vue";
@@ -39,6 +54,63 @@ onUnmounted(function () {
   map.destroy();
   map = null;
 });
+function locate(event) {
+  console.log("当前位置", event, map);
+  const text = event.target.innerHTML;
+  map.setCameraView(
+    {
+      广东省: {
+        lat: 21.846991,
+        lng: 113.494748,
+        alt: 809958,
+        heading: 360,
+        pitch: -78,
+      },
+      清远市: {
+        lat: 22.762357,
+        lng: 112.961774,
+        alt: 97611,
+        heading: 0,
+        pitch: -37,
+      },
+      洞天仙境: {
+        lat: 24.14591,
+        lng: 112.894171,
+        alt: 514,
+        heading: 2,
+        pitch: -26,
+      },
+      英西峰林走廊: {
+        lat: 24.066481,
+        lng: 112.891477,
+        alt: 6772,
+        heading: 360,
+        pitch: -37,
+      },
+      千军峰林: {
+        lat: 24.121933,
+        lng: 112.89886,
+        alt: 207,
+        heading: 280,
+        pitch: -21,
+      },
+      小赵州桥: {
+        lat: 24.210044,
+        lng: 112.908869,
+        alt: 320,
+        heading: 209,
+        pitch: -22,
+      },
+      笔架山: {
+        lat: 23.767928,
+        lng: 113.031391,
+        alt: 259,
+        heading: 350,
+        pitch: -14,
+      },
+    }[text]
+  );
+}
 </script>
 <script>
 function init(container) {

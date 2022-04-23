@@ -369,27 +369,79 @@ function init(container) {
         data: {
           type: "FeatureCollection",
           features: [
-            { text: "洞天仙境", coordinates: [112.894503, 24.154852, 65.9] },
-            { text: "千军峰林", coordinates: [112.895639, 24.122405, 65.9] },
-            { text: "小赵州桥", coordinates: [112.906407, 24.205682, 65.9] },
+            {
+              text: "洞天仙境",
+              coordinates: [112.894503, 24.154852, 65.9],
+            },
+            {
+              text: "千军峰林",
+              coordinates: [112.895639, 24.122405, 65.9],
+              font_size: 16,
+            },
+            {
+              text: "小赵州桥",
+              coordinates: [112.906407, 24.205682, 65.9],
+              font_size: 16,
+            },
             {
               text: "笔架山",
               coordinates: [113.030693, 23.772138, 65.9],
             },
-          ].map(function ({ text, coordinates }) {
+            {
+              text: "清远站",
+              coordinates: [113.128127, 23.696624, 65.9],
+              color: "#ffffff",
+              font_size: 16,
+              image: "https://mars3d.cn/img/marker/mark3.png",
+            },
+            {
+              text: "源潭站",
+              coordinates: [113.196679, 23.665129, 65.9],
+              color: "#ffffff",
+              font_size: 16,
+              image: "https://mars3d.cn/img/marker/mark3.png",
+            },
+            {
+              text: "英德站",
+              coordinates: [113.433414, 24.161851, 65.9],
+              color: "#ffffff",
+              font_size: 16,
+              image: "https://mars3d.cn/img/marker/mark3.png",
+            },
+            {
+              text: "英德西站",
+              coordinates: [113.346791, 24.16208, 65.9],
+              color: "#ffffff",
+              font_size: 16,
+              image: "https://mars3d.cn/img/marker/mark3.png",
+            },
+            {
+              text: "清远新城粤运汽车站",
+              coordinates: [113.03879, 23.687822],
+              color: "#ffffff",
+              font_size: 16,
+              image: "https://mars3d.cn/img/marker/mark3.png",
+            },
+          ].map(function ({
+            text,
+            coordinates,
+            color = "#6EFF2A",
+            font_size = 26,
+            image = "https://mars3d.cn/img/marker/mark1.png",
+          }) {
             return {
               type: "Feature",
               properties: {
                 name: "",
                 type: "billboard",
                 style: {
-                  image: "https://mars3d.cn/img/marker/mark1.png",
+                  image: image,
                   horizontalOrigin: 0,
                   verticalOrigin: 1,
                   label: {
                     text: text,
-                    font_size: 26,
-                    color: "#6EFF2A",
+                    font_size: font_size,
+                    color: color,
                     outline: true,
                     outlineColor: "#000000",
                     pixelOffsetY: -60,

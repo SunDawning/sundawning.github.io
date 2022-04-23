@@ -1,9 +1,10 @@
 <template>
   <a-layout class="container">
     <a-layout-header>清远三日游攻略</a-layout-header>
-    <a-layout-content class="map"></a-layout-content>
+    <a-layout-content></a-layout-content>
     <a-layout-footer
-      >Copyright © 2022 SunDawning, All Rights Reserved
+      >Copyright © 2022 SunDawning
+      <a href="mailto:jobsimi@qq.com">jobsimi@qq.com</a>, All Rights Reserved
     </a-layout-footer>
   </a-layout>
 </template>
@@ -15,17 +16,23 @@
   left: 0;
   top: 0;
 }
-.map {
+header {
+  color: white;
+}
+main {
   position: relative;
   overflow: hidden;
   width: 100%;
   height: 100%;
 }
+footer {
+  text-align: center;
+}
 </style>
 <script setup>
 import { onMounted } from "vue";
 onMounted(function () {
-  init(document.querySelector(".map"));
+  init(document.querySelector("main"));
 });
 </script>
 <script>

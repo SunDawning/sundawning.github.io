@@ -8,28 +8,6 @@
     </a-layout-footer>
   </a-layout>
 </template>
-<style>
-.cesium-viewer-toolbar {
-  display: block;
-  position: absolute;
-  top: auto;
-  bottom: 35px;
-  left: 12px;
-  right: auto;
-}
-.cesium-toolbar-button,
-.cesium-navigationHelpButton-wrapper {
-  margin-bottom: 5px;
-  float: left;
-  clear: both;
-  text-align: center;
-}
-.cesium-baseLayerPicker-dropDown {
-  position: absolute;
-  left: 48px;
-  bottom: 0px;
-}
-</style>
 <style scoped>
 section {
   position: absolute;
@@ -390,7 +368,6 @@ function init(container) {
     control: {
       homeButton: true,
       baseLayerPicker: true,
-      vrButton: false,
       fullscreenButton: false,
       fullscreenElement: "centerDiv3D",
       navigationHelpButton: true,

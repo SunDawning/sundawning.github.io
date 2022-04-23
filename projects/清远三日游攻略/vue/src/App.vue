@@ -13,11 +13,11 @@ function init(container) {
   const map = new mars3d.Map(container, {
     scene: {
       center: {
-        lat: 22.530534267425537,
-        lng: 113.9517791569233,
-        alt: 500,
-        heading: 0,
-        pitch: -90,
+        lat: 22.514728,
+        lng: 113.93298,
+        alt: 1389,
+        heading: 37,
+        pitch: -32,
       },
       globe: {
         depthTestAgainstTerrain: true,
@@ -35,20 +35,42 @@ function init(container) {
         show: true,
       },
     ],
-  });
-  /**
-   * 全球城市白膜(OSM在线)
-   * http://mars3d.cn/editor.html?id=layer-tileset/type/osmBuildings
-   */
-  {
-    const tiles3dLayer = new mars3d.layer.OsmBuildingsLayer({
-      highlight: {
-        type: "click",
-        color: "#00FF00",
+    layers: [
+      {
+        show: true,
+        type: "osmBuildings",
+        name: "全球城市白膜(OSM在线)",
+        highlight: {
+          type: "click",
+          color: "#00FF00",
+        },
+        popup: "all",
+        popupOptions: { maxHeight: 160 },
       },
-      popup: "all",
-    });
-    map.addLayer(tiles3dLayer);
-  }
+    ],
+    control: {
+      homeButton: true,
+      vrButton: false,
+      fullscreenButton: true,
+      fullscreenElement: "centerDiv3D",
+      navigationHelpButton: true,
+      animation: false,
+      timeline: false,
+      infoBox: false,
+      geocoder: false,
+      selectionIndicator: false,
+      defaultContextMenu: true,
+      mouseDownView: true,
+      zoom: { insertIndex: 1 },
+      distanceLegend: { left: "100px", bottom: "2px" },
+      locationBar: {
+        fps: true,
+        crs: "CGCS2000_GK_Zone_3",
+        crsDecimal: 0,
+        template:
+          "<div>经度:{lng}</div> <div>纬度:{lat}</div> <div class='hide1000'>横{crsx}  纵{crsy}</div> <div>海拔：{alt}米</div> <div class='hide700'>层级：{level}</div><div>方向：{heading}°</div> <div>俯仰角：{pitch}°</div><div class='hide700'>视高：{cameraHeight}米</div>",
+      },
+    },
+  });
 }
 </script>

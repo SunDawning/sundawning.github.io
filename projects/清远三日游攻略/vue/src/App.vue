@@ -420,7 +420,7 @@ function init(container) {
               coordinates: [113.03879, 23.687822],
               color: "#ffffff",
               font_size: 16,
-              image: "https://mars3d.cn/img/marker/mark3.png",
+              image: "https://mars3d.cn/img/marker/mark4.png",
             },
           ].map(function ({
             text,

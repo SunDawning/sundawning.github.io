@@ -128,6 +128,30 @@ function init(container) {
         depthTestAgainstTerrain: true,
       },
     },
+    control: {
+      homeButton: true,
+      baseLayerPicker: true,
+      fullscreenButton: false,
+      fullscreenElement: "centerDiv3D",
+      navigationHelpButton: true,
+      animation: false,
+      timeline: false,
+      infoBox: false,
+      geocoder: false,
+      selectionIndicator: false,
+      defaultContextMenu: true,
+      mouseDownView: true,
+      zoom: { insertIndex: 1 },
+      compass: { bottom: "toolbar", left: "5px" },
+      distanceLegend: { left: "100px", bottom: "24px" },
+      locationBar: {
+        fps: true,
+        crs: "CGCS2000_GK_Zone_3",
+        crsDecimal: 0,
+        template:
+          "<div>经度:{lng}</div> <div>纬度:{lat}</div> <div class='hide1000'>横{crsx}  纵{crsy}</div> <div>海拔：{alt}米</div> <div class='hide700'>层级：{level}</div><div>方向：{heading}°</div> <div>俯仰角：{pitch}°</div><div class='hide700'>视高：{cameraHeight}米</div>",
+      },
+    },
     terrain: {
       url: "https://data.mars3d.cn/terrain",
       show: true,
@@ -490,30 +514,6 @@ function init(container) {
         },
       },
     ],
-    control: {
-      homeButton: true,
-      baseLayerPicker: true,
-      fullscreenButton: false,
-      fullscreenElement: "centerDiv3D",
-      navigationHelpButton: true,
-      animation: false,
-      timeline: false,
-      infoBox: false,
-      geocoder: false,
-      selectionIndicator: false,
-      defaultContextMenu: true,
-      mouseDownView: true,
-      zoom: { insertIndex: 1 },
-      compass: { bottom: "toolbar", left: "5px" },
-      distanceLegend: { left: "100px", bottom: "24px" },
-      locationBar: {
-        fps: true,
-        crs: "CGCS2000_GK_Zone_3",
-        crsDecimal: 0,
-        template:
-          "<div>经度:{lng}</div> <div>纬度:{lat}</div> <div class='hide1000'>横{crsx}  纵{crsy}</div> <div>海拔：{alt}米</div> <div class='hide700'>层级：{level}</div><div>方向：{heading}°</div> <div>俯仰角：{pitch}°</div><div class='hide700'>视高：{cameraHeight}米</div>",
-      },
-    },
   });
   /**
    * 只显示一定区域

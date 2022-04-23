@@ -24,6 +24,11 @@
   clear: both;
   text-align: center;
 }
+.cesium-baseLayerPicker-dropDown {
+  position: absolute;
+  left: 48px;
+  bottom: 0px;
+}
 </style>
 <style scoped>
 section {
@@ -99,6 +104,183 @@ function init(container) {
           },
         ],
         show: true,
+      },
+      {
+        pid: 10,
+        name: "天地图电子",
+        icon: "http://mars3d.cn/img/basemaps/tdt_vec.png",
+        type: "group",
+        layers: [
+          {
+            name: "底图",
+            type: "tdt",
+            layer: "vec_d",
+            key: ["789e558be762ff832392a0393fd8a4f1"],
+          },
+          {
+            name: "注记",
+            type: "tdt",
+            layer: "vec_z",
+            key: ["789e558be762ff832392a0393fd8a4f1"],
+          },
+        ],
+      },
+      {
+        pid: 10,
+        name: "高德影像",
+        type: "group",
+        icon: "http://mars3d.cn/img/basemaps/gaode_img.png",
+        layers: [
+          { name: "底图", type: "gaode", layer: "img_d" },
+          { name: "注记", type: "gaode", layer: "img_z" },
+        ],
+      },
+      {
+        pid: 10,
+        name: "高德电子",
+        type: "gaode",
+        icon: "http://mars3d.cn/img/basemaps/gaode_vec.png",
+        layer: "vec",
+      },
+      {
+        pid: 10,
+        name: "百度影像",
+        type: "group",
+        icon: "http://mars3d.cn/img/basemaps/bd-img.png",
+        layers: [
+          { name: "底图", type: "baidu", layer: "img_d" },
+          { name: "注记", type: "baidu", layer: "img_z" },
+        ],
+      },
+      {
+        pid: 10,
+        name: "百度电子",
+        icon: "http://mars3d.cn/img/basemaps/bd-vec.png",
+        type: "baidu",
+        layer: "vec",
+      },
+      {
+        pid: 10,
+        name: "腾讯影像",
+        icon: "http://mars3d.cn/img/basemaps/gaode_img.png",
+        type: "group",
+        layers: [
+          { name: "底图", type: "tencent", layer: "img_d" },
+          { name: "注记", type: "tencent", layer: "img_z" },
+        ],
+      },
+      {
+        pid: 10,
+        name: "腾讯电子",
+        icon: "http://mars3d.cn/img/basemaps/gaode_vec.png",
+        type: "tencent",
+        layer: "vec",
+      },
+      {
+        pid: 10,
+        name: "ArcGIS影像",
+        icon: "http://mars3d.cn/img/basemaps/esriWorldImagery.png",
+        type: "xyz",
+        url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        enablePickFeatures: false,
+      },
+      {
+        pid: 10,
+        name: "微软影像",
+        icon: "http://mars3d.cn/img/basemaps/bingAerial.png",
+        type: "bing",
+        key: "Am5SdKm6pNdkP1P5zuUOMZwleCHeA7GD5vuQgZ3xBUbEMBeQ5cQ1WN4B8xqqV1Vt",
+        layer: "Aerial",
+      },
+      {
+        pid: 10,
+        name: "OSM地图",
+        type: "xyz",
+        icon: "http://mars3d.cn/img/basemaps/osm.png",
+        url: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        subdomains: "abc",
+      },
+      {
+        id: 2017,
+        pid: 10,
+        name: "暗色底图",
+        type: "gaode",
+        icon: "http://mars3d.cn/img/basemaps/blackMarble.png",
+        layer: "vec",
+        invertColor: true,
+        filterColor: "#4e70a6",
+        brightness: 0.6,
+        contrast: 1.8,
+        gamma: 0.3,
+        hue: 1,
+        saturation: 0,
+      },
+      {
+        pid: 10,
+        name: "蓝色底图",
+        icon: "http://mars3d.cn/img/basemaps/bd-c-midnight.png",
+        type: "xyz",
+        url: "http://map.geoq.cn/arcgis/rest/services/ChinaOnlineStreetPurplishBlue/MapServer/tile/{z}/{y}/{x}",
+        chinaCRS: "GCJ02",
+        enablePickFeatures: false,
+      },
+      {
+        pid: 10,
+        name: "黑色底图",
+        icon: "http://mars3d.cn/img/basemaps/bd-c-dark.png",
+        type: "tencent",
+        layer: "custom",
+        style: "4",
+      },
+      {
+        pid: 10,
+        name: "离线地图 (供参考)",
+        type: "group",
+        icon: "http://mars3d.cn/img/basemaps/google_img.png",
+        layers: [
+          {
+            name: "全球",
+            type: "xyz",
+            url: "{dataServer}/tile/googleImg/{z}/{x}/{y}.jpg",
+            minimumLevel: 0,
+            maximumLevel: 9,
+          },
+          {
+            name: "中国",
+            type: "xyz",
+            url: "{dataServer}/tile/googleImg/{z}/{x}/{y}.jpg",
+            minimumTerrainLevel: 10,
+            minimumLevel: 10,
+            maximumLevel: 12,
+            rectangle: {
+              xmin: 69.706929,
+              xmax: 136.560941,
+              ymin: 15.831038,
+              ymax: 52.558005,
+            },
+          },
+          {
+            name: "具体项目(如合肥)",
+            type: "xyz",
+            url: "{dataServer}/tile/googleImg/{z}/{x}/{y}.jpg",
+            minimumTerrainLevel: 12,
+            minimumLevel: 12,
+            maximumLevel: 18,
+            rectangle: {
+              xmin: 116.33236,
+              xmax: 118.183557,
+              ymin: 31.143784,
+              ymax: 32.565035,
+            },
+          },
+        ],
+      },
+      {
+        pid: 10,
+        name: "单张图片 (本地离线)",
+        icon: "http://mars3d.cn/img/basemaps/offline.png",
+        type: "image",
+        url: "//data.mars3d.cn/file/img/world/world.jpg",
       },
     ],
     layers: [
@@ -207,6 +389,7 @@ function init(container) {
     ],
     control: {
       homeButton: true,
+      baseLayerPicker: true,
       vrButton: false,
       fullscreenButton: false,
       fullscreenElement: "centerDiv3D",

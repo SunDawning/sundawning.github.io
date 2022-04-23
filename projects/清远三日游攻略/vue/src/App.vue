@@ -40,11 +40,11 @@ function init(container) {
   const map = new mars3d.Map(container, {
     scene: {
       center: {
-        lat: 22.514728,
-        lng: 113.93298,
-        alt: 1389,
-        heading: 37,
-        pitch: -32,
+        lat: 16.257272,
+        lng: 115.916176,
+        alt: 1111135,
+        heading: 353,
+        pitch: -58,
       },
       globe: {
         depthTestAgainstTerrain: true,
@@ -73,6 +73,22 @@ function init(container) {
         },
         popup: "all",
         popupOptions: { maxHeight: 160 },
+      },
+      {
+        show: true,
+        type: "geojson",
+        name: "广东省边界墙",
+        url: "https://data.mars3d.cn/file/geojson/areas/440000.json",
+        symbol: {
+          type: "wallP",
+          styleOptions: {
+            setHeight: -15000,
+            diffHeight: 30000, // 墙高
+            materialType: mars3d.MaterialType.Image2,
+            image: "https://mars3d.cn/img/textures/grawall.png",
+            color: "rgba(0,255,255,0.6)",
+          },
+        },
       },
     ],
     control: {

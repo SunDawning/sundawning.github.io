@@ -42,6 +42,7 @@ footer {
   bottom: 24px;
   z-index: 1;
   display: grid;
+  justify-items: end;
 }
 </style>
 <script setup>

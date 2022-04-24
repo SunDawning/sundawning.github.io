@@ -1,6 +1,11 @@
 <template>
   <a-layout>
-    <a-layout-header>清远三日游攻略</a-layout-header>
+    <a-layout-header>
+      <a-row :gutter="16">
+        <a-col><a href="/">首页</a></a-col>
+        <a-col>清远三日游攻略</a-col>
+      </a-row>
+    </a-layout-header>
     <a-layout-content>
       <a-col class="right-bottom-tools">
         <a-button @click="locate">广东省</a-button>

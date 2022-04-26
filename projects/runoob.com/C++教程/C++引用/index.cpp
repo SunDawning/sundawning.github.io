@@ -1,8 +1,9 @@
 #include <iostream>
 int main()
 {
-    int a;
-    int &r = a;
-    std::cout << a << "," << r << std::endl; // 484,484
+    double a;
+    a = 1.5;
+    double &r = a;
+    std::cout << a << "," << r << std::endl; // 1.5,1.5
     getchar();
 }

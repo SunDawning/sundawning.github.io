@@ -2,6 +2,7 @@
 int main()
 {
     int a;
-    std::cout << a << std::endl;
+    int &r = a;
+    std::cout << a << "," << r << std::endl; // 484,484
     getchar();
 }

@@ -6,11 +6,6 @@ void swap(int &a, int &b)
     b = c;
     return;
 }
-
-void setValues(double (&vals)[5], int c, double d)
-{
-    vals[c] = d;
-};
 int main()
 {
     double a;
@@ -26,8 +21,12 @@ int main()
     std::cout << "after: " << c << ',' << d << std::endl;
     // 函数返回值是引用
     double vals[] = {1, 2, 3, 4, 5};
+    auto setValues = [&vals](int c, double d)
+    {
+        vals[c] = d;
+    };
     std::cout << "before: " << vals[2] << std::endl;
-    setValues(vals, 2, 10);
+    setValues(2, 10);
     std::cout << "after: " << vals[2] << std::endl;
     getchar();
 }

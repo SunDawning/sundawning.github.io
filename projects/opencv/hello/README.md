@@ -81,3 +81,21 @@ https://blog.csdn.net/qq_29695701/article/details/89213984
 ```sh
 g++ -g index.cpp -o index.exe -I "./include" -D_GLIBCXX_USE_CXX11_ABI=0
 ```
+
+### `cv::imread(std::string const&, int)'
+
+```
+g++ -g index.cpp -o index.exe -I "./include" -D_GLIBCXX_USE_CXX11_ABI=0
+C:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\SUNDAW~1\AppData\Local\Temp\cc4W8Dn1.o:C:\Users\SunDawning\Downloads\gitee.com\sundawning\sundawning.gitee.io\projects\opencv\hello/index.cpp:5: undefined reference to `cv::imread(std::string const&, int)'
+C:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\SUNDAW~1\AppData\Local\Temp\cc4W8Dn1.o: in function `main':
+C:\Users\SunDawning\Downloads\gitee.com\sundawning\sundawning.gitee.io\projects\opencv\hello/index.cpp:6: undefined reference to `cv::Mat::~Mat()'
+collect2.exe: error: ld returned 1 exit status
+```
+
+https://blog.csdn.net/KKKiwiXU/article/details/115872573
+
+```sh
+g++ -g index.cpp -o index.exe -I "./include" -D_GLIBCXX_USE_CXX11_ABI=1
+```
+
+这个问题与已经存在的另一个问题相悖

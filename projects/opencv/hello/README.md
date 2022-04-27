@@ -64,3 +64,20 @@ collect2.exe: error: ld returned 1 exit status
 ```
 
 生成 exe 时 cpp 文件里需要有 main 函数
+
+### `cv::imread(std::\_\_cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int)'
+
+```
+g++ -g index.cpp -o index.exe -I "./include"
+C:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\SUNDAW~1\AppData\Local\Temp\ccU9P7qJ.o:C:\Users\SunDawning\Downloads\gitee.com\sundawning\sundawning.gitee.io\projects\opencv\hello/index.cpp:5: undefined reference to `cv::imread(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, int)'
+
+C:/msys64/mingw64/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/bin/ld.exe: C:\Users\SUNDAW~1\AppData\Local\Temp\ccU9P7qJ.o: in function `main':
+C:\Users\SunDawning\Downloads\gitee.com\sundawning\sundawning.gitee.io\projects\opencv\hello/index.cpp:6: undefined reference to `cv::Mat::~Mat()'
+collect2.exe: error: ld returned 1 exit status
+```
+
+https://blog.csdn.net/qq_29695701/article/details/89213984
+
+```sh
+g++ -g index.cpp -o index.exe -I "./include" -D_GLIBCXX_USE_CXX11_ABI=0
+```

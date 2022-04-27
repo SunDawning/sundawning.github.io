@@ -99,3 +99,12 @@ g++ -g index.cpp -o index.exe -I "./include" -D_GLIBCXX_USE_CXX11_ABI=1
 ```
 
 这个问题与已经存在的另一个问题相悖
+
+参考
+https://www.jianshu.com/p/13f399926424
+，需要使用 MSYS2 MinGW x64 安装，以便能用“-l”来使用“dll”。
+https://answers.opencv.org/question/221603/undefined-reference-to-imread/
+
+```sh
+g++ -g index.cpp -o index.exe -I "./include" -l opencv_core -l opencv_imgcodecs
+```

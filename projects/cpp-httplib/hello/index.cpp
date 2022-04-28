@@ -1,4 +1,5 @@
 #include <cstdio>
+#define CPPHTTPLIB_OPENSSL_SUPPORT
 #include "C:/Users/SunDawning/Downloads/cpp-httplib-0.10.6/httplib.h"
 /**
  * @brief 修复printf没有输出的情况
@@ -25,7 +26,7 @@ int main()
     fixPrintfOutputMissing();
     fixChineseCharError();
     printf("进入程序\n");
-    httplib::Client client("http://cpp-httplib-server.yhirose.repl.co");
+    httplib::Client client("https://cpp-httplib-server.yhirose.repl.co");
     auto response = client.Get("/hi");
     printf("返回数据\n");
     printf("%s\n", response->body.c_str());

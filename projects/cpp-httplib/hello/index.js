@@ -14,7 +14,7 @@ let { build_directory, exe_file_name, cpp_httplib_include_directory } =
   }
 }
 {
-  const command = `g++ -g index.cpp -o "${build_directory}/${exe_file_name}" -I "${cpp_httplib_include_directory}" -l ws2_32 && cd "${build_directory}" && ${exe_file_name}`;
+  const command = `g++ -g index.cpp -o "${build_directory}/${exe_file_name}" -I "${cpp_httplib_include_directory}" -l ws2_32 -l libssl -l libcrypto -l crypt32 && cd "${build_directory}" && ${exe_file_name}`;
   console.log("执行命令", command);
   const child = child_process.exec(command);
   child.stderr.pipe(process.stderr);

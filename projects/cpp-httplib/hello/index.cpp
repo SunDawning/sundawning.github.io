@@ -3,9 +3,11 @@
 int main()
 {
     setvbuf(stdout, NULL, _IONBF, 0);
-    printf("Hello, cpp-httplib");
+    SetConsoleOutputCP(65001);
+    printf("Hello, cpp-httplib\n");
     httplib::Client client("http://cpp-httplib-server.yhirose.repl.co");
     auto response = client.Get("/hi");
-    printf("%s", response->body.c_str());
+    printf("返回数据\n");
+    printf("%s\n", response->body.c_str());
     getchar();
 }

@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "npx nodemon index.js"
+  },
+  "devDependencies": {
+    "axios": "^0.27.2"
+  }
+}

@@ -5,5 +5,5 @@ int main()
     printf("Hello, cpp-httplib\n");
     httplib::Client client("http://cpp-httplib-server.yhirose.repl.co");
     auto response = client.Get("/hi");
-    printf("%s", response->body);
+    printf("%s\n", response->body.c_str());
 }

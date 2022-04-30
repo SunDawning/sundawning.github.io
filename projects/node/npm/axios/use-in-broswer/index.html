@@ -1,0 +1,23 @@
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/axios@0.27.2/dist/axios.min.js"
+></script>
+<script type="text/javascript">
+  async function index() {
+    const response = await axios.get(
+      "https://www.diigo.com/interact_api/load_user_items",
+      {
+        params: {
+          sort: "updated",
+          count: 3,
+        },
+        headers: {
+          "X-Requested-With": "X-Requested-With",
+        },
+      }
+    );
+  }
+</script>
+<script type="text/javascript">
+  index();
+</script>

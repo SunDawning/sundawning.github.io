@@ -1,7 +1,7 @@
 <template>
   <a-layout style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="collapsed" collapsible>
-      <div class="logo"></div>
+      <Logo></Logo>
       <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
         <a-menu-item key="1">
           <pie-chart-outlined />
@@ -23,15 +23,10 @@
     </a-layout>
   </a-layout>
 </template>
-
+<script setup>
+import Logo from "./Logo.vue";
+</script>
 <style scoped>
-.logo {
-  height: 64px;
-  background-color: white;
-  background-image: url(https://www.diigo.com/images/v6/logo.png);
-  background-repeat: no-repeat;
-  background-position: center;
-}
 .site-layout .site-layout-background {
   background: #fff;
 }

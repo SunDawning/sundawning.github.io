@@ -2,16 +2,7 @@
   <a-layout style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="collapsed" collapsible>
       <Logo></Logo>
-      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
-        <a-menu-item key="1">
-          <pie-chart-outlined />
-          <span>新建书签</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <pie-chart-outlined />
-          <span>最近书签</span>
-        </a-menu-item>
-      </a-menu>
+      <Menu></Menu>
     </a-layout-sider>
     <a-layout>
       <a-layout-header style="background: #fff; padding: 0" />
@@ -25,6 +16,7 @@
 </template>
 <script setup>
 import Logo from "./Logo.vue";
+import Menu from "./Menu.vue";
 </script>
 <style scoped>
 .site-layout .site-layout-background {

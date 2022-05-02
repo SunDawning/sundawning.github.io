@@ -13,6 +13,8 @@
 <script setup>
 import { reactive } from "vue";
 import axios from "axios";
+import { message } from "ant-design-vue";
+import "ant-design-vue/es/message/style/css";
 const status = reactive({
   spinning: true,
 });
@@ -30,14 +32,17 @@ function change(event) {
  * 登录
  */
 async function login() {
+  status.spinning = true;
   const { data } = await axios.get("http://localhost:3001/outliner/list", {
     headers: {
       _cookie: localStorage.getItem("diigo_cookie"),
     },
   });
-  const { code } = data;
+  const { code, reason } = data;
+  status.spinning = false;
   if (code === 0) {
     localStorage.removeItem("diigo_cookie");
+    message.error(reason);
     return;
   }
   emit("login", true);

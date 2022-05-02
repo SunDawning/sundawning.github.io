@@ -3,7 +3,7 @@ const child_process = require("child_process");
   command
 ) {
   const child = child_process.exec(command);
-  child.stderr.pipe(process.stderr);
-  child.stdout.pipe(process.stdout);
-  child.stdin.pipe(process.stdin);
+  ["stderr", "stdout", "stdin"].forEach(function (location) {
+    child[location].pipe(process[location]);
+  });
 });

@@ -3,7 +3,9 @@
     <template #renderItem="{ item }">
       <a-list-item>
         <div>
-          <a :href="item.url" target="_blank">{{ item.title }}</a>
+          <h1>
+            <a :href="item.url" target="_blank">{{ item.title }}</a>
+          </h1>
           <pre>{{ item.description }}</pre>
         </div>
       </a-list-item>

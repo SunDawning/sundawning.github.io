@@ -25,7 +25,7 @@ async function index() {
         count: count,
       },
       headers: {
-        _cookie: document.cookie,
+        _cookie: localStorage.getItem("diigo_cookie"),
       },
     }
   );

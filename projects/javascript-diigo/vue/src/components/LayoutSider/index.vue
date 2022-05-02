@@ -1,15 +1,17 @@
 <template>
   <a-layout style="min-height: 100vh">
-    <Sider ref="sider"></Sider>
-    <Content ref="content"></Content>
+    <Sider @displayRecent="displayRecent"></Sider>
+    <Content :displayRecent="state.displayRecent"></Content>
   </a-layout>
 </template>
 <script setup>
-import { ref } from "vue";
-import Sider from "./Sider/index.vue";
-import Content from "./Content.vue";
-const content = ref(null);
-const sider = ref(null);
+import { reactive } from "vue";
+const state = reactive({
+  displayRecent: false,
+});
+function displayRecent(value) {
+  state.displayRecent = value;
+}
 </script>
 <style scoped>
 .site-layout .site-layout-background {

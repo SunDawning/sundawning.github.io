@@ -9,7 +9,13 @@
   </a-menu>
 </template>
 <script setup>
+const emit = defineEmits(["displayRecent"]);
 function select({ item, key, selectedKeys }) {
   console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
+  emit("displayRecent", false);
+  if (key === "最近书签") {
+    emit("displayRecent", true);
+    return;
+  }
 }
 </script>

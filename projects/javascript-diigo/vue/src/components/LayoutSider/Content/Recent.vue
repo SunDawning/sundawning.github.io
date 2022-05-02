@@ -40,11 +40,13 @@ index();
 }
 pre {
   white-space: pre-wrap;
+  word-break: break-all;
   margin: 0;
   border-left: 8px solid #f99f30;
   border-radius: 8px;
   padding: 8px;
   background: #3f98e5;
   color: #ffffff;
+  max-height: 480px;
 }
 </style>

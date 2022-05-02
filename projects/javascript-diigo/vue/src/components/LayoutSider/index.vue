@@ -1,5 +1,5 @@
 <template>
-  <a-layout style="min-height: 100vh">
+  <a-layout>
     <Sider class="sider" @displayRecent="displayRecent"></Sider>
     <Content class="content" :displayRecent="state.displayRecent"></Content>
   </a-layout>
@@ -22,13 +22,12 @@ function displayRecent(value) {
 }
 .sider {
   overflow: auto;
-  height: 100vh;
   position: fixed;
   left: 0;
   top: 0;
   bottom: 0;
 }
 .content {
-  margin-left: 200px;
+  margin-left: 104px;
 }
 </style>

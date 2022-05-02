@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider collapsible>
+  <a-layout-sider width="104">
     <Logo></Logo>
     <Menu @displayRecent="displayRecent"></Menu>
   </a-layout-sider>

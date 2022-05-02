@@ -2,7 +2,9 @@
   <a-layout>
     <a-layout-header style="background: #fff; padding: 0" />
     <a-layout-content style="margin: 0 16px">
-      <p v-if="displayRecent">所有最近书签</p>
+      <div v-if="displayRecent">
+        <Recent></Recent>
+      </div>
     </a-layout-content>
     <a-layout-footer>
       Copyright © 2022 SunDawning
@@ -11,8 +13,9 @@
   </a-layout>
 </template>
 <script setup>
+import Recent from "./Recent.vue";
 defineProps({
-  displayRecent: false,
+  displayRecent: Boolean,
 });
 </script>
 <style scoped>

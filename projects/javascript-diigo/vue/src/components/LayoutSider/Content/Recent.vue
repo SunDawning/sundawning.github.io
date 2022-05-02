@@ -1,10 +1,10 @@
 <template>
-  <a-list :data-source="list" item-layout="horizontal">
+  <a-list :data-source="list">
     <template #renderItem="{ item }">
       <a-list-item>
         <div>
           <a :href="item.url" target="_blank">{{ item.title }}</a>
-          <div>{{ item.description }}</div>
+          <pre>{{ item.description }}</pre>
         </div>
       </a-list-item>
     </template>
@@ -32,3 +32,11 @@ async function index() {
 }
 index();
 </script>
+<style scoped>
+.ant-list {
+  text-align: left;
+}
+.pre {
+  white-space: pre-wrap;
+}
+</style>

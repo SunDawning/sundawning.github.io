@@ -2,9 +2,7 @@
   <a-layout>
     <a-layout-header style="background: #fff; padding: 0" />
     <a-layout-content style="margin: 0 16px">
-      <div v-if="displayRecent">
-        <Recent></Recent>
-      </div>
+      <Recent v-if="displayRecent"></Recent>
     </a-layout-content>
     <a-layout-footer>
       Copyright © 2022 SunDawning

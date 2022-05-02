@@ -10,6 +10,9 @@
 </template>
 <script setup>
 const emit = defineEmits(["login"]);
+if (localStorage.getItem("diigo_cookie")) {
+  login();
+}
 function login() {
   emit("login", true);
 }

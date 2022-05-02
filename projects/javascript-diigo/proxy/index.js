@@ -50,14 +50,17 @@ function formatTimeZone(date) {
 app.use(cors()); // CORS
 app.use(async function (context) {
   const { method, url, headers, params } = context.request;
-  const { auth } = headers;
+  const { _cookie } = headers;
   console.log(`${formatTime()} ${method} ${url}`);
-  console.log(context);
+  //   console.log(context);
   if (url.startsWith("/interact_api/load_user_items")) {
     const { data, headers } = await axios.get(`https://www.diigo.com` + url, {
+      params: {
+        sort: "updated",
+      },
       headers: {
         "X-Requested-With": "X-Requested-With",
-        cookie: auth,
+        cookie: _cookie,
       },
     });
     context.response.body = data;

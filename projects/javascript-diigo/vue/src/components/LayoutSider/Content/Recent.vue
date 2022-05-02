@@ -9,11 +9,10 @@ async function index() {
     "http://localhost:3001/interact_api/load_user_items",
     {
       params: {
-        sort: "updated",
         count: count,
       },
       headers: {
-        auth: document.cookie,
+        _cookie: document.cookie,
       },
     }
   );

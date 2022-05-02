@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "devDependencies": {
+    "@koa/cors": "^3.3.0",
+    "axios": "^0.27.2",
+    "koa": "^2.13.4",
+    "nodemon": "^2.0.16"
+  }
+}

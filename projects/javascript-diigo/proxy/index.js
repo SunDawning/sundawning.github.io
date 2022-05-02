@@ -53,6 +53,17 @@ app.use(async function (context) {
   const { _cookie } = headers;
   console.log(`${formatTime()} ${method} ${url}`);
   //   console.log(context);
+  if (url.startsWith("/outliner/list")) {
+    const { data, headers } = await axios.get(`https://www.diigo.com` + url, {
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        cookie: _cookie,
+      },
+    });
+    context.response.body = data;
+    context.response.type = headers["content-type"];
+    return;
+  }
   if (url.startsWith("/interact_api/load_user_items")) {
     const { data, headers } = await axios.get(`https://www.diigo.com` + url, {
       params: {

@@ -9,11 +9,22 @@
   </a-form>
 </template>
 <script setup>
+import axios from "axios";
 const emit = defineEmits(["login"]);
 if (localStorage.getItem("diigo_cookie")) {
   login();
 }
-function login() {
+async function login() {
+  const { data } = await axios.get("http://localhost:3001/outliner/list", {
+    headers: {
+      _cookie: localStorage.getItem("diigo_cookie"),
+    },
+  });
+  const { code } = data;
+  if (code === 0) {
+    localStorage.removeItem("diigo_cookie");
+    return;
+  }
   emit("login", true);
 }
 </script>

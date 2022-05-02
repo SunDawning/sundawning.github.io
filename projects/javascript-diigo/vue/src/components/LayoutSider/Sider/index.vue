@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider v-model:collapsed="collapsed" collapsible>
+  <a-layout-sider collapsible>
     <Logo></Logo>
     <Menu></Menu>
   </a-layout-sider>

@@ -33,7 +33,7 @@ function change(event) {
  */
 async function login() {
   status.spinning = true;
-  const { data } = await axios.get("http://localhost:3001/outliner/list", {
+  const { data } = await axios.get("/diigo-api/outliner/list", {
     headers: {
       _cookie: localStorage.getItem("diigo_cookie"),
     },

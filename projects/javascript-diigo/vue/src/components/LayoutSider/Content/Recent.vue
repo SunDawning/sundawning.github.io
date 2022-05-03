@@ -18,17 +18,14 @@ import { ref } from "vue";
 const list = ref([]);
 async function index() {
   const count = 3;
-  const { data } = await axios.get(
-    "http://localhost:3001/interact_api/load_user_items",
-    {
-      params: {
-        count: count,
-      },
-      headers: {
-        _cookie: localStorage.getItem("diigo_cookie"),
-      },
-    }
-  );
+  const { data } = await axios.get("/diigo-api/interact_api/load_user_items", {
+    params: {
+      count: count,
+    },
+    headers: {
+      _cookie: localStorage.getItem("diigo_cookie"),
+    },
+  });
   console.log("response.data", data);
   list.value = data.items;
 }

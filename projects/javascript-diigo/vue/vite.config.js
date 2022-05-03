@@ -18,4 +18,15 @@ plugins.push(
 export default defineConfig({
   base: "./",
   plugins: plugins,
+  server: {
+    proxy: {
+      "/diigo-api": {
+        target: "http://localhost:3001",
+        changeOrigin: true,
+        rewrite: function (path) {
+          return path.replace(/^\/diigo-api/, "");
+        },
+      },
+    },
+  },
 });

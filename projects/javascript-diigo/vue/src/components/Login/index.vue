@@ -1,8 +1,8 @@
 <template>
-  <a-spin :spinning="status.spinning">
-    <a-form @submit="login">
-      <a-form-item label="Cookie" name="cookie">
-        <a-textarea auto-size @change="change"></a-textarea>
+  <a-spin :spinning="state.spinning">
+    <a-form :model="formState" @finish="finish">
+      <a-form-item label="Cookie" name="cookie" :rules="[{ required: true }]">
+        <a-textarea auto-size v-model:value="formState.cookie"></a-textarea>
       </a-form-item>
       <a-form-item>
         <a-button type="primary" html-type="submit">登录</a-button>
@@ -15,31 +15,42 @@ import { reactive } from "vue";
 import axios from "axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
-const status = reactive({
+const state = reactive({
   spinning: true,
 });
 const emit = defineEmits(["login"]);
+/**
+ * 表单的数据
+ */
+const formState = reactive({
+  cookie: "",
+});
+/**
+ * 进入页面时自动登录
+ */
 if (localStorage.getItem("diigo_cookie")) {
-  login();
+  login({ cookie: localStorage.getItem("diigo_cookie") });
 } else {
-  status.spinning = false;
+  state.spinning = false;
 }
-function change(event) {
-  // console.log("change", event);
-  localStorage.setItem("diigo_cookie", event.target.value);
+function finish(values) {
+  // console.log("values", values);
+  localStorage.setItem("diigo_cookie", values.cookie);
+  login(values);
 }
 /**
  * 登录
  */
-async function login() {
-  status.spinning = true;
+async function login({ cookie }) {
+  // return console.log("登录成功");
+  state.spinning = true;
   const { data } = await axios.get("/diigo-api/outliner/list", {
     headers: {
-      _cookie: localStorage.getItem("diigo_cookie"),
+      _cookie: cookie,
     },
   });
   const { code, reason } = data;
-  status.spinning = false;
+  state.spinning = false;
   if (code === 0) {
     localStorage.removeItem("diigo_cookie");
     message.error(reason);

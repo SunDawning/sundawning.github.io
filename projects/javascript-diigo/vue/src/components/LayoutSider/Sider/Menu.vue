@@ -15,14 +15,14 @@
 const emit = defineEmits(["displayRecent", "login"]);
 function select({ item, key, selectedKeys }) {
   // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
-  if (key === "退出登录") {
-    localStorage.removeItem("diigo_cookie");
-    window.location.reload();
-    return;
-  }
   emit("displayRecent", false);
   if (key === "最近书签") {
     emit("displayRecent", true);
+    return;
+  }
+  if (key === "退出登录") {
+    localStorage.removeItem("diigo_cookie");
+    emit("login", false);
     return;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <a-layout>
-    <Sider class="sider" @displayRecent="displayRecent"></Sider>
+    <Sider class="sider" @displayRecent="displayRecent" @login="login"></Sider>
     <Content class="content" :displayRecent="state.displayRecent"></Content>
   </a-layout>
 </template>
@@ -11,6 +11,10 @@ const state = reactive({
 });
 function displayRecent(value) {
   state.displayRecent = value;
+}
+const emit = defineEmits(["login"]);
+function login(value) {
+  emit("login", value);
 }
 </script>
 <style scoped>

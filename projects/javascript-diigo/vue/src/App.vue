@@ -1,5 +1,5 @@
 <template>
-  <LayoutSider v-if="status.login"></LayoutSider>
+  <LayoutSider v-if="status.login" @login="login"></LayoutSider>
   <Login v-else @login="login"></Login>
 </template>
 

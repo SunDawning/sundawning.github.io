@@ -28,43 +28,54 @@ const formState = reactive({
 });
 /**
  * 进入页面时自动登录
+ * 如果数据库存在登录信息，则跳过登录界面。
  */
 if (select()) {
-  login({ cookie: select() });
+  emit("login", true);
 } else {
   state.spinning = false;
 }
-function finish(values) {
+/**
+ * 成功验证登录表单之后
+ * 1. 访问接口，验证登录信息
+ * 2. 如果通过验证，则存储该登录权限，便于以后不再验证。
+ */
+async function finish(values) {
   // console.log("values", values);
+  await login(values);
   insert(values.cookie);
-  login(values);
 }
 /**
  * 登录
  */
 async function login({ cookie }) {
-  // return console.log("登录成功");
-  state.spinning = true;
-  try {
-    const { data } = await axios.get("/diigo-api/outliner/list", {
-      // timeout: 500,
-      headers: {
-        _cookie: cookie,
-      },
-    });
-    const { code, reason } = data;
-    state.spinning = false;
-    if (code === 0) {
-      drop();
-      message.error(reason);
-      return;
+  return new Promise(async function (resolve, reject) {
+    // return console.log("登录成功");
+    state.spinning = true;
+    try {
+      const { data } = await axios.get("/diigo-api/outliner/list", {
+        // timeout: 500,
+        headers: {
+          _cookie: cookie,
+        },
+      });
+      const { code, reason } = data;
+      state.spinning = false;
+      if (code === 0) {
+        drop();
+        message.error(reason);
+        reject(reason);
+        return;
+      }
+      emit("login", true);
+      resolve();
+    } catch (error) {
+      // console.log(error);
+      message.error(error.message);
+      state.spinning = false;
+      reject(error.message);
     }
-    emit("login", true);
-  } catch (error) {
-    // console.log(error);
-    message.error(error.message);
-    state.spinning = false;
-  }
+  });
 }
 </script>
 <style scoped>

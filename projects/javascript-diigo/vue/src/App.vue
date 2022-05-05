@@ -9,7 +9,7 @@ const status = reactive({
   login: false,
 });
 function login(value) {
-  console.log(value, status.login);
+  // console.log(value, status.login);
   status.login = value;
 }
 </script>

@@ -15,6 +15,7 @@ import { reactive } from "vue";
 import axios from "axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
+import { insert, select, drop } from "./database";
 const state = reactive({
   spinning: true,
 });
@@ -28,14 +29,14 @@ const formState = reactive({
 /**
  * 进入页面时自动登录
  */
-if (localStorage.getItem("diigo_cookie")) {
-  login({ cookie: localStorage.getItem("diigo_cookie") });
+if (select()) {
+  login({ cookie: select() });
 } else {
   state.spinning = false;
 }
 function finish(values) {
   // console.log("values", values);
-  localStorage.setItem("diigo_cookie", values.cookie);
+  insert(values.cookie);
   login(values);
 }
 /**
@@ -52,7 +53,7 @@ async function login({ cookie }) {
   const { code, reason } = data;
   state.spinning = false;
   if (code === 0) {
-    localStorage.removeItem("diigo_cookie");
+    drop();
     message.error(reason);
     return;
   }

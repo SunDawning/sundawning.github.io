@@ -12,6 +12,7 @@
   </a-menu>
 </template>
 <script setup>
+import { drop } from "../../Login/database";
 const emit = defineEmits(["displayRecent", "login"]);
 function select({ item, key, selectedKeys }) {
   // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
@@ -21,7 +22,7 @@ function select({ item, key, selectedKeys }) {
     return;
   }
   if (key === "退出登录") {
-    localStorage.removeItem("diigo_cookie");
+    drop();
     emit("login", false);
     return;
   }

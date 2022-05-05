@@ -47,6 +47,7 @@ async function login({ cookie }) {
   state.spinning = true;
   try {
     const { data } = await axios.get("/diigo-api/outliner/list", {
+      // timeout: 500,
       headers: {
         _cookie: cookie,
       },

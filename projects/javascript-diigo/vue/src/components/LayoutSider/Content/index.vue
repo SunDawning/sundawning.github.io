@@ -11,7 +11,6 @@
   </a-layout>
 </template>
 <script setup>
-import Recent from "./Recent.vue";
 defineProps({
   displayRecent: Boolean,
 });

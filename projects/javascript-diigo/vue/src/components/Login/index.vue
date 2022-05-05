@@ -45,19 +45,25 @@ function finish(values) {
 async function login({ cookie }) {
   // return console.log("登录成功");
   state.spinning = true;
-  const { data } = await axios.get("/diigo-api/outliner/list", {
-    headers: {
-      _cookie: cookie,
-    },
-  });
-  const { code, reason } = data;
-  state.spinning = false;
-  if (code === 0) {
-    drop();
-    message.error(reason);
-    return;
+  try {
+    const { data } = await axios.get("/diigo-api/outliner/list", {
+      headers: {
+        _cookie: cookie,
+      },
+    });
+    const { code, reason } = data;
+    state.spinning = false;
+    if (code === 0) {
+      drop();
+      message.error(reason);
+      return;
+    }
+    emit("login", true);
+  } catch (error) {
+    // console.log(error);
+    message.error(error.message);
+    state.spinning = false;
   }
-  emit("login", true);
 }
 </script>
 <style scoped>

@@ -10,5 +10,9 @@ int main()
         printf("push_back %d\n", i);
     }
     printf("vector size = %d\n", vector.size());
+    for (std::vector<int>::iterator c = vector.begin(); c < vector.end(); c++)
+    {
+        printf("vector item: %d\n", *c);
+    }
     getchar();
 }

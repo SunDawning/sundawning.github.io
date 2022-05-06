@@ -1,5 +1,16 @@
 const child_process = require("child_process");
 const fs = require("fs");
+const winston = require("winston");
+const logger = winston.createLogger({
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.splat(),
+    winston.format.printf(({ timestamp, message }) => {
+      return `${timestamp} ${message}`;
+    })
+  ),
+  transports: [new winston.transports.Console()],
+});
 let DATABASE = {
   build_directory: "./build",
   exe_file_name: "index.exe",
@@ -41,11 +52,11 @@ function concat_library_files(files) {
  * @param {string} command
  */
 function run_shell_command(command) {
-  console.log("执行命令", command);
+  logger.info("执行命令 %s", command);
   const child = child_process.exec(command);
   ["stderr", "stdout", "stdin"].forEach(function (location) {
     child[location].on("data", function (data) {
-      console.log(new Date().toLocaleString(), data);
+      logger.info(data);
     });
   });
 }

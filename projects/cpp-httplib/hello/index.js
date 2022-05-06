@@ -44,6 +44,8 @@ function run_shell_command(command) {
   console.log("执行命令", command);
   const child = child_process.exec(command);
   ["stderr", "stdout", "stdin"].forEach(function (location) {
-    child[location].pipe(process[location]);
+    child[location].on("data", function (data) {
+      console.log(new Date().toLocaleString(), data);
+    });
   });
 }

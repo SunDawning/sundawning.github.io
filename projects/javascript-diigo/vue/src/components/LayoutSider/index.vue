@@ -31,7 +31,7 @@ function displayRecent(value) {
 function displayEdit(value) {
   state.displayEdit = value;
 }
-const emit = defineEmits(["login"]);
+const emit = defineEmits();
 function login(value) {
   emit("login", value);
 }

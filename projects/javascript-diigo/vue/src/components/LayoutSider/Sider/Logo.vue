@@ -2,10 +2,10 @@
   <div class="logo" @click="displayWelcome"></div>
 </template>
 <script setup>
-const emit = defineEmits(["displayWelcome","displayEdit","displayRecent"]);
+const emit = defineEmits();
 function displayWelcome(value) {
-  emit("displayEdit",false);
-  emit("displayRecent",false);
+  emit("displayEdit", false);
+  emit("displayRecent", false);
   emit("displayWelcome", true);
 }
 </script>

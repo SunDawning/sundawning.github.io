@@ -19,7 +19,7 @@ import { insert, select, drop } from "./database";
 const state = reactive({
   spinning: true,
 });
-const emit = defineEmits(["login"]);
+const emit = defineEmits();
 /**
  * 表单的数据
  */

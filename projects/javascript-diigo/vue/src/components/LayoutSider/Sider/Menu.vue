@@ -13,7 +13,7 @@
 </template>
 <script setup>
 import { drop } from "../../Login/database";
-const emit = defineEmits(["displayRecent", "login", "displayEdit"]);
+const emit = defineEmits();
 function select({ item, key, selectedKeys }) {
   // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
   emit("displayWelcome",false);

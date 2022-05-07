@@ -14,12 +14,7 @@
   </a-layout-sider>
 </template>
 <script setup>
-const emit = defineEmits([
-  "displayWelcome",
-  "displayRecent",
-  "login",
-  "displayEdit",
-]);
+const emit = defineEmits();
 function displayWelcome(value) {
   emit("displayWelcome", value);
 }

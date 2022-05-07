@@ -1,6 +1,14 @@
 <template>
-  <div class="logo"></div>
+  <div class="logo" @click="displayWelcome"></div>
 </template>
+<script setup>
+const emit = defineEmits(["displayWelcome","displayEdit","displayRecent"]);
+function displayWelcome(value) {
+  emit("displayEdit",false);
+  emit("displayRecent",false);
+  emit("displayWelcome", true);
+}
+</script>
 <style scoped>
 .logo {
   height: 64px;

@@ -2,6 +2,7 @@
   <a-layout>
     <a-layout-header style="background: #fff; padding: 0" />
     <a-layout-content style="margin: 0 16px">
+      <Welcome v-if="displayWelcome"></Welcome>
       <Recent v-if="displayRecent"></Recent>
       <Edit v-if="displayEdit"></Edit>
     </a-layout-content>
@@ -13,6 +14,7 @@
 </template>
 <script setup>
 defineProps({
+  displayWelcome: Boolean,
   displayRecent: Boolean,
   displayEdit: Boolean,
 });

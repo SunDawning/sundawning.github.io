@@ -16,6 +16,7 @@ import { drop } from "../../Login/database";
 const emit = defineEmits(["displayRecent", "login", "displayEdit"]);
 function select({ item, key, selectedKeys }) {
   // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
+  emit("displayWelcome",false);
   emit("displayRecent", false);
   emit("displayEdit", false);
   if (key === "最近书签") {

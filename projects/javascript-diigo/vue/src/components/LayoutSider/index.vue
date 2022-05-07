@@ -2,12 +2,14 @@
   <a-layout>
     <Sider
       class="sider"
+      @displayWelcome="displayWelcome"
       @displayRecent="displayRecent"
       @login="login"
       @displayEdit="displayEdit"
     ></Sider>
     <Content
       class="content"
+      :displayWelcome="state.displayWelcome"
       :displayRecent="state.displayRecent"
       :displayEdit="state.displayEdit"
     ></Content>
@@ -16,9 +18,13 @@
 <script setup>
 import { reactive } from "vue";
 const state = reactive({
+  displayWelcome: true,
   displayRecent: false,
   displayEdit: false,
 });
+function displayWelcome(value) {
+  state.displayWelcome = value;
+}
 function displayRecent(value) {
   state.displayRecent = value;
 }

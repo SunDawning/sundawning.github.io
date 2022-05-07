@@ -1,15 +1,28 @@
 <template>
   <a-layout-sider width="104">
-    <Logo></Logo>
-    <Menu
+    <Logo
+      @displayWelcome="displayWelcome"
       @displayRecent="displayRecent"
-      @login="login"
       @displayEdit="displayEdit"
+    ></Logo>
+    <Menu
+      @displayWelcome="displayWelcome"
+      @displayRecent="displayRecent"
+      @displayEdit="displayEdit"
+      @login="login"
     ></Menu>
   </a-layout-sider>
 </template>
 <script setup>
-const emit = defineEmits(["displayRecent", "login", "displayEdit"]);
+const emit = defineEmits([
+  "displayWelcome",
+  "displayRecent",
+  "login",
+  "displayEdit",
+]);
+function displayWelcome(value) {
+  emit("displayWelcome", value);
+}
 function displayRecent(value) {
   emit("displayRecent", value);
 }

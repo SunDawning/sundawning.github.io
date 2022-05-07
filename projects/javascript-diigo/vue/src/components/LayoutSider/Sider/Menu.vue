@@ -13,10 +13,11 @@
 </template>
 <script setup>
 import { drop } from "../../Login/database";
-const emit = defineEmits(["displayRecent", "login"]);
+const emit = defineEmits(["displayRecent", "login", "displayEdit"]);
 function select({ item, key, selectedKeys }) {
   // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
   emit("displayRecent", false);
+  emit("displayEdit", false);
   if (key === "最近书签") {
     emit("displayRecent", true);
     return;
@@ -24,6 +25,10 @@ function select({ item, key, selectedKeys }) {
   if (key === "退出登录") {
     drop();
     emit("login", false);
+    return;
+  }
+  if (key === "新建书签") {
+    emit("displayEdit", true);
     return;
   }
 }

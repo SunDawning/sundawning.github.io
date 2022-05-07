@@ -1,16 +1,29 @@
 <template>
   <a-layout>
-    <Sider class="sider" @displayRecent="displayRecent" @login="login"></Sider>
-    <Content class="content" :displayRecent="state.displayRecent"></Content>
+    <Sider
+      class="sider"
+      @displayRecent="displayRecent"
+      @login="login"
+      @displayEdit="displayEdit"
+    ></Sider>
+    <Content
+      class="content"
+      :displayRecent="state.displayRecent"
+      :displayEdit="state.displayEdit"
+    ></Content>
   </a-layout>
 </template>
 <script setup>
 import { reactive } from "vue";
 const state = reactive({
   displayRecent: false,
+  displayEdit: false,
 });
 function displayRecent(value) {
   state.displayRecent = value;
+}
+function displayEdit(value) {
+  state.displayEdit = value;
 }
 const emit = defineEmits(["login"]);
 function login(value) {

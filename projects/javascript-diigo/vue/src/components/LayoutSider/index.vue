@@ -3,15 +3,15 @@
     <Sider
       class="sider"
       @displayWelcome="displayWelcome"
+      @displayEdit="displayEdit"
       @displayRecent="displayRecent"
       @login="login"
-      @displayEdit="displayEdit"
     ></Sider>
     <Content
       class="content"
       :displayWelcome="state.displayWelcome"
-      :displayRecent="state.displayRecent"
       :displayEdit="state.displayEdit"
+      :displayRecent="state.displayRecent"
     ></Content>
   </a-layout>
 </template>
@@ -19,17 +19,17 @@
 import { reactive } from "vue";
 const state = reactive({
   displayWelcome: true,
-  displayRecent: false,
   displayEdit: false,
+  displayRecent: false,
 });
 function displayWelcome(value) {
   state.displayWelcome = value;
 }
-function displayRecent(value) {
-  state.displayRecent = value;
-}
 function displayEdit(value) {
   state.displayEdit = value;
+}
+function displayRecent(value) {
+  state.displayRecent = value;
 }
 const emit = defineEmits();
 function login(value) {

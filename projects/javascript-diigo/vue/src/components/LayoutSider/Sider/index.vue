@@ -1,14 +1,10 @@
 <template>
   <a-layout-sider width="104">
-    <Logo
-      @displayWelcome="displayWelcome"
-      @displayRecent="displayRecent"
-      @displayEdit="displayEdit"
-    ></Logo>
+    <Logo @displayWelcome="displayWelcome"></Logo>
     <Menu
       @displayWelcome="displayWelcome"
-      @displayRecent="displayRecent"
       @displayEdit="displayEdit"
+      @displayRecent="displayRecent"
       @login="login"
     ></Menu>
   </a-layout-sider>
@@ -18,13 +14,13 @@ const emit = defineEmits();
 function displayWelcome(value) {
   emit("displayWelcome", value);
 }
+function displayEdit(value) {
+  emit("displayEdit", value);
+}
 function displayRecent(value) {
   emit("displayRecent", value);
 }
 function login(value) {
   emit("login", value);
-}
-function displayEdit(value) {
-  emit("displayEdit", value);
 }
 </script>

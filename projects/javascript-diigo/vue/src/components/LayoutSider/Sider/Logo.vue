@@ -4,8 +4,6 @@
 <script setup>
 const emit = defineEmits();
 function displayWelcome(value) {
-  emit("displayEdit", false);
-  emit("displayRecent", false);
   emit("displayWelcome", true);
 }
 </script>

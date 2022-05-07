@@ -3,8 +3,8 @@
     <a-layout-header style="background: #fff; padding: 0" />
     <a-layout-content style="margin: 0 16px">
       <Welcome v-if="displayWelcome"></Welcome>
-      <Recent v-if="displayRecent"></Recent>
-      <Edit v-if="displayEdit"></Edit>
+      <Edit v-else-if="displayEdit"></Edit>
+      <Recent v-else-if="displayRecent"></Recent>
     </a-layout-content>
     <a-layout-footer>
       Copyright © 2022 SunDawning
@@ -15,8 +15,8 @@
 <script setup>
 defineProps({
   displayWelcome: Boolean,
-  displayRecent: Boolean,
   displayEdit: Boolean,
+  displayRecent: Boolean,
 });
 </script>
 <style scoped>

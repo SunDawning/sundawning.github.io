@@ -7,6 +7,8 @@ app.use(async function (context) {
   const { method, url, headers, params } = context.request;
   // console.log("context.request", context.request);
   console.log(`[${new Date().toLocaleString()}] ${method} ${url}`);
+  let realURL = url.substring(1);
+  console.log("realURL", realURL);
   if (headers) {
     ["referer", "host", "origin"].forEach(function (key) {
       delete headers[key];
@@ -21,7 +23,7 @@ app.use(async function (context) {
     });
   }
   const diigo_response = await axios({
-    url: url.substring(1),
+    url: realURL,
     method,
     params,
     headers: headers,

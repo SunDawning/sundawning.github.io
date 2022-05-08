@@ -50,34 +50,19 @@ function formatTimeZone(date) {
 app.use(cors()); // CORS
 app.use(async function (context) {
   const { method, url, headers, params } = context.request;
-  const { _cookie } = headers;
+  // console.log("context.request", context.request);
   console.log(`${formatTime()} ${method} ${url}`);
-  //   console.log(context);
-  if (url.startsWith("/outliner/list")) {
-    const { data, headers } = await axios.get(`https://www.diigo.com` + url, {
-      headers: {
-        "X-Requested-With": "XMLHttpRequest",
-        cookie: _cookie,
-      },
-    });
-    context.response.body = data;
-    context.response.type = headers["content-type"];
-    return;
-  }
-  if (url.startsWith("/interact_api/load_user_items")) {
-    const { data, headers } = await axios.get(`https://www.diigo.com` + url, {
-      params: {
-        sort: "updated",
-      },
-      headers: {
-        "X-Requested-With": "X-Requested-With",
-        cookie: _cookie,
-      },
-    });
-    context.response.body = data;
-    context.response.type = headers["content-type"];
-    return;
-  }
-  context.response.body = "hello";
+  const { data } = await axios({
+    url,
+    method,
+    baseURL: "https://www.diigo.com/",
+    params,
+    headers: {
+      "X-Requested-With": headers["X-Requested-With".toLowerCase()],
+      cookie: headers["_cookie"],
+    },
+  });
+  context.response.body = data;
+  context.response.type = headers["content-type"];
 });
 app.listen(3001);

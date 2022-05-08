@@ -15,15 +15,19 @@
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
+import { select } from "../modules/auth";
 const list = ref([]);
 async function index() {
-  const count = 3;
-  const { data } = await axios.get("/diigo-api/interact_api/load_user_items", {
+  const { data } = await axios({
+    method: "GET",
+    url: "/diigo-api/interact_api/load_user_items",
     params: {
-      count: count,
+      sort: "updated",
+      count: 3,
     },
     headers: {
-      _cookie: localStorage.getItem("diigo_cookie"),
+      "X-Requested-With": "X-Requested-With",
+      _cookie: select(),
     },
   });
   console.log("response.data", data);

@@ -12,7 +12,7 @@
   </a-menu>
 </template>
 <script setup>
-import { drop } from "./database";
+import { drop } from "../modules/database";
 const emit = defineEmits();
 function select({ item, key, selectedKeys }) {
   // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });

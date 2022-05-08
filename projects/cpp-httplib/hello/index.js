@@ -3,24 +3,22 @@ const fs = require("fs");
 let DATABASE = {
   build_directory: "./build",
   exe_file_name: "index.exe",
-  cpp_httplib_include_directory:
-    "C:/Users/SunDawning/Downloads/cpp-httplib-0.10.6",
-  cpp_httplib_library_files: ["ws2_32", "libssl", "libcrypto", "crypt32"],
+  libraries: [
+    {
+      include: "C:/Users/SunDawning/Downloads/cpp-httplib-0.10.6",
+      library_files: ["ws2_32", "libssl", "libcrypto", "crypt32"],
+    },
+  ],
 };
-let {
-  build_directory,
-  exe_file_name,
-  cpp_httplib_include_directory,
-  cpp_httplib_library_files,
-} = DATABASE;
+let { build_directory, exe_file_name, libraries } = DATABASE;
 {
   if (fs.existsSync(build_directory) === false) {
     fs.mkdirSync(build_directory);
   }
 }
 run_shell_command(
-  `g++ index.cpp -g -o "${build_directory}/${exe_file_name}" -I "${cpp_httplib_include_directory}" ${concat_library_files(
-    cpp_httplib_library_files
+  `g++ index.cpp -g -o "${build_directory}/${exe_file_name}" ${concate_libraries(
+    libraries
   )} && cd "${build_directory}" && ${exe_file_name}`
 );
 /**
@@ -31,15 +29,26 @@ function log() {
   console.log.apply(null, arguments);
 }
 /**
- * 拼接动态链接库
- * -l ws2_32 -l libssl -l libcrypto -l crypt32
- * @param {array} files
- * @returns
+ * 拼接所使用的库为字符串
+ * -I -L -l
+ * -I C:/Users/SunDawning/Downloads/cpp-httplib-0.10.6 -l ws2_32 -l libssl -l libcrypto -l crypt32
  */
-function concat_library_files(files) {
-  return files
-    .map(function (file) {
-      return `-l ${file}`;
+function concate_libraries(libraries) {
+  return libraries
+    .map(function ({ include, library_directory, library_files }) {
+      let array = [];
+      if (include) {
+        array.push("-I", include);
+      }
+      if (library_directory) {
+        array.push("-L", library_directory);
+      }
+      if (library_files) {
+        library_files.forEach(function (file) {
+          array.push("-l", file);
+        });
+      }
+      return array.join(" ");
     })
     .join(" ");
 }

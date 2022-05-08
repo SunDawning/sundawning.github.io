@@ -7,22 +7,26 @@ app.use(async function (context) {
   const { method, url, headers, params } = context.request;
   // console.log("context.request", context.request);
   console.log(`[${new Date().toLocaleString()}] ${method} ${url}`);
-  if (url.startsWith("/https://www.diigo.com")) {
+  if (headers) {
     ["referer", "host", "origin"].forEach(function (key) {
       delete headers[key];
     });
-    headers.cookie = headers["_cookie"];
-    delete headers["_cookie"];
-    const diigo_response = await axios({
-      url: url.substring(1),
-      method,
-      params,
-      headers: headers,
+    ["Cookie"].forEach(function (key) {
+      key = key.toLowerCase();
+      if (headers[`_${key}`] === undefined) {
+        return;
+      }
+      headers[key] = headers[`_${key}`];
+      delete headers[`_${key}`];
     });
-    context.response.body = diigo_response.data;
-    context.response.type = diigo_response.headers["content-type"];
-    return;
   }
-  constext.response.body = "hello";
+  const diigo_response = await axios({
+    url: url.substring(1),
+    method,
+    params,
+    headers: headers,
+  });
+  context.response.body = diigo_response.data;
+  context.response.type = diigo_response.headers["content-type"];
 });
 app.listen(3001);

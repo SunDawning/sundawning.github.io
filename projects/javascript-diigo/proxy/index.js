@@ -6,9 +6,9 @@ app.use(cors()); // CORS
 app.use(async function (context) {
   const { method, url, headers, params } = context.request;
   // console.log("context.request", context.request);
-  console.log(`[${new Date().toLocaleString()}] ${method} ${url}`);
+  log(`${method} ${url}`);
   let realURL = url.substring(1);
-  console.log("realURL", realURL);
+  log("realURL", realURL);
   if (headers) {
     ["referer", "host", "origin"].forEach(function (key) {
       delete headers[key];
@@ -32,3 +32,10 @@ app.use(async function (context) {
   context.response.type = diigo_response.headers["content-type"];
 });
 app.listen(3001);
+/**
+ * 打印，不同于console.log，带有时间戳。
+ */
+function log() {
+  process.stdout.write(`[${new Date().toLocaleString()}] `);
+  console.log.apply(null, arguments);
+}

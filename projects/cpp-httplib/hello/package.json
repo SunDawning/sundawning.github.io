@@ -3,7 +3,6 @@
     "start": "nodemon index.js --watch index.js --watch index.cpp --watch package.json"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15",
-    "winston": "^3.7.2"
+    "nodemon": "^2.0.15"
   }
 }

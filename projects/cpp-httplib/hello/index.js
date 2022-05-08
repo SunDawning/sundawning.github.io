@@ -1,16 +1,5 @@
 const child_process = require("child_process");
 const fs = require("fs");
-const winston = require("winston");
-const logger = winston.createLogger({
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.splat(),
-    winston.format.printf(({ timestamp, message }) => {
-      return `${timestamp} ${message}`;
-    })
-  ),
-  transports: [new winston.transports.Console()],
-});
 let DATABASE = {
   build_directory: "./build",
   exe_file_name: "index.exe",
@@ -35,6 +24,13 @@ run_shell_command(
   )} && cd "${build_directory}" && ${exe_file_name}`
 );
 /**
+ * 打印，不同于console.log，带有时间戳。
+ */
+function log() {
+  process.stdout.write(`[${new Date().toLocaleString()}] `);
+  console.log.apply(null, arguments);
+}
+/**
  * 拼接动态链接库
  * -l ws2_32 -l libssl -l libcrypto -l crypt32
  * @param {array} files
@@ -52,11 +48,11 @@ function concat_library_files(files) {
  * @param {string} command
  */
 function run_shell_command(command) {
-  logger.info("执行命令 %s", command);
+  log("执行命令 %s", command);
   const child = child_process.exec(command);
   ["stderr", "stdout", "stdin"].forEach(function (location) {
     child[location].on("data", function (data) {
-      logger.info(data);
+      log(data);
     });
   });
 }

@@ -26,14 +26,14 @@ app.use(async function (context) {
       delete headers[`_${key}`];
     });
   }
-  const diigo_response = await axios({
+  const response = await axios({
     url: realURL,
     method,
     params,
     headers: headers,
   });
-  context.response.body = diigo_response.data;
-  context.response.type = diigo_response.headers["content-type"];
+  context.response.body = response.data;
+  context.response.headers = response.headers;
 });
 app.listen(3001);
 /**

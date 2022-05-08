@@ -8,8 +8,9 @@ app.use(async function (context) {
   // console.log("context.request", context.request);
   console.log(`[${new Date().toLocaleString()}] ${method} ${url}`);
   if (url.startsWith("/https://www.diigo.com")) {
-    delete headers.referer;
-    delete headers.host;
+    ["referer", "host", "origin"].forEach(function (key) {
+      delete headers[key];
+    });
     headers.cookie = headers["_cookie"];
     delete headers["_cookie"];
     const diigo_response = await axios({

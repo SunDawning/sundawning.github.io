@@ -43,7 +43,10 @@ const formState = reactive({
 async function onChangeURL(event) {
   const url = event.target.value;
   // console.log("value", value);
-  formState.title = await getHTMLTitle(url);
+  // await parseHTMLString(url);
+  const element = await getHTMLDOMElement(url);
+  formState.title = getHTMLTitle(element);
+  formState.tags = getHTMLMetaKeywords(element);
 }
 async function finish(values) {
   console.log("values", values);
@@ -58,14 +61,46 @@ async function finish(values) {
   });
 }
 /**
- * 请求网页源码并从中提取标题
+ * 从网页里提取标题
  */
-async function getHTMLTitle(url) {
+function getHTMLTitle(element) {
+  if (element === undefined) {
+    return;
+  }
+  return element.querySelector("title").innerText;
+}
+/**
+ * 从网页的meta里提取keywords
+ * @param {HTMLElement} element
+ */
+function getHTMLMetaKeywords(element) {
+  if (element === undefined) {
+    return;
+  }
+  let metas = element.querySelectorAll("meta");
+  let total = metas.length;
+  for (let c = 0; c < total; c = c + 1) {
+    const { name, content } = metas[c];
+    if (name === "keywords") {
+      return content;
+    }
+  }
+  return;
+}
+/**
+ * 从网址获取网页源码所对应的DOM
+ * @param {string} url 网址
+ */
+async function getHTMLDOMElement(url) {
   let HTMLString = await getHTMLString(url);
   if (HTMLString === undefined) {
     return;
   }
-  return parseHTMLString(HTMLString).querySelector("title").innerText;
+  let element = parseHTMLString(HTMLString);
+  if (element === undefined) {
+    return;
+  }
+  return element;
 }
 /**
  * 请求网页的源码
@@ -91,6 +126,9 @@ async function getHTMLString(url) {
  * 解析网页源码
  */
 function parseHTMLString(HTMLString) {
+  if (HTMLString === undefined) {
+    return;
+  }
   const parser = new DOMParser();
   return parser.parseFromString(HTMLString, "text/html");
 }

@@ -1,6 +1,5 @@
 <template>
   <a-layout-sider width="104">
-    <Logo @displayWelcome="displayWelcome"></Logo>
     <Menu
       @displayWelcome="displayWelcome"
       @displayEdit="displayEdit"

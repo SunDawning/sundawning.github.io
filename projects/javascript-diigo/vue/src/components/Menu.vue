@@ -1,7 +1,7 @@
 <template>
-  <a-menu theme="dark" mode="inline" @select="select">
+  <a-menu mode="inline" @select="select">
     <div class="logo">
-      <a-menu-item key="Logo"></a-menu-item>
+      <a-menu-item key="欢迎"></a-menu-item>
     </div>
     <a-menu-item key="新建书签">
       <span>新建书签</span>
@@ -22,7 +22,7 @@ function select({ item, key, selectedKeys }) {
   emit("displayWelcome", false);
   emit("displayEdit", false);
   emit("displayRecent", false);
-  if (key === "Logo") {
+  if (key === "欢迎") {
     emit("displayWelcome", true);
     return;
   }

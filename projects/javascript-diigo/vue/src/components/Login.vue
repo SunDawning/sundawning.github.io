@@ -53,9 +53,12 @@ async function login({ cookie }) {
     // return console.log("登录成功");
     state.spinning = true;
     try {
-      const { data } = await axios.get("/diigo-api/outliner/list", {
+      const { data } = await axios({
+        method: "GET",
+        url: "/diigo-api/outliner/list",
         // timeout: 500,
         headers: {
+          "X-Requested-With": "XMLHttpRequest",
           _cookie: cookie,
         },
       });

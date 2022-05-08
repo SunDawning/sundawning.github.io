@@ -44,7 +44,17 @@ app.use(async function (context) {
     Object.assign(options, { data });
   }
   log("options", options);
-  const response = await axios(options);
+  let response;
+  try {
+    response = await axios(options);
+  } catch (error) {
+    log("error", error.code);
+    if (error.response === undefined) {
+      return;
+    }
+    // https://www.antdv.com/components/form-cn#API 直接返回404，但携带了数据。
+    response = error.response;
+  }
   context.response.body = response.data;
   context.response.headers = response.headers;
 });

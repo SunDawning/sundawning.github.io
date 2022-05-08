@@ -45,6 +45,7 @@ async function onChangeURL(event) {
   // console.log("value", value);
   // await parseHTMLString(url);
   const element = await getHTMLDOMElement(url);
+  console.log("element", element);
   formState.title = getHTMLTitle(element);
   formState.tags = getHTMLMetaKeywords(element);
 }
@@ -67,7 +68,11 @@ function getHTMLTitle(element) {
   if (element === undefined) {
     return;
   }
-  return element.querySelector("title").innerText;
+  let title = element.querySelector("title");
+  if (title === undefined) {
+    console.log("网页不存在title", element);
+  }
+  return title.innerText;
 }
 /**
  * 从网页的meta里提取keywords

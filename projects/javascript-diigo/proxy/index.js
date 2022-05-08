@@ -7,7 +7,7 @@ app.use(async function (context) {
   const { method, url, headers, params } = context.request;
   // console.log("context.request", context.request);
   console.log(`[${new Date().toLocaleString()}] ${method} ${url}`);
-  const { data } = await axios({
+  const diigo_response = await axios({
     url,
     method,
     baseURL: "https://www.diigo.com/",
@@ -17,7 +17,7 @@ app.use(async function (context) {
       cookie: headers["_cookie"],
     },
   });
-  context.response.body = data;
-  context.response.type = headers["content-type"];
+  context.response.body = diigo_response.data;
+  context.response.type = diigo_response.headers["content-type"];
 });
 app.listen(3001);

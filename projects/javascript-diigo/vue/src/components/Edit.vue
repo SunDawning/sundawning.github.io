@@ -43,28 +43,7 @@ const formState = reactive({
 async function onChangeURL(event) {
   const url = event.target.value;
   // console.log("value", value);
-  {
-    let response;
-    try {
-      response = await axios({
-        method: "GET",
-        url,
-      });
-    } catch (error) {
-      // 404 (Not Found)
-      console.log("error", error);
-      return;
-    }
-    if (response === undefined) {
-      return;
-    }
-    {
-      let div = document.createElement("div");
-      div.innerHTML = response.data;
-      formState.title = div.querySelector("title").innerText;
-      div = null;
-    }
-  }
+  formState.title = await getHTMLTitle(url);
 }
 async function finish(values) {
   console.log("values", values);
@@ -77,5 +56,42 @@ async function finish(values) {
       cookie: select(),
     },
   });
+}
+/**
+ * 请求网页源码并从中提取标题
+ */
+async function getHTMLTitle(url) {
+  let HTMLString = await getHTMLString(url);
+  if (HTMLString === undefined) {
+    return;
+  }
+  return parseHTMLString(HTMLString).querySelector("title").innerText;
+}
+/**
+ * 请求网页的源码
+ */
+async function getHTMLString(url) {
+  let response;
+  try {
+    response = await axios({
+      method: "GET",
+      url,
+    });
+  } catch (error) {
+    // 404 (Not Found)
+    console.log("error", error);
+    return;
+  }
+  if (response === undefined) {
+    return;
+  }
+  return response.data;
+}
+/**
+ * 解析网页源码
+ */
+function parseHTMLString(HTMLString) {
+  const parser = new DOMParser();
+  return parser.parseFromString(HTMLString, "text/html");
 }
 </script>

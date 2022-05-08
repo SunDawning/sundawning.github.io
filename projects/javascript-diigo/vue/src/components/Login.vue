@@ -12,7 +12,7 @@
 </template>
 <script setup>
 import { reactive } from "vue";
-import axios from "axios";
+import axios from "../modules/axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
 import { insert, select, drop } from "../modules/auth";
@@ -55,11 +55,11 @@ async function login({ cookie }) {
     try {
       const { data } = await axios({
         method: "GET",
-        url: "/diigo-api/outliner/list",
+        url: "https://www.diigo.com/outliner/list",
         // timeout: 500,
         headers: {
           "X-Requested-With": "XMLHttpRequest",
-          _cookie: cookie,
+          cookie: cookie,
         },
       });
       const { code, reason } = data;

@@ -7,17 +7,21 @@ app.use(async function (context) {
   const { method, url, headers, params } = context.request;
   // console.log("context.request", context.request);
   console.log(`[${new Date().toLocaleString()}] ${method} ${url}`);
-  const diigo_response = await axios({
-    url,
-    method,
-    baseURL: "https://www.diigo.com/",
-    params,
-    headers: {
-      "X-Requested-With": headers["X-Requested-With".toLowerCase()],
-      cookie: headers["_cookie"],
-    },
-  });
-  context.response.body = diigo_response.data;
-  context.response.type = diigo_response.headers["content-type"];
+  if (url.startsWith("/https://www.diigo.com")) {
+    delete headers.referer;
+    delete headers.host;
+    headers.cookie = headers["_cookie"];
+    delete headers["_cookie"];
+    const diigo_response = await axios({
+      url: url.substring(1),
+      method,
+      params,
+      headers: headers,
+    });
+    context.response.body = diigo_response.data;
+    context.response.type = diigo_response.headers["content-type"];
+    return;
+  }
+  constext.response.body = "hello";
 });
 app.listen(3001);

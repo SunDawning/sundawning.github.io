@@ -26,12 +26,9 @@ let { proxy } = server;
 /**
  * Diigo网站所提供的接口
  */
-proxy["/diigo-api"] = {
+proxy["/https://www.diigo.com"] = {
   target: "http://localhost:3001",
   changeOrigin: true,
-  rewrite: function (path) {
-    return path.replace(/^\/diigo-api/, "");
-  },
 };
 
 // https://vitejs.dev/config/

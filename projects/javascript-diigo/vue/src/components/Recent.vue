@@ -13,21 +13,21 @@
   </a-list>
 </template>
 <script setup>
-import axios from "axios";
+import axios from "../modules/axios";
 import { ref } from "vue";
 import { select } from "../modules/auth";
 const list = ref([]);
 async function index() {
   const { data } = await axios({
     method: "GET",
-    url: "/diigo-api/interact_api/load_user_items",
+    url: "https://www.diigo.com/interact_api/load_user_items",
     params: {
       sort: "updated",
       count: 3,
     },
     headers: {
       "X-Requested-With": "X-Requested-With",
-      _cookie: select(),
+      cookie: select(),
     },
   });
   console.log("response.data", data);

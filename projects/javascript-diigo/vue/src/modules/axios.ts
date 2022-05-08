@@ -5,8 +5,27 @@ import axios from "axios";
  * @returns
  */
 export default async function index(options) {
+  if (options === undefined) {
+    options = {};
+  }
+  let url = options.url;
+  if (url === undefined) {
+    return;
+  }
+  if (url.match(/^\https?:\/\//) === null) {
+    console.log("无法代理该网址，仅支持“http://”或“https://”开头的网址：", url);
+    return;
+  }
   options.url = `/${options.url}`;
-  options.headers[`_cookie`] = options.headers["cookie"];
-  delete options.headers["cookie"];
+  if (options.headers) {
+    ["Cookie"].forEach(function (key) {
+      key = key.toLowerCase();
+      if (options.headers[key] === undefined) {
+        return;
+      }
+      options.headers[`_${key}`] = options.headers[key];
+      delete options.headers[key];
+    });
+  }
   return await axios(options);
 }

@@ -26,7 +26,11 @@ let { proxy } = server;
 /**
  * Diigo网站所提供的接口
  */
-proxy["/https://www.diigo.com"] = {
+proxy["/http://"] = {
+  target: "http://localhost:3001",
+  changeOrigin: true,
+};
+proxy["/https://"] = {
   target: "http://localhost:3001",
   changeOrigin: true,
 };

@@ -1,7 +1,7 @@
 <template>
   <a-form :model="formState" @finish="finish">
     <a-form-item label="网址" name="url" :rules="[{ required: true }]">
-      <a-input v-model:value="formState.url"></a-input>
+      <a-input v-model:value="formState.url" @change="onChangeURL"></a-input>
     </a-form-item>
     <a-form-item label="标题" name="title" :rules="[{ required: true }]">
       <a-input v-model:value="formState.title"></a-input>
@@ -40,14 +40,33 @@ const formState = reactive({
   private: false,
   unread: true,
 });
+async function onChangeURL(event) {
+  const url = event.target.value;
+  // console.log("value", value);
+  {
+    const response = await axios({
+      method: "GET",
+      url,
+    });
+    if (response === undefined) {
+      return;
+    }
+    {
+      let div = document.createElement("div");
+      div.innerHTML = response.data;
+      formState.title = div.querySelector("title").innerText;
+      div = null;
+    }
+  }
+}
 async function finish(values) {
   console.log("values", values);
   await axios({
-    method: "GET",
+    method: "POST",
     url: "https://www.diigo.com/item/save/bookmark",
-    params: formState,
+    data: formState,
     headers: {
-      "X-Requested-With": "X-Requested-With",
+      "X-Requested-With": "XMLHttpRequest",
       cookie: select(),
     },
   });

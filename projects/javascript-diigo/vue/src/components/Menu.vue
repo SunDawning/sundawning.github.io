@@ -1,8 +1,6 @@
 <template>
   <a-menu mode="inline" @select="select">
-    <div class="logo">
-      <a-menu-item key="欢迎"></a-menu-item>
-    </div>
+    <Logo></Logo>
     <a-menu-item key="新建书签">
       <span>新建书签</span>
     </a-menu-item>
@@ -22,7 +20,7 @@ function select({ item, key, selectedKeys }) {
   emit("displayWelcome", false);
   emit("displayEdit", false);
   emit("displayRecent", false);
-  if (key === "欢迎") {
+  if (key === "logo") {
     emit("displayWelcome", true);
     return;
   }
@@ -41,18 +39,3 @@ function select({ item, key, selectedKeys }) {
   }
 }
 </script>
-<style scoped>
-.logo {
-  height: 64px;
-  background-color: white;
-  background-image: url(../assets/logo.png);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-.logo >>> li {
-  height: 100%;
-  margin: 0;
-  background-color: #ffffff00 !important;
-}
-</style>

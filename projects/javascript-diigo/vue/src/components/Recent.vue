@@ -26,7 +26,7 @@ async function index() {
       count: 3,
     },
     headers: {
-      "X-Requested-With": "X-Requested-With",
+      "X-Requested-With": "XMLHttpRequest",
       cookie: select(),
     },
   });

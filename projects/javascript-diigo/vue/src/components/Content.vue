@@ -1,7 +1,7 @@
 <template>
   <a-layout>
-    <a-layout-header style="background: #fff; padding: 0" />
-    <a-layout-content style="margin: 0 16px">
+    <a-layout-header></a-layout-header>
+    <a-layout-content>
       <Welcome v-if="displayWelcome"></Welcome>
       <Edit v-else-if="displayEdit"></Edit>
       <Recent v-else-if="displayRecent"></Recent>
@@ -20,6 +20,9 @@ defineProps({
 });
 </script>
 <style scoped>
+.ant-layout-content {
+  padding: 8px;
+}
 .ant-layout-footer {
   text-align: center;
 }

@@ -8,7 +8,8 @@ app.use(async function (context) {
   // console.log("context.request", context.request);
   log(`${method} ${url}`);
   // 以“/http:”或“/https:”开头的地址
-  if (url.match(/^\/https?:/) === null) {
+  if (url.match(/^\/https?:\/\//) === null) {
+    log("无法代理该网址，仅支持“/http://”或“/https://”开头的网址：", url);
     return;
   }
   let realURL = url.substring(1);

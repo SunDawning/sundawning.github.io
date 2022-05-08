@@ -44,10 +44,17 @@ async function onChangeURL(event) {
   const url = event.target.value;
   // console.log("value", value);
   {
-    const response = await axios({
-      method: "GET",
-      url,
-    });
+    let response;
+    try {
+      response = await axios({
+        method: "GET",
+        url,
+      });
+    } catch (error) {
+      // 404 (Not Found)
+      console.log("error", error);
+      return;
+    }
     if (response === undefined) {
       return;
     }

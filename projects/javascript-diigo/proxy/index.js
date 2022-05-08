@@ -7,6 +7,10 @@ app.use(async function (context) {
   const { method, url, headers, params } = context.request;
   // console.log("context.request", context.request);
   log(`${method} ${url}`);
+  // 以“/http:”或“/https:”开头的地址
+  if (url.match(/^\/https?:/) === null) {
+    return;
+  }
   let realURL = url.substring(1);
   log("realURL", realURL);
   if (headers) {

@@ -15,7 +15,7 @@ import { reactive } from "vue";
 import axios from "axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
-import { insert, select, drop } from "../modules/database";
+import { insert, select, drop } from "../modules/auth";
 const state = reactive({
   spinning: true,
 });

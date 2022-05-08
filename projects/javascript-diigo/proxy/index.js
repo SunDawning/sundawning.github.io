@@ -19,7 +19,9 @@ app.use(async function (context) {
       delete headers[key];
     });
     if (method === "GET") {
-      ["content-length", "content-type"].forEach(function (key) {
+      ["content-length", "content-type", "accept-encoding"].forEach(function (
+        key
+      ) {
         delete headers[key];
       });
     }

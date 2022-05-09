@@ -2,7 +2,6 @@
   <a-form
     :model="formState"
     @finish="finish"
-    :layout="horizontal"
     :labelCol="{ span: 4 }"
     :wrapperCol="{ span: 18 }"
   >
@@ -28,7 +27,13 @@
     <a-form-item label="稍后再读" name="unread" class="left">
       <a-switch v-model:checked="formState.unread"></a-switch>
     </a-form-item>
-    <a-form-item :wrapperCol="{ span: 18, offset: 4 }">
+    <a-form-item
+      :wrapperCol="{
+        span: 18,
+        xs: { offset: 0 },
+        sm: { offset: 4 },
+      }"
+    >
       <a-button type="primary" html-type="submit">提交</a-button>
     </a-form-item>
   </a-form>
@@ -89,11 +94,40 @@ function getHTMLTitle(element) {
   if (element === undefined) {
     return;
   }
+  return getHTMLTitleContent(element) || getHTMLMetaOgTitleContent(element);
+}
+/**
+ * 从网页里提取标题
+ */
+function getHTMLTitleContent(element) {
+  if (element === undefined) {
+    return;
+  }
   let title = element.querySelector("title");
   if (title === undefined) {
     console.log("网页不存在title", element);
   }
   return title.innerText;
+}
+/**
+ * 从网页的meta里提取og:title的content
+ * @see https://mp.weixin.qq.com/s/TxbIt8oX5ugE0Q9HCjwZCw
+ * <meta property="og:title" content="“你光长命还不行！”深圳卫生“十四五”规划，这个新词亮了" />
+ * @param {HTMLElement} element
+ */
+function getHTMLMetaOgTitleContent(element) {
+  if (element === undefined) {
+    return;
+  }
+  let metas = element.querySelectorAll("meta");
+  let total = metas.length;
+  for (let c = 0; c < total; c = c + 1) {
+    const meta = metas[c];
+    if (meta.getAttribute("property") === "og:title") {
+      return meta.getAttribute("content");
+    }
+  }
+  return;
 }
 /**
  * 从网页的meta里提取keywords

@@ -1,5 +1,9 @@
 {
   "scripts": {
     "start": "node index.js"
+  },
+  "devDependencies": {
+    "proxy": "link:proxy",
+    "vue": "link:vue"
   }
 }

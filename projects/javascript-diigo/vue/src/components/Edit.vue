@@ -1,24 +1,34 @@
 <template>
-  <a-form :model="formState" @finish="finish">
+  <a-form
+    :model="formState"
+    @finish="finish"
+    :layout="horizontal"
+    :labelCol="{ span: 4 }"
+    :wrapperCol="{ span: 18 }"
+  >
     <a-form-item label="网址" name="url" :rules="[{ required: true }]">
-      <a-input v-model:value="formState.url" @change="onChangeURL"></a-input>
+      <a-textarea
+        auto-size
+        v-model:value="formState.url"
+        @change="onChangeURL"
+      ></a-textarea>
     </a-form-item>
     <a-form-item label="标题" name="title" :rules="[{ required: true }]">
-      <a-input v-model:value="formState.title"></a-input>
+      <a-textarea auto-size v-model:value="formState.title"></a-textarea>
     </a-form-item>
     <a-form-item label="标签" name="tags">
-      <a-input v-model:value="formState.tags"></a-input>
+      <a-textarea auto-size v-model:value="formState.tags"></a-textarea>
     </a-form-item>
     <a-form-item label="描述" name="description">
       <a-textarea auto-size v-model:value="formState.description"></a-textarea>
     </a-form-item>
-    <a-form-item label="私有" name="private">
+    <a-form-item label="私有" name="private" class="left">
       <a-switch v-model:checked="formState.private"></a-switch>
     </a-form-item>
-    <a-form-item label="稍后再读" name="unread">
+    <a-form-item label="稍后再读" name="unread" class="left">
       <a-switch v-model:checked="formState.unread"></a-switch>
     </a-form-item>
-    <a-form-item>
+    <a-form-item :wrapperCol="{ span: 18, offset: 4 }">
       <a-button type="primary" html-type="submit">提交</a-button>
     </a-form-item>
   </a-form>
@@ -149,3 +159,8 @@ function parseHTMLString(HTMLString) {
   return parser.parseFromString(HTMLString, "text/html");
 }
 </script>
+<style scoped>
+.left {
+  text-align: left;
+}
+</style>

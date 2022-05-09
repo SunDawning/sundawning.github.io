@@ -1,4 +1,7 @@
 {
+  "name": "proxy",
+  "private": true,
+  "version": "0.0.0",
   "scripts": {
     "start": "nodemon index.js"
   },

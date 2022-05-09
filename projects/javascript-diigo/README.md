@@ -11,3 +11,15 @@ https://cn.vitejs.dev/guide/#scaffolding-your-first-vite-project
 ```sh
 pnpm create vite vue -- --template vue
 ```
+
+# 安装
+
+```sh
+pnpm install
+```
+
+# 运行
+
+```sh
+pnpm run start
+```

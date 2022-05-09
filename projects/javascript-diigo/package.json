@@ -1,9 +1,6 @@
 {
   "scripts": {
-    "start": "node index.js"
-  },
-  "devDependencies": {
-    "proxy": "link:proxy",
-    "vue": "link:vue"
+    "start": "node index.js",
+    "postinstall": "cd proxy && pnpm install && cd ../vue && pnpm install"
   }
 }

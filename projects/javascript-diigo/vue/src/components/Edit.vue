@@ -51,10 +51,21 @@ async function onChangeURL(event) {
 }
 async function finish(values) {
   console.log("values", values);
+  // true => "true"
+  let data = Object.assign({}, formState);
+  Object.keys(data).forEach(function (key) {
+    const value = data[key];
+    if (value === undefined) {
+      return;
+    }
+    if (typeof value === "boolean") {
+      data[key] = JSON.stringify(value);
+    }
+  });
   await axios({
     method: "POST",
     url: "https://www.diigo.com/item/save/bookmark",
-    data: formState,
+    data: data,
     headers: {
       "X-Requested-With": "XMLHttpRequest",
       cookie: select(),

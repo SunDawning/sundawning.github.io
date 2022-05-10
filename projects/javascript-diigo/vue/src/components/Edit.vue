@@ -59,10 +59,66 @@ async function onChangeURL(event) {
   const url = event.target.value;
   // console.log("value", value);
   // await parseHTMLString(url);
+
+  // 1. 查找是否存在书签
+  const item = await getExistedBookmarkItem(url);
+  if (!(item === undefined)) {
+    return bookmarkItemToFormState(item, formState);
+  }
+  // 2. 处理新书签
   const element = await getHTMLDOMElement(url);
   console.log("element", element);
   formState.title = getHTMLTitle(element);
   formState.tags = getHTMLMetaKeywords(element);
+}
+/**
+ * 查找已经存在的书签
+ */
+async function getExistedBookmarkItem(url) {
+  const response = await axios({
+    url: "https://www.diigo.com/interact_api/search_user_items",
+    method: "GET",
+    params: {
+      what: url,
+      sort: "updated",
+      count: 10,
+      format: "json",
+    },
+    headers: {
+      "X-Requested-With": "XMLHttpRequest",
+      cookie: select(),
+    },
+  });
+  const { data } = response;
+  const { items } = data;
+  if (items === undefined) {
+    return;
+  }
+  if (items.length === 0) {
+    return;
+  }
+  const filtered = items.filter(function (item) {
+    return item.url === url;
+  });
+  return filtered[0];
+}
+/**
+ * 将书签转换成表单数据
+ */
+function bookmarkItemToFormState(item, formState) {
+  const { title, description, tags, lists, groups, readed } = item;
+  Object.assign(formState, {
+    title,
+    description,
+    tags,
+    lists,
+    groups,
+    private: item.private,
+    unread: {
+      0: true,
+      1: false,
+    }[readed],
+  });
 }
 async function finish(values) {
   console.log("values", values);

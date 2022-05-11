@@ -38,7 +38,7 @@ function onSearch(value, event) {
     return;
   }
   emit("displaySearch", true);
-  state.search = { what: value };
+  state.search = { what: value, count: 20 };
 }
 </script>
 <style scoped>

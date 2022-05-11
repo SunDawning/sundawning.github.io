@@ -19,6 +19,7 @@
   </a-layout>
 </template>
 <script setup>
+import { searchBookmarkItems } from "../modules/diigo";
 defineProps({
   displayWelcome: Boolean,
   displayEdit: Boolean,
@@ -26,6 +27,7 @@ defineProps({
 });
 function onSearch(value, event) {
   console.log("value", value);
+  searchBookmarkItems({ what: value });
 }
 </script>
 <style scoped>

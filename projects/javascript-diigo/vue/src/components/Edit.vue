@@ -77,8 +77,8 @@ async function onChangeURL(event) {
 async function getExistedBookmarkItem(url) {
   const response = await axios({
     url: "https://www.diigo.com/interact_api/search_user_items",
-    method: "GET",
-    params: {
+    method: "POST",
+    data: {
       what: url,
       sort: "updated",
       count: 10,

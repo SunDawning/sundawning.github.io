@@ -75,11 +75,21 @@ async function onChangeURL(event) {
  * 查找已经存在的书签
  */
 async function getExistedBookmarkItem(url) {
+  const items = await searchBookmarkItems({ what: url });
+  const filtered = items.filter(function (item) {
+    return item.url === url;
+  });
+  return filtered[0];
+}
+/**
+ * 查找所有书签
+ */
+async function searchBookmarkItems({ what }) {
   const response = await axios({
     url: "https://www.diigo.com/interact_api/search_user_items",
     method: "POST",
     data: {
-      what: url,
+      what: what,
       sort: "updated",
       count: 10,
       format: "json",
@@ -97,10 +107,7 @@ async function getExistedBookmarkItem(url) {
   if (items.length === 0) {
     return;
   }
-  const filtered = items.filter(function (item) {
-    return item.url === url;
-  });
-  return filtered[0];
+  return items;
 }
 /**
  * 将书签转换成表单数据

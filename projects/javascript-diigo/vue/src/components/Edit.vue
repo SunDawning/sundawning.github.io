@@ -77,6 +77,9 @@ async function onChangeURL(event) {
  */
 async function getExistedBookmarkItem(url) {
   const items = await searchBookmarkItems({ what: url });
+  if (items === undefined) {
+    return;
+  }
   const filtered = items.filter(function (item) {
     return item.url === url;
   });

@@ -1,6 +1,12 @@
 <template>
   <a-layout>
-    <a-layout-header></a-layout-header>
+    <a-layout-header>
+      <a-input-search
+        placeholder="搜索所有书签"
+        enter-button
+        @search="onSearch"
+      />
+    </a-layout-header>
     <a-layout-content>
       <Welcome v-if="displayWelcome"></Welcome>
       <Edit v-else-if="displayEdit"></Edit>
@@ -18,6 +24,9 @@ defineProps({
   displayEdit: Boolean,
   displayRecent: Boolean,
 });
+function onSearch(value, event) {
+  console.log("value", value);
+}
 </script>
 <style scoped>
 .ant-layout-content {

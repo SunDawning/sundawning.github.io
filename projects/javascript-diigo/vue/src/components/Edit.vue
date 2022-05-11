@@ -42,7 +42,7 @@
 import { reactive } from "vue";
 import axios from "../modules/axios";
 import { select } from "../modules/auth";
-import { searchBookmarkItems } from "../modules/diigo";
+import { searchBookmarkItems } from "../modules/restful";
 /**
  * 表单的数据
  */

@@ -2,7 +2,7 @@
   <List :items="state.items"></List>
 </template>
 <script setup>
-import { searchBookmarkItems } from "../modules/diigo";
+import { searchBookmarkItems } from "../modules/restful";
 import { reactive } from "vue";
 const state = reactive({
   items: [],

@@ -29,6 +29,10 @@ function onSearch(value, event) {
 }
 </script>
 <style scoped>
+.ant-layout-header {
+  display: flex;
+  align-items: center;
+}
 .ant-layout-content {
   padding: 8px;
 }

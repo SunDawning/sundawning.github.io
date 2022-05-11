@@ -8,7 +8,8 @@
       />
     </a-layout-header>
     <a-layout-content>
-      <Welcome v-if="displayWelcome"></Welcome>
+      <Search v-if="state.displaySearch" :search="state.search"></Search>
+      <Welcome v-else-if="displayWelcome"></Welcome>
       <Edit v-else-if="displayEdit"></Edit>
       <Recent v-else-if="displayRecent"></Recent>
     </a-layout-content>
@@ -19,7 +20,11 @@
   </a-layout>
 </template>
 <script setup>
-import { searchBookmarkItems } from "../modules/diigo";
+import { reactive } from "vue";
+const state = reactive({
+  displaySearch: false,
+  search: {},
+});
 defineProps({
   displayWelcome: Boolean,
   displayEdit: Boolean,
@@ -27,7 +32,8 @@ defineProps({
 });
 function onSearch(value, event) {
   console.log("value", value);
-  searchBookmarkItems({ what: value });
+  state.displaySearch = true;
+  state.search = { what: value };
 }
 </script>
 <style scoped>

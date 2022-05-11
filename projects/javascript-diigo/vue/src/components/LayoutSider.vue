@@ -2,6 +2,7 @@
   <a-layout>
     <Sider
       class="sider"
+      @displaySearch="displaySearch"
       @displayWelcome="displayWelcome"
       @displayEdit="displayEdit"
       @displayRecent="displayRecent"
@@ -9,6 +10,8 @@
     ></Sider>
     <Content
       class="content"
+      @displaySearch="displaySearch"
+      :displaySearch="state.displaySearch"
       :displayWelcome="state.displayWelcome"
       :displayEdit="state.displayEdit"
       :displayRecent="state.displayRecent"
@@ -18,10 +21,14 @@
 <script setup>
 import { reactive } from "vue";
 const state = reactive({
+  displaySearch: false,
   displayWelcome: true,
   displayEdit: false,
   displayRecent: false,
 });
+function displaySearch(value) {
+  state.displaySearch = value;
+}
 function displayWelcome(value) {
   state.displayWelcome = value;
 }

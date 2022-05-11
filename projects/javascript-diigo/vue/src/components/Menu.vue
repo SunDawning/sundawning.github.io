@@ -18,6 +18,7 @@ const emit = defineEmits();
 function select({ item, key, selectedKeys }) {
   // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
   // 1. 关闭所有内容：欢迎、新增书签、最近书签等等
+  emit("displaySearch", false);
   emit("displayWelcome", false);
   emit("displayEdit", false);
   emit("displayRecent", false);

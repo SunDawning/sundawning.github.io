@@ -1,6 +1,7 @@
 <template>
   <a-layout-sider width="104">
     <Menu
+      @displaySearch="displaySearch"
       @displayWelcome="displayWelcome"
       @displayEdit="displayEdit"
       @displayRecent="displayRecent"
@@ -10,6 +11,9 @@
 </template>
 <script setup>
 const emit = defineEmits();
+function displaySearch(value) {
+  emit("displaySearch", value);
+}
 function displayWelcome(value) {
   emit("displayWelcome", value);
 }

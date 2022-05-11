@@ -8,7 +8,7 @@
       />
     </a-layout-header>
     <a-layout-content>
-      <Search v-if="state.displaySearch" :search="state.search"></Search>
+      <Search v-if="displaySearch" :search="state.search"></Search>
       <Welcome v-else-if="displayWelcome"></Welcome>
       <Edit v-else-if="displayEdit"></Edit>
       <Recent v-else-if="displayRecent"></Recent>
@@ -26,13 +26,15 @@ const state = reactive({
   search: {},
 });
 defineProps({
+  displaySearch:Boolean,
   displayWelcome: Boolean,
   displayEdit: Boolean,
   displayRecent: Boolean,
 });
+const emit=defineEmits();
 function onSearch(value, event) {
   console.log("value", value);
-  state.displaySearch = true;
+  emit("displaySearch",true);
   state.search = { what: value };
 }
 </script>

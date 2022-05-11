@@ -34,6 +34,9 @@ defineProps({
 const emit = defineEmits();
 function onSearch(value, event) {
   console.log("value", value);
+  if (value === "") {
+    return;
+  }
   emit("displaySearch", true);
   state.search = { what: value };
 }

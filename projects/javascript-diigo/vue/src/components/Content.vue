@@ -34,10 +34,13 @@ defineProps({
 const emit = defineEmits();
 function onSearch(value, event) {
   console.log("value", value);
+  // 不搜索空白的内容
   if (value === "") {
     return;
   }
+  // 显示搜索的列表
   emit("displaySearch", true);
+  // 开始搜索
   state.search = { what: value, count: 20 };
   // 取消搜索框焦点
   setTimeout(function () {

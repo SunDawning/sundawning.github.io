@@ -6,14 +6,14 @@ import { select } from "./auth";
 /**
  * 查找所有书签
  */
-export async function searchBookmarkItems({ what }) {
+export async function searchBookmarkItems({ what, count = 10 }) {
   const response = await axios({
     url: "https://www.diigo.com/interact_api/search_user_items",
     method: "POST",
     data: {
-      what: what,
+      what,
       sort: "updated",
-      count: 10,
+      count,
       format: "json",
     },
     headers: {

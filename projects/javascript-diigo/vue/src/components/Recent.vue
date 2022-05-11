@@ -23,7 +23,7 @@ async function index() {
     url: "https://www.diigo.com/interact_api/load_user_items",
     params: {
       sort: "updated",
-      count: 3,
+      count: 10,
     },
     headers: {
       "X-Requested-With": "XMLHttpRequest",

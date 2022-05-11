@@ -39,6 +39,14 @@ function onSearch(value, event) {
   }
   emit("displaySearch", true);
   state.search = { what: value, count: 20 };
+  // 取消搜索框焦点
+  setTimeout(function () {
+    const input = document.querySelector(".ant-layout-header input");
+    if (input === null) {
+      return;
+    }
+    input.blur();
+  }, 0);
 }
 </script>
 <style scoped>

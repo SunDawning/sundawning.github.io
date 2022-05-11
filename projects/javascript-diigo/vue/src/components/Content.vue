@@ -5,6 +5,7 @@
         placeholder="搜索所有书签"
         enter-button
         @search="onSearch"
+        allowClear
       />
     </a-layout-header>
     <a-layout-content>
@@ -26,15 +27,15 @@ const state = reactive({
   search: {},
 });
 defineProps({
-  displaySearch:Boolean,
+  displaySearch: Boolean,
   displayWelcome: Boolean,
   displayEdit: Boolean,
   displayRecent: Boolean,
 });
-const emit=defineEmits();
+const emit = defineEmits();
 function onSearch(value, event) {
   console.log("value", value);
-  emit("displaySearch",true);
+  emit("displaySearch", true);
   state.search = { what: value };
 }
 </script>

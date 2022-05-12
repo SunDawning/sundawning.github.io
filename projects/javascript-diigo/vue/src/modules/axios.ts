@@ -12,6 +12,9 @@ export default async function index(options) {
   if (url === undefined) {
     return;
   }
+  if (url.startsWith("/api")) {
+    return await axios(options);
+  }
   if (url.match(/^\https?:\/\//) === null) {
     console.log("无法代理该网址，仅支持“http://”或“https://”开头的网址：", url);
     return;

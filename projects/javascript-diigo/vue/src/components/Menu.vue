@@ -10,6 +10,9 @@
     <a-menu-item key="Public">
       <span>Public</span>
     </a-menu-item>
+    <a-menu-item key="检查版本">
+      <span>检查版本</span>
+    </a-menu-item>
     <a-menu-item key="退出登录">
       <span>退出登录</span>
     </a-menu-item>
@@ -18,11 +21,14 @@
 <script setup>
 import { drop } from "../modules/auth";
 import { getUserName } from "../modules/auth";
+import axios from "../modules/axios";
+import { message } from "ant-design-vue";
+import "ant-design-vue/es/message/style/css";
 defineProps({
   selectedKeys: Array,
 });
 const emit = defineEmits();
-function select({ item, key, selectedKeys }) {
+async function select({ item, key, selectedKeys }) {
   // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
   // 链接跳转：打开Public Library
   if (key === "Public") {
@@ -31,6 +37,15 @@ function select({ item, key, selectedKeys }) {
       return;
     }
     return window.open(`https://www.diigo.com/profile/${username}`);
+  }
+  if (key === "检查版本") {
+    const { data } = await axios({
+      method: "GET",
+      url: "/api/check-new-version",
+    });
+    // console.log("data", data);
+    message.success(data.message);
+    return;
   }
   // 1. 关闭所有内容：欢迎、新增书签、最近书签等等
   emit("displaySearch", false);

@@ -2,11 +2,30 @@ const Koa = require("koa");
 const app = new Koa();
 const cors = require("@koa/cors");
 const axios = require("axios");
+const child_process = require("child_process");
 app.use(cors()); // CORS
 app.use(async function (context) {
   const { method, url, headers, params } = context.request;
   // console.log("context.request", context.request);
   log(`${method} ${url}`);
+  // 以“/api”开头的地址
+  if (url.startsWith("/api")) {
+    {
+      const response = {
+        data: {
+          message: child_process.execSync("git pull", {
+            encoding: "utf-8",
+          }),
+        },
+        headers: {
+          "content-type": "application/json",
+        },
+      };
+      context.response.body = response.data;
+      context.response.headers = response.headers;
+    }
+    return;
+  }
   // 以“/http:”或“/https:”开头的地址
   if (url.match(/^\/https?:\/\//) === null) {
     log("无法代理该网址，仅支持“/http://”或“/https://”开头的网址：", url);

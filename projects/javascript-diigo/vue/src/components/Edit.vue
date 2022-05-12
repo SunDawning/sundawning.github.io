@@ -10,16 +10,29 @@
         auto-size
         v-model:value="formState.url"
         @change="onChangeURL"
+        allowClear
       ></a-textarea>
     </a-form-item>
     <a-form-item label="标题" name="title" :rules="[{ required: true }]">
-      <a-textarea auto-size v-model:value="formState.title"></a-textarea>
+      <a-textarea
+        auto-size
+        v-model:value="formState.title"
+        allowClear
+      ></a-textarea>
     </a-form-item>
     <a-form-item label="标签" name="tags">
-      <a-textarea auto-size v-model:value="formState.tags"></a-textarea>
+      <a-textarea
+        auto-size
+        v-model:value="formState.tags"
+        allowClear
+      ></a-textarea>
     </a-form-item>
     <a-form-item label="描述" name="description">
-      <a-textarea auto-size v-model:value="formState.description"></a-textarea>
+      <a-textarea
+        auto-size
+        v-model:value="formState.description"
+        allowClear
+      ></a-textarea>
     </a-form-item>
     <a-form-item label="私有" name="private" class="left">
       <a-switch v-model:checked="formState.private"></a-switch>

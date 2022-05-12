@@ -60,6 +60,8 @@ async function onChangeURL(event) {
   const url = event.target.value;
   // console.log("value", value);
   // await parseHTMLString(url);
+  // 还原到某个状态：清空描述等
+  formState.description = "";
 
   // 1. 查找是否存在书签
   const item = await getExistedBookmarkItem(url);

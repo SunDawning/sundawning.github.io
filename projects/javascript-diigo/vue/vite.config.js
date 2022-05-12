@@ -24,20 +24,16 @@ plugins.push(
 let server = { proxy: {} };
 let { proxy } = server;
 /**
- * Diigo网站所提供的接口
+ * 1. Diigo网站所提供的接口
+ * 2. 所有HTTP网址
+ * 3. API
  */
-proxy["/http://"] = {
-  target: "http://localhost:3001",
-  changeOrigin: true,
-};
-proxy["/https://"] = {
-  target: "http://localhost:3001",
-  changeOrigin: true,
-};
-proxy["/api"] = {
-  target: "http://localhost:3001",
-  changeOrigin: true,
-};
+["/http://", "/https://", "/api"].forEach(function (item) {
+  proxy[item] = {
+    target: "http://localhost:3001",
+    changeOrigin: true,
+  };
+});
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "./",

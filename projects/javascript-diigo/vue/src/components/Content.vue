@@ -1,12 +1,14 @@
 <template>
   <a-layout>
     <a-layout-header>
-      <a-input-search
-        placeholder="搜索所有书签"
-        enter-button
-        @search="onSearch"
-        allowClear
-      />
+      <a-auto-complete :options="state.options">
+        <a-input-search
+          placeholder="搜索所有书签"
+          enter-button
+          @search="onSearch"
+          allowClear
+        />
+      </a-auto-complete>
     </a-layout-header>
     <a-layout-content>
       <Search v-if="displaySearch" :search="state.search"></Search>
@@ -24,6 +26,7 @@
 import { reactive } from "vue";
 const state = reactive({
   search: {},
+  options: [],
 });
 defineProps({
   displaySearch: Boolean,
@@ -45,13 +48,15 @@ function onSearch(value, event) {
   emit("displaySearch", true);
   // 开始搜索
   state.search = { what: value, count: 20 };
-  // 取消搜索框焦点
   setTimeout(function () {
+    // 取消搜索框焦点
     const input = document.querySelector(".ant-layout-header input");
     if (input === null) {
       return;
     }
     input.blur();
+    // 保存关键词
+    state.options.push({ value: value });
   }, 0);
   // 取消菜单栏的选择
   emit("selectedKeys", [""]);

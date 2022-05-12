@@ -30,6 +30,7 @@
 <script setup>
 import { reactive } from "vue";
 import { select, insert } from "../modules/autocomplete";
+import { onMounted } from "vue";
 const state = reactive({
   search: {},
   options: [],
@@ -41,6 +42,10 @@ defineProps({
   displayRecent: Boolean,
 });
 const emit = defineEmits();
+onMounted(function () {
+  // 更新自动补全列表
+  searchAutoComplete("");
+});
 function onSearch(value, event) {
   console.log("value", value, JSON.stringify(value));
   // 不搜索空白的内容
@@ -67,6 +72,9 @@ function onSearch(value, event) {
   // 取消菜单栏的选择
   emit("selectedKeys", [""]);
 }
+/**
+ * 实时更新自动补全列表
+ */
 function searchAutoComplete(value) {
   const database = select();
   state.options = database

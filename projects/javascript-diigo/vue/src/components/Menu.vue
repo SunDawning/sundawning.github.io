@@ -17,7 +17,7 @@
 </template>
 <script setup>
 import { drop } from "../modules/auth";
-import { select as getAuth } from "../modules/auth";
+import { getUserName } from "../modules/auth";
 defineProps({
   selectedKeys: Array,
 });
@@ -53,23 +53,5 @@ function select({ item, key, selectedKeys }) {
     }[key],
     true
   );
-}
-/**
- * 获取用户名
- */
-function getUserName() {
-  let object = {};
-  getAuth()
-    .split("; ")
-    .forEach(function (item) {
-      const [key, value] = item.split("=");
-      object[key] = value;
-    });
-  // console.log("object", object);
-  const diigo_and_login_cookie = object["diigoandlogincookie"];
-  if (diigo_and_login_cookie === undefined) {
-    return;
-  }
-  return diigo_and_login_cookie.split("-.-")[1];
 }
 </script>

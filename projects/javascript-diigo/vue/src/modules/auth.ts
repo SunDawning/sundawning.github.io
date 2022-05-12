@@ -11,3 +11,21 @@ export function select() {
 export function drop() {
   return localStorage.removeItem(key);
 }
+/**
+ * 获取用户名
+ */
+ export function getUserName() {
+  let object = {};
+  select()
+    .split("; ")
+    .forEach(function (item) {
+      const [key, value] = item.split("=");
+      object[key] = value;
+    });
+  // console.log("object", object);
+  const diigo_and_login_cookie = object["diigoandlogincookie"];
+  if (diigo_and_login_cookie === undefined) {
+    return;
+  }
+  return diigo_and_login_cookie.split("-.-")[1];
+}

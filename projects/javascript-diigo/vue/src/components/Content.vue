@@ -11,7 +11,6 @@
           enter-button
           @search="onSearch"
           allowClear
-          size="large"
         />
       </a-auto-complete>
     </a-layout-header>

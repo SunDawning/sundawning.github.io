@@ -25,6 +25,7 @@
 </template>
 <script setup>
 import { reactive } from "vue";
+import { select, insert } from "../modules/autocomplete";
 const state = reactive({
   search: {},
   options: [],
@@ -57,33 +58,21 @@ function onSearch(value, event) {
     }
     input.blur();
     // 保存关键词
-    {
-      if (localStorage.getItem("search_autocomplete") === null) {
-        localStorage.setItem("search_autocomplete", JSON.stringify([]));
-      }
-      let search_autocomplete = JSON.parse(
-        localStorage.getItem("search_autocomplete")
-      );
-      search_autocomplete.push({ value: value });
-      localStorage.setItem(
-        "search_autocomplete",
-        JSON.stringify(search_autocomplete)
-      );
-    }
+    insert(value);
   }, 0);
   // 取消菜单栏的选择
   emit("selectedKeys", [""]);
 }
 function searchAutoComplete(value) {
-  if (localStorage.getItem("search_autocomplete") === null) {
-    localStorage.setItem("search_autocomplete", JSON.stringify([]));
-  }
-  state.options = JSON.parse(
-    localStorage.getItem("search_autocomplete")
-  ).filter(function (option) {
-    return option.value.startsWith(value);
-  });
-  console.log("state.options", state.options);
+  const database = select();
+  state.options = database
+    .filter(function (option) {
+      return option.startsWith(value);
+    })
+    .map(function (option) {
+      return { value: option };
+    });
+  // console.log("state.options", state.options);
 }
 </script>
 <style scoped>

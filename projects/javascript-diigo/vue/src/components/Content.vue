@@ -50,6 +50,8 @@ function onSearch(value, event) {
     }
     input.blur();
   }, 0);
+  // 取消菜单栏的选择
+  emit("selectedKeys", [""]);
 }
 </script>
 <style scoped>

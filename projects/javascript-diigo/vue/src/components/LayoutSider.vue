@@ -3,6 +3,7 @@
     <Sider
       class="sider"
       @displaySearch="displaySearch"
+      :selectedKeys="state.selectedKeys"
       @displayWelcome="displayWelcome"
       @displayEdit="displayEdit"
       @displayRecent="displayRecent"
@@ -12,6 +13,7 @@
       class="content"
       @displaySearch="displaySearch"
       :displaySearch="state.displaySearch"
+      @selectedKeys="selectedKeys"
       :displayWelcome="state.displayWelcome"
       :displayEdit="state.displayEdit"
       :displayRecent="state.displayRecent"
@@ -22,12 +24,16 @@
 import { reactive } from "vue";
 const state = reactive({
   displaySearch: false,
+  selectedKeys: [""],
   displayWelcome: true,
   displayEdit: false,
   displayRecent: false,
 });
 function displaySearch(value) {
   state.displaySearch = value;
+}
+function selectedKeys(value) {
+  state.selectedKeys = value;
 }
 function displayWelcome(value) {
   state.displayWelcome = value;

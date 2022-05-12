@@ -2,6 +2,7 @@
   <a-layout-sider width="104">
     <Menu
       @displaySearch="displaySearch"
+      :selectedKeys="selectedKeys"
       @displayWelcome="displayWelcome"
       @displayEdit="displayEdit"
       @displayRecent="displayRecent"
@@ -10,6 +11,9 @@
   </a-layout-sider>
 </template>
 <script setup>
+defineProps({
+  selectedKeys: Array,
+});
 const emit = defineEmits();
 function displaySearch(value) {
   emit("displaySearch", value);

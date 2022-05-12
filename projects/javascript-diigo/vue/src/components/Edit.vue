@@ -43,6 +43,8 @@ import { reactive } from "vue";
 import axios from "../modules/axios";
 import { select } from "../modules/auth";
 import { searchBookmarkItems } from "../modules/restful";
+import { message } from "ant-design-vue";
+import "ant-design-vue/es/message/style/css";
 /**
  * 表单的数据
  */
@@ -118,15 +120,21 @@ async function finish(values) {
       data[key] = JSON.stringify(value);
     }
   });
-  await axios({
-    method: "POST",
-    url: "https://www.diigo.com/item/save/bookmark",
-    data: data,
-    headers: {
-      "X-Requested-With": "XMLHttpRequest",
-      cookie: select(),
-    },
-  });
+  try {
+    await axios({
+      method: "POST",
+      url: "https://www.diigo.com/item/save/bookmark",
+      data: data,
+      headers: {
+        "X-Requested-With": "XMLHttpRequest",
+        cookie: select(),
+      },
+    });
+    message.success("已提交");
+  } catch (error) {
+    console.error(error);
+    message.error(error.message);
+  }
 }
 /**
  * 从网页里提取标题

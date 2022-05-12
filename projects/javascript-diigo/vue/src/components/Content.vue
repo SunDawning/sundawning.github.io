@@ -33,8 +33,11 @@ defineProps({
 });
 const emit = defineEmits();
 function onSearch(value, event) {
-  console.log("value", value);
+  console.log("value", value, JSON.stringify(value));
   // 不搜索空白的内容
+  if (value === undefined) {
+    return;
+  }
   if (value === "") {
     return;
   }

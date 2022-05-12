@@ -1,7 +1,11 @@
 <template>
   <a-layout>
     <a-layout-header>
-      <a-auto-complete :options="state.options" @search="searchAutoComplete">
+      <a-auto-complete
+        :options="state.options"
+        @search="searchAutoComplete"
+        @select="onSearch"
+      >
         <a-input-search
           placeholder="搜索所有书签"
           enter-button

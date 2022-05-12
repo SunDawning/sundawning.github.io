@@ -3,7 +3,7 @@
     <a-layout-header>
       <a-auto-complete
         :options="state.options"
-        @search="searchAutoComplete"
+        @search="updateAutoCompleteOptions"
         @select="onSearch"
       >
         <a-input-search
@@ -44,7 +44,7 @@ defineProps({
 const emit = defineEmits();
 onMounted(function () {
   // 更新自动补全列表
-  searchAutoComplete("");
+  updateAutoCompleteOptions("");
 });
 function onSearch(value, event) {
   console.log("value", value, JSON.stringify(value));
@@ -73,9 +73,9 @@ function onSearch(value, event) {
   emit("selectedKeys", [""]);
 }
 /**
- * 实时更新自动补全列表
+ * 更新自动补全列表
  */
-function searchAutoComplete(value) {
+function updateAutoCompleteOptions(value) {
   const database = select();
   state.options = database
     .filter(function (option) {

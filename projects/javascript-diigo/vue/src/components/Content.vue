@@ -1,12 +1,13 @@
 <template>
   <a-layout>
     <a-layout-header>
-      <a-auto-complete :options="state.options">
+      <a-auto-complete :options="state.options" @search="searchAutoComplete">
         <a-input-search
           placeholder="搜索所有书签"
           enter-button
           @search="onSearch"
           allowClear
+          size="large"
         />
       </a-auto-complete>
     </a-layout-header>
@@ -56,10 +57,33 @@ function onSearch(value, event) {
     }
     input.blur();
     // 保存关键词
-    state.options.push({ value: value });
+    {
+      if (localStorage.getItem("search_autocomplete") === null) {
+        localStorage.setItem("search_autocomplete", JSON.stringify([]));
+      }
+      let search_autocomplete = JSON.parse(
+        localStorage.getItem("search_autocomplete")
+      );
+      search_autocomplete.push({ value: value });
+      localStorage.setItem(
+        "search_autocomplete",
+        JSON.stringify(search_autocomplete)
+      );
+    }
   }, 0);
   // 取消菜单栏的选择
   emit("selectedKeys", [""]);
+}
+function searchAutoComplete(value) {
+  if (localStorage.getItem("search_autocomplete") === null) {
+    localStorage.setItem("search_autocomplete", JSON.stringify([]));
+  }
+  state.options = JSON.parse(
+    localStorage.getItem("search_autocomplete")
+  ).filter(function (option) {
+    return option.value.startsWith(value);
+  });
+  console.log("state.options", state.options);
 }
 </script>
 <style scoped>

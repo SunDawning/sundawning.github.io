@@ -1,5 +1,5 @@
 <template>
-  <a-menu mode="inline" @select="select">
+  <a-menu mode="inline" @select="select" :selectedKeys="selectedKeys">
     <Logo menu_item_key="欢迎"></Logo>
     <a-menu-item key="新建书签">
       <span>新建书签</span>
@@ -14,6 +14,9 @@
 </template>
 <script setup>
 import { drop } from "../modules/auth";
+defineProps({
+  selectedKeys: Array,
+});
 const emit = defineEmits();
 function select({ item, key, selectedKeys }) {
   // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });

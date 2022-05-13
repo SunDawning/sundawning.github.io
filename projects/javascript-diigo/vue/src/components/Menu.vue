@@ -39,12 +39,14 @@ async function select({ item, key, selectedKeys }) {
     return window.open(`https://www.diigo.com/profile/${username}`);
   }
   if (key === "检查版本") {
-    const { data } = await axios({
+    const response = await axios({
       method: "GET",
       url: "/api/check-new-version",
     });
-    // console.log("data", data);
-    message.success(data.message);
+    console.log("response", response);
+    const { data } = response;
+    const { message } = data;
+    message.success(message);
     return;
   }
   // 1. 关闭所有内容：欢迎、新增书签、最近书签等等

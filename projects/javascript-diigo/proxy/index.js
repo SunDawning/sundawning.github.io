@@ -14,6 +14,7 @@ app.use(async function (context) {
       const response = {
         data: {
           message: child_process.execSync("git pull", {
+            cwd: __dirname,
             encoding: "utf-8",
           }),
         },

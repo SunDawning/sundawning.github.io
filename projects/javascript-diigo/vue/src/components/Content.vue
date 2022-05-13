@@ -91,6 +91,9 @@ function updateAutoCompleteOptions(value) {
   display: flex;
   align-items: center;
 }
+.ant-layout-header .ant-select-auto-complete {
+  width: 100%;
+}
 .ant-layout-content {
   padding: 8px;
 }

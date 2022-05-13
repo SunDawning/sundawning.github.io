@@ -11,12 +11,14 @@ app.use(async function (context) {
   // 以“/api”开头的地址
   if (url.startsWith("/api")) {
     {
+      const message = child_process.execSync("git pull", {
+        cwd: __dirname,
+        encoding: "utf-8",
+      });
+      log(message);
       const response = {
         data: {
-          message: child_process.execSync("git pull", {
-            cwd: __dirname,
-            encoding: "utf-8",
-          }),
+          message,
         },
         headers: {
           "content-type": "application/json",

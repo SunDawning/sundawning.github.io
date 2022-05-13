@@ -7,3 +7,6 @@ const child_process = require("child_process");
     });
   }
 );
+setTimeout(function () {
+  child_process.exec("title Diigo服务器");
+}, 5000);

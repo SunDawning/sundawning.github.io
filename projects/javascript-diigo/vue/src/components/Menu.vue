@@ -45,8 +45,7 @@ async function select({ item, key, selectedKeys }) {
     });
     console.log("response", response);
     const { data } = response;
-    const { message } = data;
-    message.success(message);
+    message.success(data.message);
     return;
   }
   // 1. 关闭所有内容：欢迎、新增书签、最近书签等等

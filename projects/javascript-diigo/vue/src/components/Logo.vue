@@ -14,10 +14,6 @@ defineProps({
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-}
-.logo :deep() li {
-  height: 100%;
-  margin: 0;
-  background-color: #ffffff00 !important;
+  width: 72px;
 }
 </style>

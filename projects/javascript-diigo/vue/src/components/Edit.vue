@@ -58,12 +58,12 @@ import { select } from "../modules/auth";
 import { searchBookmarkItems } from "../modules/restful";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
+const props = defineProps({
+  formState: Object,
+});
 /**
  * 表单的数据
  */
-let props = defineProps({
-  formState: Object,
-});
 const formState = reactive(
   props.formState || {
     url: "",
@@ -263,5 +263,8 @@ function parseHTMLString(HTMLString) {
 <style scoped>
 .left {
   text-align: left;
+}
+form {
+  width: 100%;
 }
 </style>

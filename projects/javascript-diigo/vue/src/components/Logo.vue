@@ -16,4 +16,7 @@ defineProps({
   background-size: contain;
   width: 72px;
 }
+.logo :deep() li {
+  height: 100%;
+}
 </style>

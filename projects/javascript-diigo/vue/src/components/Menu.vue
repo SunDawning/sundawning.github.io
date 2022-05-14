@@ -1,5 +1,5 @@
 <template>
-  <a-menu mode="inline" @select="select" :selectedKeys="selectedKeys">
+  <a-menu mode="horizontal" @select="select" :selectedKeys="selectedKeys">
     <Logo menu_item_key="欢迎"></Logo>
     <a-menu-item key="新建书签">
       <span>新建书签</span>
@@ -7,15 +7,18 @@
     <a-menu-item key="最近书签">
       <span>最近书签</span>
     </a-menu-item>
-    <a-menu-item key="Public">
-      <span>Public</span>
-    </a-menu-item>
-    <a-menu-item key="检查版本">
-      <span>检查版本</span>
-    </a-menu-item>
-    <a-menu-item key="退出登录">
-      <span>退出登录</span>
-    </a-menu-item>
+    <a-sub-menu>
+      <template #title>更多</template>
+      <a-menu-item key="Public">
+        <span>Public</span>
+      </a-menu-item>
+      <a-menu-item key="检查版本">
+        <span>检查版本</span>
+      </a-menu-item>
+      <a-menu-item key="退出登录">
+        <span>退出登录</span>
+      </a-menu-item>
+    </a-sub-menu>
   </a-menu>
 </template>
 <script setup>

@@ -32,10 +32,9 @@ function login(value) {
 }
 </script>
 <style scoped>
-.ant-layout-sider :deep() .ant-layout-sider-children {
-  width: 100%;
-}
-.ant-layout-sider :deep() .ant-menu {
-  display: flex;
+.ant-layout-sider :deep() .ant-menu-horizontal {
+  height: 100%;
+  border-radius: 8px;
+  border: 1px solid #001529;
 }
 </style>

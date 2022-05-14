@@ -57,14 +57,15 @@ function login(value) {
   background: #141414;
 }
 .sider {
-  overflow: auto;
   position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: 16px;
   display: flex;
   z-index: 1;
   background: none;
   width: 100%;
+  height: 48px;
+  justify-content: center;
 }
 .content {
   margin-bottom: 64px;

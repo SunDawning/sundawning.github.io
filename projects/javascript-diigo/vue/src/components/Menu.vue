@@ -1,5 +1,10 @@
 <template>
-  <a-menu mode="horizontal" @select="select" :selectedKeys="selectedKeys">
+  <a-menu
+    mode="horizontal"
+    @select="select"
+    :selectedKeys="selectedKeys"
+    triggerSubMenuAction="click"
+  >
     <Logo menu_item_key="欢迎"></Logo>
     <a-menu-item key="新建书签">
       <span>新建书签</span>
@@ -7,7 +12,7 @@
     <a-menu-item key="最近书签">
       <span>最近书签</span>
     </a-menu-item>
-    <a-sub-menu>
+    <a-sub-menu :popupOffset="[-120, -200]" key="sub-menu">
       <template #title>更多</template>
       <a-menu-item key="Public">
         <span>Public</span>

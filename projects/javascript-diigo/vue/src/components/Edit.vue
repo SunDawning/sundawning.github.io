@@ -61,6 +61,7 @@ import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
 const props = defineProps({
   formState: Object,
+  afterFinish: Function,
 });
 /**
  * 表单的数据
@@ -150,6 +151,9 @@ async function finish(values) {
       },
     });
     message.success("已提交");
+    if (props.afterFinish) {
+      props.afterFinish();
+    }
   } catch (error) {
     console.error(error);
     message.error(error.message);

@@ -2,7 +2,10 @@
   <a-list :data-source="items" :split="false">
     <template #renderItem="{ item }">
       <a-list-item v-if="item.edit">
-        <Edit :formState="item"></Edit>
+        <Edit
+          :formState="item"
+          :afterFinish="(values) => finish(values, item)"
+        ></Edit>
       </a-list-item>
       <a-list-item v-else>
         <div>

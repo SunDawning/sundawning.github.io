@@ -1,19 +1,21 @@
 <template>
   <a-layout>
-    <a-layout-header>
-      <a-auto-complete
-        :options="state.options"
-        @search="updateAutoCompleteOptions"
-        @select="onSearch"
-      >
-        <a-input-search
-          placeholder="搜索所有书签"
-          enter-button
-          @search="onSearch"
-          allowClear
-        />
-      </a-auto-complete>
-    </a-layout-header>
+    <a-affix :offset-top="top">
+      <a-layout-header>
+        <a-auto-complete
+          :options="state.options"
+          @search="updateAutoCompleteOptions"
+          @select="onSearch"
+        >
+          <a-input-search
+            placeholder="搜索所有书签"
+            enter-button
+            @search="onSearch"
+            allowClear
+          />
+        </a-auto-complete>
+      </a-layout-header>
+    </a-affix>
     <a-layout-content>
       <Search v-if="displaySearch" :search="state.search"></Search>
       <Welcome v-else-if="displayWelcome"></Welcome>
@@ -90,17 +92,17 @@ function updateAutoCompleteOptions(value) {
 .ant-layout-header {
   display: flex;
   align-items: center;
-  position: fixed;
+  /* position: fixed;
   z-index: 1;
   top: 0;
-  width: calc(100% - 104px);
+  width: calc(100% - 104px); */
 }
 .ant-layout-header .ant-select-auto-complete {
   width: 100%;
 }
 .ant-layout-content {
   padding: 8px;
-  margin-top: 64px;
+  /* margin-top: 64px; */
 }
 .ant-layout-footer {
   text-align: center;

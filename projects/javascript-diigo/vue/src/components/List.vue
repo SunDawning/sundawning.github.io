@@ -28,6 +28,9 @@ defineProps({
   border-radius: 8px;
   padding: 16px;
 }
+h1 {
+  margin-top: 0.5em;
+}
 pre {
   white-space: pre-wrap;
   word-break: break-all;

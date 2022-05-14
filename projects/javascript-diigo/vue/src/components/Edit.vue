@@ -285,6 +285,10 @@ form {
   width: 100%;
 }
 .center {
-  text-align: center;
+  position: fixed;
+  bottom: 48px;
+  z-index: 1;
+  background: none;
+  right: 48px;
 }
 </style>

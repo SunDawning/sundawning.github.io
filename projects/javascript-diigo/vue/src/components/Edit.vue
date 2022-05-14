@@ -48,10 +48,12 @@
       }"
       class="center"
     >
-      <a-button type="primary" html-type="submit">提交</a-button>
-      <a-button type="primary" @click="cancel" v-if="props.cancel"
-        >取消</a-button
-      >
+      <a-space :size="8">
+        <a-button type="primary" html-type="submit">提交</a-button>
+        <a-button type="primary" @click="props.cancel()" v-if="props.cancel"
+          >取消</a-button
+        >
+      </a-space>
     </a-form-item>
   </a-form>
 </template>
@@ -130,11 +132,6 @@ function bookmarkItemToFormState(item, formState) {
       1: false,
     }[readed],
   });
-}
-function cancel() {
-  if (props.cancel) {
-    props.cancel();
-  }
 }
 async function finish(values) {
   console.log("values", values);

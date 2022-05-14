@@ -1,14 +1,13 @@
 <template>
   <a-list :data-source="items" :split="false">
     <template #renderItem="{ item }">
-      <a-list-item v-if="item.edit">
-        <Edit
-          :formState="item"
-          :afterFinish="(values) => exitEdit(item)"
-          :cancel="() => exitEdit(item)"
-        ></Edit>
-      </a-list-item>
-      <a-list-item v-else>
+      <a-list-item>
+        <a-modal :visible="item.edit" @cancel="exitEdit(item)" :footer="null">
+          <Edit
+            :formState="item"
+            :afterFinish="(values) => exitEdit(item)"
+          ></Edit>
+        </a-modal>
         <div>
           <a-button @click="edit(event, item)">修改</a-button>
           <h1>

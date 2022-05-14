@@ -13,6 +13,13 @@
         allowClear
       ></a-textarea>
     </a-form-item>
+    <a-form-item label="描述" name="description">
+      <a-textarea
+        :auto-size="autoSize"
+        v-model:value="formState.description"
+        allowClear
+      ></a-textarea>
+    </a-form-item>
     <a-form-item label="标题" name="title" :rules="[{ required: true }]">
       <a-textarea
         :auto-size="autoSize"
@@ -24,13 +31,6 @@
       <a-textarea
         :auto-size="autoSize"
         v-model:value="formState.tags"
-        allowClear
-      ></a-textarea>
-    </a-form-item>
-    <a-form-item label="描述" name="description">
-      <a-textarea
-        :auto-size="autoSize"
-        v-model:value="formState.description"
         allowClear
       ></a-textarea>
     </a-form-item>

@@ -7,7 +7,7 @@
   >
     <a-form-item label="网址" name="url" :rules="[{ required: true }]">
       <a-textarea
-        auto-size
+        :auto-size="autoSize"
         v-model:value="formState.url"
         @change="onChangeURL"
         allowClear
@@ -15,21 +15,21 @@
     </a-form-item>
     <a-form-item label="标题" name="title" :rules="[{ required: true }]">
       <a-textarea
-        auto-size
+        :auto-size="autoSize"
         v-model:value="formState.title"
         allowClear
       ></a-textarea>
     </a-form-item>
     <a-form-item label="标签" name="tags">
       <a-textarea
-        auto-size
+        :auto-size="autoSize"
         v-model:value="formState.tags"
         allowClear
       ></a-textarea>
     </a-form-item>
     <a-form-item label="描述" name="description">
       <a-textarea
-        auto-size
+        :auto-size="autoSize"
         v-model:value="formState.description"
         allowClear
       ></a-textarea>
@@ -84,6 +84,12 @@ const formState = reactive(
     unread: true,
   }
 );
+/**
+ * 输入框自适应文本高度
+ */
+const autoSize = reactive({
+  maxRows: 20,
+});
 async function onChangeURL(event) {
   const url = event.target.value;
   // console.log("value", value);

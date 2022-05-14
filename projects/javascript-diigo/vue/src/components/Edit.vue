@@ -289,6 +289,8 @@ form {
   bottom: 48px;
   z-index: 1;
   background: none;
-  right: 48px;
+  width: 100%;
+  left: 0;
+  text-align: center;
 }
 </style>

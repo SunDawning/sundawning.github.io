@@ -24,7 +24,7 @@ defineProps({
 }
 .ant-list-item {
   background: white;
-  margin: 16px;
+  margin: 16px 0;
   border-radius: 8px;
   padding: 16px;
 }

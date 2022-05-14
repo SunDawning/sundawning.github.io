@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider width="104">
+  <a-layout-sider width="100%">
     <Menu
       @displaySearch="displaySearch"
       :selectedKeys="selectedKeys"
@@ -31,3 +31,11 @@ function login(value) {
   emit("login", value);
 }
 </script>
+<style scoped>
+.ant-layout-sider :deep() .ant-layout-sider-children {
+  width: 100%;
+}
+.ant-layout-sider :deep() .ant-menu {
+  display: flex;
+}
+</style>

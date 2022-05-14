@@ -60,10 +60,13 @@ function login(value) {
   overflow: auto;
   position: fixed;
   left: 0;
-  top: 0;
   bottom: 0;
+  display: flex;
+  z-index: 1;
+  background: none;
+  width: 100%;
 }
 .content {
-  margin-left: 104px;
+  margin-bottom: 64px;
 }
 </style>

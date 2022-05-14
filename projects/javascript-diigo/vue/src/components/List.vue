@@ -1,5 +1,5 @@
 <template>
-  <a-list :data-source="items" split="false">
+  <a-list :data-source="items" :split="false">
     <template #renderItem="{ item }">
       <a-list-item>
         <div>

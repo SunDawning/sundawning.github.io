@@ -20,6 +20,7 @@ defineProps({
 <style scoped>
 .ant-list {
   text-align: left;
+  word-break: break-all;
 }
 .ant-list-item {
   background: white;

@@ -49,6 +49,9 @@
       class="center"
     >
       <a-button type="primary" html-type="submit">提交</a-button>
+      <a-button type="primary" @click="cancel" v-if="props.cancel"
+        >取消</a-button
+      >
     </a-form-item>
   </a-form>
 </template>
@@ -62,6 +65,7 @@ import "ant-design-vue/es/message/style/css";
 const props = defineProps({
   formState: Object,
   afterFinish: Function,
+  cancel: Function,
 });
 /**
  * 表单的数据
@@ -126,6 +130,11 @@ function bookmarkItemToFormState(item, formState) {
       1: false,
     }[readed],
   });
+}
+function cancel() {
+  if (props.cancel) {
+    props.cancel();
+  }
 }
 async function finish(values) {
   console.log("values", values);

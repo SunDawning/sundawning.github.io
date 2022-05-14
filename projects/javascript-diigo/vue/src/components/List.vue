@@ -4,7 +4,8 @@
       <a-list-item v-if="item.edit">
         <Edit
           :formState="item"
-          :afterFinish="(values) => finish(values, item)"
+          :afterFinish="(values) => exitEdit(item)"
+          :cancel="() => exitEdit(item)"
         ></Edit>
       </a-list-item>
       <a-list-item v-else>
@@ -31,7 +32,7 @@ function edit(event, item) {
   console.log("修改", item);
   item.edit = true;
 }
-function finish(values, item) {
+function exitEdit(item) {
   item.edit = false;
 }
 </script>

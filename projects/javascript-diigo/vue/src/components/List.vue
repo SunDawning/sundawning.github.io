@@ -6,7 +6,7 @@
           <h1>
             <a :href="item.url" target="_blank">{{ item.title }}</a>
           </h1>
-          <pre>{{ item.description }}</pre>
+          <pre v-if="item.description !== ''">{{ item.description }}</pre>
         </div>
       </a-list-item>
     </template>

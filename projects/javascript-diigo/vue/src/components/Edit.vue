@@ -46,6 +46,7 @@
         xs: { offset: 0 },
         sm: { offset: 4 },
       }"
+      class="center"
     >
       <a-button type="primary" html-type="submit">提交</a-button>
     </a-form-item>
@@ -266,5 +267,8 @@ function parseHTMLString(HTMLString) {
 }
 form {
   width: 100%;
+}
+.center {
+  text-align: center;
 }
 </style>

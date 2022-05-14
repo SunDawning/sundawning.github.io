@@ -21,10 +21,6 @@
   </a-list>
 </template>
 <script setup>
-import { reactive } from "vue";
-const state = reactive({
-  edit: false,
-});
 defineProps({
   items: Array,
 });

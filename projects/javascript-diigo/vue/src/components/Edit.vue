@@ -61,16 +61,21 @@ import "ant-design-vue/es/message/style/css";
 /**
  * 表单的数据
  */
-const formState = reactive({
-  url: "",
-  title: "",
-  description: "",
-  tags: "",
-  lists: "",
-  groups: "",
-  private: false,
-  unread: true,
+let props = defineProps({
+  formState: Object,
 });
+const formState = reactive(
+  props.formState || {
+    url: "",
+    title: "",
+    description: "",
+    tags: "",
+    lists: "",
+    groups: "",
+    private: false,
+    unread: true,
+  }
+);
 async function onChangeURL(event) {
   const url = event.target.value;
   // console.log("value", value);

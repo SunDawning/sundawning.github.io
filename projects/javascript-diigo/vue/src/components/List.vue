@@ -21,6 +21,12 @@ defineProps({
 .ant-list {
   text-align: left;
 }
+.ant-list-item {
+  background: white;
+  margin: 16px;
+  border-radius: 8px;
+  padding: 16px;
+}
 pre {
   white-space: pre-wrap;
   word-break: break-all;

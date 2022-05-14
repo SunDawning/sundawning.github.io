@@ -54,10 +54,11 @@ async function select({ item, key, selectedKeys }) {
     return;
   }
   // 1. 关闭所有内容：欢迎、新增书签、最近书签等等
-  emit("displaySearch", false);
-  emit("displayWelcome", false);
-  emit("displayEdit", false);
-  emit("displayRecent", false);
+  ["displaySearch", "displayWelcome", "displayEdit", "displayRecent"].forEach(
+    function (item) {
+      emit(item, false);
+    }
+  );
   // 2. 打开相应内容：登录、欢迎、新增书签、最近书签等等
   // 2.1 打开相应内容：登录等等
   if (key === "退出登录") {

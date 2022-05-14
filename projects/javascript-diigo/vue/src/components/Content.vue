@@ -90,12 +90,17 @@ function updateAutoCompleteOptions(value) {
 .ant-layout-header {
   display: flex;
   align-items: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  width: calc(100% - 104px);
 }
 .ant-layout-header .ant-select-auto-complete {
   width: 100%;
 }
 .ant-layout-content {
   padding: 8px;
+  margin-top: 64px;
 }
 .ant-layout-footer {
   text-align: center;

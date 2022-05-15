@@ -40,14 +40,7 @@
     <a-form-item label="稍后再读" name="unread" class="left">
       <a-switch v-model:checked="formState.unread"></a-switch>
     </a-form-item>
-    <a-form-item
-      :wrapperCol="{
-        span: 18,
-        xs: { offset: 0 },
-        sm: { offset: 4 },
-      }"
-      class="center"
-    >
+    <a-form-item class="center">
       <a-space :size="8">
         <a-button type="primary" html-type="submit">提交</a-button>
         <a-button type="primary" @click="props.cancel()" v-if="props.cancel"
@@ -287,8 +280,8 @@ form {
 .center {
   position: fixed;
   bottom: 48px;
-  z-index: 1;
-  background: none;
+  display: flex;
+  justify-content: center;
   width: 100%;
   left: 0;
   text-align: center;

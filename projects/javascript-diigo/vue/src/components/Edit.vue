@@ -279,11 +279,10 @@ form {
 }
 .center {
   position: fixed;
-  bottom: 48px;
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  bottom: 72px;
+  width: 80px;
   left: 0;
-  text-align: center;
+  right: 0;
+  margin: 0 auto;
 }
 </style>

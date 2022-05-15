@@ -6,13 +6,14 @@ const child_process = require("child_process");
 const Router = require("koa-router");
 const router = new Router();
 const querystring = require("qs");
+const path = require("path");
 // 检查版本
 router.get(/^\/api\/check-new-version/, async function (context) {
   const { method, url, headers, params } = context.request;
   let realURL = url.substring(1);
   log("realURL", realURL);
-  const message = child_process.execSync("git pull", {
-    cwd: __dirname,
+  const message = child_process.execSync("git pull && pnpm install", {
+    cwd: path.resolve(__dirname, "../"),
     encoding: "utf-8",
   });
   log(message);

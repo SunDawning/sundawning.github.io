@@ -61,7 +61,6 @@ app.use(async function (context) {
     method,
     params,
     headers,
-    responseType: "arraybuffer",
   };
   if (method === "POST") {
     const data = await paresPostData(context);

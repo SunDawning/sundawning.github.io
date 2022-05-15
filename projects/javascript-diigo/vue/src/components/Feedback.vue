@@ -31,6 +31,7 @@ const formState = reactive({
 const state = reactive({
   src: "",
 });
+const cookie = "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42"; // 权限
 randomImage();
 async function randomImage() {
   const response = await axios({
@@ -38,7 +39,7 @@ async function randomImage() {
     method: "GET",
     responseType: "arraybuffer",
     headers: {
-      cookie: "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42",
+      cookie: cookie,
     },
   });
   state.src =
@@ -64,7 +65,7 @@ async function finish(data) {
     headers: {
       "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
       "x-requested-with": "XMLHttpRequest",
-      cookie: "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42",
+      cookie: cookie,
     },
   });
   console.log("response.data", response.data);

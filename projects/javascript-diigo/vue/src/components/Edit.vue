@@ -65,8 +65,11 @@ const props = defineProps({
 /**
  * 表单的数据
  */
-const formState = reactive(
-  props.formState || {
+let formState;
+if (props.formState) {
+  formState = reactive(bookmarkItemToFormState(props.formState));
+} else {
+  formState = reactive({
     url: "",
     title: "",
     description: "",
@@ -75,8 +78,8 @@ const formState = reactive(
     groups: "",
     private: false,
     unread: true,
-  }
-);
+  });
+}
 /**
  * 输入框自适应文本高度
  */
@@ -93,7 +96,7 @@ async function onChangeURL(event) {
   // 1. 查找是否存在书签
   const item = await getExistedBookmarkItem(url);
   if (!(item === undefined)) {
-    return bookmarkItemToFormState(item, formState);
+    return Object.assign(formState, bookmarkItemToFormState(item));
   }
   // 2. 处理新书签
   const element = await getHTMLDOMElement(url);
@@ -117,9 +120,10 @@ async function getExistedBookmarkItem(url) {
 /**
  * 将书签转换成表单数据
  */
-function bookmarkItemToFormState(item, formState) {
-  const { title, description, tags, lists, groups, readed } = item;
-  Object.assign(formState, {
+function bookmarkItemToFormState(item) {
+  const { url, title, description, tags, lists, groups, readed } = item;
+  return {
+    url,
     title,
     description,
     tags,
@@ -130,7 +134,7 @@ function bookmarkItemToFormState(item, formState) {
       0: true,
       1: false,
     }[readed],
-  });
+  };
 }
 async function finish(values) {
   console.log("values", values);

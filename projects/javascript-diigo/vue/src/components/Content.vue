@@ -21,6 +21,7 @@
       <Welcome v-else-if="displayWelcome"></Welcome>
       <Edit v-else-if="displayEdit"></Edit>
       <Recent v-else-if="displayRecent"></Recent>
+      <Feedback v-else-if="displayFeedback"></Feedback>
     </a-layout-content>
     <a-layout-footer>
       Copyright © 2022 SunDawning
@@ -41,6 +42,7 @@ defineProps({
   displayWelcome: Boolean,
   displayEdit: Boolean,
   displayRecent: Boolean,
+  displayFeedback: Boolean,
 });
 const emit = defineEmits();
 onMounted(function () {

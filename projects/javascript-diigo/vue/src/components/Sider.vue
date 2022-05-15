@@ -6,6 +6,7 @@
       @displayWelcome="displayWelcome"
       @displayEdit="displayEdit"
       @displayRecent="displayRecent"
+      @displayFeedback="displayFeedback"
       @login="login"
     ></Menu>
   </a-layout-sider>
@@ -26,6 +27,9 @@ function displayEdit(value) {
 }
 function displayRecent(value) {
   emit("displayRecent", value);
+}
+function displayFeedback(value) {
+  emit("displayFeedback", value);
 }
 function login(value) {
   emit("login", value);

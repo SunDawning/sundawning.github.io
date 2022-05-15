@@ -7,6 +7,7 @@
       @displayWelcome="displayWelcome"
       @displayEdit="displayEdit"
       @displayRecent="displayRecent"
+      @displayFeedback="displayFeedback"
       @login="login"
     ></Sider>
     <Content
@@ -17,6 +18,7 @@
       :displayWelcome="state.displayWelcome"
       :displayEdit="state.displayEdit"
       :displayRecent="state.displayRecent"
+      :displayFeedback="state.displayFeedback"
     ></Content>
   </a-layout>
 </template>
@@ -28,6 +30,7 @@ const state = reactive({
   displayWelcome: true,
   displayEdit: false,
   displayRecent: false,
+  displayFeedback:false,
 });
 function displaySearch(value) {
   state.displaySearch = value;
@@ -43,6 +46,9 @@ function displayEdit(value) {
 }
 function displayRecent(value) {
   state.displayRecent = value;
+}
+function displayFeedback(value){
+  state.displayFeedback=value;
 }
 const emit = defineEmits();
 function login(value) {

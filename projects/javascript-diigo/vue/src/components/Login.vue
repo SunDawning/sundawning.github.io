@@ -8,9 +8,7 @@
           v-model:value="formState.cookie"
         ></a-textarea>
       </a-form-item>
-      <a-form-item class="center">
-        <a-button type="primary" html-type="submit">登录</a-button>
-      </a-form-item>
+      <Submit></Submit>
     </a-form>
   </a-spin>
 </template>
@@ -82,14 +80,5 @@ async function login({ cookie }) {
 <style scoped>
 form {
   padding: 64px;
-}
-.center {
-  position: fixed;
-  bottom: 72px;
-  width: 80px;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  z-index: 1;
 }
 </style>

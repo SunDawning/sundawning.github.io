@@ -15,9 +15,7 @@
         <a-col span="12"><img :src="state.src" @click="randomImage" /></a-col>
       </a-row>
     </a-form-item>
-    <a-form-item>
-      <a-button type="primary" html-type="submit">提交</a-button>
-    </a-form-item>
+    <Submit></Submit>
   </a-form>
 </template>
 <script setup>

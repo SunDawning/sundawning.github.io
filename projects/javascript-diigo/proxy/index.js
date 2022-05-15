@@ -5,6 +5,7 @@ const axios = require("axios");
 const child_process = require("child_process");
 const Router = require("koa-router");
 const router = new Router();
+const querystring = require("qs");
 // 检查版本
 router.get(/^\/api\/check-new-version/, async function (context) {
   const { method, url, headers, params } = context.request;
@@ -17,6 +18,38 @@ router.get(/^\/api\/check-new-version/, async function (context) {
   log(message);
   context.response.body = { message };
   context.response.headers = { "content-type": "application/json" };
+});
+// 发送邮件：比对验证码
+router.post("/api/feedback", async function (context) {
+  const { url } = context.request;
+  let realURL = url.substring(1);
+  log("realURL", realURL);
+  let data = await paresPostData(context);
+  data = JSON.parse(data);
+  log("data", data);
+  const { description, yzm } = data;
+  let subject = "Diigo反馈";
+  let to = "jobsimi@qq.com";
+  let options = {
+    url: "http://tool.chacuo.net/mailsend",
+    method: "POST",
+    data: querystring.stringify({
+      data: description,
+      type: "send",
+      arg: `t=${to}_s=${subject}_yzm=${yzm}`,
+    }),
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      "x-requested-with": "XMLHttpRequest",
+      cookie: "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42",
+    },
+  };
+  log("options", options);
+  const response = await axios(options);
+  log("response.headers", response.headers);
+  log("response.data", response.data);
+  context.response.body = response.data;
+  context.response.headers = response.headers;
 });
 // GET http或https，用于CORS请求
 router.get(/^\/https?:\/\//, async function (context) {

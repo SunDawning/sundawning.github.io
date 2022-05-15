@@ -1,5 +1,5 @@
 <template>
-  <a-form :model="formState">
+  <a-form :model="formState" @finish="finish">
     <a-form-item label="描述" name="description" :rules="[{ required: true }]">
       <a-textarea
         auto-size
@@ -8,8 +8,8 @@
       ></a-textarea>
     </a-form-item>
     <a-form-item label="验证码" name="yzm" :rules="[{ required: true }]">
-      <a-input></a-input>
-      <img src="/http://tool.chacuo.net/?m=tool&act=caption&rnd=685194894" />
+      <a-input v-model:value="formState.yzm"></a-input>
+      <img :src="state.src" @click="randomImage" />
     </a-form-item>
     <a-form-item>
       <a-button type="primary" html-type="submit">提交</a-button>
@@ -21,5 +21,21 @@ import { reactive } from "vue";
 import axios from "../modules/axios";
 const formState = reactive({
   description: "",
+  yzm: "",
 });
+const state = reactive({
+  src: "",
+});
+randomImage();
+function randomImage() {
+  state.src = `/http://tool.chacuo.net/?m=tool&act=caption&rnd=${Math.random()}`;
+}
+async function finish(data) {
+  const response = await axios({
+    url: "/api/feedback",
+    method: "POST",
+    data,
+  });
+  console.log("response.data", response.data);
+}
 </script>

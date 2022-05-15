@@ -32,7 +32,7 @@ const state = reactive({
 });
 randomImage();
 function randomImage() {
-  state.src = `/http://tool.chacuo.net/?m=tool&act=caption&rnd=${Math.random()}`;
+  state.src = `/api/feedback?t=${new Date().getTime()}`;
 }
 async function finish(data) {
   const response = await axios({

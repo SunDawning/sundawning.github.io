@@ -19,7 +19,19 @@ router.get(/^\/api\/check-new-version/, async function (context) {
   context.response.body = { message };
   context.response.headers = { "content-type": "application/json" };
 });
-// 发送邮件：比对验证码
+// 反馈：比对验证码
+router.get("/api/feedback", async function (context) {
+  const response = await axios({
+    url: "http://tool.chacuo.net/?m=tool&act=caption&rnd=685194894",
+    method: "GET",
+    responseType: "arraybuffer",
+    headers: {
+      cookie: "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42",
+    },
+  });
+  context.response.body = response.data;
+  context.response.headers = response.headers;
+});
 router.post("/api/feedback", async function (context) {
   const { url } = context.request;
   let realURL = url.substring(1);
@@ -74,24 +86,12 @@ router.get(/^\/https?:\/\//, async function (context) {
       delete headers[`_${key}`];
     });
   }
-  let options;
-  if (realURL.startsWith("http://tool.chacuo.net/?m=tool&act=caption")) {
-    options = {
-      url: realURL,
-      method,
-      headers: {
-        cookie: "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42",
-      },
-      responseType: "arraybuffer",
-    };
-  } else {
-    options = {
-      url: realURL,
-      method,
-      params,
-      headers,
-    };
-  }
+  let options = {
+    url: realURL,
+    method,
+    params,
+    headers,
+  };
   log("options", options);
   let response;
   try {

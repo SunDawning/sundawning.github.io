@@ -15,7 +15,7 @@
     <a-sub-menu :popupOffset="[-120, -200]" key="sub-menu">
       <template #title>更多</template>
       <a-menu-item key="Public">
-        <span>Public</span>
+        <span>Public Library</span>
       </a-menu-item>
       <a-menu-item key="检查版本">
         <span>检查版本</span>

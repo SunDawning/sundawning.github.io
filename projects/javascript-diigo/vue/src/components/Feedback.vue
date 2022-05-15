@@ -31,8 +31,22 @@ const state = reactive({
   src: "",
 });
 randomImage();
-function randomImage() {
-  state.src = `/api/feedback?t=${new Date().getTime()}`;
+async function randomImage() {
+  const response = await axios({
+    url: "http://tool.chacuo.net/?m=tool&act=caption&rnd=685194894",
+    method: "GET",
+    responseType: "arraybuffer",
+    headers: {
+      cookie: "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42",
+    },
+  });
+  state.src =
+    "data:image/png;base64," +
+    window.btoa(
+      new Uint8Array(response.data).reduce(function (data, byte) {
+        return data + String.fromCharCode(byte);
+      }, "")
+    );
 }
 window.axios = axios;
 async function finish(data) {

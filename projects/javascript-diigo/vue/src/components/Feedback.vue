@@ -12,7 +12,9 @@
         <a-col span="12"
           ><a-input allowClear v-model:value="formState.yzm"></a-input
         ></a-col>
-        <a-col span="12"><img :src="state.src" @click="randomImage" /></a-col>
+        <a-col span="12"
+          ><img :src="state.src" @click="getCaptionImage"
+        /></a-col>
       </a-row>
     </a-form-item>
     <Submit></Submit>
@@ -33,8 +35,11 @@ const state = reactive({
   src: "",
 });
 const cookie = "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42"; // 权限
-randomImage();
-async function randomImage() {
+getCaptionImage();
+/**
+ * 获取验证码图片
+ */
+async function getCaptionImage() {
   const response = await axios({
     url: "http://tool.chacuo.net/?m=tool&act=caption&rnd=685194894",
     method: "GET",
@@ -70,7 +75,7 @@ async function finish(data) {
     },
   });
   console.log("response.data", response.data);
-  randomImage();
+  getCaptionImage();
   if (typeof response.data === "string") {
     message.error("提交失败");
   }

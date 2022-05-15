@@ -10,7 +10,7 @@
     <a-form-item label="验证码" name="yzm" :rules="[{ required: true }]">
       <a-row>
         <a-col span="12"
-          ><a-input v-model:value="formState.yzm"></a-input
+          ><a-input allowClear v-model:value="formState.yzm"></a-input
         ></a-col>
         <a-col span="12"><img :src="state.src" @click="randomImage" /></a-col>
       </a-row>

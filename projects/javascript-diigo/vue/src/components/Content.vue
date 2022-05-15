@@ -1,6 +1,6 @@
 <template>
   <a-layout>
-    <a-affix :offset-top="top">
+    <a-affix :offset-top="0">
       <a-layout-header>
         <a-auto-complete
           :options="state.options"

@@ -1,5 +1,5 @@
 <template>
-  <a-form :model="formState" @finish="finish">
+  <a-form :model="formState" @finish="finish" :labelCol="{ span: 4 }">
     <a-form-item label="描述" name="description" :rules="[{ required: true }]">
       <a-textarea
         auto-size

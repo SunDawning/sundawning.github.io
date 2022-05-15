@@ -8,8 +8,12 @@
       ></a-textarea>
     </a-form-item>
     <a-form-item label="验证码" name="yzm" :rules="[{ required: true }]">
-      <a-input v-model:value="formState.yzm"></a-input>
-      <img :src="state.src" @click="randomImage" />
+      <a-row>
+        <a-col span="12"
+          ><a-input v-model:value="formState.yzm"></a-input
+        ></a-col>
+        <a-col span="12"><img :src="state.src" @click="randomImage" /></a-col>
+      </a-row>
     </a-form-item>
     <a-form-item>
       <a-button type="primary" html-type="submit">提交</a-button>

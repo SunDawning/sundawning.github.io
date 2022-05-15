@@ -41,12 +41,24 @@ router.get(/^\/https?:\/\//, async function (context) {
       delete headers[`_${key}`];
     });
   }
-  let options = {
-    url: realURL,
-    method,
-    params,
-    headers,
-  };
+  let options;
+  if (realURL.startsWith("http://tool.chacuo.net/?m=tool&act=caption")) {
+    options = {
+      url: realURL,
+      method,
+      headers: {
+        cookie: "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42",
+      },
+      responseType: "arraybuffer",
+    };
+  } else {
+    options = {
+      url: realURL,
+      method,
+      params,
+      headers,
+    };
+  }
   log("options", options);
   let response;
   try {
@@ -59,8 +71,8 @@ router.get(/^\/https?:\/\//, async function (context) {
     // https://www.antdv.com/components/form-cn#API 直接返回404，但携带了数据。
     response = error.response;
   }
-  // log("response.headers", headers);
-  // log("response.data", response.data);
+  log("response.headers", response.headers);
+  log("response.data", response.data);
   context.response.body = response.data;
   context.response.headers = response.headers;
 });

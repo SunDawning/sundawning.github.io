@@ -37,7 +37,7 @@ defineProps({
 });
 const emit = defineEmits();
 async function select({ item, key, selectedKeys }) {
-  // console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
+  console.log("{ item, key, selectedKeys }", { item, key, selectedKeys });
   // 链接跳转：打开Public Library
   if (key === "Public") {
     const username = getUserName();

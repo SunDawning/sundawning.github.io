@@ -68,6 +68,6 @@ function login(value) {
   justify-content: center;
 }
 .content {
-  margin-bottom: 64px;
+  margin-bottom: 80px;
 }
 </style>

@@ -1,7 +1,11 @@
 <template>
   <a-form :model="formState">
     <a-form-item label="描述" name="description" :rules="[{ required: true }]">
-      <a-textarea auto-size v-model:value="formState.description"></a-textarea>
+      <a-textarea
+        auto-size
+        allowClear
+        v-model:value="formState.description"
+      ></a-textarea>
     </a-form-item>
     <a-form-item>
       <a-button type="primary" html-type="submit">提交</a-button>

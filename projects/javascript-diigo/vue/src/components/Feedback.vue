@@ -23,6 +23,8 @@
 <script setup>
 import { reactive } from "vue";
 import axios from "../modules/axios";
+import { message } from "ant-design-vue";
+import "ant-design-vue/es/message/style/css";
 const formState = reactive({
   description: "",
   yzm: "",
@@ -41,5 +43,12 @@ async function finish(data) {
     data,
   });
   console.log("response.data", response.data);
+  randomImage();
+  if (response.data.success === false) {
+    message.error(response.data.message);
+    return;
+  }
+  message.success(response.data.message);
+  formState.yzm = "";
 }
 </script>

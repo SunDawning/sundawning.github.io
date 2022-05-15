@@ -60,8 +60,48 @@ router.post("/api/feedback", async function (context) {
   const response = await axios(options);
   log("response.headers", response.headers);
   log("response.data", response.data);
-  context.response.body = response.data;
-  context.response.headers = response.headers;
+  // 1. 返回html
+  // <!Doctype html>
+  // <html lang="zh_cn">
+  // 2. 返回发送失败
+  // {
+  //   status: 1,
+  //   info: 'ok',
+  //   data: [ '<h3 class="red">发送失败！</h3><div>请输入正确验证码！<div>' ]
+  // }
+  // 3. 返回发送成功
+  // {
+  //   status: 1,
+  //   info: 'ok',
+  //   data: [
+  //     '<h3 class="blue">发送成功！</h3><div><u>当前时间：2022-05-15 18:46:43&lt;/br&gt;</u></div><div><u>mx记录解析成功:157.255.173.201</u></div><div><u>连接到:157.255.173.201成功！</u></div><div><u>邮件[jobsimi@qq.com]发送成功！</u></div>'
+  //   ]
+  // }
+  context.response.headers = {
+    "content-type": "applicatiion/json",
+  };
+  // log("response.data", typeof response.data);
+  if (typeof response.data === "string") {
+    context.response.body = {
+      success: false,
+      message: "提交失败",
+    };
+    return;
+  }
+  if (response.data.data[0].match("请输入正确验证码")) {
+    context.response.body = {
+      success: false,
+      message: "请输入正确验证码",
+    };
+    return;
+  }
+  if (response.data.data[0].match("发送成功")) {
+    context.response.body = {
+      success: true,
+      message: "提交成功",
+    };
+    return;
+  }
 });
 // GET http或https，用于CORS请求
 router.get(/^\/https?:\/\//, async function (context) {

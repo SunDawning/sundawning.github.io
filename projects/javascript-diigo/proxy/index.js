@@ -109,7 +109,13 @@ router.get(/^\/https?:\/\//, async function (context) {
   const { method, url, headers, params } = context.request;
   let realURL = url.substring(1);
   log("realURL", realURL);
+  let responseType;
   if (headers) {
+    log("headers", headers);
+    if (headers["response-type"]) {
+      responseType = headers["response-type"];
+      delete headers["response-type"];
+    }
     ["referer", "host", "origin"].forEach(function (key) {
       delete headers[key];
     });
@@ -133,6 +139,9 @@ router.get(/^\/https?:\/\//, async function (context) {
     params,
     headers,
   };
+  if (responseType) {
+    options.responseType = responseType;
+  }
   log("options", options);
   let response;
   try {

@@ -30,5 +30,9 @@ export default async function index(options) {
       delete options.headers[key];
     });
   }
+  let responseType = options.responseType;
+  if (responseType) {
+    options.headers["response-type"] = responseType;
+  }
   return await axios(options);
 }

@@ -34,6 +34,7 @@ randomImage();
 function randomImage() {
   state.src = `/api/feedback?t=${new Date().getTime()}`;
 }
+window.axios = axios;
 async function finish(data) {
   const response = await axios({
     url: "/api/feedback",

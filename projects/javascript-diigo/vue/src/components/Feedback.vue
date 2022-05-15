@@ -23,6 +23,7 @@ import { reactive } from "vue";
 import axios from "../modules/axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
+import * as querystring from "../modules/querystring";
 const formState = reactive({
   description: "",
   yzm: "",
@@ -48,20 +49,35 @@ async function randomImage() {
       }, "")
     );
 }
-window.axios = axios;
 async function finish(data) {
+  let { description, yzm } = data;
+  let subject = "Diigo反馈";
+  let to = "jobsimi@qq.com";
   const response = await axios({
-    url: "/api/feedback",
+    url: "http://tool.chacuo.net/mailsend",
     method: "POST",
-    data,
+    data: querystring.stringify({
+      data: description,
+      type: "send",
+      arg: `t=${to}_s=${subject}_yzm=${yzm}`,
+    }),
+    headers: {
+      "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+      "x-requested-with": "XMLHttpRequest",
+      cookie: "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42",
+    },
   });
   console.log("response.data", response.data);
   randomImage();
-  if (response.data.success === false) {
-    message.error(response.data.message);
-    return;
+  if (typeof response.data === "string") {
+    message.error("提交失败");
   }
-  message.success(response.data.message);
+  if (response.data.data[0].match("请输入正确验证码")) {
+    message.error("请输入正确验证码");
+  }
+  if (response.data.data[0].match("发送成功")) {
+    message.success("提交成功");
+  }
   formState.yzm = "";
 }
 </script>

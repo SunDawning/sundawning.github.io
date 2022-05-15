@@ -160,7 +160,7 @@ router.get(/^\/https?:\/\//, async function (context) {
   context.response.headers = response.headers;
 });
 // POST https://www.diigo.com
-router.post(/^\/https:\/\/www.diigo.com/, async function (context) {
+router.post(/^\/https?:\/\//, async function (context) {
   const { method, url, headers, params } = context.request;
   // console.log("context.request", context.request);
   let realURL = url.substring(1);

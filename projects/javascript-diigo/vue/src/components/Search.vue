@@ -16,6 +16,8 @@ watch(props, function (newProps) {
 async function index(props) {
   const items = await searchBookmarkItems(props.search);
   console.log("items", items);
+  // 回到顶部
+  scrollTo(0, 0);
   state.items = items;
 }
 index(props);

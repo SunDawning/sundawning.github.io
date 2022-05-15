@@ -12,13 +12,16 @@
     <a-menu-item key="最近书签">
       <span>最近书签</span>
     </a-menu-item>
-    <a-sub-menu :popupOffset="[-120, -200]" key="sub-menu">
+    <a-sub-menu :popupOffset="[-120, -248]" key="sub-menu">
       <template #title>更多</template>
       <a-menu-item key="Public">
         <span>Public Library</span>
       </a-menu-item>
       <a-menu-item key="检查版本">
         <span>检查版本</span>
+      </a-menu-item>
+      <a-menu-item key="反馈">
+        <span>反馈</span>
       </a-menu-item>
       <a-menu-item key="退出登录">
         <span>退出登录</span>

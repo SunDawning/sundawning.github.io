@@ -61,6 +61,7 @@ app.use(async function (context) {
     method,
     params,
     headers,
+    responseType: "arraybuffer",
   };
   if (method === "POST") {
     const data = await paresPostData(context);
@@ -79,6 +80,8 @@ app.use(async function (context) {
     // https://www.antdv.com/components/form-cn#API 直接返回404，但携带了数据。
     response = error.response;
   }
+  // log("response.headers", headers);
+  // log("response.data", response.data);
   context.response.body = response.data;
   context.response.headers = response.headers;
 });

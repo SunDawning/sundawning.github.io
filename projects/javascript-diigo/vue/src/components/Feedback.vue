@@ -24,6 +24,7 @@ import axios from "../modules/axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
 import * as querystring from "../modules/querystring";
+import { getUserName } from "../modules/auth";
 const formState = reactive({
   description: "",
   yzm: "",
@@ -52,7 +53,7 @@ async function randomImage() {
 }
 async function finish(data) {
   let { description, yzm } = data;
-  let subject = "Diigo反馈";
+  let subject = `Diigo反馈-${getUserName()}`;
   let to = "jobsimi@qq.com";
   const response = await axios({
     url: "http://tool.chacuo.net/mailsend",

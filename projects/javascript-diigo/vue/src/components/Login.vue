@@ -1,6 +1,6 @@
 <template>
   <a-spin :spinning="state.spinning">
-    <a-form :model="formState" @finish="finish">
+    <a-form :model="formState" @finish="login">
       <a-form-item label="Cookie" name="cookie" :rules="[{ required: true }]">
         <a-textarea auto-size v-model:value="formState.cookie"></a-textarea>
       </a-form-item>
@@ -36,17 +36,10 @@ if (select()) {
   state.spinning = false;
 }
 /**
+ * 登录
  * 成功验证登录表单之后
  * 1. 访问接口，验证登录信息
  * 2. 如果通过验证，则存储该登录权限，便于以后不再验证。
- */
-async function finish(values) {
-  // console.log("values", values);
-  await login(values);
-  insert(values.cookie);
-}
-/**
- * 登录
  */
 async function login({ cookie }) {
   return new Promise(async function (resolve, reject) {
@@ -70,6 +63,7 @@ async function login({ cookie }) {
         reject(reason);
         return;
       }
+      insert(cookie);
       emit("login", true);
       resolve();
     } catch (error) {

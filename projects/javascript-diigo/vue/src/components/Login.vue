@@ -2,7 +2,11 @@
   <a-spin :spinning="state.spinning">
     <a-form :model="formState" @finish="login">
       <a-form-item label="Cookie" name="cookie" :rules="[{ required: true }]">
-        <a-textarea auto-size v-model:value="formState.cookie"></a-textarea>
+        <a-textarea
+          auto-size
+          allowClear
+          v-model:value="formState.cookie"
+        ></a-textarea>
       </a-form-item>
       <a-form-item>
         <a-button type="primary" html-type="submit">登录</a-button>

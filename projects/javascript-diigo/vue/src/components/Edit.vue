@@ -54,7 +54,7 @@
 import { reactive } from "vue";
 import axios from "../modules/axios";
 import { select } from "../modules/auth";
-import { searchBookmarkItems } from "../modules/restful";
+import { searchAllBookmarkItems } from "../modules/restful";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
 const props = defineProps({
@@ -108,7 +108,7 @@ async function onChangeURL(event) {
  * 查找已经存在的书签
  */
 async function getExistedBookmarkItem(url) {
-  const items = await searchBookmarkItems({ what: url });
+  const items = await searchAllBookmarkItems({ what: url });
   if (items === undefined) {
     return;
   }

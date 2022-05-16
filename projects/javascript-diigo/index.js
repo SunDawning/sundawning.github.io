@@ -1,9 +1,11 @@
 const child_process = require("child_process");
 {
   // 启动后端服务器和前端服务器
-  ["git pull", "cd proxy && npm run start", "cd vue && npm run dev"].forEach(
-    exec
-  );
+  [
+    "git pull && pnpm install",
+    "cd proxy && npm run start",
+    "cd vue && npm run dev",
+  ].forEach(exec);
   // 打开浏览器
   exec("start http://localhost:3000");
   // 修改命令行的标题

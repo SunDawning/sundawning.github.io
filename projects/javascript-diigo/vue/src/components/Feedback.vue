@@ -17,7 +17,7 @@
         /></a-col>
       </a-row>
     </a-form-item>
-    <Submit text="提交"></Submit>
+    <Submit></Submit>
   </a-form>
 </template>
 <script setup>

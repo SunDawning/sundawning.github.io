@@ -8,7 +8,7 @@
           v-model:value="formState.cookie"
         ></a-textarea>
       </a-form-item>
-      <Submit></Submit>
+      <Submit text="登录"></Submit>
     </a-form>
   </a-spin>
 </template>

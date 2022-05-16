@@ -1,6 +1,6 @@
 <template>
   <a-form-item class="submit">
-    <a-button type="primary" html-type="submit">{{ text || "登录" }}</a-button>
+    <a-button type="primary" html-type="submit">{{ text || "提交" }}</a-button>
   </a-form-item>
 </template>
 <script setup>

@@ -80,6 +80,8 @@ if (props.formState) {
     unread: true,
   });
 }
+// 回到顶部
+scrollTo(0, 0);
 /**
  * 输入框自适应文本高度
  */

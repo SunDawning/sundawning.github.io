@@ -1,0 +1,15 @@
+{
+  "name": "proxy",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "devDependencies": {
+    "@koa/cors": "^3.3.0",
+    "axios": "^0.27.2",
+    "koa": "^2.13.4",
+    "koa-router": "^10.1.1",
+    "nodemon": "^2.0.16"
+  }
+}

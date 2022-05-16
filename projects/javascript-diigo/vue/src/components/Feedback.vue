@@ -79,10 +79,15 @@ async function finish(data) {
   if (typeof response.data === "string") {
     message.error("提交失败");
   }
-  if (response.data.data[0].match("请输入正确验证码")) {
-    message.error("请输入正确验证码");
+  const item = response.data.data[0];
+  if (item.match("发送失败")) {
+    if (item.match("请输入正确验证码")) {
+      message.error("请输入正确验证码");
+    } else {
+      message.error("发送失败");
+    }
   }
-  if (response.data.data[0].match("发送成功")) {
+  if (data.match("发送成功")) {
     message.success("提交成功");
   }
   formState.yzm = "";

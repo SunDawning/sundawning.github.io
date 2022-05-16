@@ -89,6 +89,7 @@ async function finish(data) {
   }
   if (data.match("发送成功")) {
     message.success("提交成功");
+    formState.description = "";
   }
   formState.yzm = "";
 }

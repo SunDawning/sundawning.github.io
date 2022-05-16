@@ -7,9 +7,70 @@ const Router = require("koa-router");
 const router = new Router();
 const querystring = require("qs");
 const path = require("path");
-// 检查版本
-router.get(/^\/api\/check-new-version/, async function (context) {
-  const { method, url, headers, params } = context.request;
+[
+  // 检查版本
+  {
+    method: "GET",
+    path: /^\/api\/check-new-version/,
+    middleware: router_get_api_check_new_version,
+  },
+  // GET http或https，用于CORS请求
+  {
+    method: "GET",
+    path: /^\/https?:\/\//,
+    middleware: router_get_https,
+  },
+  // POST https://www.diigo.com
+  {
+    method: "POST",
+    path: /^\/https?:\/\//,
+    middleware: router_post_https,
+  },
+].forEach(function ({ method, path, middleware }) {
+  router[method.toLowerCase()](path, middleware);
+});
+app.use(router.routes());
+app.use(cors());
+app.listen(3001);
+/**
+ * 打印，不同于console.log，带有时间戳。
+ */
+function log() {
+  process.stdout.write(`[${new Date().toLocaleString()}] `);
+  console.log.apply(null, arguments);
+}
+/**
+ * koa处理post请求
+ * @see https://www.jianshu.com/p/8ead763ed4c0
+ * @param {*} ctx
+ * @returns
+ */
+function paresPostData(ctx) {
+  return new Promise((resolve, reject) => {
+    try {
+      let postData = "";
+      ctx.req.addListener("data", (data) => {
+        postData += data;
+      });
+      ctx.req.on("end", () => {
+        resolve(postData);
+      });
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+/**
+ * 检查版本
+ * 路由
+ * GET /api/check-new-version
+ * @param context
+ */
+async function router_get_api_check_new_version(context) {
+  const { url, method } = context.request;
+  if ((method === "GET") === false) {
+    return;
+  }
   let realURL = url.substring(1);
   log("realURL", realURL);
   const message = child_process.execSync("git pull && pnpm install", {
@@ -19,12 +80,21 @@ router.get(/^\/api\/check-new-version/, async function (context) {
   log(message);
   context.response.body = { message };
   context.response.headers = { "content-type": "application/json" };
-});
-// GET http或https，用于CORS请求
-router.get(/^\/https?:\/\//, async function (context) {
+}
+/**
+ * GET http或https，用于CORS请求
+ * 路由
+ * GET /http://或GET /https://
+ * @param context
+ * @returns
+ */
+async function router_get_https(context) {
   const { method, url, headers, params } = context.request;
+  if ((method === "GET") === false) {
+    return;
+  }
   let realURL = url.substring(1);
-  log("realURL", realURL);
+  log(method, "realURL", realURL);
   let responseType;
   if (headers) {
     log("headers", headers);
@@ -74,11 +144,19 @@ router.get(/^\/https?:\/\//, async function (context) {
   log("response.data", response.data);
   context.response.body = response.data;
   context.response.headers = response.headers;
-});
-// POST https://www.diigo.com
-router.post(/^\/https?:\/\//, async function (context) {
+}
+/**
+ * POST https://www.diigo.com
+ * 路由
+ * POST /http://或GET /https://
+ * @param context
+ */
+async function router_post_https(context) {
   const { method, url, headers, params } = context.request;
   // console.log("context.request", context.request);
+  if ((method === "POST") === false) {
+    return;
+  }
   let realURL = url.substring(1);
   log("realURL", realURL);
   if (headers) {
@@ -105,35 +183,4 @@ router.post(/^\/https?:\/\//, async function (context) {
   let response = await axios(options);
   context.response.body = response.data;
   context.response.headers = response.headers;
-});
-app.use(router.routes());
-app.use(cors());
-app.listen(3001);
-/**
- * 打印，不同于console.log，带有时间戳。
- */
-function log() {
-  process.stdout.write(`[${new Date().toLocaleString()}] `);
-  console.log.apply(null, arguments);
-}
-/**
- * koa处理post请求
- * @see https://www.jianshu.com/p/8ead763ed4c0
- * @param {*} ctx
- * @returns
- */
-function paresPostData(ctx) {
-  return new Promise((resolve, reject) => {
-    try {
-      let postData = "";
-      ctx.req.addListener("data", (data) => {
-        postData += data;
-      });
-      ctx.req.on("end", () => {
-        resolve(postData);
-      });
-    } catch (err) {
-      reject(err);
-    }
-  });
 }

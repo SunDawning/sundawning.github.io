@@ -17,7 +17,7 @@
         /></a-col>
       </a-row>
     </a-form-item>
-    <Submit></Submit>
+    <Submit text="提交"></Submit>
   </a-form>
 </template>
 <script setup>
@@ -34,7 +34,7 @@ const formState = reactive({
 const state = reactive({
   src: "",
 });
-const cookie = "PHPSESSID=n8e6qsktgtmtj8amcvvj1imo42"; // 权限
+const cookie = "PHPSESSID=2v6medu51bh3q70c9s90p8slv7"; // 权限
 getCaptionImage();
 /**
  * 获取验证码图片

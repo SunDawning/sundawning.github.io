@@ -2,7 +2,7 @@
   <List :items="state.items"></List>
 </template>
 <script setup>
-import { searchAllBookmarkItems } from "../modules/restful";
+import { searchBookmarkItems } from "../modules/restful";
 import { reactive, watch } from "vue";
 const state = reactive({
   items: [],
@@ -14,7 +14,7 @@ watch(props, function (newProps) {
   index(newProps);
 });
 async function index(props) {
-  const items = await searchAllBookmarkItems(props.search);
+  const items = await searchBookmarkItems(props.search);
   console.log("items", items);
   // 回到顶部
   scrollTo(0, 0);

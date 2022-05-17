@@ -1,4 +1,4 @@
-const log = require("../../../server/modules/log");
+const log = require("server/modules/log");
 const child_process = require("child_process");
 const path = require("path");
 /**

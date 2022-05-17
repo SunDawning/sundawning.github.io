@@ -1,7 +1,7 @@
-const exec = require("./modules/exec");
+const exec = require("manager/modules/exec");
 const server_port = 3001;
 const browser_port = 3000;
-const check_new_version = require("./modules/check-new-version");
+const check_new_version = require("manager/modules/check-new-version");
 {
   // 启动后端服务器和前端服务器
   check_new_version();

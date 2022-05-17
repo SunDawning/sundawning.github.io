@@ -1,5 +1,5 @@
-const log = require("../../log");
-const check_new_version = require("../../../../manager/modules/check-new-version");
+const log = require("server/modules/log");
+const check_new_version = require("manager/modules/check-new-version");
 /**
  * 检查版本
  * 路由

@@ -3,12 +3,12 @@ const app = new Koa();
 const cors = require("@koa/cors");
 const Router = require("koa-router");
 const router = new Router();
-const log = require("./modules/log");
-const router_get_api_check_new_version = require("./modules/koa-router/check-new-version");
-const router_get_https = require("./modules/koa-router/get-http");
-const router_post_https = require("./modules/koa-router/post-http");
+const log = require("server/modules/log");
+const router_get_api_check_new_version = require("server/modules/koa-router/check-new-version");
+const router_get_https = require("server/modules/koa-router/get-http");
+const router_post_https = require("server/modules/koa-router/post-http");
 const fs = require("fs");
-const argv = require("./modules/argv");
+const argv = require("server/modules/argv");
 const { port } = argv();
 [
   // 检查版本

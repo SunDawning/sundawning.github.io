@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 const fs = require("fs");
-const log = require("../server/modules/log");
+const log = require("server/modules/log");
 const minimist = require("minimist");
 const argv = minimist(minimist(process.argv)["_"]);
 const { proxy_port } = argv;

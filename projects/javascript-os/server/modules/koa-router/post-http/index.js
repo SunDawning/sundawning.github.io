@@ -1,5 +1,5 @@
-const log = require("../../log");
-const paresPostData = require("../../paresPostData");
+const log = require("server/modules/log");
+const paresPostData = require("server/modules/paresPostData");
 const axios = require("axios");
 /**
  * POST https://www.diigo.com

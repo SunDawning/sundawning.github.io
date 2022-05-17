@@ -13,6 +13,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
     "minimist": "^1.2.6",
+    "server": "link:..\\server",
     "vite": "^2.9.9"
   }
 }

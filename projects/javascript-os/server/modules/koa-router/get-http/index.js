@@ -1,4 +1,4 @@
-const log = require("../../log");
+const log = require("server/modules/log");
 const axios = require("axios");
 /**
  * GET http或https，用于CORS请求

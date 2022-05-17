@@ -9,10 +9,10 @@ const check_new_version = require("manager/modules/check-new-version");
     `cd ../server && pnpm run start -- --port ${server_port}`,
     `cd ../browser && pnpm run dev -- --port ${browser_port} -- --proxy_port ${server_port}`,
   ].forEach(exec);
-  // 打开浏览器
-  exec(`start http://localhost:${browser_port}`);
-  // 修改命令行的标题
   setTimeout(function () {
+    // 打开浏览器
+    exec(`start http://localhost:${browser_port}`);
+    // 修改命令行的标题
     exec("title OS服务器");
-  }, 5000);
+  }, 3000);
 }

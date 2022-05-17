@@ -1,10 +1,11 @@
 const exec = require("./modules/exec");
 const server_port = 3001;
 const browser_port = 3000;
+const check_new_version = require("./modules/check-new-version");
 {
   // 启动后端服务器和前端服务器
+  check_new_version();
   [
-    "git pull && pnpm install",
     `cd ../server && pnpm run start -- --port ${server_port}`,
     `cd ../browser && pnpm run dev -- --port ${browser_port} -- --proxy_port ${server_port}`,
   ].forEach(exec);

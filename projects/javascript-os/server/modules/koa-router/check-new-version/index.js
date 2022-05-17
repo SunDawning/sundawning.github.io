@@ -1,6 +1,5 @@
 const log = require("../../log");
-const child_process = require("child_process");
-const path = require("path");
+const check_new_version = require("../../../../manager/modules/check-new-version");
 /**
  * 检查版本
  * 路由
@@ -14,10 +13,7 @@ module.exports = async function (context) {
   }
   let realURL = url.substring(1);
   log("realURL", realURL);
-  const message = child_process.execSync("git pull && pnpm install", {
-    cwd: path.resolve(__dirname, "../../../manager"),
-    encoding: "utf-8",
-  });
+  const message = check_new_version();
   log(message);
   context.response.body = { message };
   context.response.headers = { "content-type": "application/json" };

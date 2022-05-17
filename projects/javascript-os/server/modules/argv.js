@@ -1,3 +1,8 @@
+const minimist = require("minimist");
+/**
+ * 解析命令行的参数为对象
+ * @returns object
+ */
 module.exports = function () {
-  return require("minimist")(process.argv);
+  return minimist(process.argv);
 };

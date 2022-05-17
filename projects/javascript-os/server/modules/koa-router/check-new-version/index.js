@@ -13,7 +13,7 @@ module.exports = async function (context) {
   }
   let realURL = url.substring(1);
   log("realURL", realURL);
-  const message = check_new_version();
+  const message = await check_new_version();
   log(message);
   context.response.body = { message };
   context.response.headers = { "content-type": "application/json" };

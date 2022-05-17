@@ -3,6 +3,7 @@ const check_new_version = require("manager/modules/check-new-version");
 const get_port = require("manager/modules/get-port");
 const get_random_port = require("manager/modules/get-random-port");
 const log = require("server/modules/log");
+const convert_seconds_to_object = require("manager/modules/convert-seconds-to-object");
 index();
 async function index() {
   const browser_port = await get_port({ port: 3000 });
@@ -22,6 +23,8 @@ async function index() {
   setInterval(function () {
     log(`
 系统信息：
+
+已在线 ${JSON.stringify(convert_seconds_to_object(process.uptime()))}
 
 - 浏览器 http://localhost:${browser_port}
 - 服务器 http://localhost:${server_port}

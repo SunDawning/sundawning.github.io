@@ -23,6 +23,6 @@ module.exports = function (total) {
     minutes,
     seconds,
   };
-  console.log(JSON.stringify(object));
+  //   console.log(JSON.stringify(object));
   return object;
 };

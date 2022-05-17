@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "start": "nodemon index.js --watch index.js"
+    "start": "nodemon index.js --watch index.js --watch package.json"
   },
   "devDependencies": {
     "@koa/cors": "^3.3.0",

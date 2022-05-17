@@ -3,11 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js --watch index.js --watch package.json",
     "postinstall": "cd ../server && pnpm install && cd ../browser && pnpm install"
   },
   "devDependencies": {
     "manager": "link:",
+    "nodemon": "^2.0.16",
     "server": "link:..\\server"
   }
 }

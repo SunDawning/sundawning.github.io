@@ -8,6 +8,8 @@ const router_get_api_check_new_version = require("./modules/koa-router/check-new
 const router_get_https = require("./modules/koa-router/get-http");
 const router_post_https = require("./modules/koa-router/post-http");
 const fs = require("fs");
+const argv = require("./modules/argv");
+const { port } = argv();
 [
   // 检查版本
   {
@@ -32,7 +34,5 @@ const fs = require("fs");
 });
 app.use(router.routes());
 app.use(cors());
-const server = app.listen();
-const address = server.address();
-log("server", address);
-fs.writeFileSync("server.json", JSON.stringify(address, null, 2));
+const server = app.listen(port);
+log(`启动HTTP服务器 http://localhost:${server.address().port}`);

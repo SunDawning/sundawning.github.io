@@ -9,6 +9,7 @@
   "devDependencies": {
     "manager": "link:",
     "nodemon": "^2.0.16",
+    "portfinder": "^1.0.28",
     "server": "link:..\\server"
   }
 }

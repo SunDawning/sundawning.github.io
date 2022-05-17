@@ -1,10 +1,10 @@
 const exec = require("manager/modules/exec");
 const check_new_version = require("manager/modules/check-new-version");
-const get_port = require("manager/modules/get-port");
+const get_random_port = require("manager/modules/get-random-port");
 index();
 async function index() {
-  const browser_port = await get_port();
-  const server_port = await get_port({ port: browser_port + 1 });
+  const browser_port = await get_random_port();
+  const server_port = await get_random_port();
   // 启动后端服务器和前端服务器
   check_new_version();
   [

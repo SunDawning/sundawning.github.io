@@ -14,7 +14,7 @@ async function index() {
   ].forEach(exec);
   setTimeout(function () {
     // 打开浏览器
-    exec(`start http://localhost:${browser_port}`);
+    // exec(`start http://localhost:${browser_port}`);
     // 修改命令行的标题
     exec("title OS服务器");
   }, 3000);

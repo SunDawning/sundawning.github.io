@@ -1,9 +1,10 @@
 const exec = require("./modules/exec");
+const server_port = 3001;
 {
   // 启动后端服务器和前端服务器
   [
     "git pull && pnpm install",
-    "cd ../server && npm run start",
+    `cd ../server && npm run start -- --port ${server_port}`,
     "cd ../browser && npm run dev",
   ].forEach(exec);
   // 打开浏览器

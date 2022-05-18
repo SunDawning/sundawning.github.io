@@ -16,7 +16,17 @@ const router = createRouter({
   ],
 });
 router.beforeEach(function (to, from, next) {
-  console.log("访问", to);
+  console.log("访问", to.fullPath);
+  const { fullPath } = to;
+  // 1. 登录页面不需要登录
+  if (fullPath === "/login") {
+    return next();
+  }
+  const token = localStorage.getItem("token");
+  if (token === null) {
+    console.log("没有权限，需要登录");
+    return;
+  }
   next();
 });
 app.use(router);

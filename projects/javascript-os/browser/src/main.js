@@ -13,6 +13,12 @@ const router = createRouter({
       path: "/",
       component: { template: "<div>首页</div>" }, // runtime-core.esm-bundler.js:38 [Vue warn]: Component provided template option but runtime compilation is not supported in this build of Vue. Configure your bundler to alias "vue" to "vue/dist/vue.esm-bundler.js".
     },
+    {
+      path: "/login",
+      component: function () {
+        return import("./components/Login.vue");
+      },
+    },
   ],
 });
 router.beforeEach(function (to, from, next) {
@@ -22,6 +28,7 @@ router.beforeEach(function (to, from, next) {
   if (fullPath === "/login") {
     return next();
   }
+  // 2. 其他页面都要登录
   const token = localStorage.getItem("token");
   if (token === null) {
     console.log("没有权限，需要登录");

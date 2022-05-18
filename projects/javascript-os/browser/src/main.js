@@ -32,7 +32,7 @@ router.beforeEach(function (to, from, next) {
   const token = localStorage.getItem("token");
   if (token === null) {
     console.log("没有权限，需要登录");
-    return;
+    return next("/login"); // 跳转到登录页面
   }
   next();
 });

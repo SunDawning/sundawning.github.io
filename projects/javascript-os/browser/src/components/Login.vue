@@ -26,17 +26,22 @@ const router = useRouter();
 async function finish(values) {
   console.log("finish", values);
   const { password } = values;
-  const response = await axios({
-    method: "POST",
-    url: "http://sundawning.vaiwan.cn/api/javascript-os/login",
-    data: {
-      password,
-    },
-  });
-  const { data } = response;
-  const { success } = data;
-  if (success === false) {
-    message.error(data.message);
+  try {
+    const response = await axios({
+      method: "POST",
+      url: "http://sundawning.vaiwan.cn/api/javascript-os/login",
+      data: {
+        password,
+      },
+    });
+    const { data } = response;
+    const { success } = data;
+    if (success === false) {
+      message.error(data.message);
+      return;
+    }
+  } catch (error) {
+    message.error(error.message);
     return;
   }
   saveToDatabase(password);

@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.3.3",
+    "browser": "link:",
     "minimist": "^1.2.6",
     "server": "link:..\\server",
     "unplugin-vue-components": "^0.19.5",

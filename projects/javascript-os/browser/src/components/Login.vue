@@ -14,11 +14,24 @@
 </template>
 <script setup>
 import { reactive } from "vue";
+import axios from "axios";
 const form = reactive({
   password: "",
 });
-function finish(values) {
+async function finish({ values }) {
   console.log("finish", values);
+  const { password } = values;
+  localStorage.setItem("javascript-os-password", password);
+  // https://open.dingtalk.com/document/resourcedownload/http-intranet-penetration
+  const response = await axios({
+    method: "POST",
+    url: "http://abc.vaiwan.cn/api/javascript-os-password/login",
+    data: {
+      time: new Date().getTime(),
+      password: password,
+    },
+  });
+  const { data } = response;
 }
 </script>
 <style scoped>

@@ -16,6 +16,7 @@
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { insert as saveToDatabase } from "browser/src/modules/login";
+import axios from "axios";
 const form = reactive({
   password: "",
 });
@@ -24,9 +25,16 @@ async function finish(values) {
   console.log("finish", values);
   const { password } = values;
   saveToDatabase(password);
+  await axios({
+    method: "POST",
+    url: "/http://sundawning.vaiwan.cn/api/javascript-os/login",
+    data: {
+      password,
+    },
+  });
   console.log("router", router);
   // 重定向页面
-  redirect_to(router);
+  // redirect_to(router);
 }
 </script>
 <script>

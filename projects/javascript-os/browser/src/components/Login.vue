@@ -15,7 +15,10 @@
 <script setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
-import { insert as saveToDatabase } from "browser/src/modules/login";
+import {
+  insert as saveToDatabase,
+  drop as deleteFromDatabase,
+} from "browser/src/modules/login";
 import axios from "browser/src/modules/axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
@@ -38,6 +41,7 @@ async function finish(values) {
     const { success } = data;
     if (success === false) {
       message.error(data.message);
+      deleteFromDatabase();
       return;
     }
   } catch (error) {

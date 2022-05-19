@@ -15,6 +15,7 @@
 <script setup>
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
+import { insert as saveToDatabase } from "browser/src/modules/login";
 const form = reactive({
   password: "",
 });
@@ -22,7 +23,7 @@ const router = useRouter();
 async function finish(values) {
   console.log("finish", values);
   const { password } = values;
-  localStorage.setItem("javascript-os-password", password);
+  saveToDatabase(password);
   console.log("router", router);
   // 重定向页面
   redirect_to(router);

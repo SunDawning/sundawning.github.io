@@ -21,6 +21,7 @@ const router = createRouter({
     },
   ],
 });
+import { select as getLoginToken } from "browser/src/modules/login";
 router.beforeEach(function (to, from, next) {
   console.log("访问", to.fullPath, to);
   const { fullPath, path } = to;
@@ -29,7 +30,7 @@ router.beforeEach(function (to, from, next) {
     return next();
   }
   // 2. 其他页面都要登录
-  const token = localStorage.getItem("javascript-os-password");
+  const token = getLoginToken();
   if (token === null) {
     console.log("没有权限，需要登录");
     return next("/login?redirect=" + encodeURIComponent(fullPath)); // 跳转到登录页面

@@ -26,14 +26,17 @@ async function finish(values) {
   localStorage.setItem("javascript-os-password", password);
   console.log("router", router);
   console.log("route", route);
-  let { redirect } = route.query;
-  if (redirect === undefined) {
-    redirect = "/";
-  } else {
-    redirect = decodeURIComponent(redirect);
+  // 重定向页面
+  {
+    let { redirect } = route.query;
+    if (redirect === undefined) {
+      redirect = "/";
+    } else {
+      redirect = decodeURIComponent(redirect);
+    }
+    console.log("重定向到", redirect);
+    router.push(redirect);
   }
-  console.log("重定向到", redirect);
-  router.push(redirect);
 }
 </script>
 <style scoped>

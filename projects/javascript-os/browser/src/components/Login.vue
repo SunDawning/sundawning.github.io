@@ -17,6 +17,8 @@ import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { insert as saveToDatabase } from "browser/src/modules/login";
 import axios from "browser/src/modules/axios";
+import { message } from "ant-design-vue";
+import "ant-design-vue/es/message/style/css";
 const form = reactive({
   password: "",
 });
@@ -24,14 +26,20 @@ const router = useRouter();
 async function finish(values) {
   console.log("finish", values);
   const { password } = values;
-  saveToDatabase(password);
-  await axios({
+  const response = await axios({
     method: "POST",
     url: "http://sundawning.vaiwan.cn/api/javascript-os/login",
     data: {
       password,
     },
   });
+  const { data } = response;
+  const { success } = data;
+  if (success === false) {
+    message.error(data.message);
+    return;
+  }
+  saveToDatabase(password);
   console.log("router", router);
   // 重定向页面
   // redirect_to(router);

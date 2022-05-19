@@ -32,7 +32,7 @@ router.beforeEach(function (to, from, next) {
   const token = localStorage.getItem("javascript-os-password");
   if (token === null) {
     console.log("没有权限，需要登录");
-    return next("/login?redirect=" + fullPath); // 跳转到登录页面
+    return next("/login?redirect=" + encodeURIComponent(fullPath)); // 跳转到登录页面
   }
   next();
 });

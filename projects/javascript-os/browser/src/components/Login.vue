@@ -14,24 +14,20 @@
 </template>
 <script setup>
 import { reactive } from "vue";
-import axios from "axios";
+import { useRouter, useRoute } from "vue-router";
 const form = reactive({
   password: "",
 });
-async function finish({ values }) {
+const router = useRouter();
+const route = useRoute();
+async function finish(values) {
   console.log("finish", values);
   const { password } = values;
   localStorage.setItem("javascript-os-password", password);
-  // https://open.dingtalk.com/document/resourcedownload/http-intranet-penetration
-  const response = await axios({
-    method: "POST",
-    url: "http://abc.vaiwan.cn/api/javascript-os-password/login",
-    data: {
-      time: new Date().getTime(),
-      password: password,
-    },
-  });
-  const { data } = response;
+  console.log("router", router);
+  console.log("route", route);
+  const { redirect } = route.query;
+  router.push(redirect || "/");
 }
 </script>
 <style scoped>

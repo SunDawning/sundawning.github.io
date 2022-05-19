@@ -25,14 +25,14 @@ router.beforeEach(function (to, from, next) {
   console.log("访问", to.fullPath);
   const { fullPath } = to;
   // 1. 登录页面不需要登录
-  if (fullPath === "/login") {
+  if (fullPath.startsWith("/login")) {
     return next();
   }
   // 2. 其他页面都要登录
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("javascript-os-password");
   if (token === null) {
     console.log("没有权限，需要登录");
-    return next("/login"); // 跳转到登录页面
+    return next("/login?redirect=" + fullPath); // 跳转到登录页面
   }
   next();
 });

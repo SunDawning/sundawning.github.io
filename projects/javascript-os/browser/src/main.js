@@ -22,10 +22,10 @@ const router = createRouter({
   ],
 });
 router.beforeEach(function (to, from, next) {
-  console.log("访问", to.fullPath);
-  const { fullPath } = to;
+  console.log("访问", to.fullPath, to);
+  const { fullPath, path } = to;
   // 1. 登录页面不需要登录
-  if (fullPath.startsWith("/login")) {
+  if (path === "/login") {
     return next();
   }
   // 2. 其他页面都要登录

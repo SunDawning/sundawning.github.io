@@ -14,27 +14,27 @@
 </template>
 <script setup>
 import { reactive } from "vue";
-import { useRouter, useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 const form = reactive({
   password: "",
 });
 const router = useRouter();
-const route = useRoute();
 async function finish(values) {
   console.log("finish", values);
   const { password } = values;
   localStorage.setItem("javascript-os-password", password);
   console.log("router", router);
-  console.log("route", route);
   // 重定向页面
-  redirect_to(router, route);
+  redirect_to(router);
 }
 </script>
 <script>
 /**
  * 重定向页面
+ * @param router 路由
  */
-function redirect_to(router, route) {
+function redirect_to(router) {
+  const route = router.currentRoute.value;
   let { redirect } = route.query;
   if (redirect === undefined) {
     redirect = "/";

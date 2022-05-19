@@ -27,16 +27,22 @@ async function finish(values) {
   console.log("router", router);
   console.log("route", route);
   // 重定向页面
-  {
-    let { redirect } = route.query;
-    if (redirect === undefined) {
-      redirect = "/";
-    } else {
-      redirect = decodeURIComponent(redirect);
-    }
-    console.log("重定向到", redirect);
-    router.push(redirect);
+  redirect_to(router, route);
+}
+</script>
+<script>
+/**
+ * 重定向页面
+ */
+function redirect_to(router, route) {
+  let { redirect } = route.query;
+  if (redirect === undefined) {
+    redirect = "/";
+  } else {
+    redirect = decodeURIComponent(redirect);
   }
+  console.log("重定向到", redirect);
+  router.push(redirect);
 }
 </script>
 <style scoped>

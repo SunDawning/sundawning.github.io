@@ -16,7 +16,7 @@
 import { reactive } from "vue";
 import { useRouter } from "vue-router";
 import { insert as saveToDatabase } from "browser/src/modules/login";
-import axios from "axios";
+import axios from "browser/src/modules/axios";
 const form = reactive({
   password: "",
 });
@@ -27,7 +27,7 @@ async function finish(values) {
   saveToDatabase(password);
   await axios({
     method: "POST",
-    url: "/http://sundawning.vaiwan.cn/api/javascript-os/login",
+    url: "http://sundawning.vaiwan.cn/api/javascript-os/login",
     data: {
       password,
     },

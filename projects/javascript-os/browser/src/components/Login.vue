@@ -51,7 +51,7 @@ async function finish(values) {
   saveToDatabase(password);
   console.log("router", router);
   // 重定向页面
-  // redirect_to(router);
+  redirect_to(router);
 }
 </script>
 <script>

@@ -71,8 +71,8 @@ function redirect_to(router) {
   router.push(redirect);
 }
 document.title = "登录";
-document.querySelector("link[rel='icon']").href =
-  "https://g.csdnimg.cn/static/logo/favicon.ico";
+import setFavicon from "browser/src/modules/setFavicon";
+setFavicon("https://g.csdnimg.cn/static/logo/favicon.ico");
 </script>
 <style scoped>
 form {

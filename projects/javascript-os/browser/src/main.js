@@ -19,6 +19,12 @@ const router = createRouter({
         return import("./components/Login.vue");
       },
     },
+    {
+      path: "/Diigo",
+      component: function () {
+        return import("./components/Diigo/App.vue");
+      },
+    },
   ],
 });
 import { select as getLoginToken } from "browser/src/modules/login";

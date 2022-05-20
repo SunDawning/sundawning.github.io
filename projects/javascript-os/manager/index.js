@@ -12,7 +12,10 @@ async function index() {
   check_new_version();
   [
     `cd ../server && pnpm run start -- --port ${server_port}`,
-    `cd ../browser && pnpm run dev -- --port ${browser_port} -- --proxy_port ${server_port}`,
+    {
+      win32: `cd ../browser && pnpm run dev -- --port ${browser_port} -- --proxy_port ${server_port}`,
+      android: `cd ../browser && pnpm run dev --port ${browser_port} -- --proxy_port ${server_port}`,
+    }[process.platform],
   ].forEach(exec);
   setTimeout(function () {
     // 提示浏览器

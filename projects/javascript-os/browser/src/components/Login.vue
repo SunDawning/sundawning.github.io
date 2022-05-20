@@ -70,6 +70,7 @@ function redirect_to(router) {
   console.log("重定向到", redirect);
   router.push(redirect);
 }
+document.title = "登录";
 </script>
 <style scoped>
 form {

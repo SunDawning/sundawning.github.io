@@ -5,6 +5,8 @@
 
 <script setup>
 import { reactive } from "vue";
+import LayoutSider from "./components/LayoutSider.vue";
+import Login from "./components/Login.vue";
 const status = reactive({
   login: false,
 });

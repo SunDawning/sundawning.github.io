@@ -12,18 +12,27 @@ const router = createRouter({
     {
       path: "/",
       component: { template: "<div>首页</div>" }, // runtime-core.esm-bundler.js:38 [Vue warn]: Component provided template option but runtime compilation is not supported in this build of Vue. Configure your bundler to alias "vue" to "vue/dist/vue.esm-bundler.js".
+      meta: { title: "系统" },
     },
     {
       path: "/login",
       component: function () {
         return import("./components/Login.vue");
       },
+      meta: { title: "登录" },
     },
   ],
 });
 import { select as getLoginToken } from "browser/src/modules/login";
 router.beforeEach(function (to, from, next) {
   console.log("访问", to.fullPath, to);
+  const { meta } = to;
+  if (meta) {
+    const { title } = meta;
+    if (title) {
+      document.title = title;
+    }
+  }
   const { fullPath, path } = to;
   // 1. 登录页面不需要登录
   if (path === "/login") {

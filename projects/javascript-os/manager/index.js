@@ -16,7 +16,9 @@ async function index() {
       win32: `cd ../browser && pnpm run dev -- --port ${browser_port} -- --proxy_port ${server_port}`,
       android: `cd ../browser && pnpm run dev --port ${browser_port} -- --proxy_port ${server_port}`,
     }[process.platform],
-  ].forEach(exec);
+  ].forEach(function (command) {
+    exec(command);
+  });
   setTimeout(function () {
     // 提示浏览器
     log(`浏览器 http://localhost:${browser_port}`);

@@ -6,43 +6,37 @@ const app = createApp(App);
  * 路由
  */
 import { createRouter, createWebHistory } from "vue-router";
-const routes = [];
 import HomeFaviconIcon from "../public/favicon.ico";
 import DiigoFaviconIcon from "./applications/Diigo/vue/public/favicon.ico";
-[
-  {
-    path: "/Login",
-    component: "./components/Login.vue",
-    meta: {
-      title: "登录",
-      icon: "https://g.csdnimg.cn/static/logo/favicon.ico",
-    },
-  },
-  {
-    path: "/Diigo",
-    component: "./applications/Diigo/vue/src/App.vue",
-    meta: {
-      title: "Diigo",
-      icon: DiigoFaviconIcon,
-    },
-  },
-].forEach(function (options) {
-  const { component } = options;
-  if (component) {
-    options.component = function () {
-      return import(component);
-    };
-  }
-  routes.push(options);
-});
-routes.push({
-  path: "/",
-  component: { template: "<div>首页</div>" }, // runtime-core.esm-bundler.js:38 [Vue warn]: Component provided template option but runtime compilation is not supported in this build of Vue. Configure your bundler to alias "vue" to "vue/dist/vue.esm-bundler.js".
-  meta: { title: "系统", icon: HomeFaviconIcon },
-});
 const router = createRouter({
   history: createWebHistory(), // 指定路由的模式
-  routes,
+  routes: [
+    {
+      path: "/",
+      component: { template: "<div>首页</div>" }, // runtime-core.esm-bundler.js:38 [Vue warn]: Component provided template option but runtime compilation is not supported in this build of Vue. Configure your bundler to alias "vue" to "vue/dist/vue.esm-bundler.js".
+      meta: { title: "系统", icon: HomeFaviconIcon },
+    },
+    {
+      path: "/Login",
+      component: function () {
+        return import("./components/Login.vue");
+      },
+      meta: {
+        title: "登录",
+        icon: "https://g.csdnimg.cn/static/logo/favicon.ico",
+      },
+    },
+    {
+      path: "/Diigo",
+      component: function () {
+        return import("./applications/Diigo/vue/src/App.vue");
+      },
+      meta: {
+        title: "Diigo",
+        icon: DiigoFaviconIcon,
+      },
+    },
+  ],
 });
 import { select as getLoginToken } from "browser/src/modules/login";
 router.beforeEach(function (to, from, next) {

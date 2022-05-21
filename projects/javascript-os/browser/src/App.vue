@@ -18,8 +18,12 @@
     <a-layout-content>
       <router-view></router-view>
     </a-layout-content>
+    <BackTop></BackTop>
   </a-layout>
 </template>
+<script setup>
+import BackTop from "./components/BackTop.vue";
+</script>
 <script>
 document.title = "系统";
 import favicon from "/favicon.ico";

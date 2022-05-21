@@ -24,13 +24,15 @@
 </template>
 <script setup>
 import { reactive } from "vue";
+import Sider from "./Sider.vue";
+import Content from "./Content.vue";
 const state = reactive({
   displaySearch: false,
   selectedKeys: [""],
   displayWelcome: true,
   displayEdit: false,
   displayRecent: false,
-  displayFeedback:false,
+  displayFeedback: false,
 });
 function displaySearch(value) {
   state.displaySearch = value;
@@ -47,8 +49,8 @@ function displayEdit(value) {
 function displayRecent(value) {
   state.displayRecent = value;
 }
-function displayFeedback(value){
-  state.displayFeedback=value;
+function displayFeedback(value) {
+  state.displayFeedback = value;
 }
 const emit = defineEmits();
 function login(value) {

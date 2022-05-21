@@ -27,6 +27,7 @@ import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
 import * as querystring from "../modules/querystring";
 import { getUserName } from "../modules/auth";
+import Submit from "./Submit.vue";
 const formState = reactive({
   description: "",
   yzm: "",

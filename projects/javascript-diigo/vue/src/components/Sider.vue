@@ -12,6 +12,7 @@
   </a-layout-sider>
 </template>
 <script setup>
+import Menu from "./Menu.vue";
 defineProps({
   selectedKeys: Array,
 });

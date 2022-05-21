@@ -5,6 +5,7 @@
 import axios from "../modules/axios";
 import { reactive } from "vue";
 import { select } from "../modules/auth";
+import List from "./List.vue";
 const state = reactive({
   items: [],
 });

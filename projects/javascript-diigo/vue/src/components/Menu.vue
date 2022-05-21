@@ -35,6 +35,7 @@ import { getUserName } from "../modules/auth";
 import axios from "../modules/axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
+import Logo from "./Logo.vue";
 defineProps({
   selectedKeys: Array,
 });

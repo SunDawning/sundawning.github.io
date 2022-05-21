@@ -18,6 +18,7 @@ import axios from "../modules/axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
 import { insert, select, drop } from "../modules/auth";
+import Submit from "./Submit.vue";
 const state = reactive({
   spinning: true,
 });

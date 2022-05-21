@@ -20,6 +20,7 @@
   </a-list>
 </template>
 <script setup>
+import Edit from "./Edit.vue";
 defineProps({
   items: Array,
 });

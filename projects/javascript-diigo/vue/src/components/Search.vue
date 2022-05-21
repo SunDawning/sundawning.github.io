@@ -4,6 +4,7 @@
 <script setup>
 import { searchBookmarkItems } from "../modules/restful";
 import { reactive, watch } from "vue";
+import List from "./List.vue";
 const state = reactive({
   items: [],
 });

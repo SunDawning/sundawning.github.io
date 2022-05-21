@@ -33,6 +33,10 @@
 import { reactive } from "vue";
 import { select, insert } from "../modules/autocomplete";
 import { onMounted } from "vue";
+import Search from "./Search.vue";
+import Welcome from "./Welcome.vue";
+import Edit from "./Edit.vue";
+import Recent from "./Recent.vue";
 const state = reactive({
   search: {},
   options: [],

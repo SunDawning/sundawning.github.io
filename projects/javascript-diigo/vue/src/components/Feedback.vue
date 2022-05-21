@@ -88,7 +88,7 @@ async function finish(data) {
       message.error("发送失败");
     }
   }
-  if (data.match("发送成功")) {
+  if (item.match("发送成功")) {
     message.success("提交成功");
     formState.description = "";
   }

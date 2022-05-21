@@ -5,12 +5,12 @@ const app = createApp(App);
 /**
  * 路由
  */
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import HomeFaviconIcon from "../public/favicon.ico";
 import DiigoFaviconIcon from "./applications/Diigo/vue/public/favicon.ico";
 const login_path = "/Login"; // 登录页面的地址
 const router = createRouter({
-  history: createWebHistory(), // 指定路由的模式
+  history: createWebHashHistory(), // 指定路由的模式
   routes: [
     {
       path: "/",

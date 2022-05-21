@@ -29,6 +29,6 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 function exitLogin() {
   drop();
-  router.push("/login");
+  router.push("/Login");
 }
 </script>

@@ -11,7 +11,7 @@ import HomeFaviconIcon from "../public/favicon.ico";
 import DiigoFaviconIcon from "./applications/Diigo/vue/public/favicon.ico";
 [
   {
-    path: "/login",
+    path: "/Login",
     component: "./components/Login.vue",
     meta: {
       title: "登录",
@@ -59,14 +59,14 @@ router.beforeEach(function (to, from, next) {
   }
   const { fullPath, path } = to;
   // 1. 登录页面不需要登录
-  if (path === "/login") {
+  if (path === "/Login") {
     return next();
   }
   // 2. 其他页面都要登录
   const token = getLoginToken();
   if (token === null) {
     console.log("没有权限，需要登录");
-    return next("/login?redirect=" + encodeURIComponent(fullPath)); // 跳转到登录页面
+    return next("/Login?redirect=" + encodeURIComponent(fullPath)); // 跳转到登录页面
   }
   next();
 });

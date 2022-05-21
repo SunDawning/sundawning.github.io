@@ -15,6 +15,11 @@ function login(value) {
   status.login = value;
 }
 </script>
+<script>
+document.title = "Diigo";
+import favicon from "../public/favicon.ico";
+document.querySelector("link[rel='icon']").href = favicon;
+</script>
 
 <style>
 #app {

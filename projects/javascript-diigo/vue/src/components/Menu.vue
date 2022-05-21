@@ -1,33 +1,34 @@
 <template>
-  <a-menu
-    mode="horizontal"
-    @select="select"
-    :selectedKeys="selectedKeys"
-    triggerSubMenuAction="click"
-  >
-    <Logo menu_item_key="欢迎"></Logo>
-    <a-menu-item key="新建书签">
-      <span>新建书签</span>
-    </a-menu-item>
-    <a-menu-item key="最近书签">
-      <span>最近书签</span>
-    </a-menu-item>
-    <a-sub-menu :popupOffset="[-120, -248]" key="sub-menu">
-      <template #title>更多</template>
-      <a-menu-item key="Public">
-        <span>Public Library</span>
-      </a-menu-item>
-      <a-menu-item key="检查版本">
-        <span>检查版本</span>
-      </a-menu-item>
-      <a-menu-item key="反馈">
-        <span>反馈</span>
-      </a-menu-item>
-      <a-menu-item key="退出登录">
-        <span>退出登录</span>
-      </a-menu-item>
-    </a-sub-menu>
-  </a-menu>
+  <a-row class="menu">
+    <a-button type="text" @click="select({ key: '欢迎' })" class="logo">
+      <span></span>
+    </a-button>
+    <a-button type="text" @click="select({ key: '新建书签' })">
+      新建书签
+    </a-button>
+    <a-button type="text" @click="select({ key: '最近书签' })">
+      最近书签
+    </a-button>
+    <a-dropdown placement="top">
+      <a-button type="text">更多</a-button>
+      <template #overlay>
+        <a-menu @click="select" :selectedKeys="selectedKeys">
+          <a-menu-item key="Public">
+            <span>Public Library</span>
+          </a-menu-item>
+          <a-menu-item key="检查版本">
+            <span>检查版本</span>
+          </a-menu-item>
+          <a-menu-item key="反馈">
+            <span>反馈</span>
+          </a-menu-item>
+          <a-menu-item key="退出登录">
+            <span>退出登录</span>
+          </a-menu-item>
+        </a-menu>
+      </template>
+    </a-dropdown>
+  </a-row>
 </template>
 <script setup>
 import { drop } from "../modules/auth";
@@ -35,7 +36,6 @@ import { getUserName } from "../modules/auth";
 import axios from "../modules/axios";
 import { message } from "ant-design-vue";
 import "ant-design-vue/es/message/style/css";
-import Logo from "./Logo.vue";
 defineProps({
   selectedKeys: Array,
 });
@@ -94,3 +94,20 @@ async function select({ item, key, selectedKeys }) {
   );
 }
 </script>
+<style scoped>
+.menu {
+  background: white;
+  height: 100%;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid #001529;
+  padding: 0 8px;
+}
+.logo {
+  background-image: url(../assets/logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 72px;
+}
+</style>

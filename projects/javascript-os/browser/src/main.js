@@ -8,6 +8,7 @@ const app = createApp(App);
 import { createRouter, createWebHistory } from "vue-router";
 import HomeFaviconIcon from "../public/favicon.ico";
 import DiigoFaviconIcon from "./applications/Diigo/vue/public/favicon.ico";
+const login_path = "/Login"; // 登录页面的地址
 const router = createRouter({
   history: createWebHistory(), // 指定路由的模式
   routes: [
@@ -17,7 +18,7 @@ const router = createRouter({
       meta: { title: "系统", icon: HomeFaviconIcon },
     },
     {
-      path: "/Login",
+      path: login_path,
       component: function () {
         return import("./components/Login.vue");
       },
@@ -44,7 +45,7 @@ router.beforeEach(function (to, from, next) {
   const { meta } = to;
   const { fullPath, path } = to;
   // 1. 登录页面不需要登录
-  if (path === "/Login") {
+  if (path === login_path) {
     setPageMeta(meta); // 修改页面标题和图标
     return next();
   }
@@ -52,7 +53,7 @@ router.beforeEach(function (to, from, next) {
   const token = getLoginToken();
   if (token === null) {
     console.log("没有权限，需要登录"); // 不需要修改页面标题和图标
-    return next("/Login?redirect=" + encodeURIComponent(fullPath)); // 跳转到登录页面
+    return next(login_path + "?redirect=" + encodeURIComponent(fullPath)); // 跳转到登录页面
   }
   setPageMeta(meta); // 修改页面标题和图标
   next();

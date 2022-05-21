@@ -290,5 +290,6 @@ form {
   left: 0;
   right: 0;
   margin: 0 auto;
+  z-index: 1;
 }
 </style>

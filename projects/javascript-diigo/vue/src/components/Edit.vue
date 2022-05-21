@@ -163,7 +163,7 @@ async function finish(values) {
     });
     message.success("已提交");
     if (props.afterFinish) {
-      props.afterFinish();
+      props.afterFinish(values);
     }
   } catch (error) {
     console.error(error);

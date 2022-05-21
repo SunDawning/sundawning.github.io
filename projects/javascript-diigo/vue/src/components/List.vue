@@ -5,7 +5,7 @@
         <a-modal :visible="item.edit" @cancel="exitEdit(item)" :footer="null">
           <Edit
             :formState="item"
-            :afterFinish="(values) => exitEdit(item)"
+            :afterFinish="(values) => exitEdit(item, values)"
           ></Edit>
         </a-modal>
         <div>
@@ -28,7 +28,10 @@ function edit(event, item) {
   console.log("修改", item);
   item.edit = true;
 }
-function exitEdit(item) {
+function exitEdit(item, values) {
+  if (values) {
+    Object.assign(item, values); // 退出时，使用表单的值修改已经展示出来的内容
+  }
   item.edit = false;
 }
 </script>

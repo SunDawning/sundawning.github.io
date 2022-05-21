@@ -70,9 +70,6 @@ function redirect_to(router) {
   console.log("重定向到", redirect);
   router.push(redirect);
 }
-document.title = "登录";
-import setFavicon from "browser/src/modules/setFavicon";
-setFavicon("https://g.csdnimg.cn/static/logo/favicon.ico");
 </script>
 <style scoped>
 form {

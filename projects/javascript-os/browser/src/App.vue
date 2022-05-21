@@ -13,6 +13,7 @@
           </template>
           <a-button>所有APP</a-button>
         </a-dropdown>
+        <a-button @click="exitLogin">退出登录</a-button>
       </a-row>
     </a-layout-header>
     <a-layout-content>
@@ -23,4 +24,11 @@
 </template>
 <script setup>
 import BackTop from "./components/BackTop.vue";
+import { drop } from "./modules/login";
+import { useRouter } from "vue-router";
+const router = useRouter();
+function exitLogin() {
+  drop();
+  router.push("/login");
+}
 </script>

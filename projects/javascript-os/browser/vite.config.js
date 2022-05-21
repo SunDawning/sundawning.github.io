@@ -32,6 +32,34 @@ plugins.push(
   })
 );
 
+/**
+ * Diigo
+ */
+const exec = require("manager/modules/exec");
+const path = require("path");
+const adm_zip = require("adm-zip");
+{
+  const from = "../../javascript-diigo";
+  const to = path.resolve("./src/applications");
+  const name = "Diigo";
+  const zip_file = `${to}/${name}.zip`;
+  log("git archive", from, "=>", zip_file);
+  exec(
+    `git archive -0 --output ${zip_file} master`,
+    { cwd: from },
+    function (error, stdout, stderr) {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      const unzip = new adm_zip(zip_file);
+      const unzip_directory = `${to}/${name}`;
+      log("unzip", zip_file, "=>", unzip_directory);
+      unzip.extractAllTo(unzip_directory, true);
+    }
+  );
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: plugins,

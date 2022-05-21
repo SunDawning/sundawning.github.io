@@ -14,7 +14,7 @@ const routes = [];
   },
   {
     path: "/Diigo",
-    component: "./components/Diigo/App.vue",
+    component: "./applications/Diigo/vue/src/App.vue",
   },
 ].forEach(function ({ path, component }) {
   routes.push({

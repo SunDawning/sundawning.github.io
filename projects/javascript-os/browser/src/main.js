@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: login_path,
       component: function () {
-        return import("./components/Login.vue");
+        return import("./components/Login/index.vue");
       },
       meta: {
         title: "登录",

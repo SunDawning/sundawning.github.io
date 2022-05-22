@@ -30,9 +30,13 @@ async function finish(values) {
   console.log("finish", values);
   const { password } = values;
   try {
+    const baseURL = [
+      "http://sundawning.vaiwan.cn",
+      "https://f0e2-120-229-49-229.ngrok.io",
+    ][0];
     const response = await axios({
       method: "POST",
-      url: "http://sundawning.vaiwan.cn/api/javascript-os/login",
+      url: `${baseURL}/api/javascript-os/login`,
       data: {
         password,
       },

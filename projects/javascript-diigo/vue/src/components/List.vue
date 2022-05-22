@@ -58,6 +58,6 @@ pre {
   padding: 8px;
   background: #3f98e5;
   color: #ffffff;
-  max-height: 480px;
+  max-height: 320px;
 }
 </style>

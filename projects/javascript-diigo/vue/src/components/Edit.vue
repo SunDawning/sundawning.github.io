@@ -84,9 +84,10 @@ if (props.formState) {
 scrollTo(0, 0);
 /**
  * 输入框自适应文本高度
+ * 当达到行数时，达到最大高度，出现滚动条。
  */
 const autoSize = reactive({
-  maxRows: 20,
+  maxRows: 14, // 318px;
 });
 async function onChangeURL(event) {
   const url = event.target.value;

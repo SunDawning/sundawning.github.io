@@ -4,6 +4,7 @@
     @finish="finish"
     :labelCol="{ span: 4 }"
     :wrapperCol="{ span: 18 }"
+    :class="state.submitErrorClassName"
   >
     <a-form-item label="网址" name="url" :rules="[{ required: true }]">
       <a-textarea
@@ -82,6 +83,9 @@ if (props.formState) {
 }
 // 回到顶部
 scrollTo(0, 0);
+const state = reactive({
+  submitErrorClassName: "",
+});
 /**
  * 输入框自适应文本高度
  * 当达到行数时，达到最大高度，出现滚动条。
@@ -153,6 +157,7 @@ async function finish(values) {
     }
   });
   try {
+    g;
     await axios({
       method: "POST",
       url: "https://www.diigo.com/item/save/bookmark",
@@ -166,9 +171,11 @@ async function finish(values) {
     if (props.afterFinish) {
       props.afterFinish(values);
     }
+    state.submitErrorClassName = "";
   } catch (error) {
     console.error(error);
     message.error(error.message);
+    state.submitErrorClassName = "error";
   }
 }
 /**
@@ -292,5 +299,8 @@ form {
   right: 0;
   margin: 0 auto;
   z-index: 1;
+}
+.error {
+  background: #f99f3017;
 }
 </style>

@@ -157,7 +157,6 @@ async function finish(values) {
     }
   });
   try {
-    g;
     await axios({
       method: "POST",
       url: "https://www.diigo.com/item/save/bookmark",

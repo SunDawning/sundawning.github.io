@@ -1,16 +1,28 @@
 const axios = require("axios");
-index();
-async function index() {
+console.log(index());
+async function index({ password = 123456 } = {}) {
   const serverList = await getServerList();
   console.log("serverList", serverList);
-  const response = await axios({
-    method: "POST",
-    url: "https://b898-183-240-6-199.ngrok.io/api/javascript-os/login",
-    data: {
-      password: "123456",
-    },
-  });
-  console.log("response.data", response.data);
+  if (serverList === undefined) {
+    return;
+  }
+  const baseURLs = makeArrayToRandom(serverList);
+  const total = baseURLs.length;
+  for (let c = 0; c < total; c = c + 1) {
+    const baseURL = baseURLs[c];
+    console.log("baseURL", baseURL);
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${baseURL}/api/javascript-os/login`,
+        data: { password },
+      });
+      return response.data;
+    } catch (error) {
+      continue;
+    }
+  }
+  return;
 }
 /**
  * 获取在线服务器的列表

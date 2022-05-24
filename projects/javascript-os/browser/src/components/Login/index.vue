@@ -10,7 +10,7 @@
     <a-form-item>
       <a-space :size="8">
         <a-button type="primary" html-type="submit">登录</a-button>
-        <a-button html-type="submit">游客登录</a-button>
+        <a-button type="primary" @click="anonymous">游客登录</a-button>
       </a-space>
     </a-form-item>
   </a-form>
@@ -48,6 +48,13 @@ async function finish(values) {
   saveToDatabase(password);
   console.log("router", router);
   // 重定向页面
+  redirect_to(router);
+}
+/**
+ * 游客登录
+ */
+function anonymous() {
+  saveToDatabase("anonymous");
   redirect_to(router);
 }
 </script>

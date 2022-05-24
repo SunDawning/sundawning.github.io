@@ -8,7 +8,10 @@
       ></a-textarea>
     </a-form-item>
     <a-form-item>
-      <a-button type="primary" html-type="submit">登录</a-button>
+      <a-space :size="8">
+        <a-button type="primary" html-type="submit">登录</a-button>
+        <a-button html-type="submit">游客登录</a-button>
+      </a-space>
     </a-form-item>
   </a-form>
 </template>

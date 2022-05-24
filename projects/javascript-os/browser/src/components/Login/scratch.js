@@ -1,10 +1,16 @@
 const axios = require("axios");
-console.log(index());
+(async function () {
+  try {
+    await index();
+  } catch (error) {
+    console.error(error);
+  }
+})();
 async function index({ password = 123456 } = {}) {
   const serverList = await getServerList();
   console.log("serverList", serverList);
   if (serverList === undefined) {
-    return;
+    throw { message: "无法获取授权服务器列表" };
   }
   const baseURLs = makeArrayToRandom(serverList);
   const total = baseURLs.length;
@@ -22,7 +28,7 @@ async function index({ password = 123456 } = {}) {
       continue;
     }
   }
-  return;
+  throw { message: "授权服务器无法连接" };
 }
 /**
  * 获取在线服务器的列表

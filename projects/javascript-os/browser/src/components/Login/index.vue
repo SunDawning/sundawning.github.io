@@ -69,7 +69,7 @@ function redirect_to(router) {
  * @param {number} options.password
  * @returns
  */
-async function login({ password = 123456 } = {}) {
+async function login({ password }) {
   const serverList = await getServerList();
   console.log("serverList", serverList);
   if (serverList === undefined) {
@@ -86,7 +86,7 @@ async function login({ password = 123456 } = {}) {
         url: `${baseURL}/api/javascript-os/login`,
         data: { password },
       });
-      return response.data;
+      return response;
     } catch (error) {
       continue;
     }

@@ -1,12 +1,18 @@
 const axios = require("axios");
-(async function () {
+index();
+async function index() {
   try {
-    await index();
+    await login();
   } catch (error) {
     console.error(error);
   }
-})();
-async function index({ password = 123456 } = {}) {
+}
+/**
+ * 将密码发送到授权服务器，如果登录成功则返回数据，否则抛出错误
+ * @param {number} options.password
+ * @returns
+ */
+async function login({ password = 123456 } = {}) {
   const serverList = await getServerList();
   console.log("serverList", serverList);
   if (serverList === undefined) {

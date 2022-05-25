@@ -8,6 +8,7 @@
       @displayEdit="displayEdit"
       @displayRecent="displayRecent"
       @displayFeedback="displayFeedback"
+      @displayBlogMode="displayBlogMode"
       @login="login"
     ></Sider>
     <Content
@@ -19,6 +20,7 @@
       :displayEdit="state.displayEdit"
       :displayRecent="state.displayRecent"
       :displayFeedback="state.displayFeedback"
+      :displayBlogMode="state.displayBlogMode"
     ></Content>
   </a-layout>
 </template>
@@ -33,6 +35,7 @@ const state = reactive({
   displayEdit: false,
   displayRecent: false,
   displayFeedback: false,
+  displayBlogMode: false,
 });
 function displaySearch(value) {
   state.displaySearch = value;
@@ -51,6 +54,9 @@ function displayRecent(value) {
 }
 function displayFeedback(value) {
   state.displayFeedback = value;
+}
+function displayBlogMode(value) {
+  state.displayBlogMode = value;
 }
 const emit = defineEmits();
 function login(value) {

@@ -22,6 +22,7 @@
       <Edit v-else-if="displayEdit"></Edit>
       <Recent v-else-if="displayRecent"></Recent>
       <Feedback v-else-if="displayFeedback"></Feedback>
+      <BlogMode v-else-if="displayBlogMode"></BlogMode>
     </a-layout-content>
     <a-layout-footer>
       Copyright © 2022 SunDawning
@@ -38,6 +39,7 @@ import Welcome from "./Welcome.vue";
 import Edit from "./Edit.vue";
 import Recent from "./Recent.vue";
 import Feedback from "./Feedback.vue";
+import BlogMode from "./BlogMode.vue";
 const state = reactive({
   search: {},
   options: [],
@@ -48,6 +50,7 @@ defineProps({
   displayEdit: Boolean,
   displayRecent: Boolean,
   displayFeedback: Boolean,
+  displayBlogMode: Boolean,
 });
 const emit = defineEmits();
 onMounted(function () {

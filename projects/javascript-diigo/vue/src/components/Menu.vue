@@ -73,6 +73,7 @@ async function select({ item, key, selectedKeys }) {
     "displayEdit",
     "displayRecent",
     "displayFeedback",
+    "displayBlogMode",
   ].forEach(function (item) {
     emit(item, false);
   });
@@ -89,6 +90,7 @@ async function select({ item, key, selectedKeys }) {
     新建书签: "displayEdit",
     最近书签: "displayRecent",
     反馈: "displayFeedback",
+    博客模式: "displayBlogMode",
   }[key];
   if (toDisplay === undefined) {
     return;

@@ -22,6 +22,7 @@
           <a-menu-item key="反馈">
             <span>反馈</span>
           </a-menu-item>
+          <a-menu-item key="博客模式"><span>博客模式</span></a-menu-item>
           <a-menu-item key="退出登录">
             <span>退出登录</span>
           </a-menu-item>

@@ -7,7 +7,7 @@ const child_process = require("child_process");
     "cd vue && npm run dev",
   ].forEach(exec);
   // 打开浏览器
-  exec("start http://localhost:3000");
+  // exec("start http://localhost:3000");
   // 修改命令行的标题
   setTimeout(function () {
     exec("title Diigo服务器");

@@ -19,3 +19,8 @@ const state = reactive({
   code_theme: "github",
 });
 </script>
+<style scoped>
+#md-editor-v3 {
+  text-align: left;
+}
+</style>

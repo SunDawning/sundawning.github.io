@@ -1,0 +1,19 @@
+{
+  "name": "@sundawning/hello",
+  "version": "1.0.0",
+  "description": "Hello",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sundawning/sundawning.gitee.io/projects/node/npm/@sundawning/hello"
+  },
+  "keywords": [
+    "sundawning",
+    "hello"
+  ],
+  "author": "sundawning",
+  "license": "MIT"
+}

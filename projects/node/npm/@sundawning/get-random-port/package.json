@@ -1,0 +1,32 @@
+{
+  "name": "@sundawning/get-random-port",
+  "version": "1.0.0",
+  "description": "获取随机可用的端口",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "keywords": [
+    "sundawning",
+    "port",
+    "portfinder",
+    "random"
+  ],
+  "author": "sundawning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/get-random-port",
+  "devDependencies": {
+    "@sundawning/console-log-timestamp": "^1.0.0"
+  },
+  "dependencies": {
+    "@sundawning/get-port": "^1.0.0",
+    "@sundawning/get-random-int": "^1.0.0"
+  }
+}

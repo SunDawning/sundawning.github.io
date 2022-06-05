@@ -1,0 +1,27 @@
+{
+  "name": "@sundawning/get-random-int",
+  "version": "1.0.0",
+  "description": "生成min和max之间的随机整数",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "keywords": [
+    "sundawning",
+    "random",
+    "int"
+  ],
+  "author": "sundawning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/get-random-int",
+  "devDependencies": {
+    "@sundawning/console-log-timestamp": "^1.0.0"
+  }
+}

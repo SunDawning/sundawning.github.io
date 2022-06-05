@@ -1,0 +1,25 @@
+{
+  "name": "@sundawning/console-log-timestamp",
+  "version": "1.0.0",
+  "description": "打印，不同于console.log，带有时间戳。",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/console-log-timestamp"
+  },
+  "keywords": [
+    "sundawning",
+    "console",
+    "log",
+    "timestamp"
+  ],
+  "author": "sundawning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/console-log-timestamp"
+}

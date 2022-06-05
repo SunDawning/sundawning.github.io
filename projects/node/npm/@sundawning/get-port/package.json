@@ -1,0 +1,30 @@
+{
+  "name": "@sundawning/get-port",
+  "version": "1.0.0",
+  "description": "查找可用的端口",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "keywords": [
+    "sundawning",
+    "port",
+    "portfinder"
+  ],
+  "author": "sundawning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/get-port",
+  "devDependencies": {
+    "@sundawning/console-log-timestamp": "^1.0.0"
+  },
+  "dependencies": {
+    "portfinder": "^1.0.28"
+  }
+}

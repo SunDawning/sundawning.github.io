@@ -1,0 +1,28 @@
+{
+  "name": "@sundawning/child-process-exec-with-log",
+  "version": "1.0.0",
+  "description": "异步执行命令，并输出到主进程里。",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "keywords": [
+    "sundawning",
+    "child_process",
+    "process",
+    "log"
+  ],
+  "author": "sundawning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/child-process-exec-with-log",
+  "dependencies": {
+    "@sundawning/console-log-timestamp": "^1.0.0"
+  }
+}

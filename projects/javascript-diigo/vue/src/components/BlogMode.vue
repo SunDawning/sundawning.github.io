@@ -3,6 +3,7 @@
     v-model="state.text"
     :preview-theme="state.preview_theme"
     :code-theme="state.code_theme"
+    @onUploadImg="onUploadImg"
   ></md-editor>
 </template>
 <script setup>
@@ -18,6 +19,22 @@ const state = reactive({
   preview_theme: "github",
   code_theme: "github",
 });
+async function onUploadImg(files, callback) {
+  // console.log("files", files);
+  const urls = [];
+  files.forEach(function (file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      urls.push(reader.result);
+      // 上传完所有图片
+      if (urls.length === files.length) {
+        // console.log("urls", urls);
+        callback(urls);
+      }
+    };
+  });
+}
 </script>
 <style scoped>
 #md-editor-v3 {

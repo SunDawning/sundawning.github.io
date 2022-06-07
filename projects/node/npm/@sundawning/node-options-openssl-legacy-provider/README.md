@@ -15,8 +15,9 @@ pnpm add @sundawning/node-options-openssl-legacy-provider
 # 使用
 
 ```js
-const node_options_openssl_legacy_provider = require("./index");
-console.log(`cross-env ${node_options_openssl_legacy_provider()} umi dev`);
+const node_options_openssl_legacy_provider = require("@sundawning/node-options-openssl-legacy-provider");
+const log = require("@sundawning/console-log-timestamp");
+log(`cross-env ${node_options_openssl_legacy_provider()} umi dev`);
 ```
 
 在 Node 18 下输出：

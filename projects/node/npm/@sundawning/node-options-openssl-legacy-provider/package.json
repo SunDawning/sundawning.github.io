@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/ndoe-options-openssl-legacy-provider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "在node 17和node 18里需要设置NODE_OPTIONS=--openssl-legacy-provider",
   "main": "index.js",
   "scripts": {

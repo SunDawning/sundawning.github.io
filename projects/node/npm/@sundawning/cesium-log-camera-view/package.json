@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/cesium-log-camera-view",
-  "version": "1.0.2",
+  "version": "1.0.1",
   "description": "在 Cesium 场景里打印当前视角",
   "main": "index.js",
   "scripts": {

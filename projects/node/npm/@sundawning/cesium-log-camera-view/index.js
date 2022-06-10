@@ -12,15 +12,18 @@ Cesium.Plugins.SunDawning.log_camera_view = function (viewer) {
   let mode = viewer.scene.mode;
   viewer.scene.mode = Cesium.SceneMode.SCENE3D;
   let camera = viewer.camera;
-  console.log(
-    JSON.stringify({
-      destination: camera.position,
-      orientation: {
-        heading: camera.heading,
-        pitch: camera.pitch,
-        roll: camera.roll,
-      },
-    })
-  );
+  const view = {
+    destination: camera.position,
+    orientation: {
+      heading: camera.heading,
+      pitch: camera.pitch,
+      roll: camera.roll,
+    },
+  };
+  viewer.selectedEntity = new Cesium.Entity({
+    name: "当前视角",
+    description: JSON.stringify(view, null, 4),
+  });
+  console.log(JSON.stringify(view));
   viewer.scene.mode = mode;
 };

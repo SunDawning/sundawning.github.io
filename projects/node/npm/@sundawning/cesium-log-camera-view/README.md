@@ -35,3 +35,14 @@ viewer.camera.setView({
   },
 });
 ```
+
+# 一个测试页面
+
+2022-06-10 12:45:19
+
+```sh
+pnpm run test
+# http://127.0.0.1:8080
+```
+
+![](./screenshot.png)

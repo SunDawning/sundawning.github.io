@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>在 Cesium 场景里打印当前视角</title>
+  </head>
+  <body>
+    <!-- 界面 -->
+    <style type="text/css">
+      #container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <div id="container"></div>
+    <!-- Cesium依赖 -->
+    <link
+      rel="stylesheet"
+      href="./node_modules/cesium/Build/Cesium/Widgets/widgets.css"
+    />
+    <script
+      type="text/javascript"
+      src="./node_modules/cesium/Build/Cesium/Cesium.js"
+    ></script>
+    <!-- 搭建场景 -->
+    <script type="text/javascript">
+      const container = document.querySelector("#container");
+      const viewer = new Cesium.Viewer(container, {
+        baseLayerPicker: false, //隐藏默认底图选择控件
+        imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+          url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        }), //设置默认底图
+      });
+      viewer.camera.setView({
+        destination: {
+          x: -1580253.2325454364,
+          y: 5526726.883299408,
+          z: 2778203.2517674323,
+        },
+        orientation: {
+          heading: 0.5336439424054289,
+          pitch: -0.8053746311731937,
+          roll: 6.28185460132864,
+        },
+      });
+    </script>
+    <!-- 打印当前视角 -->
+    <script type="text/javascript" src="./index.js"></script>
+    <style type="text/css">
+      .button {
+        position: absolute;
+        left: 100px;
+        top: 100px;
+      }
+    </style>
+    <button
+      class="button"
+      onclick="Cesium.Plugins.SunDawning.log_camera_view(viewer)"
+    >
+      打印当前视角
+    </button>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "@sundawning/cesium-log-camera-view",
+  "version": "1.0.0",
+  "description": "在 Cesium 场景里打印当前视角",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "keywords": [
+    "sundawning",
+    "cesium",
+    "viewer",
+    "camera",
+    "log"
+  ],
+  "author": "sundawning",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/cesium-log-camera-view"
+}

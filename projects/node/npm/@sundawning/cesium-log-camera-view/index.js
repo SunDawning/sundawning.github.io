@@ -1,11 +1,14 @@
-if (Cesium.SunDawning === undefined) {
-  Cesium.SunDawning = {};
+if (Cesium.Plugins === undefined) {
+  Cesium.Plugins = {};
+}
+if (Cesium.Plugins.SunDawning === undefined) {
+  Cesium.Plugins.SunDawning = {};
 }
 /**
  * 打印当前视角
  * @param {Cesium.Viewer} viewer
  */
-Cesium.SunDawning.log_camera_view = function (viewer) {
+Cesium.Plugins.SunDawning.log_camera_view = function (viewer) {
   let mode = viewer.scene.mode;
   viewer.scene.mode = Cesium.SceneMode.SCENE3D;
   let camera = viewer.camera;

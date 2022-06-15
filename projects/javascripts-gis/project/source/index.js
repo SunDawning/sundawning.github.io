@@ -1,25 +1,6 @@
 /**
  * 添加样式
  * @param {HTMLElement} container
- * @param {string} text
- */
-function appendStyleText(container, text) {
-  const style = document.createElement("style");
-  style.innerText = text;
-  container.appendChild(style);
-}
-/**
- * 添加样式
- * @param {HTMLElement} container
- * @param {Response} response
- */
-async function appendStyleResponse(container, response) {
-  const text = await response.text();
-  appendStyleText(container, text);
-}
-/**
- * 添加样式
- * @param {HTMLElement} container
  * @param {string} url
  */
 async function appendStyleCSS(container, url) {

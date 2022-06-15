@@ -48,7 +48,7 @@ function appendChildToBody(child) {
  * @param {object} Cesium
  * @returns Cesium.Viewer
  */
-function getCesiumViewerCreate(container, Cesium) {
+function getCesiumViewerCreateByCesium(container, Cesium) {
   return new Cesium.Viewer(container);
 }
 /**
@@ -57,9 +57,9 @@ function getCesiumViewerCreate(container, Cesium) {
  * @param {string} url
  * @returns Cesium.Viewer
  */
-async function getCesiumViewerCreateAsync(container, url) {
+async function getCesiumViewerCreateByURL(container, url) {
   await import(url);
-  return getCesiumViewerCreate(container, Cesium);
+  return getCesiumViewerCreateByCesium(container, Cesium);
 }
 /**
  * 创建一个Cesium.Viewer
@@ -67,14 +67,14 @@ async function getCesiumViewerCreateAsync(container, url) {
  * @param {url} CESIUM_BASE_URL
  * @returns
  */
-async function getACesiumViewer(root, CESIUM_BASE_URL) {
+async function getCesiumViewerCreateByBaseURL(root, CESIUM_BASE_URL) {
   const container = document.createElement("div");
   container.attachShadow({ mode: "open" });
   appendStyleCSS(
     container.shadowRoot,
     `${CESIUM_BASE_URL}/Widgets/widgets.css`
   );
-  const viewer = await getCesiumViewerCreateAsync(
+  const viewer = await getCesiumViewerCreateByURL(
     container.shadowRoot,
     `${CESIUM_BASE_URL}/Cesium.js`
   );
@@ -86,7 +86,7 @@ async function index() {
   {
     window.CESIUM_BASE_URL =
       "https://cdnjs.cloudflare.com/ajax/libs/cesium/1.94.3";
-    await getACesiumViewer(root, CESIUM_BASE_URL);
+    await getCesiumViewerCreateByBaseURL(root, CESIUM_BASE_URL);
   }
 }
 index();

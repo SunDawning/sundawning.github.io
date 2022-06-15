@@ -1,3 +1,13 @@
+/**
+ * 添加样式
+ * @param {HTMLElement} container
+ * @param {string} text
+ */
+function appendStyleText(container, text) {
+  const style = document.createElement("style");
+  style.innerText = text;
+  container.appendChild(style);
+}
 async function index() {
   {
     window.CESIUM_BASE_URL =
@@ -7,9 +17,8 @@ async function index() {
     {
       const response = await fetch(`${CESIUM_BASE_URL}/Widgets/widgets.css`);
       {
-        const style = document.createElement("style");
-        style.innerText = await response.text();
-        container.shadowRoot.appendChild(style);
+        const text = await response.text();
+        appendStyleText(container.shadowRoot, text);
       }
     }
     {

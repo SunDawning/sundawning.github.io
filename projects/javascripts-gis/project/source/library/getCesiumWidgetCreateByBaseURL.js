@@ -10,10 +10,14 @@ window.getCesiumWidgetCreateByBaseURL = async function (root, CESIUM_BASE_URL) {
   container.attachShadow({ mode: "open" });
   {
     await import("./appendStyleCSS.js");
-    appendStyleCSS(
+    await appendStyleCSS(
       container.shadowRoot,
       `${CESIUM_BASE_URL}/Widgets/widgets.css`
     );
+  }
+  {
+    await import("./cesiumWidgetCreditsToNone.js");
+    await cesiumWidgetCreditsToNone(container.shadowRoot);
   }
   {
     await import("./getCesiumWidgetCreateByURL.js");
@@ -23,13 +27,8 @@ window.getCesiumWidgetCreateByBaseURL = async function (root, CESIUM_BASE_URL) {
     );
   }
   {
-    await import("./cesiumWidgetCreditsToNone.js");
-    cesiumWidgetCreditsToNone(container.shadowRoot);
-  }
-  {
     await import("./appendChild.js");
     appendChild(root, container);
   }
-
   return cesiumWidget;
 };

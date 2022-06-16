@@ -1,19 +1,19 @@
 /**
- * 创建一个Cesium.CesiumWidget
+ * 创建一个Cesium.Viewer
  * @param {HTMLElement} root 根元素
  * @param {url} CESIUM_BASE_URL
  * @returns
  */
-window.getCesiumWidgetCreateByBaseURLInShadowRoot = async function (
+window.getCesiumCSSAndCesiumViewerCreateByBaseURLInShadowRoot = async function (
   root,
   CESIUM_BASE_URL
 ) {
-  let cesiumWidget;
+  let viewer;
   const container = document.createElement("div");
   container.attachShadow({ mode: "open" });
   {
-    await import("./getCesiumCSSAndCesiumWidgetCreateByBaseURL.js");
-    cesiumWidget = await getCesiumCSSAndCesiumWidgetCreateByBaseURL(
+    await import("./getCesiumCSSAndCesiumViewerCreateByBaseURL.js");
+    viewer = await getCesiumCSSAndCesiumViewerCreateByBaseURL(
       container.shadowRoot,
       CESIUM_BASE_URL
     );
@@ -22,5 +22,5 @@ window.getCesiumWidgetCreateByBaseURLInShadowRoot = async function (
     await import("./appendChild.js");
     appendChild(root, container);
   }
-  return cesiumWidget;
+  return viewer;
 };

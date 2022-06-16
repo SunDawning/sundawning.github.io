@@ -5,6 +5,6 @@
  */
 window.appendStyleText = function (container, text) {
   const style = document.createElement("style");
-  style.innerText = text;
+  style.innerHTML = text;
   container.appendChild(style);
 };

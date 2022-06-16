@@ -2,10 +2,11 @@
  * 创建一个Cesium.CesiumWidget
  * @param {HTMLElement} root 根元素
  * @param {url} CESIUM_BASE_URL
+ * @param {object} Cesium_Widget_Options
  * @returns
  */
 globalThis.getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot =
-  async function (root, CESIUM_BASE_URL) {
+  async function (root, CESIUM_BASE_URL, Cesium_Widget_Options) {
     let cesiumWidget;
     let container;
     {
@@ -16,7 +17,8 @@ globalThis.getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot =
       await import("./getCesiumCSSAndCesiumWidgetCreateByBaseURL.js");
       cesiumWidget = await getCesiumCSSAndCesiumWidgetCreateByBaseURL(
         container.shadowRoot,
-        CESIUM_BASE_URL
+        CESIUM_BASE_URL,
+        Cesium_Widget_Options
       );
     }
     return cesiumWidget;

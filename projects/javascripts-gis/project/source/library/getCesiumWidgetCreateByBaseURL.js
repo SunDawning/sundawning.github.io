@@ -23,8 +23,21 @@ window.getCesiumWidgetCreateByBaseURL = async function (root, CESIUM_BASE_URL) {
     );
   }
   {
+    await import("./appendStyleText.js");
+    appendStyleText(
+      container.shadowRoot,
+      `
+.cesium-widget-credits,
+.cesium-credit-lightbox-overlay{
+  display:none;
+}      
+      `
+    );
+  }
+  {
     await import("./appendChild.js");
     appendChild(root, container);
   }
+
   return cesiumWidget;
 };

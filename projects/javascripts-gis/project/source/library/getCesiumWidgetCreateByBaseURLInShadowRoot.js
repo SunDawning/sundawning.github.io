@@ -4,7 +4,10 @@
  * @param {url} CESIUM_BASE_URL
  * @returns
  */
-window.getCesiumWidgetCreateByBaseURL = async function (root, CESIUM_BASE_URL) {
+window.getCesiumWidgetCreateByBaseURLInShadowRoot = async function (
+  root,
+  CESIUM_BASE_URL
+) {
   let cesiumWidget;
   const container = document.createElement("div");
   container.attachShadow({ mode: "open" });

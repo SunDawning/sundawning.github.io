@@ -1,6 +1,17 @@
 async function index() {
   const root = document.body;
   {
+    await import("./library/appendStyleText.js");
+    appendStyleText(
+      root,
+      `
+body{
+  margin:0;
+}
+    `
+    );
+  }
+  {
     globalThis.CESIUM_BASE_URL =
       "https://cdnjs.cloudflare.com/ajax/libs/cesium/1.94.3";
     await import(

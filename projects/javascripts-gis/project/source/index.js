@@ -18,9 +18,6 @@ async function index() {
   {
     globalThis.CESIUM_BASE_URL =
       "https://cdnjs.cloudflare.com/ajax/libs/cesium/1.94.3";
-    await import(
-      "./library/getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot.js"
-    );
     let imageryProvider;
     {
       await import(
@@ -31,12 +28,39 @@ async function index() {
           CESIUM_BASE_URL
         );
     }
+    await import(
+      "./library/getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot.js"
+    );
     globalThis.cesiumWidget =
       await getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot(
         root,
         CESIUM_BASE_URL,
         { imageryProvider }
       );
+    {
+      const container = await getShadowRootContainerCreateAndAppend(
+        document.body
+      );
+      appendStyleText(
+        container.shadowRoot,
+        `
+      div{
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: white;
+      }
+      `
+      );
+      const div = document.createElement("div");
+      div.innerHTML = cesiumWidget.camera.position;
+      {
+        cesiumWidget.camera.moveEnd.addEventListener(function () {
+          div.innerHTML = cesiumWidget.camera.position;
+        }, "");
+      }
+      appendChild(container.shadowRoot, div);
+    }
   }
 }
 index();

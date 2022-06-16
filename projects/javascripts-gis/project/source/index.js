@@ -1,16 +1,20 @@
+/**
+ * 给根节点添加全局样式
+ */
+async function appendRootStyle(root) {
+  await import("./library/appendStyleText.js");
+  appendStyleText(
+    root,
+    `
+body{
+margin:0;
+}
+  `
+  );
+}
 async function index() {
   const root = document.body;
-  {
-    await import("./library/appendStyleText.js");
-    appendStyleText(
-      root,
-      `
-body{
-  margin:0;
-}
-    `
-    );
-  }
+  appendRootStyle(root);
   {
     globalThis.CESIUM_BASE_URL =
       "https://cdnjs.cloudflare.com/ajax/libs/cesium/1.94.3";

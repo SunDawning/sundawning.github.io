@@ -9,18 +9,17 @@ window.getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot = async function (
   CESIUM_BASE_URL
 ) {
   let cesiumWidget;
-  const container = document.createElement("div");
-  container.attachShadow({ mode: "open" });
+  let container;
+  {
+    await import("./getShadowRootContainerCreateAndAppend.js");
+    container = await getShadowRootContainerCreateAndAppend(root);
+  }
   {
     await import("./getCesiumCSSAndCesiumWidgetCreateByBaseURL.js");
     cesiumWidget = await getCesiumCSSAndCesiumWidgetCreateByBaseURL(
       container.shadowRoot,
       CESIUM_BASE_URL
     );
-  }
-  {
-    await import("./appendChild.js");
-    appendChild(root, container);
   }
   return cesiumWidget;
 };

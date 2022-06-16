@@ -4,6 +4,6 @@
  * @param {object} Cesium
  * @returns Cesium.CesiumWidget
  */
-window.getCesiumWidgetCreateByCesium = function (container, Cesium) {
+globalThis.getCesiumWidgetCreateByCesium = function (container, Cesium) {
   return new Cesium.CesiumWidget(container);
 };

@@ -1,12 +1,12 @@
 async function index() {
   const root = document.body;
   {
-    window.CESIUM_BASE_URL =
+    globalThis.CESIUM_BASE_URL =
       "https://cdnjs.cloudflare.com/ajax/libs/cesium/1.94.3";
     await import(
       "./library/getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot.js"
     );
-    window.cesiumWidget =
+    globalThis.cesiumWidget =
       await getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot(
         root,
         CESIUM_BASE_URL

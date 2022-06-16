@@ -4,6 +4,6 @@
  * @param {object} Cesium
  * @returns Cesium.Viewer
  */
-window.getCesiumViewerCreateByCesium = function (container, Cesium) {
+globalThis.getCesiumViewerCreateByCesium = function (container, Cesium) {
   return new Cesium.Viewer(container);
 };

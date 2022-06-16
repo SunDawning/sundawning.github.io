@@ -4,7 +4,7 @@
  * @param {string} url
  * @returns Cesium.Viewer
  */
-window.getCesiumViewerCreateByURL = async function a(container, url) {
+globalThis.getCesiumViewerCreateByURL = async function a(container, url) {
   await import(url);
   await import("./getCesiumViewerCreateByCesium.js");
   return getCesiumViewerCreateByCesium(container, Cesium);

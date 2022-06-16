@@ -3,7 +3,7 @@
  * @param {HTMLElement} root
  * @returns
  */
-window.getShadowRootContainerCreate = function () {
+globalThis.getShadowRootContainerCreate = function () {
   const container = document.createElement("div");
   container.attachShadow({ mode: "open" });
   return container;

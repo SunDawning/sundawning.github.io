@@ -4,22 +4,20 @@
  * @param {url} CESIUM_BASE_URL
  * @returns
  */
-window.getCesiumCSSAndCesiumViewerCreateByBaseURLInShadowRoot = async function (
-  root,
-  CESIUM_BASE_URL
-) {
-  let viewer;
-  let container;
-  {
-    await import("./getShadowRootContainerCreateAndAppend.js");
-    container = await getShadowRootContainerCreateAndAppend(root);
-  }
-  {
-    await import("./getCesiumCSSAndCesiumViewerCreateByBaseURL.js");
-    viewer = await getCesiumCSSAndCesiumViewerCreateByBaseURL(
-      container.shadowRoot,
-      CESIUM_BASE_URL
-    );
-  }
-  return viewer;
-};
+globalThis.getCesiumCSSAndCesiumViewerCreateByBaseURLInShadowRoot =
+  async function (root, CESIUM_BASE_URL) {
+    let viewer;
+    let container;
+    {
+      await import("./getShadowRootContainerCreateAndAppend.js");
+      container = await getShadowRootContainerCreateAndAppend(root);
+    }
+    {
+      await import("./getCesiumCSSAndCesiumViewerCreateByBaseURL.js");
+      viewer = await getCesiumCSSAndCesiumViewerCreateByBaseURL(
+        container.shadowRoot,
+        CESIUM_BASE_URL
+      );
+    }
+    return viewer;
+  };

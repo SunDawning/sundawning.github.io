@@ -3,6 +3,6 @@
  * @param {HTMLElement} container
  * @param {HTMLElement} child
  */
-window.appendChild = function (container, child) {
+globalThis.appendChild = function (container, child) {
   container.appendChild(child);
 };

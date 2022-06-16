@@ -3,7 +3,7 @@
  * @param {HTMLElement} container
  */
 
-window.cesiumWidgetCreditsToNone = async function (container) {
+globalThis.cesiumWidgetCreditsToNone = async function (container) {
   await import("./appendStyleText.js");
   appendStyleText(
     container,

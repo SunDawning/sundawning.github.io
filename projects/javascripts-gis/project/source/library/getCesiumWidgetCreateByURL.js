@@ -4,7 +4,7 @@
  * @param {string} url
  * @returns Cesium.CesiumWidget
  */
-window.getCesiumWidgetCreateByURL = async function (container, url) {
+globalThis.getCesiumWidgetCreateByURL = async function (container, url) {
   await import(url);
   await import("./getCesiumWidgetCreateByCesium.js");
   return getCesiumWidgetCreateByCesium(container, Cesium);

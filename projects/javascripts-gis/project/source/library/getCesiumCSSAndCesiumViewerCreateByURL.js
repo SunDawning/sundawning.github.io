@@ -5,7 +5,7 @@
  * @param {string} Cesium_js
  * @returns Cesium.Viewer
  */
-window.getCesiumCSSAndCesiumViewerCreateByURL = async function (
+globalThis.getCesiumCSSAndCesiumViewerCreateByURL = async function (
   container,
   widgets_css,
   Cesium_js

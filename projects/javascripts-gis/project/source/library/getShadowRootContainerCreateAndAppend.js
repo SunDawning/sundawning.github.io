@@ -3,7 +3,7 @@
  * @param {HTMLElement} root
  * @returns
  */
-window.getShadowRootContainerCreateAndAppend = async function (root) {
+globalThis.getShadowRootContainerCreateAndAppend = async function (root) {
   let container;
   {
     await import("./getShadowRootContainerCreate.js");

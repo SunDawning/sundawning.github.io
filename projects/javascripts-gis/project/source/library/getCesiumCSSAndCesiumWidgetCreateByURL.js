@@ -5,7 +5,7 @@
  * @param {string} Cesium_js
  * @returns Cesium.CesiumWidget
  */
-window.getCesiumCSSAndCesiumWidgetCreateByURL = async function (
+globalThis.getCesiumCSSAndCesiumWidgetCreateByURL = async function (
   container,
   widgets_css,
   Cesium_js

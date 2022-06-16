@@ -4,7 +4,7 @@
  * @param {string} CESIUM_BASE_URL
  * @returns Cesium.Viewer
  */
-window.getCesiumCSSAndCesiumViewerCreateByBaseURL = async function (
+globalThis.getCesiumCSSAndCesiumViewerCreateByBaseURL = async function (
   container,
   CESIUM_BASE_URL
 ) {

@@ -7,7 +7,7 @@ async function appendRootStyle(root) {
     root,
     `
 body{
-margin:0;
+  margin:0;
 }
   `
   );
@@ -38,26 +38,29 @@ async function index() {
         { imageryProvider }
       );
     {
-      const container = await getShadowRootContainerCreateAndAppend(
-        document.body
-      );
+      const container = await getShadowRootContainerCreateAndAppend(root);
       appendStyleText(
         container.shadowRoot,
         `
-      div{
-        position: absolute;
-        top: 0;
-        right: 0;
-        color: white;
-      }
+div{
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  white-space: pre;
+}
       `
       );
       const div = document.createElement("div");
-      div.innerHTML = cesiumWidget.camera.position;
+      function printCameraPositionOnMoveEnd() {
+        div.innerHTML = JSON.stringify(cesiumWidget.camera.position, null, 4);
+      }
+      printCameraPositionOnMoveEnd();
       {
-        cesiumWidget.camera.moveEnd.addEventListener(function () {
-          div.innerHTML = cesiumWidget.camera.position;
-        }, "");
+        cesiumWidget.camera.moveEnd.addEventListener(
+          printCameraPositionOnMoveEnd,
+          "cameara_position"
+        );
       }
       appendChild(container.shadowRoot, div);
     }

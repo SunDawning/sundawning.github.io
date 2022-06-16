@@ -6,18 +6,22 @@ async function index() {
     await import(
       "./library/getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot.js"
     );
-    await import(`${CESIUM_BASE_URL}/Cesium.js`);
+    let imageryProvider;
+    {
+      await import(
+        "./library/getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL.js"
+      );
+      imageryProvider =
+        await getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL(
+          CESIUM_BASE_URL
+        );
+    }
     globalThis.cesiumWidget =
       await getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot(
         root,
         CESIUM_BASE_URL,
-        {
-          imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-            url: "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer",
-          }),
-        }
+        { imageryProvider }
       );
-    // cesiumWidget.scene.imageryLayers.removeAll();
   }
 }
 index();

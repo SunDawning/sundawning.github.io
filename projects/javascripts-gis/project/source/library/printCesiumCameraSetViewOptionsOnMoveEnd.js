@@ -45,6 +45,9 @@ globalThis.printCesiumCameraSetViewOptionsOnMoveEnd = async function (
   SELF.destroy = function () {
     cesiumWidget.camera.moveEnd.removeEventListener(logView, name);
     container.remove();
+    Object.keys(SELF).forEach(function (key) {
+      delete SELF[key];
+    });
   };
   return SELF;
 };

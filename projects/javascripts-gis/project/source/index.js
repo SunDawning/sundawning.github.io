@@ -12,7 +12,7 @@ body{
   `
   );
 }
-async function index() {
+async function onLoadWindow() {
   const root = document.body;
   appendRootStyle(root);
   {
@@ -70,4 +70,4 @@ async function index() {
     }
   }
 }
-index();
+globalThis.onload = onLoadWindow;

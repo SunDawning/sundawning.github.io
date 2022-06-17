@@ -25,16 +25,9 @@ globalThis.printCesiumCameraSetViewOptionsOnMoveEnd = async function (
     );
   }
   const div = document.createElement("div");
-  function logView() {
-    const camera = cesiumWidget.camera;
-    const view = {
-      destination: camera.position,
-      orientation: {
-        heading: camera.heading,
-        pitch: camera.pitch,
-        roll: camera.roll,
-      },
-    };
+  async function logView() {
+    await import("./getCesiumCameraView.js");
+    const view = getCesiumCameraView(cesiumWidget.camera);
     div.innerHTML = JSON.stringify(view, null, 4);
   }
   logView();

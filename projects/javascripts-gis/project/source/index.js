@@ -13,18 +13,6 @@ body{
   );
 }
 /**
- * @param {sttring} CESIUM_BASE_URL
- */
-async function getImageryProvider(CESIUM_BASE_URL) {
-  await import(
-    "./library/getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL.js"
-  );
-
-  return await getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL(
-    CESIUM_BASE_URL
-  );
-}
-/**
  * @param {HTMLElement} root
  * @param {function} getImageryProvider
  * @returns Cesium.CesiumWidget
@@ -76,11 +64,20 @@ white-space: pre;
       "cameara_position"
     );
   }
-  appendChild(container.shadowRoot, div);
+  {
+    await import("./library/appendChild.js");
+    appendChild(container.shadowRoot, div);
+  }
 }
 globalThis.onload = async function () {
   const root = document.body;
   appendRootStyle(root);
-  const cesiumWidget = await createEarth(root, getImageryProvider);
+  await import(
+    "./library/getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL.js"
+  );
+  const cesiumWidget = await createEarth(
+    root,
+    getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL
+  );
   printCesiumCameraPosition(root, cesiumWidget);
 };

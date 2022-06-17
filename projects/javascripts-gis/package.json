@@ -1,5 +1,5 @@
 {
   "scripts": {
-    "start": "npx http-server project/source --port 8080 --cors"
+    "start": "npx http-server project/source --port 8080 --cors --log-ip"
   }
 }

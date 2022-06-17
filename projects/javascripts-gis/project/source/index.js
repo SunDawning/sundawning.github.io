@@ -31,48 +31,6 @@ async function createEarth(root, getImageryProvider) {
     );
   return globalThis.cesiumWidget;
 }
-/**
- * @param {HTMLElement} root
- * @param {Cesium.CesiumWidget||Cesium.Viewer} cesiumWidget
- */
-async function printCesiumCameraSetViewOptionsOnMoveEnd(root, cesiumWidget) {
-  await import("./library/getShadowRootContainerCreateAndAppend.js");
-  const container = await getShadowRootContainerCreateAndAppend(root);
-  {
-    await import("./library/appendStyleText.js");
-    appendStyleText(
-      container.shadowRoot,
-      `
-div{
-position: absolute;
-top: 0;
-right: 0;
-color: white;
-white-space: pre;
-}
-    `
-    );
-  }
-  const div = document.createElement("div");
-  function logView() {
-    const camera = cesiumWidget.camera;
-    const view = {
-      destination: camera.position,
-      orientation: {
-        heading: camera.heading,
-        pitch: camera.pitch,
-        roll: camera.roll,
-      },
-    };
-    div.innerHTML = JSON.stringify(view, null, 4);
-  }
-  logView();
-  cesiumWidget.camera.moveEnd.addEventListener(logView, "cameara_position");
-  {
-    await import("./library/appendChild.js");
-    appendChild(container.shadowRoot, div);
-  }
-}
 globalThis.onload = async function () {
   const root = document.body;
   appendRootStyle(root);
@@ -83,6 +41,7 @@ globalThis.onload = async function () {
     root,
     getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL
   );
+  await import("./library/printCesiumCameraSetViewOptionsOnMoveEnd.js");
   printCesiumCameraSetViewOptionsOnMoveEnd(root, cesiumWidget);
   cesiumWidget.camera.setView({
     destination: {

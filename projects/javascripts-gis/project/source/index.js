@@ -84,4 +84,16 @@ globalThis.onload = async function () {
     getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL
   );
   printCesiumCameraSetViewOptionsOnMoveEnd(root, cesiumWidget);
+  cesiumWidget.camera.setView({
+    destination: {
+      x: -2924819.4945182353,
+      y: 9022799.347751182,
+      z: 4775396.196561911,
+    },
+    orientation: {
+      heading: 0,
+      pitch: -1.3768327359474233,
+      roll: 0,
+    },
+  });
 };

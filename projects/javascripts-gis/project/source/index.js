@@ -38,19 +38,23 @@ async function index() {
         { imageryProvider }
       );
     {
+      await import("./library/getShadowRootContainerCreateAndAppend.js");
       const container = await getShadowRootContainerCreateAndAppend(root);
-      appendStyleText(
-        container.shadowRoot,
+      {
+        await import("./library/appendStyleText.js");
+        appendStyleText(
+          container.shadowRoot,
+          `
+  div{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    white-space: pre;
+  }
         `
-div{
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: white;
-  white-space: pre;
-}
-      `
-      );
+        );
+      }
       const div = document.createElement("div");
       function printCameraPositionOnMoveEnd() {
         div.innerHTML = JSON.stringify(cesiumWidget.camera.position, null, 4);

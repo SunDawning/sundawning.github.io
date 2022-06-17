@@ -42,7 +42,7 @@ globalThis.onload = async function () {
     getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL
   );
   await import("./library/printCesiumCameraSetViewOptionsOnMoveEnd.js");
-  printCesiumCameraSetViewOptionsOnMoveEnd(root, cesiumWidget);
+
   cesiumWidget.camera.setView({
     destination: {
       x: -2924819.4945182353,

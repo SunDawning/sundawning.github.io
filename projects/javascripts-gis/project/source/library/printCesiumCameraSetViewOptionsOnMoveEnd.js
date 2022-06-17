@@ -2,11 +2,13 @@
  * 在右上角输出相机的视角，鼠标移动停下随即更新
  * @param {HTMLElement} root
  * @param {Cesium.CesiumWidget||Cesium.Viewer} cesiumWidget
+ * @returns object
  */
 globalThis.printCesiumCameraSetViewOptionsOnMoveEnd = async function (
   root,
   cesiumWidget
 ) {
+  let SELF = {};
   await import("./getShadowRootContainerCreateAndAppend.js");
   const container = await getShadowRootContainerCreateAndAppend(root);
   {
@@ -31,9 +33,18 @@ globalThis.printCesiumCameraSetViewOptionsOnMoveEnd = async function (
     div.innerHTML = JSON.stringify(view, null, 4);
   }
   logView();
-  cesiumWidget.camera.moveEnd.addEventListener(logView, "cameara_position");
+  let name = "camera_position" + Math.random();
+  cesiumWidget.camera.moveEnd.addEventListener(logView, name);
   {
     await import("./appendChild.js");
     appendChild(container.shadowRoot, div);
   }
+  /**
+   * 销毁
+   */
+  SELF.destroy = function () {
+    cesiumWidget.camera.moveEnd.removeEventListener(logView, name);
+    container.remove();
+  };
+  return SELF;
 };

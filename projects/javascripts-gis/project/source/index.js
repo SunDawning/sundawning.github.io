@@ -32,7 +32,7 @@ async function createEarth(root, getImageryProvider) {
   return globalThis.cesiumWidget;
 }
 globalThis.onload = async function () {
-  const root = document.body;
+  globalThis.root = document.body;
   appendRootStyle(root);
   await import(
     "./library/getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL.js"

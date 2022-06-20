@@ -1,8 +1,12 @@
+if (globalThis.SunDawningGIS === undefined) {
+  globalThis.SunDawningGIS = {};
+}
 /**
  * 添加元素到document.body
  * @param {HTMLElement} child
  */
-globalThis.appendChildToBody = function (child) {
+SunDawningGIS.appendChildToBody = function (child) {
   const body = document.body;
-  appendChild(body, child);
+  await import("./appendChild.js");
+  SunDawningGIS.appendChild(body, child);
 };

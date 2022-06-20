@@ -4,8 +4,8 @@
  * @param {string} url
  * @returns Cesium.Viewer
  */
-globalThis.getCesiumViewerCreateByURL = async function a(container, url) {
+SunDawningGIS.getCesiumViewerCreateByURL = async function a(container, url) {
   await import(url);
   await import("./getCesiumViewerCreateByCesium.js");
-  return getCesiumViewerCreateByCesium(container, Cesium);
+  return SunDawningGIS.getCesiumViewerCreateByCesium(container, Cesium);
 };

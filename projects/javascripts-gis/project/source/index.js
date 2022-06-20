@@ -1,9 +1,12 @@
+if (globalThis.SunDawningGIS === undefined) {
+  globalThis.SunDawningGIS = {};
+}
 /**
  * 给根节点添加全局样式
  */
 async function appendRootStyle(root) {
   await import("./library/appendStyleText.js");
-  appendStyleText(
+  SunDawningGIS.appendStyleText(
     root,
     `
 body{
@@ -23,13 +26,15 @@ async function createEarth(root, getImageryProvider) {
   await import(
     "./library/getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot.js"
   );
-  globalThis.cesiumWidget =
-    await getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot(
+  SunDawningGIS.cesiumWidget =
+    await SunDawningGIS.getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot(
       root,
       CESIUM_BASE_URL,
-      { imageryProvider: await getImageryProvider(CESIUM_BASE_URL) }
+      {
+        imageryProvider: await getImageryProvider(CESIUM_BASE_URL),
+      }
     );
-  return globalThis.cesiumWidget;
+  return SunDawningGIS.cesiumWidget;
 }
 /**
  * 创建UI，在右上角输出相机的视角，鼠标移动停下随即更新
@@ -41,18 +46,25 @@ async function create_ui_printCesiumCameraSetViewOptionsOnMoveEnd(
   cesiumWidget
 ) {
   await import("./library/printCesiumCameraSetViewOptionsOnMoveEnd.js");
-  globalThis.ui_printCesiumCameraSetViewOptionsOnMoveEnd =
-    await printCesiumCameraSetViewOptionsOnMoveEnd(root, cesiumWidget);
+  SunDawningGIS.ui_printCesiumCameraSetViewOptionsOnMoveEnd =
+    await SunDawningGIS.printCesiumCameraSetViewOptionsOnMoveEnd(
+      root,
+      cesiumWidget
+    );
 }
 globalThis.onload = async function () {
-  globalThis.root = document.body;
-  appendRootStyle(root);
+  SunDawningGIS.root = document.body;
+  appendRootStyle(SunDawningGIS.root);
   await import(
     "./library/getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL.js"
   );
   const cesiumWidget = await createEarth(
-    root,
-    getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL
+    SunDawningGIS.root,
+    SunDawningGIS.getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL
+  );
+  create_ui_printCesiumCameraSetViewOptionsOnMoveEnd(
+    SunDawningGIS.root,
+    SunDawningGIS.cesiumWidget
   );
   cesiumWidget.camera.setView({
     destination: {

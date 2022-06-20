@@ -1,9 +1,12 @@
+if (globalThis.SunDawningGIS === undefined) {
+  globalThis.SunDawningGIS = {};
+}
 /**
  * 得到相机的视角，使用camera.setView
  * @param {Cesium.Camera} camera
  * @returns object
  */
-globalThis.getCesiumCameraView = function (camera) {
+SunDawningGIS.getCesiumCameraView = function (camera) {
   return {
     destination: camera.position,
     orientation: {

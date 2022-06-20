@@ -1,3 +1,6 @@
+if (globalThis.SunDawningGIS === undefined) {
+  globalThis.SunDawningGIS = {};
+}
 /**
  * 使用Cesium创建CesiumWidget
  * @param {HTMLElement} container
@@ -5,7 +8,7 @@
  * @param {object} Cesium_Widget_Options
  * @returns Cesium.CesiumWidget
  */
-globalThis.getCesiumWidgetCreateByCesium = function (
+SunDawningGIS.getCesiumWidgetCreateByCesium = function (
   container,
   Cesium,
   Cesium_Widget_Options

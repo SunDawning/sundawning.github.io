@@ -1,11 +1,14 @@
+if (globalThis.SunDawningGIS === undefined) {
+  globalThis.SunDawningGIS = {};
+}
 /**
  * 隐藏CesiumWidget的版权声明
  * @param {HTMLElement} container
  */
 
-globalThis.cesiumWidgetCreditsToNone = async function (container) {
+SunDawningGIS.cesiumWidgetCreditsToNone = async function (container) {
   await import("./appendStyleText.js");
-  appendStyleText(
+  SunDawningGIS.appendStyleText(
     container,
     `
 .cesium-widget-credits,

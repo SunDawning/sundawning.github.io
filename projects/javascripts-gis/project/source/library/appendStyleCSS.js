@@ -1,10 +1,13 @@
+if (globalThis.SunDawningGIS === undefined) {
+  globalThis.SunDawningGIS = {};
+}
 /**
  * 添加样式
  * @param {HTMLElement} container
  * @param {string} url
  */
-globalThis.appendStyleCSS = async function (container, url) {
+SunDawningGIS.appendStyleCSS = async function (container, url) {
   const response = await fetch(url);
   await import("./appendStyleResponse.js");
-  appendStyleResponse(container, response);
+  SunDawningGIS.appendStyleResponse(container, response);
 };

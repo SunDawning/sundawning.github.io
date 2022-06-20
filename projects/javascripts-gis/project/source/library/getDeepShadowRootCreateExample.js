@@ -1,10 +1,13 @@
+if (globalThis.SunDawningGIS === undefined) {
+  globalThis.SunDawningGIS = {};
+}
 /**
  * 示例：测试创建嵌套的shadow元素
  * - 可以创建嵌套的shadow元素
  * - 外部样式默认不影响里面的元素
  * - 共享内存
  */
-globalThis.getDeepShadowRootCreateExample = function () {
+SunDawningGIS.getDeepShadowRootCreateExample = function () {
   let div = document.createElement("div");
   div.attachShadow({ mode: "open" });
   document.body.appendChild(div);

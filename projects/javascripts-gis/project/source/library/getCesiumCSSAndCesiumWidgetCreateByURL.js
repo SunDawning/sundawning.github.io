@@ -1,3 +1,6 @@
+if (globalThis.SunDawningGIS === undefined) {
+  globalThis.SunDawningGIS = {};
+}
 /**
  * 添加Cesium的CSS样式和CesiumWidget
  * @param {HTMLElement} container
@@ -6,7 +9,7 @@
  * @param {object} Cesium_Widget_Options
  * @returns Cesium.CesiumWidget
  */
-globalThis.getCesiumCSSAndCesiumWidgetCreateByURL = async function (
+SunDawningGIS.getCesiumCSSAndCesiumWidgetCreateByURL = async function (
   container,
   widgets_css,
   Cesium_js,
@@ -14,14 +17,14 @@ globalThis.getCesiumCSSAndCesiumWidgetCreateByURL = async function (
 ) {
   {
     await import("./appendStyleCSS.js");
-    await appendStyleCSS(container, widgets_css);
+    await SunDawningGIS.appendStyleCSS(container, widgets_css);
   }
   {
     await import("./cesiumWidgetCreditsToNone.js");
-    await cesiumWidgetCreditsToNone(container);
+    await SunDawningGIS.cesiumWidgetCreditsToNone(container);
   }
   await import("./getCesiumWidgetCreateByURL.js");
-  return await getCesiumWidgetCreateByURL(
+  return await SunDawningGIS.getCesiumWidgetCreateByURL(
     container,
     Cesium_js,
     Cesium_Widget_Options

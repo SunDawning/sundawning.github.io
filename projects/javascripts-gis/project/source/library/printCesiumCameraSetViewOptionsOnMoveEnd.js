@@ -1,19 +1,24 @@
+if (globalThis.SunDawningGIS === undefined) {
+  globalThis.SunDawningGIS = {};
+}
 /**
  * 在右上角输出相机的视角，鼠标移动停下随即更新
  * @param {HTMLElement} root
  * @param {Cesium.CesiumWidget||Cesium.Viewer} cesiumWidget
  * @returns object
  */
-globalThis.printCesiumCameraSetViewOptionsOnMoveEnd = async function (
+SunDawningGIS.printCesiumCameraSetViewOptionsOnMoveEnd = async function (
   root,
   cesiumWidget
 ) {
   let SELF = {};
   await import("./getShadowRootContainerCreateAndAppend.js");
-  const container = await getShadowRootContainerCreateAndAppend(root);
+  const container = await SunDawningGIS.getShadowRootContainerCreateAndAppend(
+    root
+  );
   {
     await import("./appendStyleText.js");
-    appendStyleText(
+    SunDawningGIS.appendStyleText(
       container.shadowRoot,
       `
   div{
@@ -29,7 +34,7 @@ globalThis.printCesiumCameraSetViewOptionsOnMoveEnd = async function (
   const div = document.createElement("div");
   async function logView() {
     await import("./getCesiumCameraView.js");
-    const view = getCesiumCameraView(cesiumWidget.camera);
+    const view = SunDawningGIS.getCesiumCameraView(cesiumWidget.camera);
     div.innerHTML = JSON.stringify(view, null, 4);
   }
   logView();
@@ -37,7 +42,7 @@ globalThis.printCesiumCameraSetViewOptionsOnMoveEnd = async function (
   cesiumWidget.camera.moveEnd.addEventListener(logView, name);
   {
     await import("./appendChild.js");
-    appendChild(container.shadowRoot, div);
+    SunDawningGIS.appendChild(container.shadowRoot, div);
   }
   /**
    * 销毁

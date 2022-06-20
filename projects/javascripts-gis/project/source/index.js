@@ -72,4 +72,8 @@ globalThis.onload = async function () {
       roll: 0,
     },
   });
+  // 右键菜单
+  document.documentElement.oncontextmenu = function (event) {
+    console.log("document.documentElement.oncontextmenu", event);
+  };
 };

@@ -55,16 +55,10 @@ async function create_ui_printCesiumCameraSetViewOptionsOnMoveEnd(
 globalThis.onload = async function () {
   SunDawningGIS.root = document.body;
   appendRootStyle(SunDawningGIS.root);
-  await import(
-    "./library/getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL.js"
-  );
+  await import("./library/getArcGISWorldImageryProviderByBaseURL.js");
   const cesiumWidget = await createEarth(
     SunDawningGIS.root,
-    SunDawningGIS.getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL
-  );
-  create_ui_printCesiumCameraSetViewOptionsOnMoveEnd(
-    SunDawningGIS.root,
-    SunDawningGIS.cesiumWidget
+    SunDawningGIS.getArcGISWorldImageryProviderByBaseURL
   );
   cesiumWidget.camera.setView({
     destination: {

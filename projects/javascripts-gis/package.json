@@ -1,5 +1,8 @@
 {
   "scripts": {
     "start": "npx http-server project/source --port 8080 --cors --log-ip"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
   }
 }

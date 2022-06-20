@@ -31,6 +31,19 @@ async function createEarth(root, getImageryProvider) {
     );
   return globalThis.cesiumWidget;
 }
+/**
+ * 创建UI，在右上角输出相机的视角，鼠标移动停下随即更新
+ * @param {HTMLElement} root
+ * @param {Cesium.Viewer||Cesium.CesiumWidget} cesiumWidget
+ */
+async function create_ui_printCesiumCameraSetViewOptionsOnMoveEnd(
+  root,
+  cesiumWidget
+) {
+  await import("./library/printCesiumCameraSetViewOptionsOnMoveEnd.js");
+  globalThis.ui_printCesiumCameraSetViewOptionsOnMoveEnd =
+    await printCesiumCameraSetViewOptionsOnMoveEnd(root, cesiumWidget);
+}
 globalThis.onload = async function () {
   globalThis.root = document.body;
   appendRootStyle(root);
@@ -41,9 +54,6 @@ globalThis.onload = async function () {
     root,
     getGeoqChinaOnlineStreetPurplishBlueImageryProviderByBaseURL
   );
-  await import("./library/printCesiumCameraSetViewOptionsOnMoveEnd.js");
-  globalThis.ui_printCesiumCameraSetViewOptionsOnMoveEnd =
-    await printCesiumCameraSetViewOptionsOnMoveEnd(root, cesiumWidget);
   cesiumWidget.camera.setView({
     destination: {
       x: -2924819.4945182353,

@@ -37,6 +37,14 @@ async function createEarth(root, getImageryProvider) {
   return SunDawningGIS.cesiumWidget;
 }
 /**
+ * 设置右键菜单
+ */
+function setRightKeyMenu() {
+  document.documentElement.oncontextmenu = function (event) {
+    console.log("document.documentElement.oncontextmenu", event);
+  };
+}
+/**
  * 创建UI，在右上角输出相机的视角，鼠标移动停下随即更新
  * @param {HTMLElement} root
  * @param {Cesium.Viewer||Cesium.CesiumWidget} cesiumWidget
@@ -72,8 +80,4 @@ globalThis.onload = async function () {
       roll: 0,
     },
   });
-  // 右键菜单
-  document.documentElement.oncontextmenu = function (event) {
-    console.log("document.documentElement.oncontextmenu", event);
-  };
 };

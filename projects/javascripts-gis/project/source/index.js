@@ -100,5 +100,48 @@ div{
     );
     const _container = document.createElement("div");
     SunDawningGIS.appendChild(container.shadowRoot, _container);
+    {
+      const parent = container.shadowRoot.querySelector("div");
+      // 时间和日期
+      {
+        const container =
+          await SunDawningGIS.getShadowRootContainerCreateAndAppend(parent);
+        SunDawningGIS.appendStyleText(
+          container.shadowRoot,
+          `
+div{
+  position: absolute;
+  width: 120px;
+  right: 0;
+  height: 100%;
+  color: white;
+  display: flex;
+  align-items: center;  
+}
+            `
+        );
+        const _container = document.createElement("div");
+        SunDawningGIS.appendChild(container.shadowRoot, _container);
+        {
+          const parent = container.shadowRoot.querySelector("div");
+          // 时间
+          {
+            const container =
+              await SunDawningGIS.getShadowRootContainerCreateAndAppend(parent);
+            const _container = document.createElement("div");
+            _container.innerHTML = new Date().toLocaleDateString();
+            SunDawningGIS.appendChild(container.shadowRoot, _container);
+          }
+          // 日期
+          {
+            const container =
+              await SunDawningGIS.getShadowRootContainerCreateAndAppend(parent);
+            const _container = document.createElement("div");
+            _container.innerHTML = new Date().toLocaleDateString();
+            SunDawningGIS.appendChild(container.shadowRoot, _container);
+          }
+        }
+      }
+    }
   }
 };

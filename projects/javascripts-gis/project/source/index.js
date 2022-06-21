@@ -80,4 +80,25 @@ globalThis.onload = async function () {
       roll: 0,
     },
   });
+  // 底部工具栏
+  {
+    const container = await SunDawningGIS.getShadowRootContainerCreateAndAppend(
+      SunDawningGIS.root
+    );
+    SunDawningGIS.appendStyleText(
+      container.shadowRoot,
+      `
+div{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 48px;
+  width: 100%;
+  background-color: #3e3d3ced;   
+}       
+    `
+    );
+    const _container = document.createElement("div");
+    SunDawningGIS.appendChild(container.shadowRoot, _container);
+  }
 };

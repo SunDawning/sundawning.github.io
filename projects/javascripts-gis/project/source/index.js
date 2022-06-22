@@ -139,7 +139,14 @@ div{
     {
       const locale_time_element = document.createElement("div");
       function animate() {
-        locale_time_element.innerHTML = new Date().toLocaleTimeString();
+        const locale_time = new Date()
+          .toLocaleTimeString()
+          .split(":")
+          .slice(0, 2)
+          .join(":");
+        if (locale_time_element.innerHTML !== locale_time) {
+          locale_time_element.innerHTML = locale_time;
+        }
         requestAnimationFrame(animate);
       }
       animate();
@@ -151,7 +158,10 @@ div{
     {
       const locale_date_element = document.createElement("div");
       function animate() {
-        locale_date_element.innerHTML = new Date().toLocaleDateString();
+        const locale_date = new Date().toLocaleDateString();
+        if (locale_date_element.innerHTML !== locale_date) {
+          locale_date_element.innerHTML = locale_date;
+        }
         requestAnimationFrame(animate);
       }
       animate();

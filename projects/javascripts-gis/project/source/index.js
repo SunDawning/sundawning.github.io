@@ -138,7 +138,11 @@ div{
     // 时间
     {
       const locale_time_element = document.createElement("div");
-      locale_time_element.innerHTML = new Date().toLocaleTimeString();
+      function animate() {
+        locale_time_element.innerHTML = new Date().toLocaleTimeString();
+        requestAnimationFrame(animate);
+      }
+      animate();
       date_element.shadowRoot
         .querySelector("div")
         .shadowRoot.appendChild(locale_time_element);
@@ -146,7 +150,11 @@ div{
     // 日期
     {
       const locale_date_element = document.createElement("div");
-      locale_date_element.innerHTML = new Date().toLocaleDateString();
+      function animate() {
+        locale_date_element.innerHTML = new Date().toLocaleDateString();
+        requestAnimationFrame(animate);
+      }
+      animate();
       date_element.shadowRoot
         .querySelector("div")
         .shadowRoot.appendChild(locale_date_element);

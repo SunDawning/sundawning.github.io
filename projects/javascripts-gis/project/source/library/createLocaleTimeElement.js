@@ -3,9 +3,14 @@ if (globalThis.SunDawningGIS === undefined) {
 }
 /**
  * 创建本地时间的元素
+ * @param {HTMLElement} container
+ * @param {string} to 元素将要添加到的位置，譬如appendChild, before, after
  * @returns HTMLElement
  */
-SunDawningGIS.createLocaleTimeElement = function (container) {
+SunDawningGIS.createLocaleTimeElement = function (
+  container,
+  to = "appendChild"
+) {
   const SELF = {};
   const locale_time_element = document.createElement("div");
   let id;
@@ -21,7 +26,7 @@ SunDawningGIS.createLocaleTimeElement = function (container) {
     id = requestAnimationFrame(animate);
   }
   animate();
-  container.appendChild(locale_time_element);
+  container[to](locale_time_element);
   /**
    * 销毁
    */

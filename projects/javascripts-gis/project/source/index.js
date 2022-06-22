@@ -82,8 +82,16 @@ globalThis.onload = async function () {
   });
   // 底部工具栏
   function getTaskbarCreate() {
-    const container = document.createElement("div");
-    container.attachShadow({ mode: "open" });
+    /**
+     * 创建带有shadowRoot的div
+     * @returns HTMLElement
+     */
+    function createDivWithShadowRoot() {
+      const container = document.createElement("div");
+      container.attachShadow({ mode: "open" });
+      return container;
+    }
+    const container = createDivWithShadowRoot();
     SunDawningGIS.appendStyleText(
       container.shadowRoot,
       `

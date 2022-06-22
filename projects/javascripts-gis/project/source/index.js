@@ -104,6 +104,7 @@ div{
   }
   const taskbar = getTaskbarCreate();
   SunDawningGIS.root.appendChild(taskbar);
+  // 时间日期栏
   {
     function getDateElementCreate() {
       const container = document.createElement("div");
@@ -113,10 +114,15 @@ div{
         `
   div{
     position: absolute;
-    width: 120px;
+    width: 64px;
     right: 0;
     height: 100%;
     color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;    
+    font-size: 12px;
   }   
       `
       );
@@ -129,56 +135,21 @@ div{
     taskbar.shadowRoot
       .querySelector("div")
       .shadowRoot.appendChild(date_element);
+    // 时间
     {
-      function getLocaleDateElementCreate() {
-        const container = document.createElement("div");
-        container.attachShadow({ mode: "open" });
-        SunDawningGIS.appendStyleText(
-          container.shadowRoot,
-          `
-      div{
-        position: absolute;
-        width: 120px;
-        right: 0;
-        color: white;
-      }   
-          `
-        );
-        const _container = document.createElement("div");
-        _container.innerHTML = new Date().toLocaleDateString();
-        SunDawningGIS.appendChild(container.shadowRoot, _container);
-        return container;
-      }
-      const locale_date_element = getLocaleDateElementCreate();
-      date_element.shadowRoot
-        .querySelector("div")
-        .shadowRoot.appendChild(locale_date_element);
-    }
-    {
-      function getLocaleTimeElementCreate() {
-        const container = document.createElement("div");
-        container.attachShadow({ mode: "open" });
-        SunDawningGIS.appendStyleText(
-          container.shadowRoot,
-          `
-      div{
-        position: absolute;
-        width: 120px;
-        right: 0;
-        top: 24px;
-        color: white;
-      }   
-          `
-        );
-        const _container = document.createElement("div");
-        _container.innerHTML = new Date().toLocaleTimeString();
-        SunDawningGIS.appendChild(container.shadowRoot, _container);
-        return container;
-      }
-      const locale_time_element = getLocaleTimeElementCreate();
+      const locale_time_element = document.createElement("div");
+      locale_time_element.innerHTML = new Date().toLocaleTimeString();
       date_element.shadowRoot
         .querySelector("div")
         .shadowRoot.appendChild(locale_time_element);
+    }
+    // 日期
+    {
+      const locale_date_element = document.createElement("div");
+      locale_date_element.innerHTML = new Date().toLocaleDateString();
+      date_element.shadowRoot
+        .querySelector("div")
+        .shadowRoot.appendChild(locale_date_element);
     }
   }
 };

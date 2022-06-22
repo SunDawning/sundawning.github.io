@@ -22,7 +22,7 @@ body{
  */
 async function createEarth(root, getImageryProvider) {
   globalThis.CESIUM_BASE_URL =
-    "https://cdnjs.cloudflare.com/ajax/libs/cesium/1.94.3";
+    "https://cdn.bootcdn.net/ajax/libs/cesium/1.94.3";
   await import(
     "./library/getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot.js"
   );
@@ -81,10 +81,9 @@ globalThis.onload = async function () {
     },
   });
   // 底部工具栏
-  {
-    const container = await SunDawningGIS.getShadowRootContainerCreateAndAppend(
-      SunDawningGIS.root
-    );
+  function getTaskbarCreate() {
+    const container = document.createElement("div");
+    container.attachShadow({ mode: "open" });
     SunDawningGIS.appendStyleText(
       container.shadowRoot,
       `
@@ -99,49 +98,87 @@ div{
     `
     );
     const _container = document.createElement("div");
+    _container.attachShadow({ mode: "open" });
     SunDawningGIS.appendChild(container.shadowRoot, _container);
+    return container;
+  }
+  const taskbar = getTaskbarCreate();
+  SunDawningGIS.root.appendChild(taskbar);
+  {
+    function getDateElementCreate() {
+      const container = document.createElement("div");
+      container.attachShadow({ mode: "open" });
+      SunDawningGIS.appendStyleText(
+        container.shadowRoot,
+        `
+  div{
+    position: absolute;
+    width: 120px;
+    right: 0;
+    height: 100%;
+    color: white;
+  }   
+      `
+      );
+      const _container = document.createElement("div");
+      _container.attachShadow({ mode: "open" });
+      SunDawningGIS.appendChild(container.shadowRoot, _container);
+      return container;
+    }
+    const date_element = getDateElementCreate();
+    taskbar.shadowRoot
+      .querySelector("div")
+      .shadowRoot.appendChild(date_element);
     {
-      const parent = container.shadowRoot.querySelector("div");
-      // 时间和日期
-      {
-        const container =
-          await SunDawningGIS.getShadowRootContainerCreateAndAppend(parent);
+      function getLocaleDateElementCreate() {
+        const container = document.createElement("div");
+        container.attachShadow({ mode: "open" });
         SunDawningGIS.appendStyleText(
           container.shadowRoot,
           `
-div{
-  position: absolute;
-  width: 120px;
-  right: 0;
-  height: 100%;
-  color: white;
-  display: flex;
-  align-items: center;  
-}
-            `
+      div{
+        position: absolute;
+        width: 120px;
+        right: 0;
+        color: white;
+      }   
+          `
         );
         const _container = document.createElement("div");
+        _container.innerHTML = new Date().toLocaleDateString();
         SunDawningGIS.appendChild(container.shadowRoot, _container);
-        {
-          const parent = container.shadowRoot.querySelector("div");
-          // 时间
-          {
-            const container =
-              await SunDawningGIS.getShadowRootContainerCreateAndAppend(parent);
-            const _container = document.createElement("div");
-            _container.innerHTML = new Date().toLocaleDateString();
-            SunDawningGIS.appendChild(container.shadowRoot, _container);
-          }
-          // 日期
-          {
-            const container =
-              await SunDawningGIS.getShadowRootContainerCreateAndAppend(parent);
-            const _container = document.createElement("div");
-            _container.innerHTML = new Date().toLocaleDateString();
-            SunDawningGIS.appendChild(container.shadowRoot, _container);
-          }
-        }
+        return container;
       }
+      const locale_date_element = getLocaleDateElementCreate();
+      date_element.shadowRoot
+        .querySelector("div")
+        .shadowRoot.appendChild(locale_date_element);
+    }
+    {
+      function getLocaleTimeElementCreate() {
+        const container = document.createElement("div");
+        container.attachShadow({ mode: "open" });
+        SunDawningGIS.appendStyleText(
+          container.shadowRoot,
+          `
+      div{
+        position: absolute;
+        width: 120px;
+        right: 0;
+        top: 24px;
+        color: white;
+      }   
+          `
+        );
+        const _container = document.createElement("div");
+        _container.innerHTML = new Date().toLocaleTimeString();
+        SunDawningGIS.appendChild(container.shadowRoot, _container);
+        return container;
+      }
+      const locale_time_element = getLocaleTimeElementCreate();
+      date_element.shadowRoot
+        .querySelector("div")
+        .shadowRoot.appendChild(locale_time_element);
     }
   }
 };

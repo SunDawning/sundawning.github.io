@@ -123,6 +123,9 @@ div{
     flex-direction: column;
     justify-content: center;    
     font-size: 12px;
+  }
+  div:hover{
+    background: black;
   }   
       `
       );

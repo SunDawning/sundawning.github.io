@@ -97,18 +97,22 @@ div{
 }       
     `
     );
-    const _container = document.createElement("div");
-    _container.attachShadow({ mode: "open" });
-    SunDawningGIS.appendChild(container.shadowRoot, _container);
+    {
+      await import("./library/createDivWithShadowRoot.js");
+      SunDawningGIS.appendChild(
+        container.shadowRoot,
+        SunDawningGIS.createDivWithShadowRoot()
+      );
+    }
     return container;
   }
   const taskbar = await getTaskbarCreate();
   SunDawningGIS.root.appendChild(taskbar);
   // 时间日期栏
   {
-    function getDateElementCreate() {
-      const container = document.createElement("div");
-      container.attachShadow({ mode: "open" });
+    async function getDateElementCreate() {
+      await import("./library/createDivWithShadowRoot.js");
+      const container = SunDawningGIS.createDivWithShadowRoot();
       SunDawningGIS.appendStyleText(
         container.shadowRoot,
         `
@@ -129,18 +133,28 @@ div{
   }   
       `
       );
-      const _container = document.createElement("div");
-      _container.attachShadow({ mode: "open" });
-      SunDawningGIS.appendChild(container.shadowRoot, _container);
+      {
+        await import("./library/createDivWithShadowRoot.js");
+        SunDawningGIS.appendChild(
+          container.shadowRoot,
+          SunDawningGIS.createDivWithShadowRoot()
+        );
+      }
       return container;
     }
-    const date_element = getDateElementCreate();
+    const date_element = await getDateElementCreate();
     taskbar.shadowRoot
       .querySelector("div")
       .shadowRoot.appendChild(date_element);
     // 时间
-    {
+    /**
+     * 创建本地时间的元素
+     * @returns HTMLElement
+     */
+    function createLocaleTimeElement(container) {
+      const SELF = {};
       const locale_time_element = document.createElement("div");
+      let id;
       function animate() {
         const locale_time = new Date()
           .toLocaleTimeString()
@@ -150,12 +164,26 @@ div{
         if (locale_time_element.innerHTML !== locale_time) {
           locale_time_element.innerHTML = locale_time;
         }
-        requestAnimationFrame(animate);
+        id = requestAnimationFrame(animate);
       }
       animate();
-      date_element.shadowRoot
-        .querySelector("div")
-        .shadowRoot.appendChild(locale_time_element);
+      container.appendChild(locale_time_element);
+      /**
+       * 销毁
+       */
+      SELF.destroy = function () {
+        locale_time_element.remove();
+        cancelAnimationFrame(id);
+        Object.keys(SELF).forEach(function (key) {
+          delete SELF[key];
+        });
+      };
+      return SELF;
+    }
+    {
+      SunDawningGIS.ui_localeTimeElement = createLocaleTimeElement(
+        date_element.shadowRoot.querySelector("div").shadowRoot
+      );
     }
     // 日期
     {

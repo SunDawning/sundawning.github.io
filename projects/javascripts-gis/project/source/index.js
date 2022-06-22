@@ -81,17 +81,9 @@ globalThis.onload = async function () {
     },
   });
   // 底部工具栏
-  function getTaskbarCreate() {
-    /**
-     * 创建带有shadowRoot的div
-     * @returns HTMLElement
-     */
-    function createDivWithShadowRoot() {
-      const container = document.createElement("div");
-      container.attachShadow({ mode: "open" });
-      return container;
-    }
-    const container = createDivWithShadowRoot();
+  async function getTaskbarCreate() {
+    await import("./library/createDivWithShadowRoot.js");
+    const container = SunDawningGIS.createDivWithShadowRoot();
     SunDawningGIS.appendStyleText(
       container.shadowRoot,
       `
@@ -110,7 +102,7 @@ div{
     SunDawningGIS.appendChild(container.shadowRoot, _container);
     return container;
   }
-  const taskbar = getTaskbarCreate();
+  const taskbar = await getTaskbarCreate();
   SunDawningGIS.root.appendChild(taskbar);
   // 时间日期栏
   {

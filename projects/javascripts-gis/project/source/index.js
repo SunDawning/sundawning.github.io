@@ -82,21 +82,22 @@ globalThis.onload = async function () {
   });
   // 底部工具栏
   await import("./library/createWindows10TaskbarContainer.js");
-  const taskbar = await SunDawningGIS.createWindows10TaskbarContainer();
-  SunDawningGIS.root.appendChild(taskbar);
+  const taskbar_container =
+    await SunDawningGIS.createWindows10TaskbarContainer();
+  SunDawningGIS.root.appendChild(taskbar_container);
   // 时间日期栏
   {
     await import("./library/createDateContainer.js");
-    const date_element = await SunDawningGIS.createDateContainer();
-    taskbar.shadowRoot
+    const date_container = await SunDawningGIS.createDateContainer();
+    taskbar_container.shadowRoot
       .querySelector("div")
-      .shadowRoot.appendChild(date_element);
+      .shadowRoot.appendChild(date_container);
     // 时间
     {
       await import("./library/createLocaleTimeElement.js");
       SunDawningGIS.ui_localeTimeElement =
         SunDawningGIS.createLocaleTimeElement(
-          date_element.shadowRoot.querySelector("div").shadowRoot
+          date_container.shadowRoot.querySelector("div").shadowRoot
         );
     }
     // 日期
@@ -110,7 +111,7 @@ globalThis.onload = async function () {
         requestAnimationFrame(animate);
       }
       animate();
-      date_element.shadowRoot
+      date_container.shadowRoot
         .querySelector("div")
         .shadowRoot.appendChild(locale_date_element);
     }

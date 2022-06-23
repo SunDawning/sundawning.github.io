@@ -94,26 +94,19 @@ globalThis.onload = async function () {
       .shadowRoot.appendChild(date_container);
     // 时间
     {
-      await import("./library/createLocaleTimeElementManager.jsager.js");
-      SunDawningGIS.ui_localeTimeElement =
+      await import("./library/createLocaleTimeElementManager.js");
+      SunDawningGIS.ui_localeTimeElementManager =
         SunDawningGIS.createLocaleTimeElementManager(
           date_container.shadowRoot.querySelector("div").shadowRoot
         );
     }
     // 日期
     {
-      const locale_date_element = document.createElement("div");
-      function animate() {
-        const locale_date = new Date().toLocaleDateString();
-        if (locale_date_element.innerHTML !== locale_date) {
-          locale_date_element.innerHTML = locale_date;
-        }
-        requestAnimationFrame(animate);
-      }
-      animate();
-      date_container.shadowRoot
-        .querySelector("div")
-        .shadowRoot.appendChild(locale_date_element);
+      await import("./library/createLocaleDateElementManager.js");
+      SunDawningGIS.ui_localeDateElementManager =
+        SunDawningGIS.createLocaleDateElementManager(
+          date_container.shadowRoot.querySelector("div").shadowRoot
+        );
     }
   }
 };

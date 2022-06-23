@@ -34,6 +34,7 @@ SunDawningGIS.createLocaleTimeElementManager = function (
     element.remove();
     cancelAnimationFrame(id);
     Object.keys(SELF).forEach(function (key) {
+      SELF[key] = null;
       delete SELF[key];
     });
   };

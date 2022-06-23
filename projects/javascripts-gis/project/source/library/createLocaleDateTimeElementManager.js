@@ -16,10 +16,9 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
   const date_container = await SunDawningGIS.createDateContainer();
   // 显示在网页里
   container[to](date_container);
+  // 时间日期详情页面
   let date_time_detail_container;
-  // 事件
-  async function onPointerDown(event) {
-    console.log("onPointerDown", event);
+  async function toggleDateTimeDetailContainer() {
     if (date_time_detail_container) {
       date_time_detail_container.remove();
       date_time_detail_container = null;
@@ -31,6 +30,11 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
     date_container.shadowRoot
       .querySelector("div")
       .shadowRoot.appendChild(date_time_detail_container);
+  }
+  // 事件
+  async function onPointerDown(event) {
+    console.log("onPointerDown", event);
+    await toggleDateTimeDetailContainer();
   }
   date_container.addEventListener("pointerdown", onPointerDown);
   // 时间

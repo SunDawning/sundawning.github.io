@@ -12,7 +12,7 @@ SunDawningGIS.createLocaleTimeElementManager = function (
   to = "appendChild"
 ) {
   const SELF = {};
-  const locale_time_element = document.createElement("div");
+  const element = document.createElement("div");
   let id;
   function animate() {
     const locale_time = new Date()
@@ -20,18 +20,18 @@ SunDawningGIS.createLocaleTimeElementManager = function (
       .split(":")
       .slice(0, 2)
       .join(":");
-    if (locale_time_element.innerHTML !== locale_time) {
-      locale_time_element.innerHTML = locale_time;
+    if (element.innerHTML !== locale_time) {
+      element.innerHTML = locale_time;
     }
     id = requestAnimationFrame(animate);
   }
   animate();
-  container[to](locale_time_element);
+  container[to](element);
   /**
    * 销毁
    */
   SELF.destroy = function () {
-    locale_time_element.remove();
+    element.remove();
     cancelAnimationFrame(id);
     Object.keys(SELF).forEach(function (key) {
       delete SELF[key];

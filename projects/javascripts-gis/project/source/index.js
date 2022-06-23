@@ -86,7 +86,11 @@ globalThis.onload = async function () {
   SunDawningGIS.root.appendChild(taskbar);
   // 时间日期栏
   {
-    async function getDateElementCreate() {
+    /**
+     * 创建时间日期栏
+     * @returns HTMLElement
+     */
+    async function createDateContainer() {
       await import("./library/createDivWithShadowRoot.js");
       const container = SunDawningGIS.createDivWithShadowRoot();
       SunDawningGIS.appendStyleText(
@@ -109,13 +113,10 @@ globalThis.onload = async function () {
   }   
       `
       );
-      SunDawningGIS.appendChild(
-        container.shadowRoot,
-        SunDawningGIS.createDivWithShadowRoot()
-      );
+      container.shadowRoot.appendChild(SunDawningGIS.createDivWithShadowRoot());
       return container;
     }
-    const date_element = await getDateElementCreate();
+    const date_element = await createDateContainer();
     taskbar.shadowRoot
       .querySelector("div")
       .shadowRoot.appendChild(date_element);

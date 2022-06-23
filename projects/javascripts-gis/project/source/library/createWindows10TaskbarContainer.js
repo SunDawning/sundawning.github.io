@@ -18,8 +18,9 @@ div{
   bottom: 0;
   height: 48px;
   width: 100%;
-  background-color: #3e3d3ced;   
-}       
+  background-color: #3e3d3ced;
+  user-select: none;
+}
     `
   );
   container.shadowRoot.appendChild(SunDawningGIS.createDivWithShadowRoot());

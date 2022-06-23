@@ -97,7 +97,8 @@ globalThis.onload = async function () {
       await import("./library/createLocaleTimeElementManager.js");
       SunDawningGIS.ui_localeTimeElementManager =
         SunDawningGIS.createLocaleTimeElementManager(
-          date_container.shadowRoot.querySelector("div").shadowRoot
+          date_container.shadowRoot.querySelector("div").shadowRoot,
+          { to: "appendChild", hasSeconds: true }
         );
     }
     // 日期

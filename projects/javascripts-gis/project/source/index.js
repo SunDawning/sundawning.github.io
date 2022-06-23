@@ -86,28 +86,8 @@ globalThis.onload = async function () {
     await SunDawningGIS.createWindows10TaskbarContainer();
   SunDawningGIS.root.appendChild(taskbar_container);
   // 时间日期栏
-  {
-    await import("./library/createDateContainer.js");
-    const date_container = await SunDawningGIS.createDateContainer();
-    taskbar_container.shadowRoot
-      .querySelector("div")
-      .shadowRoot.appendChild(date_container);
-    // 时间
-    {
-      await import("./library/createLocaleTimeElementManager.js");
-      SunDawningGIS.ui_localeTimeElementManager =
-        SunDawningGIS.createLocaleTimeElementManager(
-          date_container.shadowRoot.querySelector("div").shadowRoot,
-          { to: "appendChild", hasSeconds: true }
-        );
-    }
-    // 日期
-    {
-      await import("./library/createLocaleDateElementManager.js");
-      SunDawningGIS.ui_localeDateElementManager =
-        SunDawningGIS.createLocaleDateElementManager(
-          date_container.shadowRoot.querySelector("div").shadowRoot
-        );
-    }
-  }
+  await import("./library/createDateManager.js");
+  SunDawningGIS.ui_dateManager = await SunDawningGIS.createDateManager(
+    taskbar_container.shadowRoot.querySelector("div").shadowRoot
+  );
 };

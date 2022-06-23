@@ -7,7 +7,7 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {string} [options.to]
  * @returns object
  */
-SunDawningGIS.createDateManager = async function (
+SunDawningGIS.createLocaleDateTimeElementManager = async function (
   container,
   { to = "appendChild" } = {}
 ) {

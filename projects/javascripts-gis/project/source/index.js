@@ -86,8 +86,9 @@ globalThis.onload = async function () {
     await SunDawningGIS.createWindows10TaskbarContainer();
   SunDawningGIS.root.appendChild(taskbar_container);
   // 时间日期栏
-  await import("./library/createDateManager.js");
-  SunDawningGIS.ui_dateManager = await SunDawningGIS.createDateManager(
-    taskbar_container.shadowRoot.querySelector("div").shadowRoot
-  );
+  await import("./library/createLocaleDateTimeElementManager.js");
+  SunDawningGIS.ui_dateManager =
+    await SunDawningGIS.createLocaleDateTimeElementManager(
+      taskbar_container.shadowRoot.querySelector("div").shadowRoot
+    );
 };

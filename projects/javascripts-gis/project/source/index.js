@@ -86,37 +86,8 @@ globalThis.onload = async function () {
   SunDawningGIS.root.appendChild(taskbar);
   // 时间日期栏
   {
-    /**
-     * 创建时间日期栏
-     * @returns HTMLElement
-     */
-    async function createDateContainer() {
-      await import("./library/createDivWithShadowRoot.js");
-      const container = SunDawningGIS.createDivWithShadowRoot();
-      SunDawningGIS.appendStyleText(
-        container.shadowRoot,
-        `
-  div{
-    position: absolute;
-    width: 64px;
-    right: 0;
-    height: 100%;
-    color: white;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: center;    
-    font-size: 12px;
-  }
-  div:hover{
-    background: black;
-  }   
-      `
-      );
-      container.shadowRoot.appendChild(SunDawningGIS.createDivWithShadowRoot());
-      return container;
-    }
-    const date_element = await createDateContainer();
+    await import("./library/createDateContainer.js");
+    const date_element = await SunDawningGIS.createDateContainer();
     taskbar.shadowRoot
       .querySelector("div")
       .shadowRoot.appendChild(date_element);

@@ -1,6 +1,9 @@
 if (globalThis.SunDawningGIS === undefined) {
   globalThis.SunDawningGIS = {};
 }
+if (globalThis.SunDawningGIS.UI === undefined) {
+  globalThis.SunDawningGIS.UI = {};
+}
 /**
  * 给根节点添加全局样式
  */
@@ -54,7 +57,7 @@ async function create_ui_printCesiumCameraSetViewOptionsOnMoveEnd(
   cesiumWidget
 ) {
   await import("./library/printCesiumCameraSetViewOptionsOnMoveEnd.js");
-  SunDawningGIS.ui_printCesiumCameraSetViewOptionsOnMoveEnd =
+  SunDawningGIS.UI.printCesiumCameraSetViewOptionsOnMoveEnd =
     await SunDawningGIS.printCesiumCameraSetViewOptionsOnMoveEnd(
       root,
       cesiumWidget
@@ -87,7 +90,7 @@ globalThis.onload = async function () {
   SunDawningGIS.root.appendChild(taskbar_container);
   // 时间日期栏
   await import("./library/createLocaleDateTimeElementManager.js");
-  SunDawningGIS.ui_dateManager =
+  SunDawningGIS.UI.dateManager =
     await SunDawningGIS.createLocaleDateTimeElementManager(
       taskbar_container.shadowRoot.querySelector("div").shadowRoot
     );

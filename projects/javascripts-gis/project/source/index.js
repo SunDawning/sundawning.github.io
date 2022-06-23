@@ -81,9 +81,14 @@ globalThis.onload = async function () {
     },
   });
   // 底部工具栏
-  async function getTaskbarCreate() {
+  /**
+   * 创建Windows 10风格的底部任务栏
+   * @returns HTMLElement
+   */
+  async function createWindows10TaskbarContainer() {
     await import("./library/createDivWithShadowRoot.js");
     const container = SunDawningGIS.createDivWithShadowRoot();
+    await import("./library/appendStyleText.js");
     SunDawningGIS.appendStyleText(
       container.shadowRoot,
       `
@@ -97,16 +102,14 @@ div{
 }       
     `
     );
-    {
-      await import("./library/createDivWithShadowRoot.js");
-      SunDawningGIS.appendChild(
-        container.shadowRoot,
-        SunDawningGIS.createDivWithShadowRoot()
-      );
-    }
+    await import("./library/appendChild.js");
+    SunDawningGIS.appendChild(
+      container.shadowRoot,
+      SunDawningGIS.createDivWithShadowRoot()
+    );
     return container;
   }
-  const taskbar = await getTaskbarCreate();
+  const taskbar = await createWindows10TaskbarContainer();
   SunDawningGIS.root.appendChild(taskbar);
   // 时间日期栏
   {
@@ -133,13 +136,10 @@ div{
   }   
       `
       );
-      {
-        await import("./library/createDivWithShadowRoot.js");
-        SunDawningGIS.appendChild(
-          container.shadowRoot,
-          SunDawningGIS.createDivWithShadowRoot()
-        );
-      }
+      SunDawningGIS.appendChild(
+        container.shadowRoot,
+        SunDawningGIS.createDivWithShadowRoot()
+      );
       return container;
     }
     const date_element = await getDateElementCreate();

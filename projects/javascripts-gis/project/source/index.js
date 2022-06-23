@@ -81,35 +81,8 @@ globalThis.onload = async function () {
     },
   });
   // 底部工具栏
-  /**
-   * 创建Windows 10风格的底部任务栏
-   * @returns HTMLElement
-   */
-  async function createWindows10TaskbarContainer() {
-    await import("./library/createDivWithShadowRoot.js");
-    const container = SunDawningGIS.createDivWithShadowRoot();
-    await import("./library/appendStyleText.js");
-    SunDawningGIS.appendStyleText(
-      container.shadowRoot,
-      `
-div{
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 48px;
-  width: 100%;
-  background-color: #3e3d3ced;   
-}       
-    `
-    );
-    await import("./library/appendChild.js");
-    SunDawningGIS.appendChild(
-      container.shadowRoot,
-      SunDawningGIS.createDivWithShadowRoot()
-    );
-    return container;
-  }
-  const taskbar = await createWindows10TaskbarContainer();
+  await import("./library/createWindows10TaskbarContainer.js");
+  const taskbar = await SunDawningGIS.createWindows10TaskbarContainer();
   SunDawningGIS.root.appendChild(taskbar);
   // 时间日期栏
   {

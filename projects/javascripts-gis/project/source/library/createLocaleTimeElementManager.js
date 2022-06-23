@@ -4,12 +4,12 @@ if (globalThis.SunDawningGIS === undefined) {
 /**
  * 创建本地时间的元素
  * @param {HTMLElement} container
- * @param {string} to 元素将要添加到的位置，譬如appendChild, before, after
+ * @param {string} [options.to] 元素将要添加到的位置，譬如appendChild, before, after
  * @returns HTMLElement
  */
 SunDawningGIS.createLocaleTimeElementManager = function (
   container,
-  to = "appendChild"
+  { to = "appendChild" } = {}
 ) {
   const SELF = {};
   const element = document.createElement("div");

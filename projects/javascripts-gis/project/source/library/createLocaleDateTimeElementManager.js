@@ -5,11 +5,12 @@ if (globalThis.SunDawningGIS === undefined) {
  * 创建时间日期栏
  * @param {HTMLElement} container
  * @param {string} [options.to]
+ * @param {HTMLElement} detail_offsetElement
  * @returns object
  */
 SunDawningGIS.createLocaleDateTimeElementManager = async function (
   container,
-  { to = "appendChild" } = {}
+  { to = "appendChild", detail_offsetElement = document.body } = {}
 ) {
   const SELF = {};
   await import("./createDateContainer.js");
@@ -26,10 +27,10 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
     }
     await import("./createDateTimeDetailContainer.js");
     date_time_detail_container =
-      await SunDawningGIS.createDateTimeDetailContainer();
-    date_container.shadowRoot
-      .querySelector("div")
-      .shadowRoot.appendChild(date_time_detail_container);
+      await SunDawningGIS.createDateTimeDetailContainer({
+        bottom: detail_offsetElement.offsetHeight,
+      });
+    detail_offsetElement.offsetParent.appendChild(date_time_detail_container);
   }
   // 事件
   async function onPointerDown(event) {

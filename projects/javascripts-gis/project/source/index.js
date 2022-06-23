@@ -92,6 +92,9 @@ globalThis.onload = async function () {
   await import("./library/createLocaleDateTimeElementManager.js");
   SunDawningGIS.UI.dateManager =
     await SunDawningGIS.createLocaleDateTimeElementManager(
-      taskbar_container.shadowRoot.querySelector("div").shadowRoot
+      taskbar_container.shadowRoot.querySelector("div").shadowRoot,
+      {
+        detail_offsetElement: taskbar_container.shadowRoot.querySelector("div"),
+      }
     );
 };

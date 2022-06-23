@@ -3,9 +3,12 @@ if (globalThis.SunDawningGIS === undefined) {
 }
 /**
  * 创建时间日期详情面板
+ * @param {number} [options.bottom]
  * @returns HTMLElement
  */
-SunDawningGIS.createDateTimeDetailContainer = async function () {
+SunDawningGIS.createDateTimeDetailContainer = async function ({
+  bottom = 0,
+} = {}) {
   await import("./createDivWithShadowRoot.js");
   const container = SunDawningGIS.createDivWithShadowRoot();
   await import("./appendStyleText.js");
@@ -14,10 +17,14 @@ SunDawningGIS.createDateTimeDetailContainer = async function () {
     `
 div{
   position: absolute;
-  top: -688px;
-  height: 688px;
+  bottom: ${bottom};
+  height: 64vh;
+  max-height: 688px;
+  min-height: 360px;
   right: 0;
-  width: 360px;
+  min-width: 240px;
+  max-width: 360px;
+  width: 32vw;
   background: #3e3d3ced;
 }    
     `

@@ -94,9 +94,9 @@ globalThis.onload = async function () {
       .shadowRoot.appendChild(date_container);
     // 时间
     {
-      await import("./library/createLocaleTimeElement.js");
+      await import("./library/createLocaleTimeElementManager.jsager.js");
       SunDawningGIS.ui_localeTimeElement =
-        SunDawningGIS.createLocaleTimeElement(
+        SunDawningGIS.createLocaleTimeElementManager(
           date_container.shadowRoot.querySelector("div").shadowRoot
         );
     }

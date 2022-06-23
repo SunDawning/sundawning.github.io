@@ -7,7 +7,7 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {string} to 元素将要添加到的位置，譬如appendChild, before, after
  * @returns HTMLElement
  */
-SunDawningGIS.createLocaleTimeElement = function (
+SunDawningGIS.createLocaleTimeElementManager = function (
   container,
   to = "appendChild"
 ) {

@@ -17,8 +17,29 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
   // 显示在网页里
   container[to](date_container);
   // 事件
-  function onPointerDown(event) {
+  async function onPointerDown(event) {
     console.log("onPointerDown", event);
+    await import("./createDivWithShadowRoot.js");
+    const container = SunDawningGIS.createDivWithShadowRoot();
+    await import("./appendStyleText.js");
+    SunDawningGIS.appendStyleText(
+      container.shadowRoot,
+      `
+div{
+  position: absolute;
+  top: -688px;
+  height: 688px;
+  right: 0;
+  width: 360px;
+  background: #3e3d3ced;
+}    
+    `
+    );
+    date_container.shadowRoot
+      .querySelector("div")
+      .shadowRoot.appendChild(container);
+    const _container = document.createElement("div");
+    container.shadowRoot.appendChild(_container);
   }
   date_container.addEventListener("pointerdown", onPointerDown);
   // 时间

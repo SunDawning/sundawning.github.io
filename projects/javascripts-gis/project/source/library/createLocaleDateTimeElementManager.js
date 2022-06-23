@@ -16,36 +16,21 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
   const date_container = await SunDawningGIS.createDateContainer();
   // 显示在网页里
   container[to](date_container);
-  let date_detail_container;
+  let date_time_detail_container;
   // 事件
   async function onPointerDown(event) {
     console.log("onPointerDown", event);
-    if (date_detail_container) {
-      date_detail_container.remove();
-      date_detail_container = null;
+    if (date_time_detail_container) {
+      date_time_detail_container.remove();
+      date_time_detail_container = null;
       return;
     }
-    await import("./createDivWithShadowRoot.js");
-    date_detail_container = SunDawningGIS.createDivWithShadowRoot();
-    await import("./appendStyleText.js");
-    SunDawningGIS.appendStyleText(
-      date_detail_container.shadowRoot,
-      `
-div{
-  position: absolute;
-  top: -688px;
-  height: 688px;
-  right: 0;
-  width: 360px;
-  background: #3e3d3ced;
-}    
-    `
-    );
+    await import("./createDateTimeDetailContainer.js");
+    date_time_detail_container =
+      await SunDawningGIS.createDateTimeDetailContainer();
     date_container.shadowRoot
       .querySelector("div")
-      .shadowRoot.appendChild(date_detail_container);
-    const _container = document.createElement("div");
-    date_detail_container.shadowRoot.appendChild(_container);
+      .shadowRoot.appendChild(date_time_detail_container);
   }
   date_container.addEventListener("pointerdown", onPointerDown);
   // 时间

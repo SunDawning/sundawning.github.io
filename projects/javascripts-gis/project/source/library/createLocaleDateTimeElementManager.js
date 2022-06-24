@@ -21,6 +21,11 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
   let date_time_detail_container;
   async function toggleDateTimeDetailContainer() {
     if (date_time_detail_container) {
+      // 关闭点击时间日期详情之外的区域时的点击事件
+      detail_offsetElement.offsetParent.removeEventListener(
+        "pointerdown",
+        onPointerDown
+      );
       date_time_detail_container.remove();
       date_time_detail_container = null;
       return;
@@ -31,6 +36,11 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
         bottom: detail_offsetElement.offsetHeight,
       });
     detail_offsetElement.offsetParent.appendChild(date_time_detail_container);
+    // 点击时间日期详情之外的区域时，触发点击事件
+    detail_offsetElement.offsetParent.addEventListener(
+      "pointerdown",
+      onPointerDown
+    );
   }
   // 事件
   async function onPointerDown(event) {

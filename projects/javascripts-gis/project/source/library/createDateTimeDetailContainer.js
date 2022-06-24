@@ -17,16 +17,16 @@ SunDawningGIS.createDateTimeDetailContainer = async function ({
     `
 div{
   position: absolute;
+  right: 0;
   bottom: ${bottom};
   height: 64vh;
+  min-height: 360px;  
   max-height: 688px;
-  min-height: 360px;
-  right: 0;
+  width: 32vw;
   min-width: 240px;
   max-width: 360px;
-  width: 32vw;
   background: #3e3d3ced;
-}    
+}
     `
   );
   const _container = document.createElement("div");

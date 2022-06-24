@@ -18,36 +18,19 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
   // 显示在网页里
   container[to](date_container);
   // 时间日期详情页面
-  let date_time_detail_container;
+  let date_time_detail_container_manager;
   async function toggleDateTimeDetailContainer() {
-    if (date_time_detail_container) {
-      // 关闭点击时间日期详情之外的区域时的点击事件
-      detail_offsetElement.offsetParent.removeEventListener(
-        "pointerdown",
-        onPointerDown
-      );
-      date_time_detail_container.remove();
-      date_time_detail_container = null;
+    if (date_time_detail_container_manager) {
+      date_time_detail_container_manager.destroy();
+      date_time_detail_container_manager = null;
       return;
     }
-    await import("./createDateTimeDetailContainer.js");
-    date_time_detail_container =
-      await SunDawningGIS.createDateTimeDetailContainer({
-        bottom: detail_offsetElement.offsetHeight,
+    await import("./createDateTimeDetailContainerManager.js");
+    date_time_detail_container_manager =
+      await SunDawningGIS.createDateTimeDetailContainerManager({
+        detail_offsetElement,
+        onPointerDown,
       });
-    detail_offsetElement.offsetParent.appendChild(date_time_detail_container);
-    // 点击时间日期详情之内的区域时，不触发点击事件
-    date_time_detail_container.addEventListener(
-      "pointerdown",
-      function (event) {
-        event.stopPropagation();
-      }
-    );
-    // 点击时间日期详情之外的区域时，触发点击事件
-    detail_offsetElement.offsetParent.addEventListener(
-      "pointerdown",
-      onPointerDown
-    );
   }
   // 事件
   async function onPointerDown(event) {
@@ -58,8 +41,7 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
   // 时间
   await import("./createLocaleTimeElementManager.js");
   const localeTimeElementManager = SunDawningGIS.createLocaleTimeElementManager(
-    date_container.shadowRoot.querySelector("div").shadowRoot,
-    { to: "appendChild", hasSeconds: true }
+    date_container.shadowRoot.querySelector("div").shadowRoot
   );
   // 日期
   await import("./createLocaleDateElementManager.js");

@@ -29,7 +29,6 @@ div{
 }
     `
   );
-  const _container = document.createElement("div");
-  container.shadowRoot.appendChild(_container);
+  container.shadowRoot.appendChild(SunDawningGIS.createDivWithShadowRoot());
   return container;
 };

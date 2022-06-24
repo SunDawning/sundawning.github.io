@@ -17,11 +17,17 @@ SunDawningGIS.createDateTimeDetailManager = async function ({
     bottom: detail_offsetElement.offsetHeight,
   });
   detail_offsetElement.offsetParent.appendChild(container);
+  /**
+   * 阻止事件冒泡
+   * @see https://www.cnblogs.com/Jacob98/p/11932174.html 三种方法教你HTML实现点击某一个元素之外触发事件
+   * @param {Event} event
+   */
+  function stopPropagation(event) {
+    event.stopPropagation();
+  }
   {
     // 点击时间日期详情之内的区域时，不触发点击事件
-    container.addEventListener("pointerdown", function (event) {
-      event.stopPropagation();
-    });
+    container.addEventListener("pointerdown", stopPropagation);
     // 点击时间日期详情之外的区域时，触发点击事件
     detail_offsetElement.offsetParent.addEventListener(
       "pointerdown",
@@ -44,6 +50,7 @@ SunDawningGIS.createDateTimeDetailManager = async function ({
       "pointerdown",
       onPointerDown
     );
+    container.removeEventListener("pointerdown", stopPropagation);
     container.remove();
     Object.keys(SELF).forEach(function (key) {
       SELF[key] = null;

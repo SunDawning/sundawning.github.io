@@ -8,7 +8,7 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {object} Cesium_Widget_Options
  * @returns Cesium.CesiumWidget
  */
-SunDawningGIS.getCesiumWidgetCreateByCesium = function (
+SunDawningGIS.CesiumWidget_getCesiumWidgetCreateByCesium = function (
   container,
   Cesium,
   Cesium_Widget_Options

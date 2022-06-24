@@ -6,6 +6,6 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {HTMLElement} container
  * @param {HTMLElement} child
  */
-SunDawningGIS.appendChild = function (container, child) {
+SunDawningGIS.HTMLElement_appendChild = function (container, child) {
   container.appendChild(child);
 };

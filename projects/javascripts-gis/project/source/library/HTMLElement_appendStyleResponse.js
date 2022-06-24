@@ -6,8 +6,11 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {HTMLElement} container
  * @param {Response} response
  */
-SunDawningGIS.appendStyleResponse = async function (container, response) {
+SunDawningGIS.HTMLElement_appendStyleResponse = async function (
+  container,
+  response
+) {
   const text = await response.text();
-  await import("./appendStyleText.js");
-  SunDawningGIS.appendStyleText(container, text);
+  await import("./HTMLElement_appendStyleText.js");
+  SunDawningGIS.HTMLElement_appendStyleText(container, text);
 };

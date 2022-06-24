@@ -6,13 +6,13 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {number} [options.bottom]
  * @returns HTMLElement
  */
-SunDawningGIS.createDateTimeDetailContainer = async function ({
+SunDawningGIS.HTMLElement_createDateTimeDetailContainer = async function ({
   bottom = 0,
 } = {}) {
-  await import("./createDivWithShadowRoot.js");
-  const container = SunDawningGIS.createDivWithShadowRoot();
-  await import("./appendStyleText.js");
-  SunDawningGIS.appendStyleText(
+  await import("./HTMLElement_createDivWithShadowRoot.js");
+  const container = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
+  await import("./HTMLElement_appendStyleText.js");
+  SunDawningGIS.HTMLElement_appendStyleText(
     container.shadowRoot,
     `
 div{
@@ -29,6 +29,8 @@ div{
 }
     `
   );
-  container.shadowRoot.appendChild(SunDawningGIS.createDivWithShadowRoot());
+  container.shadowRoot.appendChild(
+    SunDawningGIS.HTMLElement_createDivWithShadowRoot()
+  );
   return container;
 };

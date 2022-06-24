@@ -6,7 +6,7 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {HTMLElement} root
  * @returns
  */
-SunDawningGIS.getShadowRootContainerCreate = function () {
+SunDawningGIS.HTMLElement_getShadowRootContainerCreate = function () {
   const container = document.createElement("div");
   container.attachShadow({ mode: "open" });
   return container;

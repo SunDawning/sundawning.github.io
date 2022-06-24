@@ -8,8 +8,8 @@ if (globalThis.SunDawningGIS.UI === undefined) {
  * 给根节点添加全局样式
  */
 async function appendRootStyle(root) {
-  await import("./library/appendStyleText.js");
-  SunDawningGIS.appendStyleText(
+  await import("./library/HTMLElement_appendStyleText.js");
+  SunDawningGIS.HTMLElement_appendStyleText(
     root,
     `
 body{
@@ -27,10 +27,10 @@ async function createEarth(root, getImageryProvider) {
   globalThis.CESIUM_BASE_URL =
     "https://cdn.bootcdn.net/ajax/libs/cesium/1.94.3";
   await import(
-    "./library/getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot.js"
+    "./library/CesiumWidget_getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot.js"
   );
   SunDawningGIS.cesiumWidget =
-    await SunDawningGIS.getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot(
+    await SunDawningGIS.CesiumWidget_getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot(
       root,
       CESIUM_BASE_URL,
       {
@@ -56,9 +56,11 @@ async function create_ui_printCesiumCameraSetViewOptionsOnMoveEnd(
   root,
   cesiumWidget
 ) {
-  await import("./library/printCesiumCameraSetViewOptionsOnMoveEnd.js");
-  SunDawningGIS.UI.printCesiumCameraSetViewOptionsOnMoveEnd =
-    await SunDawningGIS.printCesiumCameraSetViewOptionsOnMoveEnd(
+  await import(
+    "./library/HTMLElementManager_printCesiumCameraSetViewOptionsOnMoveEnd.js"
+  );
+  SunDawningGIS.UI.HTMLElementManager_printCesiumCameraSetViewOptionsOnMoveEnd =
+    await SunDawningGIS.HTMLElementManager_printCesiumCameraSetViewOptionsOnMoveEnd(
       root,
       cesiumWidget
     );
@@ -66,10 +68,12 @@ async function create_ui_printCesiumCameraSetViewOptionsOnMoveEnd(
 globalThis.onload = async function () {
   SunDawningGIS.root = document.body;
   appendRootStyle(SunDawningGIS.root);
-  await import("./library/getArcGISWorldImageryProviderByBaseURL.js");
+  await import(
+    "./library/CesiumImageryProvider_getArcGISWorldImageryProviderByBaseURL.js"
+  );
   const cesiumWidget = await createEarth(
     SunDawningGIS.root,
-    SunDawningGIS.getArcGISWorldImageryProviderByBaseURL
+    SunDawningGIS.CesiumImageryProvider_getArcGISWorldImageryProviderByBaseURL
   );
   cesiumWidget.camera.setView({
     destination: {
@@ -84,14 +88,16 @@ globalThis.onload = async function () {
     },
   });
   // 底部工具栏
-  await import("./library/createWindows10TaskbarContainer.js");
+  await import("./library/HTMLElement_createWindows10TaskbarContainer.js");
   const taskbar_container =
-    await SunDawningGIS.createWindows10TaskbarContainer();
+    await SunDawningGIS.HTMLElement_createWindows10TaskbarContainer();
   SunDawningGIS.root.appendChild(taskbar_container);
   // 时间日期栏
-  await import("./library/createLocaleDateTimeElementManager.js");
+  await import(
+    "./library/HTMLElementManager_createLocaleDateTimeElementManager.js"
+  );
   SunDawningGIS.UI.dateManager =
-    await SunDawningGIS.createLocaleDateTimeElementManager(
+    await SunDawningGIS.HTMLElementManager_createLocaleDateTimeElementManager(
       taskbar_container.shadowRoot.querySelector("div").shadowRoot,
       {
         detail_offsetElement: taskbar_container.shadowRoot.querySelector("div"),

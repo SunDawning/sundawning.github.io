@@ -5,10 +5,10 @@ if (globalThis.SunDawningGIS === undefined) {
  * 创建时间日期栏
  * @returns HTMLElement
  */
-SunDawningGIS.createDateContainer = async function () {
-  await import("./createDivWithShadowRoot.js");
-  const container = SunDawningGIS.createDivWithShadowRoot();
-  SunDawningGIS.appendStyleText(
+SunDawningGIS.HTMLElement_createDateContainer = async function () {
+  await import("./HTMLElement_createDivWithShadowRoot.js");
+  const container = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
+  SunDawningGIS.HTMLElement_appendStyleText(
     container.shadowRoot,
     `
 div{
@@ -28,6 +28,8 @@ div:hover{
 }   
     `
   );
-  container.shadowRoot.appendChild(SunDawningGIS.createDivWithShadowRoot());
+  container.shadowRoot.appendChild(
+    SunDawningGIS.HTMLElement_createDivWithShadowRoot()
+  );
   return container;
 };

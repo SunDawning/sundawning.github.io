@@ -2,26 +2,22 @@ if (globalThis.SunDawningGIS === undefined) {
   globalThis.SunDawningGIS = {};
 }
 /**
- * 创建本地时间的元素
+ * 创建本地日期的元素
  * @param {HTMLElement} container
- * @param {string} [options.to="appendChild"] 元素将要添加到的位置，譬如appendChild, before, after
- * @param {boolean} [options.hasSeconds=false] 是否显示秒数
+ * @param {string} [options.to] 元素将要添加到的位置，譬如appendChild, before, after
  * @returns HTMLElement
  */
-SunDawningGIS.createLocaleTimeElementManager = function (
+SunDawningGIS.HTMLElementManager_createLocaleDateElementManager = function (
   container,
-  { to = "appendChild", hasSeconds = false } = {}
+  { to = "appendChild" } = {}
 ) {
   const SELF = {};
   const element = document.createElement("div");
   let id;
   function animate() {
-    let locale_time = new Date().toLocaleTimeString();
-    if (hasSeconds === false) {
-      locale_time = locale_time.split(":").slice(0, 2).join(":");
-    }
-    if (element.innerHTML !== locale_time) {
-      element.innerHTML = locale_time;
+    const locale_date = new Date().toLocaleDateString();
+    if (element.innerHTML !== locale_date) {
+      element.innerHTML = locale_date;
     }
     id = requestAnimationFrame(animate);
   }

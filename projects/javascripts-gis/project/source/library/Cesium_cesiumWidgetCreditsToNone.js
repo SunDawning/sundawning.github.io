@@ -6,9 +6,9 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {HTMLElement} container
  */
 
-SunDawningGIS.cesiumWidgetCreditsToNone = async function (container) {
-  await import("./appendStyleText.js");
-  SunDawningGIS.appendStyleText(
+SunDawningGIS.Cesium_cesiumWidgetCreditsToNone = async function (container) {
+  await import("./HTMLElement_appendStyleText.js");
+  SunDawningGIS.HTMLElement_appendStyleText(
     container,
     `
 .cesium-widget-credits,

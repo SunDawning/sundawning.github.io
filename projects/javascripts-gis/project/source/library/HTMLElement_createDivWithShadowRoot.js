@@ -5,7 +5,7 @@ if (globalThis.SunDawningGIS === undefined) {
  * 创建带有shadowRoot的div
  * @returns HTMLElement
  */
-SunDawningGIS.createDivWithShadowRoot = function () {
+SunDawningGIS.HTMLElement_createDivWithShadowRoot = function () {
   const container = document.createElement("div");
   container.attachShadow({ mode: "open" });
   return container;

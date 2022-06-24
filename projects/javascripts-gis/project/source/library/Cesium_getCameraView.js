@@ -6,7 +6,7 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {Cesium.Camera} camera
  * @returns object
  */
-SunDawningGIS.getCesiumCameraView = function (camera) {
+SunDawningGIS.Cesium_getCameraView = function (camera) {
   return {
     destination: camera.position,
     orientation: {

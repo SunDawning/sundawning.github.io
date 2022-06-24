@@ -7,15 +7,17 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {function} onOutsidePointerDown 点击时间日期详情之外的区域时，触发点击事件
  * @returns HTMLElement
  */
-SunDawningGIS.createDateTimeDetailManager = async function ({
+SunDawningGIS.HTMLElementManager_createDateTimeDetailManager = async function ({
   offsetElement = document.body,
   onOutsidePointerDown,
 } = {}) {
   const SELF = {};
-  await import("./createDateTimeDetailContainer.js");
-  let container = await SunDawningGIS.createDateTimeDetailContainer({
-    bottom: offsetElement.offsetHeight,
-  });
+  await import("./HTMLElement_createDateTimeDetailContainer.js");
+  let container = await SunDawningGIS.HTMLElement_createDateTimeDetailContainer(
+    {
+      bottom: offsetElement.offsetHeight,
+    }
+  );
   offsetElement.offsetParent.appendChild(container);
   /**
    * 阻止事件冒泡
@@ -35,11 +37,12 @@ SunDawningGIS.createDateTimeDetailManager = async function ({
     );
   }
   // 时间
-  await import("./createLocaleTimeElementManager.js");
-  const localeTimeElementManager = SunDawningGIS.createLocaleTimeElementManager(
-    container.shadowRoot.querySelector("div").shadowRoot,
-    { hasSeconds: true }
-  );
+  await import("./HTMLElementManager_createLocaleTimeElementManager.js");
+  const localeTimeElementManager =
+    SunDawningGIS.HTMLElementManager_createLocaleTimeElementManager(
+      container.shadowRoot.querySelector("div").shadowRoot,
+      { hasSeconds: true }
+    );
   /**
    * 销毁
    */

@@ -8,20 +8,23 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {object} Cesium_Widget_Options
  * @returns
  */
-SunDawningGIS.getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot =
+SunDawningGIS.CesiumWidget_getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot =
   async function (root, CESIUM_BASE_URL, Cesium_Widget_Options) {
     let cesiumWidget;
     let container;
     {
-      await import("./getShadowRootContainerCreateAndAppend.js");
-      container = await SunDawningGIS.getShadowRootContainerCreateAndAppend(
-        root
-      );
+      await import("./HTMLElement_getShadowRootContainerCreateAndAppend.js");
+      container =
+        await SunDawningGIS.HTMLElement_getShadowRootContainerCreateAndAppend(
+          root
+        );
     }
     {
-      await import("./getCesiumCSSAndCesiumWidgetCreateByBaseURL.js");
+      await import(
+        "./CesiumWidget_getCesiumCSSAndCesiumWidgetCreateByBaseURL.js"
+      );
       cesiumWidget =
-        await SunDawningGIS.getCesiumCSSAndCesiumWidgetCreateByBaseURL(
+        await SunDawningGIS.CesiumWidget_getCesiumCSSAndCesiumWidgetCreateByBaseURL(
           container.shadowRoot,
           CESIUM_BASE_URL,
           Cesium_Widget_Options

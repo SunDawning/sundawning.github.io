@@ -7,6 +7,9 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {object} Cesium
  * @returns Cesium.Viewer
  */
-SunDawningGIS.getCesiumViewerCreateByCesium = function (container, Cesium) {
+SunDawningGIS.CesiumViewer_getCesiumViewerCreateByCesium = function (
+  container,
+  Cesium
+) {
   return new Cesium.Viewer(container);
 };

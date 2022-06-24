@@ -8,14 +8,14 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {object} Cesium_Widget_Options
  * @returns Cesium.CesiumWidget
  */
-SunDawningGIS.getCesiumWidgetCreateByURL = async function (
+SunDawningGIS.CesiumWidget_getCesiumWidgetCreateByURL = async function (
   container,
   url,
   Cesium_Widget_Options
 ) {
   await import(url);
-  await import("./getCesiumWidgetCreateByCesium.js");
-  return SunDawningGIS.getCesiumWidgetCreateByCesium(
+  await import("./CesiumWidget_getCesiumWidgetCreateByCesium.js");
+  return SunDawningGIS.CesiumWidget_getCesiumWidgetCreateByCesium(
     container,
     Cesium,
     Cesium_Widget_Options

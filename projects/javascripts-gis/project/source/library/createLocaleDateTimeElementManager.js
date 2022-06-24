@@ -36,6 +36,13 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
         bottom: detail_offsetElement.offsetHeight,
       });
     detail_offsetElement.offsetParent.appendChild(date_time_detail_container);
+    // 点击时间日期详情之内的区域时，不触发点击事件
+    date_time_detail_container.addEventListener(
+      "pointerdown",
+      function (event) {
+        event.stopPropagation();
+      }
+    );
     // 点击时间日期详情之外的区域时，触发点击事件
     detail_offsetElement.offsetParent.addEventListener(
       "pointerdown",

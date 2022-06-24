@@ -27,8 +27,8 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
     }
     await import("./createDateTimeDetailManager.js");
     date_time_detail_manager = await SunDawningGIS.createDateTimeDetailManager({
-      detail_offsetElement,
-      onPointerDown,
+      offsetElement: detail_offsetElement,
+      onOutsidePointerDown: onPointerDown,
     });
   }
   // 事件

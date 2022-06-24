@@ -4,12 +4,12 @@ if (globalThis.SunDawningGIS === undefined) {
 /**
  * 创建时间日期详情面板
  * @param {HTMLElement} offsetElement 相对于某个元素进行偏移，该元素即是offsetElement
- * @param {function} onPointerDown 点击时间日期详情之外的区域时，触发点击事件
+ * @param {function} onOutsidePointerDown 点击时间日期详情之外的区域时，触发点击事件
  * @returns HTMLElement
  */
 SunDawningGIS.createDateTimeDetailManager = async function ({
   offsetElement = document.body,
-  onPointerDown,
+  onOutsidePointerDown,
 } = {}) {
   const SELF = {};
   await import("./createDateTimeDetailContainer.js");
@@ -29,7 +29,10 @@ SunDawningGIS.createDateTimeDetailManager = async function ({
     // 点击时间日期详情之内的区域时，不触发点击事件
     container.addEventListener("pointerdown", stopPropagation);
     // 点击时间日期详情之外的区域时，触发点击事件
-    offsetElement.offsetParent.addEventListener("pointerdown", onPointerDown);
+    offsetElement.offsetParent.addEventListener(
+      "pointerdown",
+      onOutsidePointerDown
+    );
   }
   // 时间
   await import("./createLocaleTimeElementManager.js");
@@ -45,7 +48,7 @@ SunDawningGIS.createDateTimeDetailManager = async function ({
     // 关闭点击时间日期详情之外的区域时的点击事件
     offsetElement.offsetParent.removeEventListener(
       "pointerdown",
-      onPointerDown
+      onOutsidePointerDown
     );
     container.removeEventListener("pointerdown", stopPropagation);
     container.remove();

@@ -18,19 +18,18 @@ SunDawningGIS.createLocaleDateTimeElementManager = async function (
   // 显示在网页里
   container[to](date_container);
   // 时间日期详情页面
-  let date_time_detail_container_manager;
+  let date_time_detail_manager;
   async function toggleDateTimeDetailContainer() {
-    if (date_time_detail_container_manager) {
-      date_time_detail_container_manager.destroy();
-      date_time_detail_container_manager = null;
+    if (date_time_detail_manager) {
+      date_time_detail_manager.destroy();
+      date_time_detail_manager = null;
       return;
     }
-    await import("./createDateTimeDetailContainerManager.js");
-    date_time_detail_container_manager =
-      await SunDawningGIS.createDateTimeDetailContainerManager({
-        detail_offsetElement,
-        onPointerDown,
-      });
+    await import("./createDateTimeDetailManager.js");
+    date_time_detail_manager = await SunDawningGIS.createDateTimeDetailManager({
+      detail_offsetElement,
+      onPointerDown,
+    });
   }
   // 事件
   async function onPointerDown(event) {

@@ -7,7 +7,7 @@ if (globalThis.SunDawningGIS === undefined) {
  * @param {function} onPointerDown 点击时间日期详情之外的区域时，触发点击事件
  * @returns HTMLElement
  */
-SunDawningGIS.createDateTimeDetailContainerManager = async function ({
+SunDawningGIS.createDateTimeDetailManager = async function ({
   detail_offsetElement = document.body,
   onPointerDown,
 } = {}) {

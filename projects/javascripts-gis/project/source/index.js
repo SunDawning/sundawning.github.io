@@ -204,6 +204,7 @@ div{
   min-width:240px;
   height: 64vh;
   min-height:240px;
+  max-height:calc(100% - 48px);
 }    
     `
     );
@@ -308,6 +309,7 @@ div{
           `
 div{
   height: calc(100% - 32px);
+  background: black;
 }        
         `
         );

@@ -20,23 +20,40 @@ body{
 }
 /**
  * @param {HTMLElement} root
- * @param {function} getImageryProvider
- * @returns Cesium.CesiumWidget
  */
-async function createEarth(root, getImageryProvider) {
+async function createEarth(root) {
   globalThis.CESIUM_BASE_URL =
     "https://cdn.bootcdn.net/ajax/libs/cesium/1.94.3";
   await import(
     "./library/CesiumWidget_getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot.js"
+  );
+  await import(
+    "./library/CesiumImageryProvider_getArcGISWorldImageryProviderByBaseURL.js"
   );
   SunDawningGIS.cesiumWidget =
     await SunDawningGIS.CesiumWidget_getCesiumCSSAndCesiumWidgetCreateByBaseURLInShadowRoot(
       root,
       CESIUM_BASE_URL,
       {
-        imageryProvider: await getImageryProvider(CESIUM_BASE_URL),
+        imageryProvider:
+          await SunDawningGIS.CesiumImageryProvider_getArcGISWorldImageryProviderByBaseURL(
+            CESIUM_BASE_URL
+          ),
       }
     );
+  // 初始视角
+  SunDawningGIS.cesiumWidget.camera.setView({
+    destination: {
+      x: -2924819.4945182353,
+      y: 9022799.347751182,
+      z: 4775396.196561911,
+    },
+    orientation: {
+      heading: 0,
+      pitch: -1.3768327359474233,
+      roll: 0,
+    },
+  });
   return SunDawningGIS.cesiumWidget;
 }
 /**
@@ -65,33 +82,15 @@ async function create_ui_printCesiumCameraSetViewOptionsOnMoveEnd(
       cesiumWidget
     );
 }
-globalThis.onload = async function () {
-  SunDawningGIS.root = document.body;
-  appendRootStyle(SunDawningGIS.root);
-  await import(
-    "./library/CesiumImageryProvider_getArcGISWorldImageryProviderByBaseURL.js"
-  );
-  const cesiumWidget = await createEarth(
-    SunDawningGIS.root,
-    SunDawningGIS.CesiumImageryProvider_getArcGISWorldImageryProviderByBaseURL
-  );
-  cesiumWidget.camera.setView({
-    destination: {
-      x: -2924819.4945182353,
-      y: 9022799.347751182,
-      z: 4775396.196561911,
-    },
-    orientation: {
-      heading: 0,
-      pitch: -1.3768327359474233,
-      roll: 0,
-    },
-  });
-  // 底部工具栏
+/**
+ * 创建工具栏
+ * @param {HTMLElement} root
+ */
+async function createToolbar(root) {
   await import("./library/HTMLElement_createWindows10TaskbarContainer.js");
   const taskbar_container =
     await SunDawningGIS.HTMLElement_createWindows10TaskbarContainer();
-  SunDawningGIS.root.appendChild(taskbar_container);
+  root.appendChild(taskbar_container);
   // 时间日期栏
   await import(
     "./library/HTMLElementManager_createLocaleDateTimeElementManager.js"
@@ -103,4 +102,14 @@ globalThis.onload = async function () {
         detail_offsetElement: taskbar_container.shadowRoot.querySelector("div"),
       }
     );
+  taskbar_container.shadowRoot.querySelector("div").style["z-index"] = 1;
+  ("inherit");
+}
+globalThis.onload = async function () {
+  SunDawningGIS.root = document.body;
+  appendRootStyle(SunDawningGIS.root);
+  // 创建地球
+  createEarth(SunDawningGIS.root);
+  // 底部工具栏
+  createToolbar(SunDawningGIS.root);
 };

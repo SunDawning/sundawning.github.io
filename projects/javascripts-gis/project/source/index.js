@@ -14,6 +14,8 @@ async function appendRootStyle(root) {
     `
 body{
   margin:0;
+  background-image: url(https://cn.bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);
+  background-size: cover;
 }
   `
   );
@@ -109,7 +111,7 @@ globalThis.onload = async function () {
   SunDawningGIS.root = document.body;
   appendRootStyle(SunDawningGIS.root);
   // 创建地球
-  createEarth(SunDawningGIS.root);
+  // createEarth(SunDawningGIS.root);
   // 底部工具栏
   createToolbar(SunDawningGIS.root);
 };

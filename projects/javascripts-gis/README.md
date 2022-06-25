@@ -33,7 +33,7 @@ pnpm run source-in-minimum-files
 相当于：
 
 ```sh
-rollup -i project/source/index.js --dir project/source-in-minimum-files
+npx rollup -i project/source/index.js --dir project/source-in-minimum-files/index --chunkFileNames '[name].js'
 ```
 
 便于将某个 js 分离出来

@@ -17,3 +17,9 @@ pnpm run start
 ```
 
 http://localhost:8080/
+
+# 打包
+
+```sh
+pnpm run build
+```

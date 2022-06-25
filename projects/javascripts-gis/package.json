@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "start": "npx http-server project/source --port 8080 --cors --log-ip"
+    "start": "npx http-server project/source --port 8080 --cors --log-ip",
+    "build": "npx parcel build project/source/index.js --dist-dir project/product --public-url . --no-source-maps"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "parcel": "^2.6.2"
   }
 }

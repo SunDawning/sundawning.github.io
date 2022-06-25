@@ -23,3 +23,27 @@ http://localhost:8080/
 ```sh
 pnpm run build
 ```
+
+# 最少文件数的源码
+
+```sh
+pnpm run source-in-minimum-files
+```
+
+相当于：
+
+```sh
+rollup -i project/source/index.js --dir project/source-in-minimum-files
+```
+
+便于将某个 js 分离出来
+
+譬如
+
+```sh
+rollup -i project/source/library/HTMLElement_createWindows10TaskbarContainer.js --dir project/source-in-minimum-files/HTMLElement_createWindows10TaskbarContainer --chunkFileNames '[name].js'
+```
+
+用于将
+HTMLElement_createWindows10TaskbarContainer.js
+功能分离出来

@@ -1,10 +1,14 @@
 {
   "scripts": {
-    "start": "npx http-server project/source --port 8080 --cors --log-ip",
+    "start": "node project/script/start.js",
+    "rollup": "npx rollup -i project/source/index.js --watch --dir project/debug",
+    "server": "npx http-server project/debug --port 8080 --cors --log-ip",
     "build": "npx parcel build project/source/index.js --dist-dir project/product --public-url . --no-source-maps"
   },
   "devDependencies": {
+    "@sundawning/child-process-exec-with-log": "^1.0.0",
     "http-server": "^14.1.1",
-    "parcel": "^2.6.2"
+    "parcel": "^2.6.2",
+    "rollup": "^2.75.7"
   }
 }

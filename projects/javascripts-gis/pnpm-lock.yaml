@@ -1,12 +1,16 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@sundawning/child-process-exec-with-log': ^1.0.0
   http-server: ^14.1.1
   parcel: ^2.6.2
+  rollup: ^2.75.7
 
 devDependencies:
+  '@sundawning/child-process-exec-with-log': 1.0.0
   http-server: 14.1.1
   parcel: 2.6.2
+  rollup: 2.75.7
 
 packages:
 
@@ -938,6 +942,16 @@ packages:
       nullthrows: 1.1.1
     dev: true
 
+  /@sundawning/child-process-exec-with-log/1.0.0:
+    resolution: {integrity: sha512-t7ORiX8czlSPB3Y7uDBiXrcHRSig7ruYiD6AqAanqZdbMJoWyLL4VAqug8aKSGuNNPTiLbfYvsQBtMPtc7IBRA==}
+    dependencies:
+      '@sundawning/console-log-timestamp': 1.0.0
+    dev: true
+
+  /@sundawning/console-log-timestamp/1.0.0:
+    resolution: {integrity: sha512-ePcNEzE6bjgoHgob+v0Tk1rzk5zjMlC/rxx9Z+H6pLNK5/I+6ftkKxKE4tS7sNQdfaIEnhpflbsQDn962EYDqQ==}
+    dev: true
+
   /@swc/helpers/0.4.2:
     resolution: {integrity: sha512-556Az0VX7WR6UdoTn4htt/l3zPQ7bsQWK+HqdG4swV7beUCxo/BqmvbOpUkTIm/9ih86LIf1qsUnywNL3obGHw==}
     dependencies:
@@ -1224,6 +1238,14 @@ packages:
       debug:
         optional: true
     dev: true
+
+  /fsevents/2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
 
   /function-bind/1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
@@ -1644,6 +1666,14 @@ packages:
   /resolve-from/4.0.0:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
+    dev: true
+
+  /rollup/2.75.7:
+    resolution: {integrity: sha512-VSE1iy0eaAYNCxEXaleThdFXqZJ42qDBatAwrfnPlENEZ8erQ+0LYX4JXOLPceWfZpV1VtZwZ3dFCuOZiSyFtQ==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: true
 
   /safe-buffer/5.1.2:

@@ -63,6 +63,7 @@ async function createEarth(root) {
  */
 function setRightKeyMenu() {
   document.documentElement.oncontextmenu = function (event) {
+    event.preventDefault();
     console.log("document.documentElement.oncontextmenu", event);
   };
 }
@@ -183,15 +184,14 @@ div{
   }
 }
 globalThis.onload = async function () {
+  // 设置右键
+  setRightKeyMenu();
   SunDawningGIS.root = document.body;
   appendRootStyle(SunDawningGIS.root);
   // 界面
   {
     await import("./library/HTMLElement_createDivWithShadowRoot.js");
     const frame = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
-    SunDawningGIS.root.appendChild(frame);
-    const _frame = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
-    frame.shadowRoot.appendChild(_frame);
     SunDawningGIS.HTMLElement_appendStyleText(
       frame.shadowRoot,
       `
@@ -207,12 +207,13 @@ div{
 }    
     `
     );
-
+    SunDawningGIS.root.appendChild(frame);
+    const _frame = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
+    frame.shadowRoot.appendChild(_frame);
     {
       // 顶部栏
       {
         const topbar = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
-        _frame.shadowRoot.appendChild(topbar);
         SunDawningGIS.HTMLElement_appendStyleText(
           topbar.shadowRoot,
           `
@@ -223,13 +224,13 @@ div{
 }
         `
         );
+        _frame.shadowRoot.appendChild(topbar);
         const _topbar = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
         topbar.shadowRoot.appendChild(_topbar);
 
         {
           // 标题
           const titlebar = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
-          _topbar.shadowRoot.appendChild(titlebar);
           SunDawningGIS.HTMLElement_appendStyleText(
             titlebar.shadowRoot,
             `
@@ -241,25 +242,26 @@ div{
 }          
           `
           );
+          _topbar.shadowRoot.appendChild(titlebar);
           const _titlebar = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
           titlebar.shadowRoot.appendChild(_titlebar);
           {
             // 图标
             const title_icon_bar =
               SunDawningGIS.HTMLElement_createDivWithShadowRoot();
-            _titlebar.shadowRoot.appendChild(title_icon_bar);
-            const _title_icon_bar = document.createElement("div");
-            title_icon_bar.shadowRoot.appendChild(_title_icon_bar);
             SunDawningGIS.HTMLElement_appendStyleText(
               title_icon_bar.shadowRoot,
               `
-div{
-  width: 24px;
-  height: 24px;  
-  background-image: url(https://cn.bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);
-  background-size: cover;  
-}            `
+  div{
+    width: 24px;
+    height: 24px;  
+    background-image: url(https://cn.bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);
+    background-size: cover;  
+  }            `
             );
+            _titlebar.shadowRoot.appendChild(title_icon_bar);
+            const _title_icon_bar = document.createElement("div");
+            title_icon_bar.shadowRoot.appendChild(_title_icon_bar);
           }
           {
             // 标题文本
@@ -300,8 +302,22 @@ div{
       }
       // 主体框
       {
-        // 创建地球
-        createEarth(_frame.shadowRoot);
+        const main_body = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
+        SunDawningGIS.HTMLElement_appendStyleText(
+          main_body.shadowRoot,
+          `
+div{
+  height: calc(100% - 32px);
+}        
+        `
+        );
+        _frame.shadowRoot.appendChild(main_body);
+        const _main_body = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
+        main_body.shadowRoot.appendChild(_main_body);
+        {
+          // 创建地球
+          createEarth(_main_body.shadowRoot);
+        }
       }
     }
   }

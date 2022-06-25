@@ -105,7 +105,81 @@ async function createToolbar(root) {
       }
     );
   taskbar_container.shadowRoot.querySelector("div").style["z-index"] = 1;
-  ("inherit");
+  // 开始
+  {
+    const start_container = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
+    SunDawningGIS.HTMLElement_appendStyleText(
+      start_container.shadowRoot,
+      `
+div{
+  width: 48px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+div:hover{
+  background-color: black;
+}    
+    `
+    );
+    taskbar_container.shadowRoot
+      .querySelector("div")
+      .shadowRoot.appendChild(start_container);
+    {
+      const _container = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
+      start_container.shadowRoot.appendChild(_container);
+      SunDawningGIS.HTMLElement_appendStyleText(
+        _container.shadowRoot,
+        `
+div{
+  background-image: url(https://cn.bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);
+  background-size: cover;
+  width:32px;
+  height:32px;
+}        
+      `
+      );
+      _container.shadowRoot.appendChild(document.createElement("div"));
+    }
+  }
+  {
+    const start_container = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
+    SunDawningGIS.HTMLElement_appendStyleText(
+      start_container.shadowRoot,
+      `
+div{
+  width: 48px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+div:hover{
+  background-color: black;
+}    
+    `
+    );
+    taskbar_container.shadowRoot
+      .querySelector("div")
+      .shadowRoot.appendChild(start_container);
+    {
+      const _container = SunDawningGIS.HTMLElement_createDivWithShadowRoot();
+      start_container.shadowRoot.appendChild(_container);
+      SunDawningGIS.HTMLElement_appendStyleText(
+        _container.shadowRoot,
+        `
+div{
+  background-image: url(https://cn.bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);
+  background-size: cover;
+  width:32px;
+  height:32px;
+}        
+      `
+      );
+      _container.shadowRoot.appendChild(document.createElement("div"));
+    }
+  }
 }
 globalThis.onload = async function () {
   SunDawningGIS.root = document.body;

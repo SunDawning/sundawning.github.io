@@ -20,6 +20,7 @@ div{
   width: 100%;
   background-color: #3e3d3ced;
   user-select: none;
+  display: flex;
 }
     `
   );

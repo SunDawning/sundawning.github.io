@@ -205,6 +205,9 @@ div{
   height: 64vh;
   min-height:240px;
   max-height:calc(100% - 48px);
+  border-radius:8px;
+  padding:8px;
+  background-color:#3e3d3ced;
 }    
     `
     );

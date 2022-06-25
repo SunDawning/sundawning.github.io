@@ -21,6 +21,7 @@ SunDawningGIS.HTMLElementManager_createLocaleDateTimeElementManager =
     container[to](date_container);
     // 时间日期详情页面
     let date_time_detail_manager;
+    let pointer_down_timestamp = new Date().getTime(); // 记录点击的间隔时间，在parcel打包后的程序里，会出错。
     async function toggleDateTimeDetailContainer() {
       if (date_time_detail_manager) {
         date_time_detail_manager.destroy();
@@ -36,6 +37,14 @@ SunDawningGIS.HTMLElementManager_createLocaleDateTimeElementManager =
     }
     // 事件
     async function onPointerDown(event) {
+      // 应对pointerdown执行两次
+      {
+        const interval = new Date().getTime() - pointer_down_timestamp;
+        if (interval < 10) {
+          return;
+        }
+        pointer_down_timestamp = new Date().getTime();
+      }
       console.log("onPointerDown", event);
       await toggleDateTimeDetailContainer();
     }

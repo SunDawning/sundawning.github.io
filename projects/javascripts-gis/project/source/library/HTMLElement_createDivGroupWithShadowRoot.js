@@ -3,6 +3,7 @@ if (globalThis.SunDawningGIS === undefined) {
 }
 /**
  * 创建div群组，便于容纳多个div，便于设置div群组的样式
+ * 可使用SunDawningGIS.HTMLElement_queryDivGroupShadowRoot来获取能直接添加元素的元素
  * @param {HTMLElment} container
  * @param {string} CSSText
  * @returns HTMLElement

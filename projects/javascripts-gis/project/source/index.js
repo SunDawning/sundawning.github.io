@@ -210,7 +210,8 @@ globalThis.onload = async function () {
     }    
         `
     );
-    const _frame = frame.shadowRoot.querySelector("div").shadowRoot;
+    await import("./library/HTMLElement_queryDivGroupShadowRoot.js");
+    const _frame = SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(frame);
     {
       // 顶部栏
       {
@@ -225,7 +226,8 @@ globalThis.onload = async function () {
         }
                 `
           );
-        const _topbar = topbar.shadowRoot.querySelector("div").shadowRoot;
+        const _topbar =
+          SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(topbar);
         {
           // 标题
           const titlebar =
@@ -240,7 +242,8 @@ globalThis.onload = async function () {
           }          
                     `
             );
-          const _titlebar = titlebar.shadowRoot.querySelector("div").shadowRoot;
+          const _titlebar =
+            SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(titlebar);
           {
             // 图标
             await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
@@ -275,7 +278,7 @@ globalThis.onload = async function () {
                       `
             );
           const _operationbar =
-            operationbar.shadowRoot.querySelector("div").shadowRoot;
+            SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(operationbar);
           {
             // 关闭
             const closebar =
@@ -298,7 +301,8 @@ globalThis.onload = async function () {
         }        
                 `
           );
-        const _main_body = main_body.shadowRoot.querySelector("div").shadowRoot;
+        const _main_body =
+          SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(main_body);
         {
           // 创建地球
           createEarth(_main_body);

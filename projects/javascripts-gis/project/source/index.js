@@ -212,6 +212,17 @@ globalThis.onload = async function () {
     );
     await import("./library/HTMLElement_queryDivGroupShadowRoot.js");
     const _frame = SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(frame);
+    /**
+     * 关闭窗口时
+     */
+    const onCloseFrame = [];
+    function closeFrame() {
+      onCloseFrame.forEach(function (fun) {
+        fun();
+      });
+      onCloseFrame.length = 0;
+      frame.remove();
+    }
     {
       // 顶部栏
       {
@@ -223,6 +234,7 @@ globalThis.onload = async function () {
           height:32px;
           background-color:#3e3d3ced;
           user-select:none;
+          position:relative;
         }
                 `
           );
@@ -238,7 +250,7 @@ globalThis.onload = async function () {
             display: flex;
             align-items: center;
             height: 100%;
-            color:white;  
+            color:white;
           }          
                     `
             );
@@ -272,8 +284,12 @@ globalThis.onload = async function () {
               _topbar,
               `
             div{
-              position:absolute;
-              right:0;
+              position: absolute;
+              top: 0;  
+              right: 0;
+              height: 100%;
+              display: flex;  
+              align-items: center;  
             }          
                       `
             );
@@ -282,10 +298,18 @@ globalThis.onload = async function () {
           {
             // 关闭
             const closebar =
-              SunDawningGIS.HTMLElement_createDivWithShadowRoot();
-            const _closebar =
-              SunDawningGIS.HTMLElement_createDivWithShadowRoot();
-            _operationbar.appendChild(closebar);
+              await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+                _operationbar,
+                `
+div{
+  width: 24px;
+  height: 24px;
+  background-image: url(https://cn.bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);
+  background-size: cover;
+}            
+            `
+              );
+            closebar.addEventListener("pointerdown", closeFrame);
           }
         }
       }
@@ -305,7 +329,11 @@ globalThis.onload = async function () {
           SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(main_body);
         {
           // 创建地球
-          createEarth(_main_body);
+          const cesiumWidget = await createEarth(_main_body);
+          onCloseFrame.push(function () {
+            console.log("删除cesiumWidget");
+            cesiumWidget.destroy();
+          });
         }
       }
     }

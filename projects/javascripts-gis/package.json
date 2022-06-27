@@ -2,7 +2,7 @@
   "scripts": {
     "start": "node project/script/start.js",
     "rollup": "npx rollup -i project/source/index.js --watch --dir project/debug",
-    "server": "npx http-server project/debug --port 8080 --cors --log-ip",
+    "server": "npx http-server project/debug --cors --log-ip",
     "build": "npx parcel build project/source/index.js --dist-dir project/product --public-url . --no-source-maps",
     "source-in-minimum-files": "npx rollup -i project/source/index.js --dir project/source-in-minimum-files/index --chunkFileNames '[name].js'"
   },

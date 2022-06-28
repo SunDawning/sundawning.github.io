@@ -184,17 +184,12 @@ div{
     }
   }
 }
-globalThis.onload = async function () {
-  // 设置右键
-  setRightKeyMenu();
-  SunDawningGIS.root = document.body;
-  appendRootStyle(SunDawningGIS.root);
-  // 界面
-  {
-    await import("./library/HTMLElement_createDivGroupWithShadowRoot.js");
-    const frame = await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
-      SunDawningGIS.root,
-      `
+// 界面
+async function createFrame() {
+  await import("./library/HTMLElement_createDivGroupWithShadowRoot.js");
+  const frame = await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+    SunDawningGIS.root,
+    `
     div{
       position: absolute;
       left: 50%;
@@ -210,27 +205,27 @@ globalThis.onload = async function () {
       background-color:#3e3d3ced;
     }    
         `
-    );
-    await import("./library/HTMLElement_queryDivGroupShadowRoot.js");
-    const _frame = SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(frame);
-    /**
-     * 关闭窗口时
-     */
-    const onCloseFrame = [];
-    function closeFrame() {
-      onCloseFrame.forEach(function (fun) {
-        fun();
-      });
-      onCloseFrame.length = 0;
-      frame.remove();
-    }
+  );
+  await import("./library/HTMLElement_queryDivGroupShadowRoot.js");
+  const _frame = SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(frame);
+  /**
+   * 关闭窗口时
+   */
+  const onCloseFrame = [];
+  function closeFrame() {
+    onCloseFrame.forEach(function (fun) {
+      fun();
+    });
+    onCloseFrame.length = 0;
+    frame.remove();
+  }
+  {
+    // 顶部栏
     {
-      // 顶部栏
-      {
-        const topbar =
-          await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
-            _frame,
-            `
+      const topbar =
+        await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+          _frame,
+          `
         div{
           height:32px;
           background-color:#3e3d3ced;
@@ -238,15 +233,14 @@ globalThis.onload = async function () {
           position:relative;
         }
                 `
-          );
-        const _topbar =
-          SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(topbar);
-        {
-          // 标题
-          const titlebar =
-            await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
-              _topbar,
-              `
+        );
+      const _topbar = SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(topbar);
+      {
+        // 标题
+        const titlebar =
+          await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+            _topbar,
+            `
           div{
             display: flex;
             align-items: center;
@@ -254,14 +248,14 @@ globalThis.onload = async function () {
             color:white;
           }          
                     `
-            );
-          const _titlebar =
-            SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(titlebar);
-          {
-            // 图标
-            await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
-              _titlebar,
-              `
+          );
+        const _titlebar =
+          SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(titlebar);
+        {
+          // 图标
+          await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+            _titlebar,
+            `
               div{
                 width: 24px;
                 height: 24px;  
@@ -269,21 +263,21 @@ globalThis.onload = async function () {
                 background-size: cover;  
               }
               `
-            );
-          }
-          {
-            // 标题文本
-            const title_text_bar = document.createElement("div");
-            _titlebar.appendChild(title_text_bar);
-            title_text_bar.innerHTML = `Cesium`;
-          }
+          );
         }
         {
-          // 窗口最大、最小和关闭
-          const operationbar =
-            await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
-              _topbar,
-              `
+          // 标题文本
+          const title_text_bar = document.createElement("div");
+          _titlebar.appendChild(title_text_bar);
+          title_text_bar.innerHTML = `Cesium`;
+        }
+      }
+      {
+        // 窗口最大、最小和关闭
+        const operationbar =
+          await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+            _topbar,
+            `
             div{
               position: absolute;
               top: 0;  
@@ -293,22 +287,22 @@ globalThis.onload = async function () {
               align-items: center;  
             }          
                       `
+          );
+        const _operationbar =
+          SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(operationbar);
+        {
+          // 最大化
+          const maximumbar =
+            await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+              _operationbar
             );
-          const _operationbar =
-            SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(operationbar);
-          {
-            // 最大化
-            const maximumbar =
-              await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
-                _operationbar
-              );
-            _maximumbar =
-              SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(maximumbar);
-            const button = document.createElement("button");
-            button.innerText = "最大化";
-            _maximumbar.appendChild(button);
-            maximumbar.addEventListener("pointerdown", function (event) {
-              frame.shadowRoot.querySelector("div").style.cssText = `
+          _maximumbar =
+            SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(maximumbar);
+          const button = document.createElement("button");
+          button.innerText = "最大化";
+          _maximumbar.appendChild(button);
+          maximumbar.addEventListener("pointerdown", function (event) {
+            frame.shadowRoot.querySelector("div").style.cssText = `
 left:0;
 top:0;
 transform: unset;
@@ -316,14 +310,14 @@ width:100%;
 height:100%;
 padding: 0;
               `;
-            });
-          }
-          {
-            // 关闭
-            const closebar =
-              await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
-                _operationbar,
-                `
+          });
+        }
+        {
+          // 关闭
+          const closebar =
+            await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+              _operationbar,
+              `
 div{
   width: 24px;
   height: 24px;
@@ -331,86 +325,91 @@ div{
   background-size: cover;
 }            
             `
-              );
-            closebar.addEventListener("pointerdown", closeFrame);
-          }
+            );
+          closebar.addEventListener("pointerdown", closeFrame);
         }
       }
-      // 主体框
-      {
-        const main_body =
-          await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
-            _frame,
-            `
+    }
+    // 主体框
+    {
+      const main_body =
+        await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+          _frame,
+          `
         div{
           height: calc(100% - 32px);
           background: black;
         }        
                 `
-          );
-        const _main_body =
-          SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(main_body);
-        {
-          // 创建地球
-          const cesiumWidget = await createEarth(_main_body);
-          onCloseFrame.push(function () {
-            console.log("删除cesiumWidget");
-            cesiumWidget.destroy();
-          });
-        }
+        );
+      const _main_body =
+        SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(main_body);
+      {
+        // 创建地球
+        const cesiumWidget = await createEarth(_main_body);
+        onCloseFrame.push(function () {
+          console.log("删除cesiumWidget");
+          cesiumWidget.destroy();
+        });
       }
-    }
-    {
-      // 可以拖动窗口
-      /**
-       * JavaScript 设置 DIV 可拖动
-       * @see https://c.runoob.com/codedemo/5370/
-       */
-      function dragElement(elmnt) {
-        var pos1 = 0,
-          pos2 = 0,
-          pos3 = 0,
-          pos4 = 0;
-        if (document.getElementById(elmnt.id + "header")) {
-          /* if present, the header is where you move the DIV from:*/
-          document.getElementById(elmnt.id + "header").onmousedown =
-            dragMouseDown;
-        } else {
-          /* otherwise, move the DIV from anywhere inside the DIV:*/
-          elmnt.onmousedown = dragMouseDown;
-        }
-
-        function dragMouseDown(e) {
-          e = e || window.event;
-          // get the mouse cursor position at startup:
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          document.onmouseup = closeDragElement;
-          // call a function whenever the cursor moves:
-          document.onmousemove = elementDrag;
-        }
-
-        function elementDrag(e) {
-          e = e || window.event;
-          // calculate the new cursor position:
-          pos1 = pos3 - e.clientX;
-          pos2 = pos4 - e.clientY;
-          pos3 = e.clientX;
-          pos4 = e.clientY;
-          // set the element's new position:
-          elmnt.style.top = elmnt.offsetTop - pos2 + "px";
-          elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
-        }
-
-        function closeDragElement() {
-          /* stop moving when mouse button is released:*/
-          document.onmouseup = null;
-          document.onmousemove = null;
-        }
-      }
-      dragElement(frame.shadowRoot.querySelector("div"));
     }
   }
+  {
+    // 可以拖动窗口
+    /**
+     * JavaScript 设置 DIV 可拖动
+     * @see https://c.runoob.com/codedemo/5370/
+     */
+    function dragElement(elmnt) {
+      var pos1 = 0,
+        pos2 = 0,
+        pos3 = 0,
+        pos4 = 0;
+      if (document.getElementById(elmnt.id + "header")) {
+        /* if present, the header is where you move the DIV from:*/
+        document.getElementById(elmnt.id + "header").onmousedown =
+          dragMouseDown;
+      } else {
+        /* otherwise, move the DIV from anywhere inside the DIV:*/
+        elmnt.onmousedown = dragMouseDown;
+      }
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+        elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+      }
+
+      function closeDragElement() {
+        /* stop moving when mouse button is released:*/
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+    dragElement(frame.shadowRoot.querySelector("div"));
+  }
+}
+globalThis.onload = async function () {
+  // 设置右键
+  setRightKeyMenu();
+  SunDawningGIS.root = document.body;
+  appendRootStyle(SunDawningGIS.root);
   // 底部工具栏
   createToolbar(SunDawningGIS.root);
 };

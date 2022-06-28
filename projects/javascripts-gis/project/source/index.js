@@ -16,6 +16,7 @@ body{
   margin:0;
   background-image: url(https://cn.bing.com/th?id=OHR.MostarBridge_ZH-CN5920156936_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp);
   background-size: cover;
+  overflow:hidden;
 }
   `
   );
@@ -295,6 +296,28 @@ globalThis.onload = async function () {
             );
           const _operationbar =
             SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(operationbar);
+          {
+            // 最大化
+            const maximumbar =
+              await SunDawningGIS.HTMLElement_createDivGroupWithShadowRoot(
+                _operationbar
+              );
+            _maximumbar =
+              SunDawningGIS.HTMLElement_queryDivGroupShadowRoot(maximumbar);
+            const button = document.createElement("button");
+            button.innerText = "最大化";
+            _maximumbar.appendChild(button);
+            maximumbar.addEventListener("pointerdown", function (event) {
+              frame.shadowRoot.querySelector("div").style.cssText = `
+left:0;
+top:0;
+transform: unset;
+width:100%;
+height:100%;
+padding: 0;
+              `;
+            });
+          }
           {
             // 关闭
             const closebar =

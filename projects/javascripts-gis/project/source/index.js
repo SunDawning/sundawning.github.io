@@ -421,7 +421,19 @@ globalThis.onload = async function () {
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+    border-style: solid;
+    border-color: #3e3d3ced;
+    border-radius: 8px;
+    border-top-width: 48px;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;    
     `;
+    const root = iframe.contentDocument.body;
+    {
+      appendRootStyle(root);
+      createToolbar(root);
+    }
   }
   // 底部工具栏
   createToolbar(SunDawningGIS.root);

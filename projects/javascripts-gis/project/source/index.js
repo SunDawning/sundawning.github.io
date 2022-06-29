@@ -455,44 +455,56 @@ globalThis.onload = async function () {
   setRightKeyMenu();
   SunDawningGIS.root = document.body;
   appendRootStyle(SunDawningGIS.root);
+  // 让Cesium 1.94.1和Cesium 1.94.3共存
+  SunDawningGIS.iframes = [];
+  SunDawningGIS.Cesium = {};
+  // Cesium 1.94.1
   {
     // iframe界面
     const iframe = document.createElement("iframe");
     SunDawningGIS.root.appendChild(iframe);
-    iframe.style.cssText = `
-    position: absolute;
-    width: 400px;
-    height: 300px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    border-width:0;
-    border-radius:8px;
-    background-color:black;
-    `;
+    iframe.style.cssText = `display:none;`;
     const body = iframe.contentDocument.body;
+    const _window = iframe.contentWindow;
     {
-      body.style.cssText = `margin:0;`;
-    }
-    {
-      // 顶部工具栏
+      let div = document.createElement("div");
+      body.appendChild(div);
       {
-        let div = document.createElement("div");
-        body.appendChild(div);
-        div.style.cssText = `
-width:100%;
-height:48px;
-background-color:#3e3d3ced;
-        `;
+        const script = document.createElement("script");
+        Object.assign(script, {
+          type: "text/javascript",
+          src: "https://cdn.bootcdn.net/ajax/libs/cesium/1.94.1/Cesium.js",
+          onload: function () {
+            parent.SunDawningGIS.Cesium[_window.Cesium.VERSION] =
+              _window.Cesium;
+          },
+        });
+        div.appendChild(script);
       }
-      // 内容栏
+    }
+  }
+  // Cesium 1.94.2
+  {
+    // iframe界面
+    const iframe = document.createElement("iframe");
+    SunDawningGIS.root.appendChild(iframe);
+    iframe.style.cssText = `display:none;`;
+    const body = iframe.contentDocument.body;
+    const _window = iframe.contentWindow;
+    {
+      let div = document.createElement("div");
+      body.appendChild(div);
       {
-        let div = document.createElement("div");
-        body.appendChild(div);
-        div.style.cssText = `
-      width:100%;
-      height:calc(100% - 48px);
-      `;
+        const script = document.createElement("script");
+        Object.assign(script, {
+          type: "text/javascript",
+          src: "https://cdn.bootcdn.net/ajax/libs/cesium/1.94.3/Cesium.js",
+          onload: function () {
+            parent.SunDawningGIS.Cesium[_window.Cesium.VERSION] =
+              _window.Cesium;
+          },
+        });
+        div.appendChild(script);
       }
     }
   }

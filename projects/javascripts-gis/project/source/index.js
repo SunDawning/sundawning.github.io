@@ -410,6 +410,19 @@ globalThis.onload = async function () {
   setRightKeyMenu();
   SunDawningGIS.root = document.body;
   appendRootStyle(SunDawningGIS.root);
+  {
+    // iframe界面
+    const iframe = document.createElement("iframe");
+    SunDawningGIS.root.appendChild(iframe);
+    iframe.style.cssText = `
+    position: absolute;
+    width: 400px;
+    height: 300px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    `;
+  }
   // 底部工具栏
   createToolbar(SunDawningGIS.root);
 };

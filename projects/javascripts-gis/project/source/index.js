@@ -405,6 +405,51 @@ div{
     dragElement(frame.shadowRoot.querySelector("div"));
   }
 }
+/**
+ * JavaScript 设置 DIV 可拖动
+ * @see https://c.runoob.com/codedemo/5370/
+ */
+function dragElement(elmnt) {
+  var pos1 = 0,
+    pos2 = 0,
+    pos3 = 0,
+    pos4 = 0;
+  if (document.getElementById(elmnt.id + "header")) {
+    /* if present, the header is where you move the DIV from:*/
+    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+  } else {
+    /* otherwise, move the DIV from anywhere inside the DIV:*/
+    elmnt.onmousedown = dragMouseDown;
+  }
+
+  function dragMouseDown(e) {
+    e = e || window.event;
+    // get the mouse cursor position at startup:
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    document.onmouseup = closeDragElement;
+    // call a function whenever the cursor moves:
+    document.onmousemove = elementDrag;
+  }
+
+  function elementDrag(e) {
+    e = e || window.event;
+    // calculate the new cursor position:
+    pos1 = pos3 - e.clientX;
+    pos2 = pos4 - e.clientY;
+    pos3 = e.clientX;
+    pos4 = e.clientY;
+    // set the element's new position:
+    elmnt.style.top = elmnt.offsetTop - pos2 + "px";
+    elmnt.style.left = elmnt.offsetLeft - pos1 + "px";
+  }
+
+  function closeDragElement() {
+    /* stop moving when mouse button is released:*/
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
 globalThis.onload = async function () {
   // 设置右键
   setRightKeyMenu();
@@ -421,18 +466,34 @@ globalThis.onload = async function () {
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-    border-style: solid;
-    border-color: #3e3d3ced;
-    border-radius: 8px;
-    border-top-width: 48px;
-    border-left: none;
-    border-right: none;
-    border-bottom: none;    
+    border-width:0;
+    border-radius:8px;
+    background-color:black;
     `;
-    const root = iframe.contentDocument.body;
+    const body = iframe.contentDocument.body;
     {
-      appendRootStyle(root);
-      createToolbar(root);
+      body.style.cssText = `margin:0;`;
+    }
+    {
+      // 顶部工具栏
+      {
+        let div = document.createElement("div");
+        body.appendChild(div);
+        div.style.cssText = `
+width:100%;
+height:48px;
+background-color:#3e3d3ced;
+        `;
+      }
+      // 内容栏
+      {
+        let div = document.createElement("div");
+        body.appendChild(div);
+        div.style.cssText = `
+      width:100%;
+      height:calc(100% - 48px);
+      `;
+      }
     }
   }
   // 底部工具栏

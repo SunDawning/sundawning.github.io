@@ -1,0 +1,27 @@
+<script type="text/javascript">
+  globalThis.onload = async function () {
+    const CESIUM_BASE_URL = "https://cdn.bootcdn.net/ajax/libs/cesium/1.94.3";
+    {
+      globalThis.CESIUM_BASE_URL = CESIUM_BASE_URL;
+    }
+    // 添加Widgets/widgets.css
+    {
+      const container = document.body;
+      {
+        const response = await fetch(CESIUM_BASE_URL + "/Widgets/widgets.css");
+        {
+          const text = await response.text();
+          {
+            const style = document.createElement("style");
+            style.innerHTML = text;
+            container.appendChild(style);
+          }
+        }
+      }
+    }
+    // 添加Cesium.js
+    {
+      await import(CESIUM_BASE_URL + "/Cesium.js");
+    }
+  };
+</script>

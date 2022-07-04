@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node project/script/start.js",
+    "start": "npx http-server project/source --cors --log-ip",
     "rollup": "npx rollup -i project/source/index.js --watch --dir project/debug",
     "server": "npx http-server project/debug --cors --log-ip",
     "build": "npx parcel build project/source/index.js --dist-dir project/product --public-url . --no-source-maps",

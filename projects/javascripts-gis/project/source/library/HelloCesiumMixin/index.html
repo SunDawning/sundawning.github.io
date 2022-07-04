@@ -1,4 +1,46 @@
 <script type="text/javascript">
+  class HelloOptions {
+    get container() {
+      return this._container;
+    }
+    get viewModel() {
+      return this._viewModel;
+    }
+    constructor(viewer, options = {}) {
+      Object.assign(this, {
+        _element: undefined,
+        _container: undefined,
+        _viewModel: undefined,
+        _onDestroyListeners: [],
+      });
+      const { scene } = viewer;
+      const { container } = options;
+      const element = document.createElement("div");
+      element.className = "sc-widget";
+    }
+  }
+</script>
+<script type="text/javascript">
+  function helloMixin(viewer, options = {}) {
+    const container = document.createElement("div");
+    viewer.container.appendChild("container");
+    container.className = "sc-widget-container";
+    const widget = new HelloOptions(viewer, { container });
+    widget.addOnDestroyListener(function () {
+      viewer.container.removeChild(container);
+      delete viewer.helloOptions;
+    });
+    Object.defineProperties(viewer, {
+      helloOptions: {
+        get: function () {
+          return widget;
+        },
+        configurable: true,
+      },
+    });
+  }
+</script>
+<script type="text/javascript">
   globalThis.onload = async function () {
     const CESIUM_BASE_URL = "https://cdn.bootcdn.net/ajax/libs/cesium/1.94.3";
     {

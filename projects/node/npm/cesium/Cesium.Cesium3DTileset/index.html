@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cesium.Cesium3DTileset</title>
+  </head>
+  <body>
+    <!-- Cesium界面-->
+    <link
+      rel="stylesheet"
+      href="./node_modules/cesium/Build/CesiumUnminified/Widgets/widgets.css"
+    />
+    <style>
+      #container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
+    </style>
+    <div id="container"></div>
+    <script
+      type="text/javascript"
+      src="./node_modules/cesium/Build/CesiumUnminified/Cesium.js"
+    ></script>
+    <!-- Cesium密钥 -->
+    <script type="text/javascript">
+      Cesium.Ion.defaultAccessToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMTY0YmM3ZC0wYWYxLTRhZmItOWQ4NC0yMjRmY2RlZDhiZjYiLCJpZCI6NzY5MDcsImlhdCI6MTY0MjQ3MTMyMX0.32x4u2ThMTVqMzB2iqx4Kez55edtwADjKc1NlTUQpIk`;
+    </script>
+    <!-- 创建Cesium场景 -->
+    <script type="text/javascript">
+      const container = document.querySelector("#container");
+      const viewer = new Cesium.Viewer(container, {
+        baseLayerPicker: false,
+        imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+          url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        }),
+      });
+    </script>
+    <!-- 添加模型 -->
+    <script type="text/javascript">
+      const tileset = new Cesium.Cesium3DTileset({
+        url: "https://data.mars3d.cn/3dtiles/qx-teh/tileset.json",
+      });
+      viewer.scene.primitives.add(tileset);
+    </script>
+    <!-- 初始视角 -->
+    <script type="text/javascript">
+      tileset.readyPromise.then(function (tileset) {
+        viewer.camera.flyToBoundingSphere(tileset.boundingSphere, {
+          duration: 0,
+        });
+      });
+    </script>
+  </body>
+</html>

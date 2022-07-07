@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "npx http-server --cors --log-ip"
+  },
+  "dependencies": {
+    "cesium": "^1.95.0"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

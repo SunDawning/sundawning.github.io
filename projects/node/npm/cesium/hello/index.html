@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cesium.Viewer</title>
+  </head>
+  <body>
+    <!-- Cesium界面-->
+    <link
+      rel="stylesheet"
+      href="./node_modules/cesium/Build/Cesium/Widgets/widgets.css"
+    />
+    <style>
+      #container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
+    </style>
+    <div id="container"></div>
+    <script
+      type="text/javascript"
+      src="./node_modules/cesium/Build/Cesium/Cesium.js"
+    ></script>
+    <!-- Cesium密钥 -->
+    <script type="text/javascript">
+      Cesium.Ion.defaultAccessToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMTY0YmM3ZC0wYWYxLTRhZmItOWQ4NC0yMjRmY2RlZDhiZjYiLCJpZCI6NzY5MDcsImlhdCI6MTY0MjQ3MTMyMX0.32x4u2ThMTVqMzB2iqx4Kez55edtwADjKc1NlTUQpIk`;
+    </script>
+    <!-- 创建Cesium场景 -->
+    <script type="text/javascript">
+      const container = document.querySelector("#container");
+      const viewer = new Cesium.Viewer(container);
+    </script>
+  </body>
+</html>

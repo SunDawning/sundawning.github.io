@@ -61,14 +61,21 @@
           vsOutput.positionMC.y = 0.0;
         }
       </script>
+      <!-- 片元着色器 -->
+      <script type="x-shader/x-fragment">
+        void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
+          // discard;
+        }
+      </script>
       <script type="text/javascript">
         /**
          * @see https://www.jianshu.com/p/ba53ed6ff55f
          */
         tileset.enableModelExperimental = true;
+        const { parentNode } = document.currentScript;
         tileset.customShader = new Cesium.CustomShader({
-          vertexShaderText:
-            document.currentScript.parentNode.children[0].innerHTML,
+          vertexShaderText: parentNode.children[0].innerHTML,
+          fragmentShaderText: parentNode.children[1].innerHTML,
         });
         tileset.debugShowBoundingVolume = true;
       </script>

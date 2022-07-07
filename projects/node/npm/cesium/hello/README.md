@@ -11,3 +11,9 @@ pnpm install
 ```sh
 pnpm run start
 ```
+
+# 存档
+
+```sh
+pnpm run archive
+```

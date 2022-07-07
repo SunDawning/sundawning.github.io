@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "npx http-server --cors --log-ip"
+    "start": "npx http-server --cors --log-ip",
+    "archive": "git archive --output archive/master.zip master ./"
   },
   "dependencies": {
     "cesium": "^1.95.0"

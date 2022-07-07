@@ -58,9 +58,10 @@
       <script type="x-shader/x-vertex">
         void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){
           vec3 modelMC = vsInput.attributes.positionMC;
-          // vec4 modelPosition = vec4(modelMC.x,modelMC.y,modelMC.z,1);
-          vec4 modelWorldPosition = czm_model * modelMC;
-          vsOutput.positionMC.y = 0.0;
+          vec4 modelPosition = vec4(modelMC.x,modelMC.y,modelMC.z,1);
+          vec4 modelWorldPosition = czm_model * modelPosition;
+          vec4 modelTilesetPosition = u_tilesetModelMatrix * modelWorldPosition;
+          vsOutput.positionMC.y = modelTilesetPosition.y;
         }
       </script>
       <!-- 片元着色器 -->
@@ -80,7 +81,10 @@
             uniforms: {
               u_tilesetModelMatrix: {
                 type: Cesium.UniformType.MAT4,
-                value: tileset.root.transform,
+                value: Cesium.Matrix4.inverse(
+                  tileset.root.transform,
+                  new Cesium.Matrix4()
+                ),
               },
             },
             vertexShaderText: parentNode.children[0].innerHTML,

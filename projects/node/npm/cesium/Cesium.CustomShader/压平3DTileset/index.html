@@ -1,0 +1,77 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>压平3DTileset - Cesium.CustomShader</title>
+    <link
+      rel="shortcut icon"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQBAMAAAAVaP+LAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAhUExUReHY5f///y8qMS0oL/Hu8khCSdHL02ZgZ4R9hKGaobqzux+9hjkAAASdSURBVGje7ZrPa9xGFMefQW0Tn9Yg3NrHGYzXVw3CuS4IJ+5xl7aOT7q0TXwqMWmcnoxNkm1PJtA46WkpmLr9K7vSajS/3ozmSb6Ues7io/f9zpufb2Djjhrcg+5B/1dQOrkDUFGsf/p49iEpiiGg4uTvd6+mjIud30qADpgflD5/OWVCCMYYz3+Buk16gA6upyJjTeP567ImFWTQ1294i6lIWUNKJjTQwxeCGa2ThILSZ1OLU5EanzxGYaDRX9OMOY3nbxtSEQlKrznCWZJ2ywAJAT3BOYy14jB1LmjzhYfDWL6QpAhQeuPlMP5UgpJu0APO/C2/8oqDeGFVSOPSR4J4YbXfb33iwO6xIEdLATskIAirQ/oZ8J4DijAzpMQPOuSssymXwA/qDmgZ0l4LWvOBNmcsoqn0TnygL7IYEFd2T3BQesGiQEpbgoO2eBSI7ZdYSECzum7nYVCc1ZW2Y0ybAj2ODQjXBkSr65y8QkICqtWVtm/BzW4gW71sY3C1SdBoFs/RTUps0BaBo40SpQ1Iw0O2K1ebBL2ncPhP4EwBDSg9JYG0bktM0DYngY69oMcki5iaAFqTgJ5FZiKZoPSSxNETSboNtJEvE6l0TFqBvmJE0MID+oxmEcsWjklAT8cAiJaONmhNgaheGx41Jq1A/I5A24z17/5mJoE+ve8HEXvfyOym28A/ZLkQGRc4CHAQmo8i++ZsPn/JKaDvEZDY+fWHpYCTN3wYiO9+WH21fpGF56MmI2vQn5mXA/BwFpwhDZC7Wudqpwi/Z4G9lgm69B86qpB4aDmSqV2DToND4PPTcBop0Og07MH7zLv5M0HO4M/N0H/Mghb5QfYfH4T/sxpsKMj6o+32GCIjMqyucnIW/I8/IkuZ3W32fxRo1PXHy0CX6tKsuT+zvQRjCDlWawl5GUo3q/+NpA+C7M633Hbj1UAXYYsAbtqJUrgBaSDDA+SXsC7PuuK7RQhkTGx56X4Kz2ZZffVzhHC0acSYs/cBa7dTIcTOGcbRQMYq8ggFwfP52fyPEsKgLyNAgTbBF8ghIOP8MARk7EYGgWaDQGoTMborkLGMkEGJZzM6poLWPNvjvV5eN6AtNgDkO0KMe1kkDzXajLQ7BKQfs/Kyj0XIwW8YSDuKZos+yrDD8fkQkJaS/LyPMuQCQT+L9wBtBZbkGGUtSEvJ8SDQhtrf7Zc9lCnQk+AK2RmQAqkdKbZmE0BqueV7PZRpoO0Z3ST0+jBt7c7OaZOjfTPaXtPHZxJ+V6vsfkRXZlxDtzu8/IpqtediPDYBOq/q+ZhqtQVqr1nzBVWZVc6QGRClLVDO2DiULo1LYkB2yUe6pFU/ohxyQLLmoxVkooS5ZTFZXlNlwihhLiiVh/P9cMcVnRW/VtwxRRhWzJTiQuMEKR+7oPRmReJH8QbhddrNC9GRApEF343DVUWc7y5iDfIVxZsavXhaxsbjK9MfXNfHKlmaj+D46v3pbVWo5wiJ+HCgehGxlOeQvA8QAo8rDq65ENaZMen13CO9rZ9pHMlLsiQp+j5AGZ38M3/36nVZVG0y8ElMxbh/NnQP+s+B/gW3UDTN+m1LRgAAAABJRU5ErkJggg=="
+    />
+  </head>
+  <body>
+    <!-- Cesium界面-->
+    <link
+      rel="stylesheet"
+      href="./node_modules/cesium/Build/CesiumUnminified/Widgets/widgets.css"
+    />
+    <style>
+      #container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
+    </style>
+    <div id="container"></div>
+    <script
+      type="text/javascript"
+      src="./node_modules/cesium/Build/CesiumUnminified/Cesium.js"
+    ></script>
+    <!-- 创建Cesium场景 -->
+    <script type="text/javascript">
+      const container = document.querySelector("#container");
+      const viewer = new Cesium.Viewer(container, {
+        baseLayerPicker: false,
+        imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+          url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        }),
+      });
+    </script>
+    <!-- 添加模型 -->
+    <script type="text/javascript">
+      const tileset = new Cesium.Cesium3DTileset({
+        url: "https://data.mars3d.cn/3dtiles/qx-teh/tileset.json",
+      });
+      viewer.scene.primitives.add(tileset);
+    </script>
+    <!-- 初始视角 -->
+    <script type="text/javascript">
+      tileset.readyPromise.then(function (tileset) {
+        viewer.camera.flyToBoundingSphere(tileset.boundingSphere, {
+          duration: 0,
+        });
+      });
+    </script>
+    <!-- 自定义着色器 -->
+    <div>
+      <!-- 顶点着色器 -->
+      <script type="x-shader/x-vertex">
+        void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){
+          vec3 modelMC = vsInput.attributes.positionMC;
+          vsOutput.positionMC.y = 0.0;
+        }
+      </script>
+      <script type="text/javascript">
+        /**
+         * @see https://www.jianshu.com/p/ba53ed6ff55f
+         */
+        tileset.enableModelExperimental = true;
+        tileset.customShader = new Cesium.CustomShader({
+          vertexShaderText:
+            document.currentScript.parentNode.children[0].innerHTML,
+        });
+        tileset.debugShowBoundingVolume = true;
+      </script>
+    </div>
+  </body>
+</html>

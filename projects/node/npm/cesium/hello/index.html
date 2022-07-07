@@ -30,7 +30,12 @@
     <!-- 创建Cesium场景 -->
     <script type="text/javascript">
       const container = document.querySelector("#container");
-      const viewer = new Cesium.Viewer(container);
+      const viewer = new Cesium.Viewer(container, {
+        baseLayerPicker: false,
+        imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+          url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        }),
+      });
     </script>
   </body>
 </html>

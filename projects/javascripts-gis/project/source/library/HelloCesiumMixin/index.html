@@ -1,0 +1,198 @@
+<script type="text/javascript">
+  /**
+   * 对进行地球导航的操作帮助按钮进行汉化的混入插件
+   * @see http://gitea.alvisisme.site/cesium/cesium-mixin-generator/src/branch/master/generators/app/templates/src/index.mjs
+   * @exports navigationHelpButtonMixin
+   *
+   * @param {Viewer} viewer Cesium viewer 实例.
+   * @param {{}} options 选项参数.
+   * @param {string} options.lang 文本所用语言，可选值 zh-CN 或者 en-US，默认 zh-CN，
+   * @param {{}} options.langText 自定义语言文本对象，传入该选项时，lang 选项将失效。
+   *
+   * @exception {DeveloperError} viewer is required.
+   *
+   * @example
+   * const viewer = new Cesium.Viewer('cesiumContainer', {
+   *   navigationHelpButton: true
+   * })
+   * viewer.extend(navigationHelpButtonMixin， {
+   *   lang: 'zh-CN'
+   * })
+   */
+  function navigationHelpButtonMixin(viewer, options = {}) {
+    const { defined, defaultValue, DeveloperError } = Cesium;
+
+    const i18n = {
+      "en-US": {
+        tooltip: "Navigation Instructions",
+        mouse: "Mouse",
+        touch: "Touch",
+        panView: "Pan view",
+        panViewMouseText: "Left click + drag",
+        panViewTouchText: "One finger drag",
+        zoomView: "Zoom view",
+        zoomViewMouseTextOne: "Right click + drag, or",
+        zoomViewMouseTextTwo: "Mouse wheel scroll",
+        zoomViewTouchText: "Two finger pinch",
+        rotateView: "Rotate view",
+        rotateViewMouseTextOne: "Middle click + drag, or",
+        rotateViewMouseTextTwo: "CTRL + Left/Right click + drag",
+        rotateViewTouchText: "Two finger drag, opposite direction",
+        tiltView: "Tilt view",
+        tiltViewTouchText: "Two finger drag, same direction",
+      },
+      "zh-CN": {
+        tooltip: "操作指南",
+        mouse: "鼠标",
+        touch: "手势",
+        panView: "平移",
+        panViewMouseText: "左键+拖动",
+        panViewTouchText: "单指拖动",
+        zoomView: "缩放",
+        zoomViewMouseTextOne: "右键+拖动,或",
+        zoomViewMouseTextTwo: "滚动鼠标滚轮",
+        zoomViewTouchText: "双指捏合",
+        rotateView: "旋转",
+        rotateViewMouseTextOne: "中键+拖动，或",
+        rotateViewMouseTextTwo: "CTRL+鼠标左/右键+拖动",
+        rotateViewTouchText: "双指反向拖动",
+        tiltView: "俯仰",
+        tiltViewTouchText: "双指同向拖动",
+      },
+    };
+    const defaultLang = "zh-CN";
+
+    if (!defined(viewer)) {
+      throw new DeveloperError("viewer is required.");
+    }
+    if (!viewer.navigationHelpButton) {
+      return;
+    }
+    const lang = defaultValue(options.lang, defaultLang);
+    const langText = defaultValue(options.langText, i18n[lang]);
+    viewer.navigationHelpButton.viewModel.tooltip = langText.tooltip;
+    const clickHelper =
+      viewer.navigationHelpButton.container.getElementsByClassName(
+        "cesium-click-navigation-help"
+      )[0];
+    const touchHelper =
+      viewer.navigationHelpButton.container.getElementsByClassName(
+        "cesium-touch-navigation-help"
+      )[0];
+    const touchButton =
+      viewer.navigationHelpButton.container.getElementsByClassName(
+        "cesium-navigation-button-right"
+      )[0];
+    touchButton.innerHTML = touchButton.innerHTML.replace(
+      ">Touch",
+      ">" + langText.touch
+    );
+    const mouseButton =
+      viewer.navigationHelpButton.container.getElementsByClassName(
+        "cesium-navigation-button-left"
+      )[0];
+    mouseButton.innerHTML = mouseButton.innerHTML.replace(
+      ">Mouse",
+      ">" + langText.mouse
+    );
+    const clickHelpPan = clickHelper.getElementsByClassName(
+      "cesium-navigation-help-pan"
+    )[0];
+    clickHelpPan.innerHTML = langText.panView;
+    const clickHelpPanDeetails = clickHelpPan.parentNode.getElementsByClassName(
+      "cesium-navigation-help-details"
+    )[0];
+    clickHelpPanDeetails.innerHTML = langText.panViewMouseText;
+    const clickHelpZoom = clickHelper.getElementsByClassName(
+      "cesium-navigation-help-zoom"
+    )[0];
+    clickHelpZoom.innerHTML = langText.zoomView;
+    clickHelpZoom.parentNode.getElementsByClassName(
+      "cesium-navigation-help-details"
+    )[0].innerHTML = langText.zoomViewMouseTextOne;
+    clickHelpZoom.parentNode.getElementsByClassName(
+      "cesium-navigation-help-details"
+    )[1].innerHTML = langText.zoomViewMouseTextTwo;
+    const clickHelpRotate = clickHelper.getElementsByClassName(
+      "cesium-navigation-help-rotate"
+    )[0];
+    clickHelpRotate.innerHTML = langText.rotateView;
+    clickHelpRotate.parentNode.getElementsByClassName(
+      "cesium-navigation-help-details"
+    )[0].innerHTML = langText.rotateViewMouseTextOne;
+    clickHelpRotate.parentNode.getElementsByClassName(
+      "cesium-navigation-help-details"
+    )[1].innerHTML = langText.rotateViewMouseTextTwo;
+    // 触屏操作
+    const touchHelpPan = touchHelper.getElementsByClassName(
+      "cesium-navigation-help-pan"
+    )[0];
+    touchHelpPan.innerHTML = langText.panView;
+    touchHelpPan.parentNode.getElementsByClassName(
+      "cesium-navigation-help-details"
+    )[0].innerHTML = langText.panViewTouchText;
+    const touchHelpZoom = touchHelper.getElementsByClassName(
+      "cesium-navigation-help-zoom"
+    )[0];
+    touchHelpZoom.innerHTML = langText.zoomView;
+    touchHelpZoom.parentNode.getElementsByClassName(
+      "cesium-navigation-help-details"
+    )[0].innerHTML = langText.zoomViewTouchText;
+    const touchHelpTilt = touchHelper.getElementsByClassName(
+      "cesium-navigation-help-rotate"
+    )[0];
+    touchHelpTilt.innerHTML = langText.tiltView;
+    touchHelpTilt.parentNode.getElementsByClassName(
+      "cesium-navigation-help-details"
+    )[0].innerHTML = langText.tiltViewTouchText;
+    const touchHelpRotate = touchHelper.getElementsByClassName(
+      "cesium-navigation-help-tilt"
+    )[0];
+    touchHelpRotate.innerHTML = langText.rotateView;
+    touchHelpRotate.parentNode.getElementsByClassName(
+      "cesium-navigation-help-details"
+    )[0].innerHTML = langText.rotateViewTouchText;
+  }
+</script>
+<script type="text/javascript">
+  globalThis.onload = async function () {
+    const CESIUM_BASE_URL = "https://cdn.bootcdn.net/ajax/libs/cesium/1.94.3";
+    {
+      globalThis.CESIUM_BASE_URL = CESIUM_BASE_URL;
+    }
+    // 添加Widgets/widgets.css
+    {
+      const container = document.body;
+      {
+        const response = await fetch(CESIUM_BASE_URL + "/Widgets/widgets.css");
+        {
+          const text = await response.text();
+          {
+            const style = document.createElement("style");
+            style.innerHTML = text;
+            container.appendChild(style);
+          }
+        }
+      }
+    }
+    // 添加Cesium.js
+    {
+      await import(CESIUM_BASE_URL + "/Cesium.js");
+    }
+    {
+      const container = document.body;
+      {
+        const viewer = new Cesium.Viewer(container, {
+          baseLayerPicker: false, // 底图切换控件
+          imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+            url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+          }),
+        });
+        // 插件用法
+        {
+          viewer.extend(navigationHelpButtonMixin, {});
+        }
+      }
+    }
+  };
+</script>

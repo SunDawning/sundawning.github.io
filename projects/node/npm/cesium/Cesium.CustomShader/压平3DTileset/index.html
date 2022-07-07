@@ -58,6 +58,8 @@
       <script type="x-shader/x-vertex">
         void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){
           vec3 modelMC = vsInput.attributes.positionMC;
+          // vec4 modelPosition = vec4(modelMC.x,modelMC.y,modelMC.z,1);
+          vec4 modelWorldPosition = czm_model * modelMC;
           vsOutput.positionMC.y = 0.0;
         }
       </script>
@@ -71,13 +73,21 @@
         /**
          * @see https://www.jianshu.com/p/ba53ed6ff55f
          */
-        tileset.enableModelExperimental = true;
         const { parentNode } = document.currentScript;
-        tileset.customShader = new Cesium.CustomShader({
-          vertexShaderText: parentNode.children[0].innerHTML,
-          fragmentShaderText: parentNode.children[1].innerHTML,
+        tileset.readyPromise.then(function (tileset) {
+          tileset.enableModelExperimental = true;
+          tileset.customShader = new Cesium.CustomShader({
+            uniforms: {
+              u_tilesetModelMatrix: {
+                type: Cesium.UniformType.MAT4,
+                value: tileset.root.transform,
+              },
+            },
+            vertexShaderText: parentNode.children[0].innerHTML,
+            fragmentShaderText: parentNode.children[1].innerHTML,
+          });
+          tileset.debugShowBoundingVolume = true;
         });
-        tileset.debugShowBoundingVolume = true;
       </script>
     </div>
   </body>

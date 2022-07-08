@@ -58,10 +58,13 @@
       <script type="x-shader/x-vertex">
         void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){
           vec3 modelMC = vsInput.attributes.positionMC;
-          vec4 modelPosition = vec4(modelMC.x,modelMC.y,modelMC.z,1);
+          vec4 modelPosition = vec4(modelMC.x,modelMC.y,modelMC.z,1.0);
           vec4 modelWorldPosition = czm_model * modelPosition;
-          vec4 modelTilesetPosition = u_tilesetModelMatrix * modelWorldPosition;
-          vsOutput.positionMC.y = modelTilesetPosition.y;
+          vec4 modelTilesetPosition = u_tilesetModelMatrixInverse * modelWorldPosition;
+          vec4 modelTilesetPositionTransform = vec4(modelTilesetPosition.x,modelTilesetPosition.y,0.0,1.0);
+          vec4 modelTilesetPositionTransformWorld = u_tilesetModelMatrix * modelTilesetPositionTransform;
+          vec4 modelMCTransform = czm_inverseModel * modelTilesetPositionTransformWorld;
+          vsOutput.positionMC.y = modelMCTransform.y;
         }
       </script>
       <!-- 片元着色器 -->
@@ -81,8 +84,16 @@
             uniforms: {
               u_tilesetModelMatrix: {
                 type: Cesium.UniformType.MAT4,
+                value: Cesium.Transforms.eastNorthUpToFixedFrame(
+                  tileset.boundingSphere.center
+                ),
+              },
+              u_tilesetModelMatrixInverse: {
+                type: Cesium.UniformType.MAT4,
                 value: Cesium.Matrix4.inverse(
-                  tileset.root.transform,
+                  Cesium.Transforms.eastNorthUpToFixedFrame(
+                    tileset.boundingSphere.center
+                  ),
                   new Cesium.Matrix4()
                 ),
               },

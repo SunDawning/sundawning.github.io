@@ -48,3 +48,13 @@ console.log(
   Cesium.Cartographic.fromCartesian(worldPointB)
 );
 ```
+
+## 着色器报错
+
+### gl 着色器：编译着色器时出错：编译失败。错误：0:9:“assign”：无法从“4 分量向量”转换
+
+https://www.5axxw.com/questions/content/hvkyr0
+
+ERROR: 0:9: 'assign' : cannot convert from '4-component vector of float' to '3-component vector of float'
+
+解决办法：先将 vec3 转换成 vec4。

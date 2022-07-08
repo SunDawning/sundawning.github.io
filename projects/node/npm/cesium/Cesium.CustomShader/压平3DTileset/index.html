@@ -58,13 +58,11 @@
       <script type="x-shader/x-vertex">
         void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){
           vec3 modelMC = vsInput.attributes.positionMC;
-          vec4 modelPosition = vec4(modelMC.x,modelMC.y,modelMC.z,1.0);
-          vec4 modelWorldPosition = czm_model * modelPosition;
-          vec4 modelTilesetPosition = u_tilesetModelMatrixInverse * modelWorldPosition;
-          vec4 modelTilesetPositionTransform = vec4(modelTilesetPosition.x,modelTilesetPosition.y,0.0,1.0);
-          vec4 modelTilesetPositionTransformWorld = u_tilesetModelMatrix * modelTilesetPositionTransform;
-          vec4 modelMCTransform = czm_inverseModel * modelTilesetPositionTransformWorld;
-          vsOutput.positionMC.y = modelMCTransform.y;
+          vec4 model_local_position = vec4(modelMC.x,modelMC.y,modelMC.z,1.0);
+          vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
+          vec4 tileset_local_position_transformed = vec4(tileset_local_position.x, tileset_local_position.y, 0.0, 1.0);
+          vec4 model_local_position_transformed = czm_inverseModel * u_tileset_localToWorldMatrix * tileset_local_position_transformed;
+          vsOutput.positionMC.y = model_local_position_transformed.y;
         }
       </script>
       <!-- 片元着色器 -->
@@ -82,18 +80,14 @@
           tileset.enableModelExperimental = true;
           tileset.customShader = new Cesium.CustomShader({
             uniforms: {
-              u_tilesetModelMatrix: {
+              u_tileset_localToWorldMatrix: {
                 type: Cesium.UniformType.MAT4,
-                value: Cesium.Transforms.eastNorthUpToFixedFrame(
-                  tileset.boundingSphere.center
-                ),
+                value: tileset.root.transform,
               },
-              u_tilesetModelMatrixInverse: {
+              u_tileset_worldToLocalMatrix: {
                 type: Cesium.UniformType.MAT4,
                 value: Cesium.Matrix4.inverse(
-                  Cesium.Transforms.eastNorthUpToFixedFrame(
-                    tileset.boundingSphere.center
-                  ),
+                  tileset.root.transform,
                   new Cesium.Matrix4()
                 ),
               },

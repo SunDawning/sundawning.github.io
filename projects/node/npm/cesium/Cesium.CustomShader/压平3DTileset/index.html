@@ -60,7 +60,7 @@
           vec3 modelMC = vsInput.attributes.positionMC;
           vec4 model_local_position = vec4(modelMC.x,modelMC.y,modelMC.z,1.0);
           vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
-          vec4 tileset_local_position_transformed = vec4(tileset_local_position.x, tileset_local_position.y, 0.0, 1.0);
+          vec4 tileset_local_position_transformed = vec4(tileset_local_position.x, tileset_local_position.y, 0.0 - u_tileset_height, 1.0);
           vec4 model_local_position_transformed = czm_inverseModel * u_tileset_localToWorldMatrix * tileset_local_position_transformed;
           vsOutput.positionMC.y = model_local_position_transformed.y;
         }
@@ -78,18 +78,21 @@
         const { parentNode } = document.currentScript;
         tileset.readyPromise.then(function (tileset) {
           tileset.enableModelExperimental = true;
+          const origin = tileset.boundingSphere.center; // 以3DTileset的包围的中心点为局部坐标系原点
+          const matrix = Cesium.Transforms.eastNorthUpToFixedFrame(origin);
           tileset.customShader = new Cesium.CustomShader({
             uniforms: {
               u_tileset_localToWorldMatrix: {
                 type: Cesium.UniformType.MAT4,
-                value: tileset.root.transform,
+                value: matrix,
               },
               u_tileset_worldToLocalMatrix: {
                 type: Cesium.UniformType.MAT4,
-                value: Cesium.Matrix4.inverse(
-                  tileset.root.transform,
-                  new Cesium.Matrix4()
-                ),
+                value: Cesium.Matrix4.inverse(matrix, new Cesium.Matrix4()),
+              },
+              u_tileset_height: {
+                type: Cesium.UniformType.FLOAT,
+                value: Cesium.Cartographic.fromCartesian(origin).height,
               },
             },
             vertexShaderText: parentNode.children[0].innerHTML,

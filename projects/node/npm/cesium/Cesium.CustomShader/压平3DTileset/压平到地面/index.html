@@ -31,7 +31,7 @@
     <script type="text/javascript">
       const container = document.querySelector("#container");
       const viewer = new Cesium.Viewer(container, {
-        baseLayerPicker: false,
+        // baseLayerPicker: false,
         imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
           url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
         }),
@@ -88,6 +88,9 @@
                   tileset.boundingSphere.center // 3dTileset包围球中心的的世界坐标
                 ),
                 {
+                  // Cesium 各高度的获取
+                  // @see https://xiaozhuanlan.com/topic/4936057821
+                  // viewer.scene.globe.getHeight(Cesium.Cartographic.fromCartesian(tileset.boundingSphere.center))
                   height: 0, // 距离地面的距离
                 }
               )

@@ -58,21 +58,7 @@
     <!-- 自定义着色器 -->
     <div>
       <!-- 顶点着色器 -->
-      <script type="x-shader/x-vertex">
-
-        void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){
-          vec3 modelMC = vsInput.attributes.positionMC;
-          vec4 model_local_position = vec4(modelMC.x, modelMC.y, modelMC.z, 1.0);
-          vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
-          vec4 tileset_local_position_transformed = vec4(tileset_local_position.x, tileset_local_position.y, 0.0 - 176.0 + 32.0, 1.0);
-          vec4 model_local_position_transformed = czm_inverseModel * u_tileset_localToWorldMatrix * tileset_local_position_transformed;
-          if(tileset_local_position.x > 0.0 && tileset_local_position.x < 300.0 && tileset_local_position.y > 0.0 && tileset_local_position.y < 300.0){
-            // vsOutput.positionMC.x = model_local_position_transformed.x;
-            // vsOutput.positionMC.y = model_local_position_transformed.y;
-            // vsOutput.positionMC.z = model_local_position_transformed.z;
-          }
-        }
-      </script>
+      <script type="x-shader/x-vertex"></script>
       <!-- 片元着色器 -->
       <script type="x-shader/x-fragment"></script>
       <script type="text/javascript">
@@ -268,15 +254,16 @@ ${polygon
                 value: Cesium.Matrix4.inverse(matrix, new Cesium.Matrix4()),
               },
             },
-            vertexShaderText: parentNode.children[0].innerHTML,
-            fragmentShaderText: `
+            vertexShaderText: `
 // 所有isPointInPolygon函数
-${shaderSource_isPointInPolygon_set(polygons_local)}
-
-void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
-  vec3 modelMC = fsInput.attributes.positionMC;
+${shaderSource_isPointInPolygon_set(polygons_local)}            
+void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){
+  vec3 modelMC = vsInput.attributes.positionMC;
   vec4 model_local_position = vec4(modelMC.x, modelMC.y, modelMC.z, 1.0);
   vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
+  vec4 tileset_local_position_transformed = vec4(tileset_local_position.x, tileset_local_position.y, 0.0 - 176.0 + 32.0, 1.0);
+  vec4 model_local_position_transformed = czm_inverseModel * u_tileset_localToWorldMatrix * tileset_local_position_transformed;
+
   vec2 point = vec2(tileset_local_position.x,tileset_local_position.y);
 
   bool _isPointInPolygon = false;
@@ -285,9 +272,32 @@ void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
   ${shaderSource__isPointInPolygon_set(polygons_local)}
 
   if(_isPointInPolygon){
-    material.diffuse = vec3(1.0, 0.0, 0.0);
+    vsOutput.positionMC.x = model_local_position_transformed.x;
+    vsOutput.positionMC.y = model_local_position_transformed.y;
+    vsOutput.positionMC.z = model_local_position_transformed.z;
+  }  
+}
+            `,
+            fragmentShaderText: `
+// 所有isPointInPolygon函数
+${shaderSource_isPointInPolygon_set(polygons_local)}
+
+void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
+  vec3 modelMC = fsInput.attributes.positionMC;
+  vec4 model_local_position = vec4(modelMC.x, modelMC.y, modelMC.z, 1.0);
+  vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
+  
+  vec2 point = vec2(tileset_local_position.x,tileset_local_position.y);
+
+  bool _isPointInPolygon = false;
+
+  // 多个多边形区域判断
+  ${shaderSource__isPointInPolygon_set(polygons_local)}
+
+  if(_isPointInPolygon){
+    // material.diffuse = vec3(1.0, 0.0, 0.0);
+    // discard;
   }
-  // discard;
 }
             `,
           });

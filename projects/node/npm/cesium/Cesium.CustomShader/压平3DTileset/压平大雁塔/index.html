@@ -249,13 +249,13 @@ bool isPointInPolygon_${n}(vec2 point){
             // }
             function shaderSource__isPointInPolygon(polygon) {
               const n = polygon.length;
+              const set_points = polygon.map(function (point, index) {
+                return ` points_${n}[${index}] = vec2(${point[0]}, ${point[1]});`;
+              })
+                .join("\n");
               return `
 if (_isPointInPolygon == false) {
-${polygon
-                  .map(function (point, index) {
-                    return ` points_${n}[${index}] = vec2(${point[0]}, ${point[1]});`;
-                  })
-                  .join("\n")}
+  ${set_points}
   if (isPointInPolygon_${n}(point)) {
     _isPointInPolygon = true;
   }
@@ -272,6 +272,7 @@ ${polygon
     }
   </script>
   <script type="text/javascript">
+    // @see http://mars3d.cn/editor-vue.html?id=thing/tileset/tilesetFlat
     flatTileset({
       tileset,
       flatHeight: 397.3,
@@ -282,6 +283,7 @@ ${polygon
           [108.959779, 34.219506, 398.7],
           [108.959106, 34.21953, 398.1],
         ],
+        [[108.958557, 34.221009, 394.4], [108.958633, 34.22026, 402.2], [108.959527, 34.220295, 398.4], [108.96002, 34.220217, 401.9], [108.959908, 34.220822, 404.5], [108.95894, 34.220863, 401.6]]
       ],
     });
   </script>

@@ -58,3 +58,18 @@ https://www.5axxw.com/questions/content/hvkyr0
 ERROR: 0:9: 'assign' : cannot convert from '4-component vector of float' to '3-component vector of float'
 
 解决办法：先将 vec3 转换成 vec4。
+
+### Loop index cannot be compared with non-constant expression
+
+2022-07-11 14:46:03
+
+https://newbedev.com/webgl-loop-index-cannot-be-compared-with-non-constant-expression
+
+解决办法：使用 const 来创建变量。
+
+```
+const int cloudPointsWidth = 10;
+for ( int i = 0; i < cloudPointsWidth; i++ ) {
+   //TO DO something
+}
+```

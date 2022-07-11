@@ -79,14 +79,15 @@
           float x = point[0];
           float y = point[1];
 
-          vec2 points[4];
+          vec2 points[5];
           points[0]=vec2(0.0,0.0);
           points[1]=vec2(300.0,0.0);
           points[2]=vec2(300.0,300.0);
           points[3]=vec2(0.0,300.0);
+          points[4]=vec2(150.0,150.0);
 
           int nCross = 0; // 交点数
-          const int n = 4; // Loop index cannot be compared with non-constant expression
+          const int n = 5; // Loop index cannot be compared with non-constant expression
           for(int i = 0; i < n; i++){
             vec2 p1 = points[i];
             vec2 p2 = points[int(mod(float(i+1),float(n)))];

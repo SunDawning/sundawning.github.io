@@ -151,6 +151,43 @@ bool isPointInPolygon_${n}(vec2 point){
         }
       </script>
       <script type="text/javascript">
+        // if(_isPointInPolygon == false){
+        //   // 区域1
+        //   points[0]=vec2(0.0,0.0);
+        //   points[1]=vec2(300.0,0.0);
+        //   points[2]=vec2(300.0,300.0);
+        //   points[3]=vec2(0.0,300.0);
+        //   points[4]=vec2(150.0,150.0);
+        //   if(isPointInPolygon_5(point)){
+        //     _isPointInPolygon = true;
+        //   }
+        // }
+        function shaderSource__isPointInPolygon(polygon) {
+          return `
+if (_isPointInPolygon == false) {
+${polygon
+  .map(function (point, index) {
+    return ` points[${index}] = vec2(${point[0]}, ${point[1]});`;
+  })
+  .join("\n")}
+  if (isPointInPolygon_${polygon.length}(point)) {
+    _isPointInPolygon = true;
+  }
+}
+          `;
+        }
+        /**
+         * 多个多边形区域判断
+         */
+        function shaderSource__isPointInPolygon_set(polygons) {
+          return polygons
+            .map(function (polygon) {
+              return shaderSource__isPointInPolygon(polygon);
+            })
+            .join("\n");
+        }
+      </script>
+      <script type="text/javascript">
         /**
          * @see https://www.jianshu.com/p/ba53ed6ff55f
          */
@@ -173,7 +210,7 @@ bool isPointInPolygon_${n}(vec2 point){
             },
             vertexShaderText: parentNode.children[0].innerHTML,
             fragmentShaderText: `
-// 所有isPointInPolygon函数            
+// 所有isPointInPolygon函数
 ${shaderSource_isPointInPolygon_set(polygons)}
 
 void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
@@ -184,29 +221,8 @@ void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
 
   bool _isPointInPolygon = false;
 
-  if(_isPointInPolygon == false){
-    // 区域1
-    points[0]=vec2(0.0,0.0);
-    points[1]=vec2(300.0,0.0);
-    points[2]=vec2(300.0,300.0);
-    points[3]=vec2(0.0,300.0);
-    points[4]=vec2(150.0,150.0);
-    if(isPointInPolygon_5(point)){
-      _isPointInPolygon = true;
-    }
-  }
-
-  if(_isPointInPolygon == false){
-    // 区域2
-    points[0]=vec2(-150.0,0.0);
-    points[1]=vec2(-150.0,-150.0);
-    points[2]=vec2(-300.0,-150.0);
-    points[3]=vec2(-200.0,-75.0);
-    points[4]=vec2(-300.0,0.0);
-    if(isPointInPolygon_5(point)){
-      _isPointInPolygon = true;
-    }
-  }
+// 多个多边形区域判断
+${shaderSource__isPointInPolygon_set(polygons)}
 
   if(_isPointInPolygon){
     material.diffuse = vec3(1.0, 0.0, 0.0);

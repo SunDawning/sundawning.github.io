@@ -75,17 +75,9 @@
       </script>
       <!-- 片元着色器 -->
       <script type="x-shader/x-fragment">
-        bool isPointInPolygon(vec2 point){
-          float x = point[0];
-          float y = point[1];
-
-          vec2 points[5];
-          points[0]=vec2(0.0,0.0);
-          points[1]=vec2(300.0,0.0);
-          points[2]=vec2(300.0,300.0);
-          points[3]=vec2(0.0,300.0);
-          points[4]=vec2(150.0,150.0);
-
+        // 5个元素的数组
+        vec2 points[5];
+        bool isPointInPolygon_5(vec2 point){
           int nCross = 0; // 交点数
           const int n = 5; // Loop index cannot be compared with non-constant expression
           for(int i = 0; i < n; i++){
@@ -115,7 +107,35 @@
           vec3 modelMC = fsInput.attributes.positionMC;
           vec4 model_local_position = vec4(modelMC.x, modelMC.y, modelMC.z, 1.0);
           vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
-          if(isPointInPolygon(vec2(tileset_local_position.x,tileset_local_position.y))){
+          vec2 point = vec2(tileset_local_position.x,tileset_local_position.y);
+
+          bool _isPointInPolygon = false;
+
+          if(_isPointInPolygon == false){
+            // 区域1
+            points[0]=vec2(0.0,0.0);
+            points[1]=vec2(300.0,0.0);
+            points[2]=vec2(300.0,300.0);
+            points[3]=vec2(0.0,300.0);
+            points[4]=vec2(150.0,150.0);
+            if(isPointInPolygon_5(point)){
+              _isPointInPolygon = true;
+            }
+          }
+
+          if(_isPointInPolygon == false){
+            // 区域2
+            points[0]=vec2(-150.0,0.0);
+            points[1]=vec2(-150.0,-150.0);
+            points[2]=vec2(-300.0,-150.0);
+            points[3]=vec2(-200.0,-75.0);
+            points[4]=vec2(-300.0,0.0);
+            if(isPointInPolygon_5(point)){
+              _isPointInPolygon = true;
+            }
+          }
+
+          if(_isPointInPolygon){
             material.diffuse = vec3(1.0, 0.0, 0.0);
           }
           // discard;

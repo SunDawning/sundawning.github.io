@@ -100,6 +100,29 @@
         }
       </script>
       <script type="text/javascript">
+        let polygons = [
+          [
+            [117.217783, 31.810086, 0],
+            [117.218483, 31.810353, 0],
+            [117.220056, 31.810105, 0],
+            [117.220914, 31.809481, 0],
+            [117.221136, 31.808496, 0],
+            [117.2209, 31.808164, 0],
+            [117.220064, 31.808038, 0],
+            [117.218551, 31.808047, 0],
+            [117.217834, 31.808238, 0],
+            [117.217925, 31.809056, 0],
+          ],
+          [
+            [117.223317, 31.810041, 0],
+            [117.22345, 31.808097, 0],
+            [117.226329, 31.808264, 0],
+            [117.226437, 31.810486, 0],
+            [117.225275, 31.809426, 0],
+          ],
+        ];
+      </script>
+      <script type="text/javascript">
         // [
         //   [0, 0],
         //   [300, 0],
@@ -114,17 +137,9 @@
         //   // [-200, -75],
         //   [-300, 0],
         // ],
-        let polygons;
+        let polygons_local;
         tileset.readyPromise.then(function (tileset) {
-          polygons = [
-            [
-              [117.223317, 31.810041, 0],
-              [117.22345, 31.808097, 0],
-              [117.226329, 31.808264, 0],
-              [117.226437, 31.810486, 0],
-              [117.225275, 31.809426, 0],
-            ],
-          ].map(function (polygon) {
+          polygons_local = polygons.map(function (polygon) {
             return polygon.map(function (coordinate) {
               const worldPosition = Cesium.Cartesian3.fromDegrees.apply(
                 null,
@@ -256,7 +271,7 @@ ${polygon
             vertexShaderText: parentNode.children[0].innerHTML,
             fragmentShaderText: `
 // 所有isPointInPolygon函数
-${shaderSource_isPointInPolygon_set(polygons)}
+${shaderSource_isPointInPolygon_set(polygons_local)}
 
 void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
   vec3 modelMC = fsInput.attributes.positionMC;
@@ -267,7 +282,7 @@ void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
   bool _isPointInPolygon = false;
 
   // 多个多边形区域判断
-  ${shaderSource__isPointInPolygon_set(polygons)}
+  ${shaderSource__isPointInPolygon_set(polygons_local)}
 
   if(_isPointInPolygon){
     material.diffuse = vec3(1.0, 0.0, 0.0);

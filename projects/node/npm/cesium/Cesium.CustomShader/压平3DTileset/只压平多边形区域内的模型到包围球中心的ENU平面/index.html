@@ -176,43 +176,43 @@ bool isPointInPolygon_${n}(vec2 point){
 // 所有isPointInPolygon函数            
 ${shaderSource_isPointInPolygon_set(polygons)}
 
-        void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
-          vec3 modelMC = fsInput.attributes.positionMC;
-          vec4 model_local_position = vec4(modelMC.x, modelMC.y, modelMC.z, 1.0);
-          vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
-          vec2 point = vec2(tileset_local_position.x,tileset_local_position.y);
+void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
+  vec3 modelMC = fsInput.attributes.positionMC;
+  vec4 model_local_position = vec4(modelMC.x, modelMC.y, modelMC.z, 1.0);
+  vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
+  vec2 point = vec2(tileset_local_position.x,tileset_local_position.y);
 
-          bool _isPointInPolygon = false;
+  bool _isPointInPolygon = false;
 
-          if(_isPointInPolygon == false){
-            // 区域1
-            points[0]=vec2(0.0,0.0);
-            points[1]=vec2(300.0,0.0);
-            points[2]=vec2(300.0,300.0);
-            points[3]=vec2(0.0,300.0);
-            points[4]=vec2(150.0,150.0);
-            if(isPointInPolygon_5(point)){
-              _isPointInPolygon = true;
-            }
-          }
+  if(_isPointInPolygon == false){
+    // 区域1
+    points[0]=vec2(0.0,0.0);
+    points[1]=vec2(300.0,0.0);
+    points[2]=vec2(300.0,300.0);
+    points[3]=vec2(0.0,300.0);
+    points[4]=vec2(150.0,150.0);
+    if(isPointInPolygon_5(point)){
+      _isPointInPolygon = true;
+    }
+  }
 
-          if(_isPointInPolygon == false){
-            // 区域2
-            points[0]=vec2(-150.0,0.0);
-            points[1]=vec2(-150.0,-150.0);
-            points[2]=vec2(-300.0,-150.0);
-            points[3]=vec2(-200.0,-75.0);
-            points[4]=vec2(-300.0,0.0);
-            if(isPointInPolygon_5(point)){
-              _isPointInPolygon = true;
-            }
-          }
+  if(_isPointInPolygon == false){
+    // 区域2
+    points[0]=vec2(-150.0,0.0);
+    points[1]=vec2(-150.0,-150.0);
+    points[2]=vec2(-300.0,-150.0);
+    points[3]=vec2(-200.0,-75.0);
+    points[4]=vec2(-300.0,0.0);
+    if(isPointInPolygon_5(point)){
+      _isPointInPolygon = true;
+    }
+  }
 
-          if(_isPointInPolygon){
-            material.diffuse = vec3(1.0, 0.0, 0.0);
-          }
-          // discard;
-        }
+  if(_isPointInPolygon){
+    material.diffuse = vec3(1.0, 0.0, 0.0);
+  }
+  // discard;
+}
             `,
           });
         });

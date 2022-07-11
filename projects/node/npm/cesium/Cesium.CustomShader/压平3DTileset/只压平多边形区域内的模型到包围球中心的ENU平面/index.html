@@ -76,22 +76,66 @@
       <!-- 片元着色器 -->
       <script type="x-shader/x-fragment"></script>
       <script type="text/javascript">
-        const polygons = [
-          [
-            [0, 0],
-            [300, 0],
-            [300, 300],
-            [0, 300],
-            [150, 150],
-          ],
-          [
-            [-150, 0],
-            [-150, -150],
-            [-300, -150],
-            // [-200, -75],
-            [-300, 0],
-          ],
-        ];
+        /**
+         * 世界坐标转局部坐标
+         */
+        function worldPositionToLocalPosition(origin, worldPosition) {
+          return Cesium.Matrix4.multiplyByPoint(
+            Cesium.Matrix4.inverse(
+              Cesium.Transforms.eastNorthUpToFixedFrame(origin),
+              new Cesium.Matrix4()
+            ),
+            worldPosition,
+            new Cesium.Cartesian3()
+          );
+        }
+        /**
+         * 世界坐标转换到tileset内部的局部坐标
+         */
+        function worldPositionToLocalPosition_tileset(tileset, worldPosition) {
+          return worldPositionToLocalPosition(
+            tileset.boundingSphere.center,
+            worldPosition
+          );
+        }
+      </script>
+      <script type="text/javascript">
+        // [
+        //   [0, 0],
+        //   [300, 0],
+        //   [300, 300],
+        //   [0, 300],
+        //   [150, 150],
+        // ],
+        // [
+        //   [-150, 0],
+        //   [-150, -150],
+        //   [-300, -150],
+        //   // [-200, -75],
+        //   [-300, 0],
+        // ],
+        let polygons;
+        tileset.readyPromise.then(function (tileset) {
+          polygons = [
+            [
+              [117.223317, 31.810041, 0],
+              [117.22345, 31.808097, 0],
+              [117.226329, 31.808264, 0],
+              [117.226437, 31.810486, 0],
+              [117.225275, 31.809426, 0],
+            ],
+          ].map(function (polygon) {
+            return polygon.map(function (coordinate) {
+              const worldPosition = Cesium.Cartesian3.fromDegrees.apply(
+                null,
+                coordinate
+              );
+              return Object.values(
+                worldPositionToLocalPosition_tileset(tileset, worldPosition)
+              ).slice(0, 2);
+            });
+          });
+        });
       </script>
       <script type="text/javascript">
         function shaderSource_isPointInPolygon_n(n) {
@@ -222,8 +266,8 @@ void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material){
 
   bool _isPointInPolygon = false;
 
-// 多个多边形区域判断
-${shaderSource__isPointInPolygon_set(polygons)}
+  // 多个多边形区域判断
+  ${shaderSource__isPointInPolygon_set(polygons)}
 
   if(_isPointInPolygon){
     material.diffuse = vec3(1.0, 0.0, 0.0);

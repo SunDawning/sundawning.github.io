@@ -62,7 +62,9 @@
           vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
           vec4 tileset_local_position_transformed = vec4(tileset_local_position.x, tileset_local_position.y, 0.0, 1.0);
           vec4 model_local_position_transformed = czm_inverseModel * u_tileset_localToWorldMatrix * tileset_local_position_transformed;
+          vsOutput.positionMC.x = model_local_position_transformed.x;
           vsOutput.positionMC.y = model_local_position_transformed.y;
+          vsOutput.positionMC.z = model_local_position_transformed.z;
         }
       </script>
       <!-- 片元着色器 -->

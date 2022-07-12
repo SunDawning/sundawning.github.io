@@ -277,6 +277,7 @@ bool isPointInPolygon_${n}(vec2 point){
       };
       /**
        * 给Tileset创建压平区域
+       * @param {object} options.regionsOptions，每个元素形如{flatHeight,polygon}，如果多个区域有重合的部分，那么位置越靠前的区域将会优先启用并忽略后面的区域。
        */
       TilesetFlat.applyFlat = async function ({
         tileset,

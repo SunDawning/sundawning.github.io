@@ -286,6 +286,12 @@ ${polygon
                 tileset.boundingSphere.center
               ).height,
             },
+            u_MinimalBoundingRectangle: {
+              type: Cesium.UniformType.VEC4,
+              value: Cesium.Cartesian4.fromArray(
+                TilesetFlat.getMinimalBoundingRectangle(polygons_local.flat())
+              ),
+            },
           },
           vertexShaderText: `
 // 所有isPointInPolygon函数
@@ -294,6 +300,21 @@ void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){
   vec3 modelMC = vsInput.attributes.positionMC;
   vec4 model_local_position = vec4(modelMC.x, modelMC.y, modelMC.z, 1.0);
   vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
+
+  // 在外包矩形内
+  if(tileset_local_position.x < u_MinimalBoundingRectangle[0]){
+    return;
+  }
+  if(tileset_local_position.y < u_MinimalBoundingRectangle[1]){
+    return;
+  }  
+  if(tileset_local_position.x > u_MinimalBoundingRectangle[2]){
+    return;
+  }
+  if(tileset_local_position.y > u_MinimalBoundingRectangle[3]){
+    return;
+  }  
+  
   vec4 tileset_local_position_transformed = vec4(tileset_local_position.x, tileset_local_position.y, 0.0 + (- u_tilesetHeight) + u_flatHeight, 1.0);
   vec4 model_local_position_transformed = czm_inverseModel * u_tileset_localToWorldMatrix * tileset_local_position_transformed;
 
@@ -329,6 +350,33 @@ ${TilesetFlat.shaderSource__isPointInPolygon_set(polygons_local)}
             return geometry.coordinates;
           })
           .flat();
+      };
+      /**
+       * @see https://segmentfault.com/a/1190000041397890
+       * @returns
+       */
+      TilesetFlat.getMinimalBoundingRectangle = function (polygon) {
+        let [minX, minY] = polygon[0];
+        let [maxX, maxY] = [minX, minY];
+        const length = polygon.length;
+        for (let m = 0; m < length; m++) {
+          let point = polygon[m];
+          const x = point[0];
+          const y = point[1];
+          if (x > maxX) {
+            maxX = x;
+          }
+          if (y > maxY) {
+            maxY = y;
+          }
+          if (x < minX) {
+            minX = x;
+          }
+          if (y < minY) {
+            minY = y;
+          }
+        }
+        return [minX, minY, maxX, maxY];
       };
     </script>
     <script type="text/javascript">

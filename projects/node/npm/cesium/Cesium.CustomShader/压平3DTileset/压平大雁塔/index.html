@@ -255,7 +255,8 @@ if (isPointInPolygon_${n}(point)) {
         tileset,
         flatHeight,
         polygons,
-      }) {
+      } = {}) {
+        tileset.flatOptions = { flatHeight, polygons };
         await tileset.readyPromise;
         tileset.enableModelExperimental = true;
         const origin = tileset.boundingSphere.center; // 以3DTileset的包围的中心点为局部坐标系原点
@@ -308,6 +309,33 @@ if(_isPointInPolygon){
 `,
         });
       };
+      /**
+       * 设置Tileset的压平高度
+       */
+      TilesetFlat.setFlatHeight = function (tileset, flatHeight) {
+        tileset.customShader.setUniform("u_flatHeight", flatHeight);
+        tileset.flatOptions.flatHeight = flatHeight;
+      };
+      /**
+       * 添加多个压平区域
+       */
+      TilesetFlat.addFlatPolygons = function (tileset, polygons) {
+        const { flatHeight, polygons: polygons_origin } = Object.freeze(
+          tileset.flatOptions
+        );
+        tileset.customShader = undefined;
+        TilesetFlat.applyFlat({
+          tileset,
+          flatHeight,
+          polygons: polygons_origin.concat(polygons),
+        });
+      };
+      /**
+       * 添加压平区域
+       */
+      TilesetFlat.addFlatPolygon = function (tileset, polygon) {
+        TilesetFlat.addFlatPolygons(tileset, [polygon]);
+      };
     </script>
     <script type="text/javascript">
       TilesetFlat.applyFlat({
@@ -319,14 +347,6 @@ if(_isPointInPolygon){
             [108.959802, 34.220147, 397.6],
             [108.959779, 34.219506, 398.7],
             [108.959106, 34.21953, 398.1],
-          ],
-          [
-            [108.958557, 34.221009, 394.4],
-            [108.958633, 34.22026, 402.2],
-            [108.959527, 34.220295, 398.4],
-            [108.96002, 34.220217, 401.9],
-            [108.959908, 34.220822, 404.5],
-            [108.95894, 34.220863, 401.6],
           ],
         ],
       });

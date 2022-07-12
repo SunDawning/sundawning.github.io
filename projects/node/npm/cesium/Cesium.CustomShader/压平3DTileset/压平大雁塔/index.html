@@ -1,139 +1,266 @@
 <html lang="zh-CN">
-
-<head>
-  <meta charset="utf-8" />
-  <title>压平大雁塔 - 压平3DTileset - Cesium.CustomShader</title>
-  <link rel="shortcut icon"
-    href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQBAMAAAAVaP+LAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAhUExUReHY5f///y8qMS0oL/Hu8khCSdHL02ZgZ4R9hKGaobqzux+9hjkAAASdSURBVGje7ZrPa9xGFMefQW0Tn9Yg3NrHGYzXVw3CuS4IJ+5xl7aOT7q0TXwqMWmcnoxNkm1PJtA46WkpmLr9K7vSajS/3ozmSb6Ues7io/f9zpufb2Djjhrcg+5B/1dQOrkDUFGsf/p49iEpiiGg4uTvd6+mjIud30qADpgflD5/OWVCCMYYz3+Buk16gA6upyJjTeP567ImFWTQ1294i6lIWUNKJjTQwxeCGa2ThILSZ1OLU5EanzxGYaDRX9OMOY3nbxtSEQlKrznCWZJ2ywAJAT3BOYy14jB1LmjzhYfDWL6QpAhQeuPlMP5UgpJu0APO/C2/8oqDeGFVSOPSR4J4YbXfb33iwO6xIEdLATskIAirQ/oZ8J4DijAzpMQPOuSssymXwA/qDmgZ0l4LWvOBNmcsoqn0TnygL7IYEFd2T3BQesGiQEpbgoO2eBSI7ZdYSECzum7nYVCc1ZW2Y0ybAj2ODQjXBkSr65y8QkICqtWVtm/BzW4gW71sY3C1SdBoFs/RTUps0BaBo40SpQ1Iw0O2K1ebBL2ncPhP4EwBDSg9JYG0bktM0DYngY69oMcki5iaAFqTgJ5FZiKZoPSSxNETSboNtJEvE6l0TFqBvmJE0MID+oxmEcsWjklAT8cAiJaONmhNgaheGx41Jq1A/I5A24z17/5mJoE+ve8HEXvfyOym28A/ZLkQGRc4CHAQmo8i++ZsPn/JKaDvEZDY+fWHpYCTN3wYiO9+WH21fpGF56MmI2vQn5mXA/BwFpwhDZC7Wudqpwi/Z4G9lgm69B86qpB4aDmSqV2DToND4PPTcBop0Og07MH7zLv5M0HO4M/N0H/Mghb5QfYfH4T/sxpsKMj6o+32GCIjMqyucnIW/I8/IkuZ3W32fxRo1PXHy0CX6tKsuT+zvQRjCDlWawl5GUo3q/+NpA+C7M633Hbj1UAXYYsAbtqJUrgBaSDDA+SXsC7PuuK7RQhkTGx56X4Kz2ZZffVzhHC0acSYs/cBa7dTIcTOGcbRQMYq8ggFwfP52fyPEsKgLyNAgTbBF8ghIOP8MARk7EYGgWaDQGoTMborkLGMkEGJZzM6poLWPNvjvV5eN6AtNgDkO0KMe1kkDzXajLQ7BKQfs/Kyj0XIwW8YSDuKZos+yrDD8fkQkJaS/LyPMuQCQT+L9wBtBZbkGGUtSEvJ8SDQhtrf7Zc9lCnQk+AK2RmQAqkdKbZmE0BqueV7PZRpoO0Z3ST0+jBt7c7OaZOjfTPaXtPHZxJ+V6vsfkRXZlxDtzu8/IpqtediPDYBOq/q+ZhqtQVqr1nzBVWZVc6QGRClLVDO2DiULo1LYkB2yUe6pFU/ohxyQLLmoxVkooS5ZTFZXlNlwihhLiiVh/P9cMcVnRW/VtwxRRhWzJTiQuMEKR+7oPRmReJH8QbhddrNC9GRApEF343DVUWc7y5iDfIVxZsavXhaxsbjK9MfXNfHKlmaj+D46v3pbVWo5wiJ+HCgehGxlOeQvA8QAo8rDq65ENaZMen13CO9rZ9pHMlLsiQp+j5AGZ38M3/36nVZVG0y8ElMxbh/NnQP+s+B/gW3UDTN+m1LRgAAAABJRU5ErkJggg==" />
-</head>
-
-<body>
-  <!-- Cesium界面-->
-  <link rel="stylesheet" href="./node_modules/cesium/Build/CesiumUnminified/Widgets/widgets.css" />
-  <style>
-    #container {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      left: 0;
-      top: 0;
-    }
-  </style>
-  <div id="container"></div>
-  <script type="text/javascript" src="./node_modules/cesium/Build/CesiumUnminified/Cesium.js"></script>
-  <!-- 创建Cesium场景 -->
-  <script type="text/javascript">
-    const container = document.querySelector("#container");
-    const viewer = new Cesium.Viewer(container, {
-      // baseLayerPicker: false,
-      imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-        url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
-      }),
-    });
-  </script>
-  <!-- 添加模型 -->
-  <script type="text/javascript">
-    const tileset = new Cesium.Cesium3DTileset({
-      url: "https://data.mars3d.cn/3dtiles/qx-dyt/tileset.json",
-    });
-    viewer.scene.primitives.add(tileset);
-  </script>
-  <!-- 初始视角 -->
-  <script type="text/javascript">
-    tileset.readyPromise.then(function (tileset) {
-      viewer.camera.flyToBoundingSphere(tileset.boundingSphere, {
-        duration: 0,
+  <head>
+    <meta charset="utf-8" />
+    <title>压平大雁塔 - 压平3DTileset - Cesium.CustomShader</title>
+    <link
+      rel="shortcut icon"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQBAMAAAAVaP+LAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAhUExUReHY5f///y8qMS0oL/Hu8khCSdHL02ZgZ4R9hKGaobqzux+9hjkAAASdSURBVGje7ZrPa9xGFMefQW0Tn9Yg3NrHGYzXVw3CuS4IJ+5xl7aOT7q0TXwqMWmcnoxNkm1PJtA46WkpmLr9K7vSajS/3ozmSb6Ues7io/f9zpufb2Djjhrcg+5B/1dQOrkDUFGsf/p49iEpiiGg4uTvd6+mjIud30qADpgflD5/OWVCCMYYz3+Buk16gA6upyJjTeP567ImFWTQ1294i6lIWUNKJjTQwxeCGa2ThILSZ1OLU5EanzxGYaDRX9OMOY3nbxtSEQlKrznCWZJ2ywAJAT3BOYy14jB1LmjzhYfDWL6QpAhQeuPlMP5UgpJu0APO/C2/8oqDeGFVSOPSR4J4YbXfb33iwO6xIEdLATskIAirQ/oZ8J4DijAzpMQPOuSssymXwA/qDmgZ0l4LWvOBNmcsoqn0TnygL7IYEFd2T3BQesGiQEpbgoO2eBSI7ZdYSECzum7nYVCc1ZW2Y0ybAj2ODQjXBkSr65y8QkICqtWVtm/BzW4gW71sY3C1SdBoFs/RTUps0BaBo40SpQ1Iw0O2K1ebBL2ncPhP4EwBDSg9JYG0bktM0DYngY69oMcki5iaAFqTgJ5FZiKZoPSSxNETSboNtJEvE6l0TFqBvmJE0MID+oxmEcsWjklAT8cAiJaONmhNgaheGx41Jq1A/I5A24z17/5mJoE+ve8HEXvfyOym28A/ZLkQGRc4CHAQmo8i++ZsPn/JKaDvEZDY+fWHpYCTN3wYiO9+WH21fpGF56MmI2vQn5mXA/BwFpwhDZC7Wudqpwi/Z4G9lgm69B86qpB4aDmSqV2DToND4PPTcBop0Og07MH7zLv5M0HO4M/N0H/Mghb5QfYfH4T/sxpsKMj6o+32GCIjMqyucnIW/I8/IkuZ3W32fxRo1PXHy0CX6tKsuT+zvQRjCDlWawl5GUo3q/+NpA+C7M633Hbj1UAXYYsAbtqJUrgBaSDDA+SXsC7PuuK7RQhkTGx56X4Kz2ZZffVzhHC0acSYs/cBa7dTIcTOGcbRQMYq8ggFwfP52fyPEsKgLyNAgTbBF8ghIOP8MARk7EYGgWaDQGoTMborkLGMkEGJZzM6poLWPNvjvV5eN6AtNgDkO0KMe1kkDzXajLQ7BKQfs/Kyj0XIwW8YSDuKZos+yrDD8fkQkJaS/LyPMuQCQT+L9wBtBZbkGGUtSEvJ8SDQhtrf7Zc9lCnQk+AK2RmQAqkdKbZmE0BqueV7PZRpoO0Z3ST0+jBt7c7OaZOjfTPaXtPHZxJ+V6vsfkRXZlxDtzu8/IpqtediPDYBOq/q+ZhqtQVqr1nzBVWZVc6QGRClLVDO2DiULo1LYkB2yUe6pFU/ohxyQLLmoxVkooS5ZTFZXlNlwihhLiiVh/P9cMcVnRW/VtwxRRhWzJTiQuMEKR+7oPRmReJH8QbhddrNC9GRApEF343DVUWc7y5iDfIVxZsavXhaxsbjK9MfXNfHKlmaj+D46v3pbVWo5wiJ+HCgehGxlOeQvA8QAo8rDq65ENaZMen13CO9rZ9pHMlLsiQp+j5AGZ38M3/36nVZVG0y8ElMxbh/NnQP+s+B/gW3UDTN+m1LRgAAAABJRU5ErkJggg=="
+    />
+  </head>
+  <body>
+    <!-- Cesium界面-->
+    <link
+      rel="stylesheet"
+      href="./node_modules/cesium/Build/CesiumUnminified/Widgets/widgets.css"
+    />
+    <style>
+      #container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
+    </style>
+    <div id="container"></div>
+    <script
+      type="text/javascript"
+      src="./node_modules/cesium/Build/CesiumUnminified/Cesium.js"
+    ></script>
+    <!-- 创建Cesium场景 -->
+    <script type="text/javascript">
+      const container = document.querySelector("#container");
+      const viewer = new Cesium.Viewer(container, {
+        // baseLayerPicker: false,
+        imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+          url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        }),
       });
-    });
-  </script>
-  <!-- 调整模型高度 -->
-  <script type="text/javascript">
-    let offsetHeight = -27; // alt
-    tileset.readyPromise.then(function (tileset) {
-      tileset.show = true;
-      if (offsetHeight) {
-        // 调整高度
-        let origin = tileset.boundingSphere.center;
-        let cartographic = Cesium.Cartographic.fromCartesian(origin);
-        let surface = Cesium.Cartesian3.fromRadians(
-          cartographic.longitude,
-          cartographic.latitude,
-          0.0
-        );
-        let offset = Cesium.Cartesian3.fromRadians(
-          cartographic.longitude,
-          cartographic.latitude,
-          offsetHeight
-        );
-        let translation = Cesium.Cartesian3.subtract(
-          offset,
-          surface,
+    </script>
+    <!-- 添加模型 -->
+    <script type="text/javascript">
+      const tileset = new Cesium.Cesium3DTileset({
+        url: "https://data.mars3d.cn/3dtiles/qx-dyt/tileset.json",
+      });
+      viewer.scene.primitives.add(tileset);
+    </script>
+    <!-- 初始视角 -->
+    <script type="text/javascript">
+      tileset.readyPromise.then(function (tileset) {
+        viewer.camera.flyToBoundingSphere(tileset.boundingSphere, {
+          duration: 0,
+        });
+      });
+    </script>
+    <!-- 调整模型高度 -->
+    <script type="text/javascript">
+      let offsetHeight = -27; // alt
+      tileset.readyPromise.then(function (tileset) {
+        tileset.show = true;
+        if (offsetHeight) {
+          // 调整高度
+          let origin = tileset.boundingSphere.center;
+          let cartographic = Cesium.Cartographic.fromCartesian(origin);
+          let surface = Cesium.Cartesian3.fromRadians(
+            cartographic.longitude,
+            cartographic.latitude,
+            0.0
+          );
+          let offset = Cesium.Cartesian3.fromRadians(
+            cartographic.longitude,
+            cartographic.latitude,
+            offsetHeight
+          );
+          let translation = Cesium.Cartesian3.subtract(
+            offset,
+            surface,
+            new Cesium.Cartesian3()
+          );
+          tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
+        }
+        // tileset._root.transform = modelMatrix == undefined ? tileset._root.transform : modelMatrix; //暂时 模型位置正确后 必须删除
+      });
+    </script>
+    <!-- 模型压平功能 -->
+    <script type="text/javascript">
+      Cesium.TilesetFlat = {};
+      const { TilesetFlat } = Cesium;
+      /**
+       * 世界坐标转局部坐标
+       */
+      TilesetFlat.worldPositionToLocalPosition = function (
+        origin,
+        worldPosition
+      ) {
+        return Cesium.Matrix4.multiplyByPoint(
+          Cesium.Matrix4.inverse(
+            Cesium.Transforms.eastNorthUpToFixedFrame(origin),
+            new Cesium.Matrix4()
+          ),
+          worldPosition,
           new Cesium.Cartesian3()
         );
-        tileset.modelMatrix = Cesium.Matrix4.fromTranslation(translation);
-      }
-      // tileset._root.transform = modelMatrix == undefined ? tileset._root.transform : modelMatrix; //暂时 模型位置正确后 必须删除
-    });
-  </script>
-  <!-- 压平3DTileset功能 -->
-  <script type="text/javascript">
-    function flatTileset({ tileset, flatHeight = 0, polygons } = {}) {
-      tileset.readyPromise.then(function (tileset) {
-        // [
-        //   [0, 0],
-        //   [300, 0],
-        //   [300, 300],
-        //   [0, 300],
-        //   [150, 150],
-        // ],
-        // [
-        //   [-150, 0],
-        //   [-150, -150],
-        //   [-300, -150],
-        //   // [-200, -75],
-        //   [-300, 0],
-        // ],
-        let polygons_local = polygons.map(function (polygon) {
+      };
+      /**
+       * 世界坐标转换到tileset内部的局部坐标
+       */
+      TilesetFlat.worldPositionToLocalPosition_tileset = function (
+        tileset,
+        worldPosition
+      ) {
+        return TilesetFlat.worldPositionToLocalPosition(
+          tileset.boundingSphere.center,
+          worldPosition
+        );
+      };
+      /**
+       * 多个经纬度区域转换成多个局部区域
+       * @returns 形如：
+          [
+            [
+              [0, 0],
+              [300, 0],
+              [300, 300],
+              [0, 300],
+              [150, 150],
+            ],
+            [
+              [-150, 0],
+              [-150, -150],
+              [-300, -150],
+              // [-200, -75],
+              [-300, 0],
+            ],
+          ]
+       */
+      TilesetFlat.degreesPolygonsToLocal = function (polygons) {
+        return polygons.map(function (polygon) {
           return polygon.map(function (coordinate) {
             const worldPosition = Cesium.Cartesian3.fromDegrees.apply(
               null,
               coordinate
             );
-            /**
-             * 世界坐标转换到tileset内部的局部坐标
-             */
-            function worldPositionToLocalPosition_tileset(
-              tileset,
-              worldPosition
-            ) {
-              /**
-               * 世界坐标转局部坐标
-               */
-              function worldPositionToLocalPosition(origin, worldPosition) {
-                return Cesium.Matrix4.multiplyByPoint(
-                  Cesium.Matrix4.inverse(
-                    Cesium.Transforms.eastNorthUpToFixedFrame(origin),
-                    new Cesium.Matrix4()
-                  ),
-                  worldPosition,
-                  new Cesium.Cartesian3()
-                );
-              }
-              return worldPositionToLocalPosition(
-                tileset.boundingSphere.center,
-                worldPosition
-              );
-            }
             return Object.values(
-              worldPositionToLocalPosition_tileset(tileset, worldPosition)
+              TilesetFlat.worldPositionToLocalPosition_tileset(
+                tileset,
+                worldPosition
+              )
             ).slice(0, 2);
           });
         });
-        console.log("polygons_local", polygons_local);
-        tileset.debugShowBoundingVolume = true;
+      };
+      /**
+       * Shader字符串，生成一个函数，判断点是否在n个元素的数组的多边形里
+       */
+      TilesetFlat.shaderSource_isPointInPolygon_n = function (n) {
+        return `
+              // ${n}个元素的数组
+              vec2 points_${n}[${n}];
+              bool isPointInPolygon_${n}(vec2 point){
+                int nCross = 0; // 交点数
+                const int n = ${n}; // Loop index cannot be compared with non-constant expression
+                for(int i = 0; i < n; i++){
+                  vec2 p1 = points_${n}[i];
+                  vec2 p2 = points_${n}[int(mod(float(i+1),float(n)))];
+                  // 求解 y=p.y 与 p1 p2 的交点
+                  // p1p2 与 y=p0.y平行
+                  if(p1[1] == p2[1]){
+                    continue;
+                  }
+                  // 交点在p1p2延长线上
+                  if(point[1] < min(p1[1], p2[1])){
+                    continue;
+                  }
+                  if(point[1] >= max(p1[1], p2[1])){
+                    continue;
+                  }
+                  float x = p1[0] + ((point[1] - p1[1]) * (p2[0] - p1[0])) / (p2[1] - p1[1]);
+                  if(x > point[0]){
+                    nCross++;
+                  }
+                }
+                return int(mod(float(nCross), float(2))) == 1;
+              }
+              `;
+      };
+      /**
+       * 生成Shader字符串，拼接所有isPointInPolygon函数
+       */
+      TilesetFlat.shaderSource_isPointInPolygon_set = function (polygons) {
+        return TilesetFlat.getUniqueArray(
+          polygons.map(function (polygon) {
+            return polygon.length;
+          })
+        )
+          .map(function (n) {
+            return TilesetFlat.shaderSource_isPointInPolygon_n(n);
+          })
+          .join("\n");
+      };
+      /**
+       * 数组去重
+       * 不能处理嵌套的数组
+       */
+      TilesetFlat.getUniqueArray = function (arr) {
+        return arr.filter(function (item, index, arr) {
+          //当前元素，在原始数组中的第一个索引==当前索引值，否则返回当前元素
+          return arr.indexOf(item, 0) === index;
+        });
+      };
+      /**
+       * Shader字符串，设置变量“_isPointInPolygon”为true
+       * 存在变量：_isPoingInPolygon，points_n，point
+       * @returns 所生成的字符串，形如：
+          if(_isPointInPolygon == false){
+            // 区域1
+            points_5[0]=vec2(0.0,0.0);
+            points_5[1]=vec2(300.0,0.0);
+            points_5[2]=vec2(300.0,300.0);
+            points_5[3]=vec2(0.0,300.0);
+            points_5[4]=vec2(150.0,150.0);
+            if(isPointInPolygon_5(point)){
+              _isPointInPolygon = true;
+            }
+          }
+       */
+      TilesetFlat.shaderSource__isPointInPolygon = function (polygon) {
+        const n = polygon.length;
+        return `
+if (_isPointInPolygon == false) {
+${polygon
+  .map(function (point, index) {
+    return ` points_${n}[${index}] = vec2(${point[0]}, ${point[1]});`;
+  })
+  .join("\n")}
+if (isPointInPolygon_${n}(point)) {
+  _isPointInPolygon = true;
+}
+}
+        `;
+      };
+      /**
+       * Shader字符串，生成多个多边形区域判断的内容，来设置全局变量“_isPointInPolygon”为true
+       */
+      TilesetFlat.shaderSource__isPointInPolygon_set = function (polygons) {
+        return polygons
+          .map(function (polygon) {
+            return TilesetFlat.shaderSource__isPointInPolygon(polygon);
+          })
+          .join("\n");
+      };
+      /**
+       * 给Tileset创建压平区域
+       */
+      TilesetFlat.applyFlat = async function ({
+        tileset,
+        flatHeight,
+        polygons,
+      }) {
+        await tileset.readyPromise;
         tileset.enableModelExperimental = true;
         const origin = tileset.boundingSphere.center; // 以3DTileset的包围的中心点为局部坐标系原点
         const matrix = Cesium.Transforms.eastNorthUpToFixedFrame(origin);
+        let polygons_local = TilesetFlat.degreesPolygonsToLocal(polygons);
         tileset.customShader = new Cesium.CustomShader({
           uniforms: {
             u_tileset_localToWorldMatrix: {
@@ -146,148 +273,63 @@
             },
             u_flatHeight: {
               type: Cesium.UniformType.FLOAT,
-              value: flatHeight
+              value: flatHeight,
             },
             u_tilesetHeight: {
               type: Cesium.UniformType.FLOAT,
-              value: Cesium.Cartographic.fromCartesian(tileset.boundingSphere.center).height
+              value: Cesium.Cartographic.fromCartesian(
+                tileset.boundingSphere.center
+              ).height,
             },
           },
           vertexShaderText: `
 // 所有isPointInPolygon函数
-${shaderSource_isPointInPolygon_set(polygons_local)}            
+${TilesetFlat.shaderSource_isPointInPolygon_set(polygons_local)}            
 void vertexMain(VertexInput vsInput, inout czm_modelVertexOutput vsOutput){
-  vec3 modelMC = vsInput.attributes.positionMC;
-  vec4 model_local_position = vec4(modelMC.x, modelMC.y, modelMC.z, 1.0);
-  vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
-  vec4 tileset_local_position_transformed = vec4(tileset_local_position.x, tileset_local_position.y, 0.0 + (- u_tilesetHeight) + u_flatHeight, 1.0);
-  vec4 model_local_position_transformed = czm_inverseModel * u_tileset_localToWorldMatrix * tileset_local_position_transformed;
+vec3 modelMC = vsInput.attributes.positionMC;
+vec4 model_local_position = vec4(modelMC.x, modelMC.y, modelMC.z, 1.0);
+vec4 tileset_local_position = u_tileset_worldToLocalMatrix * czm_model * model_local_position;
+vec4 tileset_local_position_transformed = vec4(tileset_local_position.x, tileset_local_position.y, 0.0 + (- u_tilesetHeight) + u_flatHeight, 1.0);
+vec4 model_local_position_transformed = czm_inverseModel * u_tileset_localToWorldMatrix * tileset_local_position_transformed;
 
-  vec2 point = vec2(tileset_local_position.x,tileset_local_position.y);
+vec2 point = vec2(tileset_local_position.x,tileset_local_position.y);
 
-  bool _isPointInPolygon = false;
+bool _isPointInPolygon = false;
 
-  // 多个多边形区域判断
-  ${shaderSource__isPointInPolygon_set(polygons_local)}
+// 多个多边形区域判断
+${TilesetFlat.shaderSource__isPointInPolygon_set(polygons_local)}
 
-  if(_isPointInPolygon){
-    vsOutput.positionMC.x = model_local_position_transformed.x;
-    vsOutput.positionMC.y = model_local_position_transformed.y;
-    vsOutput.positionMC.z = model_local_position_transformed.z;
-  }  
+if(_isPointInPolygon){
+  vsOutput.positionMC.x = model_local_position_transformed.x;
+  vsOutput.positionMC.y = model_local_position_transformed.y;
+  vsOutput.positionMC.z = model_local_position_transformed.z;
+}  
 }
-            `,
+`,
         });
-      });
-      /**
-       * 所有isPointInPolygon函数
-       */
-      function shaderSource_isPointInPolygon_set(polygons) {
-        function unique(arr) {
-          return arr.filter(function (item, index, arr) {
-            //当前元素，在原始数组中的第一个索引==当前索引值，否则返回当前元素
-            return arr.indexOf(item, 0) === index;
-          });
-        }
-        return unique(
-          polygons.map(function (polygon) {
-            return polygon.length;
-          })
-        )
-          .map(function (n) {
-            function shaderSource_isPointInPolygon_n(n) {
-              return `
-// ${n}个元素的数组
-vec2 points_${n}[${n}];
-bool isPointInPolygon_${n}(vec2 point){
-  int nCross = 0; // 交点数
-  const int n = ${n}; // Loop index cannot be compared with non-constant expression
-  for(int i = 0; i < n; i++){
-    vec2 p1 = points_${n}[i];
-    vec2 p2 = points_${n}[int(mod(float(i+1),float(n)))];
-    // 求解 y=p.y 与 p1 p2 的交点
-    // p1p2 与 y=p0.y平行
-    if(p1[1] == p2[1]){
-      continue;
-    }
-    // 交点在p1p2延长线上
-    if(point[1] < min(p1[1], p2[1])){
-      continue;
-    }
-    if(point[1] >= max(p1[1], p2[1])){
-      continue;
-    }
-    float x = p1[0] + ((point[1] - p1[1]) * (p2[0] - p1[0])) / (p2[1] - p1[1]);
-    if(x > point[0]){
-      nCross++;
-    }
-  }
-  return int(mod(float(nCross), float(2))) == 1;
-}
-`;
-            }
-            return shaderSource_isPointInPolygon_n(n);
-          })
-          .join("\n");
-      }
-      /**
-       * 多个多边形区域判断
-       */
-      function shaderSource__isPointInPolygon_set(polygons) {
-        return polygons
-          .map(function (polygon) {
-            // if(_isPointInPolygon == false){
-            //   // 区域1
-            //   points_5[0]=vec2(0.0,0.0);
-            //   points_5[1]=vec2(300.0,0.0);
-            //   points_5[2]=vec2(300.0,300.0);
-            //   points_5[3]=vec2(0.0,300.0);
-            //   points_5[4]=vec2(150.0,150.0);
-            //   if(isPointInPolygon_5(point)){
-            //     _isPointInPolygon = true;
-            //   }
-            // }
-            function shaderSource__isPointInPolygon(polygon) {
-              const n = polygon.length;
-              const set_points = polygon.map(function (point, index) {
-                return ` points_${n}[${index}] = vec2(${point[0]}, ${point[1]});`;
-              })
-                .join("\n");
-              return `
-if (_isPointInPolygon == false) {
-  ${set_points}
-  if (isPointInPolygon_${n}(point)) {
-    _isPointInPolygon = true;
-  }
-}
-          `;
-            }
-            return shaderSource__isPointInPolygon(polygon);
-          })
-          .join("\n");
-      }
-    }
-    function unflatTileset(tileset) {
-      tileset.customShader = undefined;
-    }
-  </script>
-  <script type="text/javascript">
-    // @see http://mars3d.cn/editor-vue.html?id=thing/tileset/tilesetFlat
-    flatTileset({
-      tileset,
-      flatHeight: 397.3,
-      polygons: [
-        [
-          [108.959062, 34.220134, 397.3],
-          [108.959802, 34.220147, 397.6],
-          [108.959779, 34.219506, 398.7],
-          [108.959106, 34.21953, 398.1],
+      };
+    </script>
+    <script type="text/javascript">
+      TilesetFlat.applyFlat({
+        tileset,
+        flatHeight: 397.3,
+        polygons: [
+          [
+            [108.959062, 34.220134, 397.3],
+            [108.959802, 34.220147, 397.6],
+            [108.959779, 34.219506, 398.7],
+            [108.959106, 34.21953, 398.1],
+          ],
+          [
+            [108.958557, 34.221009, 394.4],
+            [108.958633, 34.22026, 402.2],
+            [108.959527, 34.220295, 398.4],
+            [108.96002, 34.220217, 401.9],
+            [108.959908, 34.220822, 404.5],
+            [108.95894, 34.220863, 401.6],
+          ],
         ],
-        [[108.958557, 34.221009, 394.4], [108.958633, 34.22026, 402.2], [108.959527, 34.220295, 398.4], [108.96002, 34.220217, 401.9], [108.959908, 34.220822, 404.5], [108.95894, 34.220863, 401.6]]
-      ],
-    });
-  </script>
-  </div>
-</body>
-
+      });
+    </script>
+  </body>
 </html>

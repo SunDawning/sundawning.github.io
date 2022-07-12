@@ -255,7 +255,6 @@ ${polygon
         flatHeight,
         polygons,
       } = {}) {
-        tileset.flatOptions = { flatHeight, polygons };
         await tileset.readyPromise;
         tileset.enableModelExperimental = true;
         const origin = tileset.boundingSphere.center; // 以3DTileset的包围的中心点为局部坐标系原点
@@ -309,31 +308,21 @@ ${TilesetFlat.shaderSource__isPointInPolygon_set(polygons_local)}
         });
       };
       /**
-       * 设置Tileset的压平高度
+       * 删除所有压平的部分
        */
-      TilesetFlat.setFlatHeight = function (tileset, flatHeight) {
-        tileset.customShader.setUniform("u_flatHeight", flatHeight);
-        tileset.flatOptions.flatHeight = flatHeight;
-      };
-      /**
-       * 添加多个压平区域
-       */
-      TilesetFlat.addFlatPolygons = function (tileset, polygons) {
-        const { flatHeight, polygons: polygons_origin } = Object.freeze(
-          tileset.flatOptions
-        );
+      TilesetFlat.removeAllFlat = function (tileset) {
         tileset.customShader = undefined;
-        TilesetFlat.applyFlat({
-          tileset,
-          flatHeight,
-          polygons: polygons_origin.concat(polygons),
-        });
       };
       /**
-       * 添加压平区域
+       * 从geojson里解析出压平区域
+       * @params {object} geojson 形如：{"type":"FeatureCollection","layer":{"id":"M-9F09501E-C805-4208-8253-23594197BB42","name":""},"features":[{"type":"Feature","properties":{"id":"M-FA6B986F-D7C2-4980-B85B-43C713BF2C87","name":"","type":"polygon","style":{"color":"#3388ff","opacity":0.5,"outline":true,"outlineColor":"#ffffff","outlineWidth":2,"clampToGround":false,"materialType":"Color"},"edittype":"polygon"},"geometry":{"type":"Polygon","coordinates":[[[114.202274,22.68624,1.8],[114.202205,22.686322,0.4],[114.202162,22.686444,6.9],[114.202218,22.686472,0.8],[114.202175,22.686583,2.6],[114.202108,22.686693,0],[114.202046,22.68673,0],[114.202021,22.68679,0],[114.201966,22.686873,0],[114.201866,22.686921,0.2],[114.20182,22.686965,0],[114.201809,22.687016,0],[114.201767,22.687236,4.9],[114.201824,22.687261,9.8],[114.20185,22.687122,0],[114.20199,22.687055,0],[114.201947,22.687176,4.4],[114.201918,22.687255,0],[114.201833,22.687501,0],[114.201667,22.687825,0.9],[114.201362,22.687833,0],[114.201318,22.687717,0],[114.201357,22.687599,0.2],[114.201238,22.687548,0],[114.201115,22.687552,0.4],[114.201128,22.68769,0],[114.201012,22.687861,0],[114.200889,22.688017,4.5],[114.200667,22.688208,0],[114.200378,22.688332,0],[114.200194,22.688389,0],[114.200034,22.688335,0],[114.199704,22.688102,3.9],[114.199628,22.687974,0],[114.199517,22.688032,4.8],[114.199064,22.687904,0],[114.198981,22.687544,0],[114.198965,22.686974,0],[114.198975,22.686758,0.1],[114.199392,22.686739,0],[114.199986,22.686804,2.9],[114.200102,22.686772,2.8],[114.200174,22.686695,3],[114.20096,22.685371,0],[114.201189,22.685466,0],[114.201596,22.685689,1.4],[114.202303,22.686055,1.3],[114.202371,22.686134,1.5],[114.202335,22.686227,0]]]}}]}
        */
-      TilesetFlat.addFlatPolygon = function (tileset, polygon) {
-        TilesetFlat.addFlatPolygons(tileset, [polygon]);
+      TilesetFlat.getPolygonsFromgeojson = function (geojson) {
+        geojson.features
+          .map(function ({ geometry }) {
+            return geometry.coordinates;
+          })
+          .flat();
       };
     </script>
     <script type="text/javascript">

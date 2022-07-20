@@ -46,10 +46,24 @@
     </script>
     <!-- 初始视角 -->
     <script type="text/javascript">
-      tileset.readyPromise.then(function (tileset) {
-        viewer.camera.flyToBoundingSphere(tileset.boundingSphere, {
-          duration: 0,
-        });
+      // 使用模型视角
+      // tileset.readyPromise.then(function (tileset) {
+      //   viewer.camera.flyToBoundingSphere(tileset.boundingSphere, {
+      //     duration: 0,
+      //   });
+      // });
+      // 使用自定义视角
+      viewer.camera.setView({
+        destination: {
+          x: -2851045.4074052866,
+          y: 4654456.610110114,
+          z: 3289122.790063821,
+        },
+        orientation: {
+          heading: 1.9822013104933793,
+          pitch: -0.47942367195068814,
+          roll: 0.000004410721189174183,
+        },
       });
     </script>
   </body>

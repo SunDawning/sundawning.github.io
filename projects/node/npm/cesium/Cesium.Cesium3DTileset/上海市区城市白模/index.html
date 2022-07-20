@@ -41,6 +41,9 @@
     <script type="text/javascript">
       const tileset = new Cesium.Cesium3DTileset({
         url: "https://data.mars3d.cn/3dtiles/jzw-shanghai/tileset.json",
+        // shadows: Cesium.ShadowMode.DISABLED,
+        // lightColor: new Cesium.Cartesian3(1, 1, 1),''
+        showOutline: false,
       });
       viewer.scene.primitives.add(tileset);
     </script>
@@ -64,6 +67,61 @@
           pitch: -0.47942367195068814,
           roll: 0.000004410721189174183,
         },
+      });
+    </script>
+    <script type="text/javascript">
+      // viewer.scene.sun.show = false;
+      // viewer.clock.currentTime = Cesium.JulianDate.addHours(
+      //   Cesium.JulianDate.now(new Date()),
+      //   8,
+      //   new Cesium.JulianDate()
+      // );
+      // viewer.scene.light = new Cesium.DirectionalLight({
+      //   //去除时间原因影响模型颜色
+      //   direction: new Cesium.Cartesian3(
+      //     0.35492591601301104,
+      //     -0.8909182691839401,
+      //     -0.2833588392420772
+      //   ),
+      //   intensity: 2,
+      // });
+      // viewer.scene.globe.enableLighting = false;
+      // viewer.shadows = false;
+      // tileset.style = new Cesium.Cesium3DTileStyle({
+      //   color: {
+      //     conditions: [["true", 'color("#ffffff99")']],
+      //   },
+      // });
+
+      tileset.enableModelExperimental = true;
+
+      tileset.customShader = new Cesium.CustomShader({
+        isTranslucent: true,
+        mode: Cesium.CustomShaderMode.REPLACE_MATERIAL,
+        uniforms: {
+          u_red: {
+            type: Cesium.UniformType.FLOAT,
+            value: 194 / 255,
+          },
+          u_green: {
+            type: Cesium.UniformType.FLOAT,
+            value: 194 / 255,
+          },
+          u_blue: {
+            type: Cesium.UniformType.FLOAT,
+            value: 194 / 255,
+          },
+          u_alpha: {
+            type: Cesium.UniformType.FLOAT,
+            value: 0.8,
+          },
+        },
+        fragmentShaderText: `
+          void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material) {
+              material.diffuse = vec3(u_red, u_green, u_blue);
+              material.alpha = u_alpha;
+          }
+          `,
       });
     </script>
   </body>

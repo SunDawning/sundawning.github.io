@@ -43,7 +43,7 @@
         url: "https://data.mars3d.cn/3dtiles/jzw-shanghai/tileset.json",
         // shadows: Cesium.ShadowMode.DISABLED,
         // lightColor: new Cesium.Cartesian3(1, 1, 1),''
-        showOutline: false,
+        // showOutline: false,
       });
       viewer.scene.primitives.add(tileset);
     </script>
@@ -122,6 +122,53 @@
               material.alpha = u_alpha;
           }
           `,
+      });
+    </script>
+    <!-- 界面 -->
+    <div
+      id="toolbar"
+      style="
+        position: absolute;
+        left: 48px;
+        top: 48px;
+        background: rgb(255 255 255 / 90%);
+        border-radius: 8px;
+        padding: 8px;
+      "
+    ></div>
+    <script type="text/javascript">
+      const viewModel = {
+        red: 194,
+        green: 194,
+        blue: 194,
+        alpha: 194,
+      };
+      Cesium.knockout.track(viewModel);
+      const toolbarElement = document.querySelector("#toolbar");
+      Object.keys(viewModel).forEach(function (name) {
+        const div = document.createElement("div");
+        div.innerHTML = `
+      <div style="display: flex">
+        <span>${name}</span>
+        <input
+          type="range"
+          min="0"
+          max="255"
+          step="0.1"
+          data-bind="value: ${name},valueUpdate: 'input'"
+          style="display: block; width: 200px; margin: 5px 0"
+        />
+      </div>
+                `;
+        toolbarElement.appendChild(div);
+      });
+      Cesium.knockout.applyBindings(viewModel, toolbarElement);
+      Object.keys(viewModel).forEach(function (name) {
+        Cesium.knockout
+          .getObservable(viewModel, name)
+          .subscribe(function (newValue) {
+            tileset.customShader.setUniform(`u_${name}`, newValue / 255);
+          });
       });
     </script>
   </body>

@@ -1,7 +1,9 @@
 <html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
-    <title>Cesium.CustomShader - 仿百度 - 上海市区城市白模</title>
+    <title>
+      model._rendererResources.sourceShaders - 仿百度 - 上海市区城市白模
+    </title>
     <link
       rel="shortcut icon"
       href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQBAMAAAAVaP+LAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAhUExUReHY5f///y8qMS0oL/Hu8khCSdHL02ZgZ4R9hKGaobqzux+9hjkAAASdSURBVGje7ZrPa9xGFMefQW0Tn9Yg3NrHGYzXVw3CuS4IJ+5xl7aOT7q0TXwqMWmcnoxNkm1PJtA46WkpmLr9K7vSajS/3ozmSb6Ues7io/f9zpufb2Djjhrcg+5B/1dQOrkDUFGsf/p49iEpiiGg4uTvd6+mjIud30qADpgflD5/OWVCCMYYz3+Buk16gA6upyJjTeP567ImFWTQ1294i6lIWUNKJjTQwxeCGa2ThILSZ1OLU5EanzxGYaDRX9OMOY3nbxtSEQlKrznCWZJ2ywAJAT3BOYy14jB1LmjzhYfDWL6QpAhQeuPlMP5UgpJu0APO/C2/8oqDeGFVSOPSR4J4YbXfb33iwO6xIEdLATskIAirQ/oZ8J4DijAzpMQPOuSssymXwA/qDmgZ0l4LWvOBNmcsoqn0TnygL7IYEFd2T3BQesGiQEpbgoO2eBSI7ZdYSECzum7nYVCc1ZW2Y0ybAj2ODQjXBkSr65y8QkICqtWVtm/BzW4gW71sY3C1SdBoFs/RTUps0BaBo40SpQ1Iw0O2K1ebBL2ncPhP4EwBDSg9JYG0bktM0DYngY69oMcki5iaAFqTgJ5FZiKZoPSSxNETSboNtJEvE6l0TFqBvmJE0MID+oxmEcsWjklAT8cAiJaONmhNgaheGx41Jq1A/I5A24z17/5mJoE+ve8HEXvfyOym28A/ZLkQGRc4CHAQmo8i++ZsPn/JKaDvEZDY+fWHpYCTN3wYiO9+WH21fpGF56MmI2vQn5mXA/BwFpwhDZC7Wudqpwi/Z4G9lgm69B86qpB4aDmSqV2DToND4PPTcBop0Og07MH7zLv5M0HO4M/N0H/Mghb5QfYfH4T/sxpsKMj6o+32GCIjMqyucnIW/I8/IkuZ3W32fxRo1PXHy0CX6tKsuT+zvQRjCDlWawl5GUo3q/+NpA+C7M633Hbj1UAXYYsAbtqJUrgBaSDDA+SXsC7PuuK7RQhkTGx56X4Kz2ZZffVzhHC0acSYs/cBa7dTIcTOGcbRQMYq8ggFwfP52fyPEsKgLyNAgTbBF8ghIOP8MARk7EYGgWaDQGoTMborkLGMkEGJZzM6poLWPNvjvV5eN6AtNgDkO0KMe1kkDzXajLQ7BKQfs/Kyj0XIwW8YSDuKZos+yrDD8fkQkJaS/LyPMuQCQT+L9wBtBZbkGGUtSEvJ8SDQhtrf7Zc9lCnQk+AK2RmQAqkdKbZmE0BqueV7PZRpoO0Z3ST0+jBt7c7OaZOjfTPaXtPHZxJ+V6vsfkRXZlxDtzu8/IpqtediPDYBOq/q+ZhqtQVqr1nzBVWZVc6QGRClLVDO2DiULo1LYkB2yUe6pFU/ohxyQLLmoxVkooS5ZTFZXlNlwihhLiiVh/P9cMcVnRW/VtwxRRhWzJTiQuMEKR+7oPRmReJH8QbhddrNC9GRApEF343DVUWc7y5iDfIVxZsavXhaxsbjK9MfXNfHKlmaj+D46v3pbVWo5wiJ+HCgehGxlOeQvA8QAo8rDq65ENaZMen13CO9rZ9pHMlLsiQp+j5AGZ38M3/36nVZVG0y8ElMxbh/NnQP+s+B/gW3UDTN+m1LRgAAAABJRU5ErkJggg=="
@@ -41,7 +43,7 @@
     <script type="text/javascript">
       const tileset = new Cesium.Cesium3DTileset({
         url: "https://data.mars3d.cn/3dtiles/jzw-shanghai/tileset.json",
-        shadows: Cesium.ShadowMode.DISABLED,
+        // shadows: Cesium.ShadowMode.DISABLED,
         // lightColor: new Cesium.Cartesian3(1, 1, 1),''
         // showOutline: false,
       });
@@ -70,107 +72,50 @@
       });
     </script>
     <script type="text/javascript">
-      // viewer.scene.sun.show = false;
-      // viewer.clock.currentTime = Cesium.JulianDate.addHours(
-      //   Cesium.JulianDate.now(new Date()),
-      //   8,
-      //   new Cesium.JulianDate()
-      // );
-      // viewer.scene.light = new Cesium.DirectionalLight({
-      //   //去除时间原因影响模型颜色
-      //   direction: new Cesium.Cartesian3(
-      //     0.35492591601301104,
-      //     -0.8909182691839401,
-      //     -0.2833588392420772
-      //   ),
-      //   intensity: 2,
-      // });
-      // viewer.scene.globe.enableLighting = false;
-      // viewer.shadows = false;
       // tileset.style = new Cesium.Cesium3DTileStyle({
       //   color: {
-      //     conditions: [["true", 'color("#ffffff99")']],
+      //     conditions: [["true", "rgba(0, 127.5, 255 ,1)"]],
       //   },
       // });
-    </script>
-    <!-- Cesium.CustomShader -->
-    <script type="text/javascript">
-      tileset.enableModelExperimental = true;
-      tileset.customShader = new Cesium.CustomShader({
-        isTranslucent: true,
-        mode: Cesium.CustomShaderMode.REPLACE_MATERIAL,
-        uniforms: {
-          u_red: {
-            type: Cesium.UniformType.FLOAT,
-            value: 194 / 255,
-          },
-          u_green: {
-            type: Cesium.UniformType.FLOAT,
-            value: 211.8 / 255,
-          },
-          u_blue: {
-            type: Cesium.UniformType.FLOAT,
-            value: 222.5 / 255,
-          },
-          u_alpha: {
-            type: Cesium.UniformType.FLOAT,
-            value: 237 / 255,
-          },
-        },
-        fragmentShaderText: `
-    void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material) {
-        material.diffuse = vec3(u_red, u_green, u_blue);
-        material.alpha = u_alpha;
-    }
-    `,
-      });
-    </script>
-    <!-- 界面 -->
-    <div
-      id="toolbar"
-      style="
-        position: absolute;
-        left: 48px;
-        top: 48px;
-        background: rgb(255 255 255 / 90%);
-        border-radius: 8px;
-        padding: 8px;
-      "
-    ></div>
-    <script type="text/javascript">
-      const { uniforms } = tileset.customShader;
-      const viewModel = {
-        red: uniforms.u_red.value * 255,
-        green: uniforms.u_red.value * 255,
-        blue: uniforms.u_red.value * 255,
-        alpha: uniforms.u_red.value * 255,
-      };
-      Cesium.knockout.track(viewModel);
-      const toolbarElement = document.querySelector("#toolbar");
-      Object.keys(viewModel).forEach(function (name) {
-        const div = document.createElement("div");
-        div.innerHTML = `
-      <div style="display: flex">
-        <span>${name}</span>
-        <input
-          type="range"
-          min="0"
-          max="255"
-          step="0.1"
-          data-bind="value: ${name},valueUpdate: 'input'"
-          style="display: block; width: 200px; margin: 5px 0"
-        />
-      </div>
-                `;
-        toolbarElement.appendChild(div);
-      });
-      Cesium.knockout.applyBindings(viewModel, toolbarElement);
-      Object.keys(viewModel).forEach(function (name) {
-        Cesium.knockout
-          .getObservable(viewModel, name)
-          .subscribe(function (newValue) {
-            tileset.customShader.setUniform(`u_${name}`, newValue / 255);
-          });
+      //实现渐变效果
+      tileset.tileVisible.addEventListener(function (tile) {
+        var content = tile.content;
+        var featuresLength = content.featuresLength;
+        for (let i = 0; i < featuresLength; i += 2) {
+          let feature = content.getFeature(i);
+          let model = feature.content._model;
+
+          if (model && model._sourcePrograms && model._rendererResources) {
+            Object.keys(model._sourcePrograms).forEach((key) => {
+              let program = model._sourcePrograms[key];
+              let fragmentShader =
+                model._rendererResources.sourceShaders[program.fragmentShader];
+              let v_position = "";
+              if (fragmentShader.indexOf(" v_positionEC;") != -1) {
+                v_position = "v_positionEC";
+              } else if (fragmentShader.indexOf(" v_pos;") != -1) {
+                v_position = "v_pos";
+              }
+              const color = `vec4(${feature.color.toString()})`;
+
+              model._rendererResources.sourceShaders[program.fragmentShader] = `
+            varying vec3 ${v_position};
+            void main(void){
+              vec4 position = czm_inverseModelView * vec4(${v_position},1); // 位置
+              gl_FragColor = ${color}; // 颜色
+              gl_FragColor *= vec4(vec3(position.z / 50.0), 1.0); // 渐变
+              // 动态光环
+              float time = fract(czm_frameNumber / 180.0);
+              time = abs(time - 0.5) * 2.0;
+              float glowRange = 180.0; // 光环的移动范围(高度)
+              float diff = step(0.005, abs( clamp(position.z / glowRange, 0.0, 1.0) - time));
+              gl_FragColor.rgb += gl_FragColor.rgb * (1.0 - diff);
+            }
+          `;
+            });
+            model._shouldRegenerateShaders = true;
+          }
+        }
       });
     </script>
   </body>

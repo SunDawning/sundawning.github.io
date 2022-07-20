@@ -1,8 +1,10 @@
-渐变效果并显示动态光环 - 上海市区城市白模
+```
+model._rendererResources.sourceShaders - 仿百度 - 上海市区城市白模
+```
 
 https://blog.csdn.net/weixin_39150852/article/details/124710094
 
-2022-07-20 16:59:44
+2022-07-20 17:06:23
 
 # 安装
 

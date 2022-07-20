@@ -105,15 +105,15 @@
           },
           u_green: {
             type: Cesium.UniformType.FLOAT,
-            value: 194 / 255,
+            value: 211.8 / 255,
           },
           u_blue: {
             type: Cesium.UniformType.FLOAT,
-            value: 194 / 255,
+            value: 222.5 / 255,
           },
           u_alpha: {
             type: Cesium.UniformType.FLOAT,
-            value: 0.8,
+            value: 237 / 255,
           },
         },
         fragmentShaderText: `
@@ -137,11 +137,12 @@
       "
     ></div>
     <script type="text/javascript">
+      const { uniforms } = tileset.customShader;
       const viewModel = {
-        red: 194,
-        green: 194,
-        blue: 194,
-        alpha: 194,
+        red: uniforms.u_red.value * 255,
+        green: uniforms.u_red.value * 255,
+        blue: uniforms.u_red.value * 255,
+        alpha: uniforms.u_red.value * 255,
       };
       Cesium.knockout.track(viewModel);
       const toolbarElement = document.querySelector("#toolbar");

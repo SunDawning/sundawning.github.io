@@ -92,9 +92,10 @@
       //     conditions: [["true", 'color("#ffffff99")']],
       //   },
       // });
-
+    </script>
+    <!-- Cesium.CustomShader -->
+    <script type="text/javascript">
       tileset.enableModelExperimental = true;
-
       tileset.customShader = new Cesium.CustomShader({
         isTranslucent: true,
         mode: Cesium.CustomShaderMode.REPLACE_MATERIAL,
@@ -117,11 +118,11 @@
           },
         },
         fragmentShaderText: `
-          void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material) {
-              material.diffuse = vec3(u_red, u_green, u_blue);
-              material.alpha = u_alpha;
-          }
-          `,
+    void fragmentMain(FragmentInput fsInput, inout czm_modelMaterial material) {
+        material.diffuse = vec3(u_red, u_green, u_blue);
+        material.alpha = u_alpha;
+    }
+    `,
       });
     </script>
     <!-- 界面 -->

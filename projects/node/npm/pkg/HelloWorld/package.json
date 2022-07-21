@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "build": "pkg -t win index.js"
+  },
+  "devDependencies": {
+    "pkg": "^5.8.0"
+  }
+}

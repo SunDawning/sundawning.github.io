@@ -32,8 +32,8 @@
       const container = document.querySelector("#container");
       const viewer = new Cesium.Viewer(container, {
         baseLayerPicker: false,
-        imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
-          url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        imageryProvider: new Cesium.UrlTemplateIMageryProvider({
+          url: "http://168.4.0.26:8098/map/20201119/{z}/{x}/{y}",
         }),
       });
     </script>

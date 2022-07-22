@@ -2,8 +2,8 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      LINEARtoSRGB - model._rendererResources.sourceShaders - 仿百度 -
-      上海市区城市白模
+      White3DTilesetStyle - LINEARtoSRGB -
+      model._rendererResources.sourceShaders - 仿百度 - 上海市区城市白模
     </title>
     <link
       rel="shortcut icon"
@@ -74,7 +74,16 @@
     </script>
     <!-- 修改白模 -->
     <script type="text/javascript">
+      /**
+       * 修改白模颜色
+       * @param {Cesium.Cesium3DTileset} tileset
+       * @param {string} cssColorString 形如“#fff”
+       */
       class White3DTilesetStyle {
+        /**
+         * @param {Cesium.Cesium3DTileset} tileset
+         * @param {string} cssColorString 形如“#fff”
+         */
         constructor(tileset, cssColorString) {
           this.tileset = tileset;
           this.cssColorString = cssColorString;
@@ -89,8 +98,8 @@
           const { style, fragmentShader } = this.initSetting;
           this.tileset.style = style;
           this.tileset.tileVisible.addEventListener(function (tile) {
-            var content = tile.content;
-            var featuresLength = content.featuresLength;
+            const content = tile.content;
+            const featuresLength = content.featuresLength;
             for (let i = 0; i < featuresLength; i += 2) {
               let feature = content.getFeature(i);
               let model = feature.content._model;
@@ -110,14 +119,19 @@
          * 应用白模颜色修改
          */
         apply() {
-          this.initSetting.style = this.tileset.style;
+          const $this = this;
+          this.initSetting.style = this.tileset.style; // 保存3DTileset原有的样式，便于还原。
           this.tileset.style = new Cesium.Cesium3DTileStyle({
-            color: `color(${this.cssColorString})`,
+            color: {
+              conditions: [
+                ["true", `color(${JSON.stringify(this.cssColorString)})`],
+              ],
+            },
           });
           if (this.isLightColor(this.cssColorString) === true) {
             this.tileset.tileVisible.addEventListener(function (tile) {
-              var content = tile.content;
-              var featuresLength = content.featuresLength;
+              const content = tile.content;
+              const featuresLength = content.featuresLength;
               for (let i = 0; i < featuresLength; i += 2) {
                 let feature = content.getFeature(i);
                 let model = feature.content._model;
@@ -126,9 +140,10 @@
                   model._sourcePrograms &&
                   model._rendererResources
                 ) {
-                  if (this.isApply === false) {
-                    this.isApply = true;
-                    this.initSetting.fragmentShader =
+                  // 保存3DTileset原有的shader，便于还原。
+                  if ($this.isApply === false) {
+                    $this.isApply = true;
+                    $this.initSetting.fragmentShader =
                       model._rendererResources.sourceShaders[1];
                   }
                   Object.keys(model._sourcePrograms).forEach((key) => {
@@ -136,7 +151,7 @@
                     model._rendererResources.sourceShaders[
                       program.fragmentShader
                     ] = `
-precision highp float;
+                    precision highp float;
 uniform vec4 u_baseColorFactor;
 uniform float u_metallicFactor;
 uniform float u_roughnessFactor;
@@ -179,7 +194,7 @@ float GGX(float roughness, float NdotH)
 
 vec3 SRGBtoLINEAR3(vec3 srgbIn) 
 {
-  return pow(srgbIn, vec3(2.2));
+    return pow(srgbIn, vec3(2.2));
 }
 
 vec4 SRGBtoLINEAR4(vec4 srgbIn) 
@@ -200,7 +215,7 @@ vec3 applyTonemapping(vec3 linearIn)
 vec3 LINEARtoSRGB(vec3 linearIn) 
 {
 #ifndef HDR 
-    return pow(linearIn, vec3(1.0/10.10));
+    return pow(linearIn, vec3(1.0/10.1));
 #else 
     return linearIn;
 #endif 
@@ -342,7 +357,6 @@ void main(void)
     color = LINEARtoSRGB(color);
     gl_FragColor = vec4(color, 1.0);
 }
-
 `;
                   });
                   model._shouldRegenerateShaders = true;
@@ -359,21 +373,21 @@ void main(void)
          */
         hexToRGB(hex) {
           // 16进制颜色值的正则
-          var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+          const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
           // 把颜色值变成小写
-          var color = hex.toLowerCase();
+          let color = hex.toLowerCase();
           if (reg.test(color)) {
             // 如果只有三位的值，需变成六位，如：#fff => #ffffff
             if (color.length === 4) {
-              var colorNew = "#";
-              for (var i = 1; i < 4; i += 1) {
+              let colorNew = "#";
+              for (let i = 1; i < 4; i += 1) {
                 colorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1));
               }
               color = colorNew;
             }
             // 处理六位的颜色值，转为RGB
-            var colorChange = [];
-            for (var i = 1; i < 7; i += 2) {
+            const colorChange = [];
+            for (let i = 1; i < 7; i += 2) {
               colorChange.push(parseInt("0x" + color.slice(i, i + 2)));
             }
             return colorChange;
@@ -400,6 +414,8 @@ void main(void)
         }
       }
     </script>
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+      let white3DTilesetStyle = new White3DTilesetStyle(tileset, "#fff");
+    </script>
   </body>
 </html>

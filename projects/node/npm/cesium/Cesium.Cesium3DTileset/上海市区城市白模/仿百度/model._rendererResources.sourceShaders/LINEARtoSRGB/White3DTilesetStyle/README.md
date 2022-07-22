@@ -1,10 +1,12 @@
 ```
-LINEARtoSRGB - model._rendererResources.sourceShaders - 仿百度 - 上海市区城市白模
+White3DTilesetStyle - LINEARtoSRGB - model._rendererResources.sourceShaders - 仿百度 - 上海市区城市白模
 ```
 
 https://blog.csdn.net/weixin_39150852/article/details/124710094
 
-2022-07-22 09:31:06
+2022-07-22 10:19:09
+
+整理出“White3DTilesetStyle”功能
 
 # 安装
 

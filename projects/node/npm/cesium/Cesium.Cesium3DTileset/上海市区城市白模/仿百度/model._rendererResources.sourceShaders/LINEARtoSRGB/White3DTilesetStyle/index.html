@@ -2,8 +2,8 @@
   <head>
     <meta charset="utf-8" />
     <title>
-      White3DTilesetStyle - LINEARtoSRGB -
-      model._rendererResources.sourceShaders - 仿百度 - 上海市区城市白模
+      LINEARtoSRGB - model._rendererResources.sourceShaders - 仿百度 -
+      上海市区城市白模
     </title>
     <link
       rel="shortcut icon"
@@ -72,28 +72,70 @@
         },
       });
     </script>
+    <!-- 修改白模 -->
     <script type="text/javascript">
-      let logged = false;
-      // tileset.style = new Cesium.Cesium3DTileStyle({
-      //   color: {
-      //     conditions: [["true", "color('#fff')"]],
-      //   },
-      // });
-      tileset.tileVisible.addEventListener(function (tile) {
-        var content = tile.content;
-        var featuresLength = content.featuresLength;
-        for (let i = 0; i < featuresLength; i += 2) {
-          let feature = content.getFeature(i);
-          let model = feature.content._model;
-
-          if (model && model._sourcePrograms && model._rendererResources) {
-            if (logged === false) {
-              logged = true;
-              console.log(model._rendererResources.sourceShaders[1]);
+      class White3DTilesetStyle {
+        constructor(tileset, cssColorString) {
+          this.tileset = tileset;
+          this.cssColorString = cssColorString;
+          this.isApply = false;
+          this.initSetting = {};
+          this.apply();
+        }
+        /**
+         * 还原白模颜色修改
+         */
+        destroy() {
+          const { style, fragmentShader } = this.initSetting;
+          this.tileset.style = style;
+          this.tileset.tileVisible.addEventListener(function (tile) {
+            var content = tile.content;
+            var featuresLength = content.featuresLength;
+            for (let i = 0; i < featuresLength; i += 2) {
+              let feature = content.getFeature(i);
+              let model = feature.content._model;
+              if (model && model._sourcePrograms && model._rendererResources) {
+                Object.keys(model._sourcePrograms).forEach((key) => {
+                  let program = model._sourcePrograms[key];
+                  model._rendererResources.sourceShaders[
+                    program.fragmentShader
+                  ] = fragmentShader;
+                });
+                model._shouldRegenerateShaders = true;
+              }
             }
-            Object.keys(model._sourcePrograms).forEach((key) => {
-              let program = model._sourcePrograms[key];
-              model._rendererResources.sourceShaders[program.fragmentShader] = `
+          });
+        }
+        /**
+         * 应用白模颜色修改
+         */
+        apply() {
+          this.initSetting.style = this.tileset.style;
+          this.tileset.style = new Cesium.Cesium3DTileStyle({
+            color: `color(${this.cssColorString})`,
+          });
+          if (this.isLightColor(this.cssColorString) === true) {
+            this.tileset.tileVisible.addEventListener(function (tile) {
+              var content = tile.content;
+              var featuresLength = content.featuresLength;
+              for (let i = 0; i < featuresLength; i += 2) {
+                let feature = content.getFeature(i);
+                let model = feature.content._model;
+                if (
+                  model &&
+                  model._sourcePrograms &&
+                  model._rendererResources
+                ) {
+                  if (this.isApply === false) {
+                    this.isApply = true;
+                    this.initSetting.fragmentShader =
+                      model._rendererResources.sourceShaders[1];
+                  }
+                  Object.keys(model._sourcePrograms).forEach((key) => {
+                    let program = model._sourcePrograms[key];
+                    model._rendererResources.sourceShaders[
+                      program.fragmentShader
+                    ] = `
 precision highp float;
 uniform vec4 u_baseColorFactor;
 uniform float u_metallicFactor;
@@ -158,7 +200,6 @@ vec3 applyTonemapping(vec3 linearIn)
 vec3 LINEARtoSRGB(vec3 linearIn) 
 {
 #ifndef HDR 
-    //return pow(linearIn, vec3(1.0/2.2));
     return pow(linearIn, vec3(1.0/10.10));
 #else 
     return linearIn;
@@ -303,11 +344,62 @@ void main(void)
 }
 
 `;
+                  });
+                  model._shouldRegenerateShaders = true;
+                }
+              }
             });
-            model._shouldRegenerateShaders = true;
           }
         }
-      });
+        /**
+         * hex to rgb
+         * ————————————————
+         * 版权声明：本文为CSDN博主「mossbaoo」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+         * 原文链接：https://blog.csdn.net/mossbaoo/article/details/93484635
+         */
+        hexToRGB(hex) {
+          // 16进制颜色值的正则
+          var reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+          // 把颜色值变成小写
+          var color = hex.toLowerCase();
+          if (reg.test(color)) {
+            // 如果只有三位的值，需变成六位，如：#fff => #ffffff
+            if (color.length === 4) {
+              var colorNew = "#";
+              for (var i = 1; i < 4; i += 1) {
+                colorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1));
+              }
+              color = colorNew;
+            }
+            // 处理六位的颜色值，转为RGB
+            var colorChange = [];
+            for (var i = 1; i < 7; i += 2) {
+              colorChange.push(parseInt("0x" + color.slice(i, i + 2)));
+            }
+            return colorChange;
+          } else {
+            return;
+          }
+        }
+        /**
+         * 是否是浅色
+         * @see https://www.cnblogs.com/qinwei/p/6437800.html
+         */
+        isLightColor(cssColorString) {
+          const rgb = this.hexToRGB(cssColorString);
+          if (rgb === undefined) {
+            return false;
+          }
+          const [r, g, b] = rgb;
+          const grayLevel = r * 0.299 + g * 0.587 + b * 0.114;
+          if (grayLevel >= 192) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
     </script>
+    <script type="text/javascript"></script>
   </body>
 </html>

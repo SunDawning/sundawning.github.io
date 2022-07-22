@@ -76,8 +76,17 @@
     <script type="text/javascript">
       /**
        * 修改白模颜色
+       * @version v0.0.2
        * @param {Cesium.Cesium3DTileset} tileset
        * @param {string} cssColorString 形如“#fff”
+       * @author 孙曙光 <jobsimi@qq.com>
+       * @example
+       * // 给白模应用颜色修改
+       * let white3DTilesetStyle = new White3DTilesetStyle(tileset, "#fff");
+       * // 还原白模的颜色修改
+       * white3DTilesetStyle.destroy();
+       * // 再次应用颜色修改
+       * white3DTilesetStyle.apply();
        */
       class White3DTilesetStyle {
         /**
@@ -148,16 +157,26 @@
                   }
                   Object.keys(model._sourcePrograms).forEach((key) => {
                     let program = model._sourcePrograms[key];
+                    let v_position = "";
+                    const fragmentShader =
+                      model._rendererResources.sourceShaders[
+                        program.fragmentShader
+                      ];
+                    if (fragmentShader.indexOf(" v_positionEC;") != -1) {
+                      v_position = "v_positionEC";
+                    } else if (fragmentShader.indexOf(" v_pos;") != -1) {
+                      v_position = "v_pos";
+                    }
                     model._rendererResources.sourceShaders[
                       program.fragmentShader
                     ] = `
-                    precision highp float;
+precision highp float;
 uniform vec4 u_baseColorFactor;
 uniform float u_metallicFactor;
 uniform float u_roughnessFactor;
 uniform vec3 u_emissiveFactor;
 varying vec3 v_normal;
-varying vec3 v_positionEC;
+varying vec3 ${v_position};
 const float M_PI = 3.141592653589793;
 vec3 lambertianDiffuse(vec3 diffuseColor) 
 {
@@ -241,7 +260,7 @@ uniform vec3 gltf_lightColor;
 void main(void) 
 {
     vec3 ng = normalize(v_normal);
-    vec3 positionWC = vec3(czm_inverseView * vec4(v_positionEC, 1.0));
+    vec3 positionWC = vec3(czm_inverseView * vec4(${v_position}, 1.0));
     vec3 n = ng;
     if (czm_backFacing())
     {
@@ -251,7 +270,7 @@ void main(void)
     vec3 baseColor = baseColorWithAlpha.rgb;
     float metalness = clamp(u_metallicFactor, 0.0, 1.0);
     float roughness = clamp(u_roughnessFactor, 0.04, 1.0);
-    vec3 v = -normalize(v_positionEC);
+    vec3 v = -normalize(${v_position});
 #ifndef USE_CUSTOM_LIGHT_COLOR 
     vec3 lightColorHdr = czm_lightColorHdr;
 #else 

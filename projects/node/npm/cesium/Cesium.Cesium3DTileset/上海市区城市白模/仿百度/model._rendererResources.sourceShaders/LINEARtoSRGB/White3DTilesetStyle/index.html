@@ -76,7 +76,7 @@
     <script type="text/javascript">
       /**
        * 修改白模颜色
-       * @version v0.0.4
+       * @version v0.0.5
        * @param {Cesium.Cesium3DTileset} tileset
        * @param {string} cssColorString 形如“#fff”
        * @author 孙曙光 <jobsimi@qq.com>
@@ -87,6 +87,8 @@
        * white3DTilesetStyle.destroy();
        * // 再次应用颜色修改
        * white3DTilesetStyle.apply();
+       * // 修改为其他颜色
+       * white3DTilesetStyle = new White3DTilesetStyle(tileset, "#000");
        */
       class White3DTilesetStyle {
         /**
@@ -107,11 +109,15 @@
         destroy() {
           const { style } = this.initSetting;
           this.tileset.style = style;
+          // 清除所有Listener
           this.tileset.tileVisible.removeEventListener(
-            this.replaceToTilesetModelLightFragmentShader
+            White3DTilesetStyle.prototype
+              .replaceToTilesetModelLightFragmentShader
           );
-          this.tileset.tileVisible.addEventListener(
-            this.replaceToTilesetModelDefaultFragmentShader
+          // 还原默认颜色
+          this.tileset._selectedTiles.forEach(
+            White3DTilesetStyle.prototype
+              .replaceToTilesetModelDefaultFragmentShader
           );
         }
         logModelFragmentShaderOnce(tile) {
@@ -146,10 +152,6 @@
           // 清除所有Listener
           this.tileset.tileVisible.removeEventListener(
             White3DTilesetStyle.prototype
-              .replaceToTilesetModelDefaultFragmentShader
-          );
-          this.tileset.tileVisible.removeEventListener(
-            White3DTilesetStyle.prototype
               .replaceToTilesetModelLightFragmentShader
           );
           // 根据颜色来添加Listener
@@ -157,10 +159,6 @@
             White3DTilesetStyle.prototype.isLightColor(this.cssColorString) ===
             true
           ) {
-            this.tileset.tileVisible.removeEventListener(
-              White3DTilesetStyle.prototype
-                .replaceToTilesetModelDefaultFragmentShader
-            );
             this.tileset.tileVisible.addEventListener(
               White3DTilesetStyle.prototype
                 .replaceToTilesetModelLightFragmentShader
@@ -169,11 +167,8 @@
             //   this.logModelFragmentShaderOnce
             // );
           } else {
-            this.tileset.tileVisible.removeEventListener(
-              White3DTilesetStyle.prototype
-                .replaceToTilesetModelLightFragmentShader
-            );
-            this.tileset.tileVisible.addEventListener(
+            // 还原默认颜色
+            this.tileset._selectedTiles.forEach(
               White3DTilesetStyle.prototype
                 .replaceToTilesetModelDefaultFragmentShader
             );

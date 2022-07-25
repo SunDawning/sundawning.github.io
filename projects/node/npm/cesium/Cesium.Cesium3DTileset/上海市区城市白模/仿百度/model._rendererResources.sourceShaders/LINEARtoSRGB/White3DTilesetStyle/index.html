@@ -76,7 +76,7 @@
     <script type="text/javascript">
       /**
        * 修改白模颜色
-       * @version v0.0.3
+       * @version v0.0.4
        * @param {Cesium.Cesium3DTileset} tileset
        * @param {string} cssColorString 形如“#fff”
        * @author 孙曙光 <jobsimi@qq.com>
@@ -98,6 +98,7 @@
           this.cssColorString = cssColorString;
           this.isApply = false;
           this.initSetting = {};
+          this.isLogedModelFragmentShader = false;
           this.apply();
         }
         /**
@@ -106,30 +107,28 @@
         destroy() {
           const { style } = this.initSetting;
           this.tileset.style = style;
-          this.tileset.tileVisible.addEventListener(function (tile) {
-            const content = tile.content;
-            const featuresLength = content.featuresLength;
-            for (let i = 0; i < featuresLength; i += 2) {
-              let feature = content.getFeature(i);
-              let model = feature.content._model;
-              if (model && model._sourcePrograms && model._rendererResources) {
-                Object.keys(model._sourcePrograms).forEach((key) => {
-                  let program = model._sourcePrograms[key];
-                  const fragmentShader =
-                    model._rendererResources.sourceShaders[
-                      program.fragmentShader
-                    ];
-                  model._rendererResources.sourceShaders[
-                    program.fragmentShader
-                  ] = fragmentShader.replace(
-                    `return pow(linearIn, vec3(1.0/10.1));`,
-                    `return pow(linearIn, vec3(1.0/2.2));`
-                  );
-                });
-                model._shouldRegenerateShaders = true;
+          this.tileset.tileVisible.removeEventListener(
+            this.replaceToTilesetModelLightFragmentShader
+          );
+          this.tileset.tileVisible.addEventListener(
+            this.replaceToTilesetModelDefaultFragmentShader
+          );
+        }
+        logModelFragmentShaderOnce(tile) {
+          const $this = this;
+          White3DTilesetStyle.prototype.forEachTilesetModel(
+            tile,
+            function (model) {
+              // 保存3DTileset原有的shader，便于还原。
+              if ($this.isLogedModelFragmentShader === false) {
+                $this.isLogedModelFragmentShader = true;
+                console.log(
+                  "fragmentShader",
+                  model._rendererResources.sourceShaders[1]
+                );
               }
             }
-          });
+          );
         }
         /**
          * 应用白模颜色修改
@@ -144,94 +143,145 @@
               ],
             },
           });
-          if (this.isLightColor(this.cssColorString) === true) {
-            this.tileset.tileVisible.addEventListener(function (tile) {
-              const content = tile.content;
-              const featuresLength = content.featuresLength;
-              for (let i = 0; i < featuresLength; i += 2) {
-                let feature = content.getFeature(i);
-                let model = feature.content._model;
-                if (
-                  model &&
-                  model._sourcePrograms &&
-                  model._rendererResources
-                ) {
-                  // 保存3DTileset原有的shader，便于还原。
-                  if ($this.isApply === false) {
-                    $this.isApply = true;
-                    console.log(
-                      "fragmentShader",
-                      model._rendererResources.sourceShaders[1]
-                    );
-                  }
-                  Object.keys(model._sourcePrograms).forEach((key) => {
-                    let program = model._sourcePrograms[key];
-                    let v_position = "";
-                    const fragmentShader =
-                      model._rendererResources.sourceShaders[
-                        program.fragmentShader
-                      ];
-                    model._rendererResources.sourceShaders[
-                      program.fragmentShader
-                    ] = fragmentShader.replace(
-                      `return pow(linearIn, vec3(1.0/2.2));`,
-                      `return pow(linearIn, vec3(1.0/10.1));`
-                    );
-                  });
-                  model._shouldRegenerateShaders = true;
-                }
-              }
-            });
-          }
-        }
-        /**
-         * hex to rgb
-         * ————————————————
-         * 版权声明：本文为CSDN博主「mossbaoo」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-         * 原文链接：https://blog.csdn.net/mossbaoo/article/details/93484635
-         */
-        hexToRGB(hex) {
-          // 16进制颜色值的正则
-          const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
-          // 把颜色值变成小写
-          let color = hex.toLowerCase();
-          if (reg.test(color)) {
-            // 如果只有三位的值，需变成六位，如：#fff => #ffffff
-            if (color.length === 4) {
-              let colorNew = "#";
-              for (let i = 1; i < 4; i += 1) {
-                colorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1));
-              }
-              color = colorNew;
-            }
-            // 处理六位的颜色值，转为RGB
-            const colorChange = [];
-            for (let i = 1; i < 7; i += 2) {
-              colorChange.push(parseInt("0x" + color.slice(i, i + 2)));
-            }
-            return colorChange;
+          if (
+            White3DTilesetStyle.prototype.isLightColor(this.cssColorString) ===
+            true
+          ) {
+            this.tileset.tileVisible.removeEventListener(
+              White3DTilesetStyle.prototype
+                .replaceToTilesetModelDefaultFragmentShader
+            );
+            this.tileset.tileVisible.addEventListener(
+              White3DTilesetStyle.prototype
+                .replaceToTilesetModelLightFragmentShader
+            );
+            // this.tileset.tileVisible.addEventListener(
+            //   this.logModelFragmentShaderOnce
+            // );
           } else {
-            return;
-          }
-        }
-        /**
-         * 是否是浅色
-         * @see https://www.cnblogs.com/qinwei/p/6437800.html
-         */
-        isLightColor(cssColorString) {
-          const rgb = this.hexToRGB(cssColorString);
-          if (rgb === undefined) {
-            return false;
-          }
-          const [r, g, b] = rgb;
-          const grayLevel = r * 0.299 + g * 0.587 + b * 0.114;
-          if (grayLevel >= 192) {
-            return true;
-          } else {
-            return false;
+            this.tileset.tileVisible.removeEventListener(
+              White3DTilesetStyle.prototype
+                .replaceToTilesetModelLightFragmentShader
+            );
+            this.tileset.tileVisible.addEventListener(
+              White3DTilesetStyle.prototype
+                .replaceToTilesetModelDefaultFragmentShader
+            );
           }
         }
       }
+      /**
+       * hex to rgb
+       * ————————————————
+       * 版权声明：本文为CSDN博主「mossbaoo」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+       * 原文链接：https://blog.csdn.net/mossbaoo/article/details/93484635
+       */
+      White3DTilesetStyle.prototype.hexToRGB = function (hex) {
+        // 16进制颜色值的正则
+        const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+        // 把颜色值变成小写
+        let color = hex.toLowerCase();
+        if (reg.test(color)) {
+          // 如果只有三位的值，需变成六位，如：#fff => #ffffff
+          if (color.length === 4) {
+            let colorNew = "#";
+            for (let i = 1; i < 4; i += 1) {
+              colorNew += color.slice(i, i + 1).concat(color.slice(i, i + 1));
+            }
+            color = colorNew;
+          }
+          // 处理六位的颜色值，转为RGB
+          const colorChange = [];
+          for (let i = 1; i < 7; i += 2) {
+            colorChange.push(parseInt("0x" + color.slice(i, i + 2)));
+          }
+          return colorChange;
+        } else {
+          return;
+        }
+      };
+      /**
+       * 是否是浅色
+       * @see https://www.cnblogs.com/qinwei/p/6437800.html
+       */
+      White3DTilesetStyle.prototype.isLightColor = function (cssColorString) {
+        const rgb = White3DTilesetStyle.prototype.hexToRGB(cssColorString);
+        if (rgb === undefined) {
+          return false;
+        }
+        const [r, g, b] = rgb;
+        const grayLevel = r * 0.299 + g * 0.587 + b * 0.114;
+        if (grayLevel >= 192) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+      /**
+       * 遍历每一个Tile的model
+       */
+      White3DTilesetStyle.prototype.forEachTilesetModel = function (
+        tile,
+        onModel
+      ) {
+        const content = tile.content;
+        const featuresLength = content.featuresLength;
+        for (let i = 0; i < featuresLength; i += 2) {
+          let feature = content.getFeature(i);
+          let model = feature.content._model;
+          if (model && model._sourcePrograms && model._rendererResources) {
+            onModel(model);
+          }
+        }
+      };
+      /**
+       * 替换Tileset每个model的FragmentShader
+       */
+      White3DTilesetStyle.prototype.replaceTilesetModelFragmentShader =
+        function (tile, from, to) {
+          White3DTilesetStyle.prototype.forEachTilesetModel(
+            tile,
+            function (model) {
+              Object.keys(model._sourcePrograms).forEach((key) => {
+                let program = model._sourcePrograms[key];
+                const { sourceShaders } = model._rendererResources;
+                const fragmentShader = sourceShaders[program.fragmentShader];
+                sourceShaders[program.fragmentShader] = fragmentShader.replace(
+                  from,
+                  to
+                );
+              });
+              model._shouldRegenerateShaders = true;
+            }
+          );
+        };
+      /**
+       * 默认的FragmentShader片段
+       */
+      White3DTilesetStyle.prototype.defaultFragmentShaderSlice = `return pow(linearIn, vec3(1.0/2.2));`;
+      /**
+       * 明亮的FragmentShader片段
+       */
+      White3DTilesetStyle.prototype.lightFragmentShaderSlice = `return pow(linearIn, vec3(1.0/10.1));`;
+      /**
+       * 替换为明亮的FragmentShader片段
+       */
+      White3DTilesetStyle.prototype.replaceToTilesetModelLightFragmentShader =
+        function (tile) {
+          White3DTilesetStyle.prototype.replaceTilesetModelFragmentShader(
+            tile,
+            White3DTilesetStyle.prototype.defaultFragmentShaderSlice,
+            White3DTilesetStyle.prototype.lightFragmentShaderSlice
+          );
+        };
+      White3DTilesetStyle.prototype.replaceToTilesetModelDefaultFragmentShader =
+        function (tile) {
+          White3DTilesetStyle.prototype.replaceTilesetModelFragmentShader(
+            tile,
+            White3DTilesetStyle.prototype.lightFragmentShaderSlice,
+            White3DTilesetStyle.prototype.defaultFragmentShaderSlice
+          );
+        };
     </script>
     <script type="text/javascript">
       let white3DTilesetStyle = new White3DTilesetStyle(tileset, "#fff");

@@ -143,6 +143,16 @@
               ],
             },
           });
+          // 清除所有Listener
+          this.tileset.tileVisible.removeEventListener(
+            White3DTilesetStyle.prototype
+              .replaceToTilesetModelDefaultFragmentShader
+          );
+          this.tileset.tileVisible.removeEventListener(
+            White3DTilesetStyle.prototype
+              .replaceToTilesetModelLightFragmentShader
+          );
+          // 根据颜色来添加Listener
           if (
             White3DTilesetStyle.prototype.isLightColor(this.cssColorString) ===
             true

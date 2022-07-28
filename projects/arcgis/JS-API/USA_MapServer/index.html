@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>ArcGIS API for JavaScript: USA</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1,user-scalable=no"
+    />
+    <!-- Favorite Bookmark Icon -->
+    <link
+      rel="shortcut icon"
+      type="image/ico"
+      href="//www.esri.com/favicon.ico"
+    />
+    <link rel="icon" type="image/ico" href="//www.esri.com/favicon.ico" />
+    <!-- End Favorite Bookmark Icon -->
+    <link
+      href="/arcgis/rest/static/main.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://js.arcgis.com/4.10/esri/css/main.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script type="text/javascript" src="https://js.arcgis.com/4.10/"></script>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 98%;
+        width: 100%;
+      }
+    </style>
+    <script type="text/javascript">
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/widgets/Home",
+        "esri/layers/MapImageLayer",
+        "dojo/domReady!",
+      ], function (Map, MapView, Home, MapImageLayer) {
+        var map = new Map();
+        var view = new MapView({
+          container: "viewDiv",
+          map: map,
+        });
+        var homeBtn = new Home({
+          view: view,
+        });
+        view.ui.add(homeBtn, "top-left");
+        var layer = null,
+          layerUrl =
+            "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer",
+          layer = new MapImageLayer(layerUrl, null);
+        map.layers.add(layer);
+      });
+    </script>
+  </head>
+  <body>
+    <table class="navTable" style="width: 100%">
+      <tbody>
+        <tr valign="top">
+          <td class="breadcrumbs2">ArcGIS JavaScript API: USA (MapServer)</td>
+          <td align="right" id="help">
+            Built using the
+            <a target="sdkView" href="//developers.arcgis.com/javascript"
+              >ArcGIS API for JavaScript</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div id="viewDiv"></div>
+  </body>
+</html>

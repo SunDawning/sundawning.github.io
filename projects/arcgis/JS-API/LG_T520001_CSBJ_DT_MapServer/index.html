@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+  </style>
+  <body>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.19/esri/themes/light/main.css"
+    />
+    <script type="text/javascript" src="https://js.arcgis.com/4.19/"></script>
+    <style type="text/css">
+      #container {
+        height: 100%;
+      }
+    </style>
+    <div id="container"></div>
+    <script type="text/javascript">
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/layers/TileLayer",
+        "esri/geometry/support/webMercatorUtils",
+        "esri/layers/MapImageLayer",
+        "esri/geometry/Extent",
+      ], function (
+        Map,
+        SceneView,
+        TileLayer,
+        webMercatorUtils,
+        MapImageLayer,
+        Extent
+      ) {
+        const map = new Map();
+        // map.add(
+        //   new TileLayer({
+        //     url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        //   })
+        // );
+
+        const view = new SceneView({
+          map: map,
+          container: "container",
+        });
+        // ArcGIS API 4.x for Js 点击地图获取经纬度 https://blog.csdn.net/qq_41615323/article/details/115202387
+        view.on("click", function (e) {
+          geom = webMercatorUtils.xyToLngLat(e.mapPoint.x, e.mapPoint.y);
+          console.log(geom[0], geom[1]);
+        });
+
+        const layer = new MapImageLayer({
+          url: "http://10.89.9.234:8080/geoserver/rest/services/LGFL/LG_T520001_CSBJ_DT/MapServer",
+        });
+        map.add(layer);
+        // 视角
+        layer.when(function () {
+          var initialExtent = Extent.fromJSON(layer.sourceJSON.initialExtent);
+          view.goTo(initialExtent);
+        });
+      });
+    </script>
+  </body>
+</html>

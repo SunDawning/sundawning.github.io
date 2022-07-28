@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+  </style>
+  <body>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.19/esri/themes/light/main.css"
+    />
+    <script type="text/javascript" src="https://js.arcgis.com/4.19/"></script>
+    <style type="text/css">
+      #container {
+        height: 100%;
+      }
+    </style>
+    <div id="container"></div>
+    <script type="text/javascript">
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/views/MapView",
+        "esri/layers/TileLayer",
+        "esri/geometry/support/webMercatorUtils",
+        "esri/layers/MapImageLayer",
+        "esri/geometry/Extent",
+        "esri/layers/FeatureLayer",
+      ], function (
+        Map,
+        SceneView,
+        MapView,
+        TileLayer,
+        webMercatorUtils,
+        MapImageLayer,
+        Extent,
+        FeatureLayer
+      ) {
+        const map = new Map();
+        // map.add(
+        //   new TileLayer({
+        //     url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        //   })
+        // );
+
+        const view = new SceneView({
+          map: map,
+          container: "container",
+        });
+
+        // ArcGIS API 4.x for Js 点击地图获取经纬度 https://blog.csdn.net/qq_41615323/article/details/115202387
+        view.on("click", function (e) {
+          geom = webMercatorUtils.xyToLngLat(e.mapPoint.x, e.mapPoint.y);
+          console.log(geom[0], geom[1]);
+        });
+
+        const layer = new MapImageLayer({
+          url: "http://10.89.9.234:8080/geoserver/rest/services/LGFL/LG_T520001_LGTS_DT/MapServer",
+          // MapImageLayer中的sublayer的加在顺序必须是id从大到小的顺序 https://blog.csdn.net/cihai4502/article/details/100621363
+          sublayers: [0, 46, 49, 50, 53].reverse().map(function (id) {
+            return {
+              id,
+              visible: true,
+            };
+          }),
+        });
+        map.add(layer);
+        // 视角
+        layer.when(function () {
+          var initialExtent = Extent.fromJSON(layer.sourceJSON.initialExtent);
+          view.goTo(initialExtent);
+        });
+      });
+    </script>
+  </body>
+</html>

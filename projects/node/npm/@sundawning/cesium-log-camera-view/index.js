@@ -9,9 +9,9 @@ if (Cesium.Plugins.SunDawning === undefined) {
  * @param {Cesium.Viewer} viewer
  */
 Cesium.Plugins.SunDawning.log_camera_view = function (viewer) {
-  let mode = viewer.scene.mode;
+  let { mode } = viewer.scene;
   viewer.scene.mode = Cesium.SceneMode.SCENE3D;
-  let camera = viewer.camera;
+  let { camera } = viewer;
   const view = {
     destination: camera.position,
     orientation: {

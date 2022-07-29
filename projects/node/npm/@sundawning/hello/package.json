@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/hello",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Hello",
   "main": "index.js",
   "scripts": {

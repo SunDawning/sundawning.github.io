@@ -6,8 +6,15 @@ const child_process = require("child_process");
  * @param {object} options
  * @param {function} callback
  */
-module.exports = function (command, options, callback) {
-  log("执行命令", command);
+module.exports = function (
+  command,
+  { isLogCommand = true, ...options } = {},
+  callback
+) {
+  if (isLogCommand === true) {
+    log("执行命令", command);
+  }
+  console.log("options", options);
   const child = child_process.exec(command, options, callback);
   ["stderr", "stdout", "stdin"].forEach(function (location) {
     child[location].pipe(process[location]);

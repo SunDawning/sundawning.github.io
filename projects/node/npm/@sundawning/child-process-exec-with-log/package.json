@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/child-process-exec-with-log",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "异步执行命令，并输出到主进程里。",
   "main": "index.js",
   "scripts": {

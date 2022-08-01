@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/hello",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Hello",
   "main": "index.js",
   "scripts": {
@@ -8,12 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/hello"
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/hello",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
   },
   "keywords": [
     "sundawning",
     "hello"
   ],
-  "author": "sundawning",
+  "author": "sundawning <jobsimi@qq.com>",
   "license": "MIT"
 }

@@ -1,0 +1,27 @@
+{
+  "name": "@sundawning/with-mute-console-log",
+  "version": "1.0.0",
+  "description": "让console.log失效",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/with-mute-console-log",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "console",
+    "log"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@sundawning/console-log-timestamp": "^1.0.0"
+  }
+}

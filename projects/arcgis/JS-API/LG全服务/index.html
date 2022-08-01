@@ -89,10 +89,10 @@
           "http://10.89.9.234:8080/geoserver/rest/services/Hosted/JZBM2020/SceneServer",
           "http://10.89.9.234:8080/arcgis/rest/services/Hosted/DXJZ_103QY/SceneServer",
         ].forEach(function (url) {
-          // map.add(new SceneLayer({ url }));
+          map.add(new SceneLayer({ url }));
         });
-        // map.ground.opacity = 0.2;
-        // map.ground.navigationConstraint = "none";
+        map.ground.opacity = 0.2;
+        map.ground.navigationConstraint = "none";
       });
     </script>
   </body>

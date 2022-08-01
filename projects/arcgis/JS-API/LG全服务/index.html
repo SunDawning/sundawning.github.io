@@ -31,6 +31,7 @@
         "esri/layers/BuildingSceneLayer",
         "esri/geometry/Extent",
         "esri/geometry/SpatialReference",
+        "esri/layers/WebTileLayer",
       ], function (
         Map,
         SceneView,
@@ -38,7 +39,8 @@
         SceneLayer,
         BuildingSceneLayer,
         Extent,
-        SpatialReference
+        SpatialReference,
+        WebTileLayer
       ) {
         const map = new Map();
         const view = new SceneView({
@@ -77,8 +79,8 @@
         ].forEach(function (url) {
           const { host, pathname, search } = new URL(url);
           map.add(
-            new TileLayer({
-              url: `http://localhost:8280/${host}${pathname}${search}`,
+            new WebTileLayer({
+              urlTemplate: `http://localhost:8280/${host}${pathname}/tile/{level}/{row}/{col}${search}`,
             })
           );
         });

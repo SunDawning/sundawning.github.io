@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+  </style>
+  <body>
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.19/esri/themes/light/main.css"
+    />
+    <script type="text/javascript" src="https://js.arcgis.com/4.19/"></script>
+    <style type="text/css">
+      #container {
+        height: 100%;
+      }
+    </style>
+    <div id="container"></div>
+    <script type="text/javascript">
+      require([
+        "esri/Map",
+        "esri/views/SceneView",
+        "esri/layers/TileLayer",
+        "esri/layers/SceneLayer",
+        "esri/layers/BuildingSceneLayer",
+        "esri/geometry/Extent",
+        "esri/geometry/SpatialReference",
+      ], function (
+        Map,
+        SceneView,
+        TileLayer,
+        SceneLayer,
+        BuildingSceneLayer,
+        Extent,
+        SpatialReference
+      ) {
+        const map = new Map();
+        const view = new SceneView({
+          map: map,
+          container: "container",
+        });
+        // 初始视角
+        const extent = Extent.fromJSON({
+          xmin: -21709.60445317134,
+          ymin: -53431.63806422752,
+          xmax: 84027.44686039793,
+          ymax: -21603.489959716782,
+          spatialReference: {
+            wkid: 102100,
+            latestWkid: 3857,
+          },
+        });
+        // console.log("extent", extent, view);
+        setTimeout(function () {
+          view.goTo(extent);
+        }, 2000);
+        // 全球影像
+        map.add(
+          new TileLayer({
+            url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+          })
+        );
+        // 二维服务
+        [
+          // 底图、遥感
+          "http://10.89.9.234:8080/geoserver/rest/services/LG/LG_T520001_HP_TILE/MapServer",
+          "http://10.89.9.234:8080/geoserver/rest/services/LG/LG_T520001_HP_ZJ/MapServer",
+          // 要素图层服务
+          "http://10.89.9.234:8080/geoserver/rest/services/LGFL/LG_T520001_CSBJ_DT/MapServer?layers=140",
+          "http://10.89.9.234:8080/geoserver/rest/services/LGFL/LG_T520001_LGTS_DT/MapServer?layers=53",
+        ].forEach(function (url) {
+          const { host, pathname, search } = new URL(url);
+          map.add(
+            new TileLayer({
+              url: `http://localhost:8280/${host}${pathname}${search}`,
+            })
+          );
+        });
+        // 三维模型
+        [
+          "http://10.89.9.234:8080/geoserver/rest/services/Hosted/JZBM2020/SceneServer",
+          "http://10.89.9.234:8080/arcgis/rest/services/Hosted/DXJZ_103QY/SceneServer",
+        ].forEach(function (url) {
+          // map.add(new SceneLayer({ url }));
+        });
+        // map.ground.opacity = 0.2;
+        // map.ground.navigationConstraint = "none";
+      });
+    </script>
+  </body>
+</html>

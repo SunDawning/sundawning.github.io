@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "server": "node server.js",
+    "ab": "ab.exe -c200 -t10 http://localhost:8080/"
+  }
+}

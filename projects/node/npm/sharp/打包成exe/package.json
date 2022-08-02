@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "start": "node index.js",
+    "ncc": "ncc build index.js",
+    "pkg": "pkg -t win -o dist/index.exe dist/index.js",
+    "build": "npm run ncc && npm run pkg"
+  },
+  "dependencies": {
+    "sharp": "^0.30.7"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.34.0",
+    "pkg": "^5.8.0"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "node index.js",
-    "build": "nexe --build index.js"
+    "build": "nexe -i index.js --build -t windows --verbose"
   },
   "dependencies": {
     "sharp": "^0.30.7"

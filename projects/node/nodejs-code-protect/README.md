@@ -20,6 +20,8 @@ https://github.com/pmq20/squashfuse/files/691217/sqfs43-win32.zip
 
 C:\Users\jobsimi\Downloads\sqfs43-win32
 
+将上述路径添加到用户的环境变量 Path 里，并退出 cmd 再重新进入。
+
 ## Could not find NASM, install it or build with openssl-no-asm. See BUILDING.md.
 
 2022-08-03 17:52:55

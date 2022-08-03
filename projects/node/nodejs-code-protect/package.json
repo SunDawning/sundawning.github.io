@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "node index.js",
+    "obfuscate": "javascript-obfuscator index.js --string-array-encoding rc4",
+    "bytenode": "bytenode --compile index-obfuscated.js",
+    "nodec": "nodec build.js --skip-npm-install",
+    "build": "npm run obfuscate && npm run bytenode && npm run nodec"
+  },
+  "dependencies": {
+    "sharp": "^0.30.7"
+  },
+  "name": "hello",
+  "version": "0.0.1",
+  "bin": "index.js",
+  "devDependencies": {
+    "bytenode": "^1.3.6",
+    "javascript-obfuscator": "^4.0.0"
+  }
+}

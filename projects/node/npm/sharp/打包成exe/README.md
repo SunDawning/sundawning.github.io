@@ -36,6 +36,8 @@ https://www.npmjs.com/package/pkg#native-addons
 
 > Native addons (.node files) use is supported. When pkg encounters a .node file in a require call, it will package this like an asset. In some cases (like with the bindings package), the module path is generated dynamicaly and pkg won't be able to detect it. In this case, you should add the .node file directly in the assets field in package.json.
 
+pkg 会在“C:\Users\jobsimi\AppData\Local\Temp\pkg\c607d483f61cf7ec2c900fe66c2c7ba8e7078af2421a62e7d8705205d8422e0c\sharp”下创建依赖，只是添加“sharp-win32-x64.node”路径，会提示不存在该路径，因而将整个“sharp/build/Release”添加到 package.json 的 assets 里：
+
 ```json
 {
   "name": "sharp-hello-exe",
@@ -44,7 +46,7 @@ https://www.npmjs.com/package/pkg#native-addons
     "outputPath": "dist",
     "compress": "GZip",
     "targets": ["win"],
-    "assets": ["node_modules/sharp/build/Release/sharp-win32-x64.node"]
+    "assets": ["node_modules/sharp/build/Release/*"]
   }
 }
 ```

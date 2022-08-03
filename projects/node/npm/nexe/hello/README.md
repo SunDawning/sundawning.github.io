@@ -18,3 +18,8 @@ https://www.nasm.us/pub/nasm/releasebuilds/2.15.04/win64/
 
 https://www.nasm.us/pub/nasm/releasebuilds/2.15.04/win64/nasm-2.15.04-installer-x64.exe
 2020-08-20 15:48
+
+当前（2022-08-03 17:17:23） node 版本
+v16.15.1
+nexe 所支持的 node 版本不包含，
+https://github.com/nexe/nexe/releases/tag/v3.3.3

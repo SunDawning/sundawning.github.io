@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "node index.js",
+    "build": "nexe --build index.js"
+  },
+  "dependencies": {
+    "sharp": "^0.30.7"
+  },
+  "devDependencies": {
+    "nexe": "^4.0.0-rc.1"
+  }
+}

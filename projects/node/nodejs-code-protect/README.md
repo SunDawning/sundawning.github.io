@@ -31,3 +31,12 @@ https://www.nasm.us/pub/nasm/releasebuilds/2.15.04/win64/
 https://www.nasm.us/pub/nasm/releasebuilds/2.15.04/win64/nasm-2.15.04-installer-x64.exe
 
 C:\Users\jobsimi\AppData\Local\bin\NASM
+
+## Node.js configure: Found Python 3.9.11... Please use python3.8 or python3.7 or python3.6 or python3.5 or python2.7.
+
+2022-08-03 17:57:34
+
+https://www.python.org/downloads/release/python-380/
+
+https://www.python.org/ftp/python/3.8.0/python-3.8.0-embed-amd64.zip
+https://registry.npmmirror.com/binary.html?path=python/3.8.0/

@@ -2,15 +2,7 @@ index();
 function index() {
   document.querySelector("#read").addEventListener("click", read);
   document.querySelector("#write").addEventListener("click", write);
-  chrome.runtime.onMessage.addListener(function (request) {
-    const { data } = request;
-    console.log(data);
-    window.localStorage.clear(); // 清空popup的LocalStorage
-    // 保存到popup的LocalStorage
-    Object.keys(data).forEach(function (key) {
-      window.localStorage.setItem(key, data[key]);
-    });
-  });
+  chrome.runtime.onMessage.addListener(onMessage);
 }
 function read() {
   chrome.tabs.query(
@@ -37,4 +29,14 @@ function write() {
       });
     }
   );
+}
+function onMessage(request) {
+  const { data } = request;
+  console.log(data);
+  console.log("清空popup的LocalStorage");
+  window.localStorage.clear();
+  console.log("保存到popup的LocalStorage");
+  Object.keys(data).forEach(function (key) {
+    window.localStorage.setItem(key, data[key]);
+  });
 }

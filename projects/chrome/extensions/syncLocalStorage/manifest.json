@@ -3,6 +3,12 @@
   "name": "chrome-extensions-syncLocalStorage",
   "version": "0.0.1",
   "permissions": ["storage"],
+  "web_accessible_resources": [
+    {
+      "resources": ["page-script.js"],
+      "matches": ["http://*/*", "https://*/*"]
+    }
+  ],
   "action": {
     "default_title": "LocalStorage同步",
     "default_popup": "popup.html"

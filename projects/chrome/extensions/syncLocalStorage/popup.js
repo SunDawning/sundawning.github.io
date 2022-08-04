@@ -11,10 +11,16 @@ function copy() {
       currentWindow: true,
     },
     function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {
-        data: null,
-      });
-      document.querySelector("#result").innerHTML = `${new Date()}：已复制`;
+      chrome.tabs
+        .sendMessage(tabs[0].id, {
+          data: null,
+        })
+        .then(function (response) {
+          document.querySelector("#result").innerHTML = `${new Date()}：已复制`;
+        })
+        .catch(function (error) {
+          document.querySelector("#result").innerHTML = `${error}`;
+        });
     }
   );
 }
@@ -25,10 +31,16 @@ function paste() {
       currentWindow: true,
     },
     function (tabs) {
-      chrome.tabs.sendMessage(tabs[0].id, {
-        data: window.localStorage,
-      });
-      document.querySelector("#result").innerHTML = `${new Date()}：已粘贴`;
+      chrome.tabs
+        .sendMessage(tabs[0].id, {
+          data: window.localStorage,
+        })
+        .then(function (response) {
+          document.querySelector("#result").innerHTML = `${new Date()}：已粘贴`;
+        })
+        .catch(function (error) {
+          document.querySelector("#result").innerHTML = `${error}`;
+        });
     }
   );
 }

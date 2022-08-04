@@ -62,3 +62,12 @@ imp_CertOpenSystemStoreW => https://docs.microsoft.com/en-us/windows/win32/api/w
 ### 查询字符串
 
 https://techoverflow.net/2022/02/13/cpp-httplib-how-to-get-query-parameters/
+
+### 打包成 exe 在其他电脑上运行时缺失 dll
+
+2022-08-04 11:13:01
+
+复制
+C:/msys64/mingw64/bin
+文件夹下相应缺失的 dll
+到 build 文件夹

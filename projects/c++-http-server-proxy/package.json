@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "start": "nodemon index.js --watch package.json --watch index.js --watch index.cpp"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

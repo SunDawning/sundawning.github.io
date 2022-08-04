@@ -2,6 +2,9 @@ index();
 function index() {
   document.querySelector("#read").addEventListener("click", read);
   document.querySelector("#write").addEventListener("click", write);
+  chrome.runtime.onMessage.addListener(function (request) {
+    console.log(request.data);
+  });
 }
 function read() {
   chrome.tabs.query(

@@ -2,6 +2,18 @@
 
 2022-08-04 16:27:09
 
+基于 chrome 版本 103.0.5060.134（正式版本） （64 位）
+
+# 安装
+
+1. chrome://extensions/
+2. 开发者模式（右上角）
+3. 加载已解压的扩展程序
+
+# 探索
+
+2022-08-04 16:27:09
+
 https://cloud.tencent.com/developer/ask/sof/75688
 
 https://www.bookstack.cn/read/chrome-plugin-develop/spilt.2.spilt.4.8bdb1aac68bbdc44.md

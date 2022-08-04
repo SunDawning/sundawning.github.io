@@ -1,10 +1,10 @@
 index();
 function index() {
-  document.querySelector("#read").addEventListener("click", read);
-  document.querySelector("#write").addEventListener("click", write);
+  document.querySelector("#copy").addEventListener("click", copy);
+  document.querySelector("#paste").addEventListener("click", paste);
   chrome.runtime.onMessage.addListener(onMessage);
 }
-function read() {
+function copy() {
   chrome.tabs.query(
     {
       active: true,
@@ -14,10 +14,11 @@ function read() {
       chrome.tabs.sendMessage(tabs[0].id, {
         data: null,
       });
+      document.querySelector("#result").innerHTML = `${new Date()}：已复制`;
     }
   );
 }
-function write() {
+function paste() {
   chrome.tabs.query(
     {
       active: true,
@@ -27,6 +28,7 @@ function write() {
       chrome.tabs.sendMessage(tabs[0].id, {
         data: window.localStorage,
       });
+      document.querySelector("#result").innerHTML = `${new Date()}：已粘贴`;
     }
   );
 }

@@ -1,0 +1,76 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cesium - 预览服务</title>
+  </head>
+  <body>
+    <!-- Cesium界面-->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/cesium@1.89.0/Build/Cesium/Widgets/widgets.css"
+    />
+    <style>
+      #container {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+      }
+    </style>
+    <div id="container"></div>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/cesium@1.89.0/Build/Cesium/Cesium.js"
+    ></script>
+    <!-- Cesium密钥 -->
+    <script type="text/javascript">
+      Cesium.Ion.defaultAccessToken = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJhMTY0YmM3ZC0wYWYxLTRhZmItOWQ4NC0yMjRmY2RlZDhiZjYiLCJpZCI6NzY5MDcsImlhdCI6MTY0MjQ3MTMyMX0.32x4u2ThMTVqMzB2iqx4Kez55edtwADjKc1NlTUQpIk`;
+    </script>
+    <!-- 创建Cesium场景 -->
+    <script type="text/javascript">
+      const container = document.querySelector("#container");
+      const viewer = new Cesium.Viewer(container);
+    </script>
+    <!-- 移除所有地图 -->
+    <script type="text/javascript">
+      viewer.scene.imageryLayers.removeAll();
+    </script>
+    <!-- 添加ArcGIS World_Imagery -->
+    <script type="text/javascript">
+      {
+        const imageryProvider = new Cesium.UrlTemplateImageryProvider({
+          url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        });
+        viewer.scene.imageryLayers.addImageryProvider(imageryProvider);
+      }
+    </script>
+    <!-- 添加临港影像 -->
+    <script type="text/javascript">
+      [
+        // "http://10.89.9.234:8080/geoserver/rest/services/LG/HX_T520001_HP_2022_TILE/MapServer",
+        "http://10.89.9.234:8080/geoserver/rest/services/LG/LG_T520001_HP_TILE/MapServer",
+        // "http://10.89.9.234:8080/geoserver/rest/services/LG/LG_1930_Black_cgcs/MapServer",
+        "http://10.89.9.234:8080/geoserver/rest/services/LG/LG_T520001_HP_ZJ/MapServer",
+        "http://10.89.9.234:8080/geoserver/rest/services/LGFL/LG_T520001_CSBJ_DT/MapServer?layers=140",
+        "http://10.89.9.234:8080/geoserver/rest/services/LGFL/LG_T520001_LGTS_DT/MapServer?layers=53",
+      ].forEach(function (url) {
+        const { host, pathname, search } = new URL(url);
+        const imageryProvider = new Cesium.UrlTemplateImageryProvider({
+          url: `http://localhost:8280/${host}${pathname}/tile/{z}/{y}/{x}${search}`,
+        });
+        viewer.scene.imageryLayers.addImageryProvider(imageryProvider);
+      });
+    </script>
+    <!-- 初始视角 -->
+    <script type="text/javascript">
+      viewer.camera.setView({
+        destination: Cesium.Cartesian3.fromDegrees(
+          0.21919992698003793,
+          -0.33162300932894784,
+          67501.4431199993
+        ),
+      });
+    </script>
+  </body>
+</html>

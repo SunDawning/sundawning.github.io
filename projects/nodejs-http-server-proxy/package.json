@@ -1,0 +1,46 @@
+{
+  "name": "wukong-mapserver-proxy",
+  "version": "0.0.4",
+  "author": "孙曙光 <jobsimi@qq.com>",
+  "description": "在 UE4 的 ArcGIS 插件和临港的二维影像服务之间增加一个中间服务器（本程序），用来拦截 ArcGIS 插件的每张图片请求（形如：http://localhost:8280/10.89.9.234:8080/geoserver/rest/services/LG/LG_T520001_HP_TILE/MapServer），根据所拦截的请求，读取本地缓存或请求临港原始影像服务（形如：http://10.89.9.234:8080/geoserver/rest/services/LG/LG_T520001_HP_TILE/MapServer），再计算出正确的影像图片，最后返回给 ArcGIS 插件。",
+  "scripts": {
+    "start": "nodemon cli.js",
+    "archive": "git archive --output archive/master.zip master .",
+    "build": "pkg package.json"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@sundawning/get-port": "^1.0.0",
+    "axios": "^0.24.0",
+    "fs-extra": "^10.1.0",
+    "koa": "^2.9.0",
+    "koa-router": "^12.0.0",
+    "mime": "^3.0.0",
+    "minimist": "^1.2.6",
+    "sharp": "^0.30.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@vercel/ncc": "^0.34.0",
+    "bytenode": "^1.3.6",
+    "javascript-obfuscator": "^4.0.0",
+    "nodemon": "^2.0.15",
+    "pkg": "^5.8.0",
+    "pm2": "^5.2.0",
+    "rollup": "^2.77.2",
+    "rollup-plugin-terser": "^7.0.2"
+  },
+  "bin": "cli.js",
+  "pkg": {
+    "outputPath": "dist",
+    "compress": "GZip",
+    "targets": [
+      "win"
+    ],
+    "assets": [
+      "package.json",
+      "assets/*",
+      "node_modules/sharp/build/Release/*"
+    ]
+  }
+}

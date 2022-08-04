@@ -5,26 +5,12 @@ function index() {
   chrome.runtime.onMessage.addListener(onMessage);
 }
 function copy() {
-  chrome.tabs.query(
-    {
-      active: true,
-      currentWindow: true,
-    },
-    function (tabs) {
-      chrome.tabs
-        .sendMessage(tabs[0].id, {
-          data: null,
-        })
-        .then(function (response) {
-          document.querySelector("#result").innerHTML = `${new Date()}：已复制`;
-        })
-        .catch(function (error) {
-          document.querySelector("#result").innerHTML = `${error}`;
-        });
-    }
-  );
+  sendMessageToContent(null, "已复制");
 }
 function paste() {
+  sendMessageToContent(window.localStorage, "已粘贴");
+}
+function sendMessageToContent(data, text) {
   chrome.tabs.query(
     {
       active: true,
@@ -33,10 +19,12 @@ function paste() {
     function (tabs) {
       chrome.tabs
         .sendMessage(tabs[0].id, {
-          data: window.localStorage,
+          data,
         })
         .then(function (response) {
-          document.querySelector("#result").innerHTML = `${new Date()}：已粘贴`;
+          document.querySelector(
+            "#result"
+          ).innerHTML = `${new Date()}：${text}`;
         })
         .catch(function (error) {
           document.querySelector("#result").innerHTML = `${error}`;

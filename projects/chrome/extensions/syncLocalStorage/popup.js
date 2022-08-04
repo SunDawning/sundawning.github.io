@@ -20,11 +20,21 @@ function read() {
     },
     function (tabs) {
       chrome.tabs.sendMessage(tabs[0].id, {
-        data: "读",
+        data: null,
       });
     }
   );
 }
 function write() {
-  console.log("写");
+  chrome.tabs.query(
+    {
+      active: true,
+      currentWindow: true,
+    },
+    function (tabs) {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        data: window.localStorage,
+      });
+    }
+  );
 }

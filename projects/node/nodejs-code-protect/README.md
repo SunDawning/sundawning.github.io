@@ -40,3 +40,13 @@ https://www.python.org/downloads/release/python-380/
 
 https://www.python.org/ftp/python/3.8.0/python-3.8.0-embed-amd64.zip
 https://registry.npmmirror.com/binary.html?path=python/3.8.0/
+
+https://registry.npmmirror.com/-/binary/python/3.8.0/python-3.8.0-amd64.exe
+
+## ModuleNotFoundError: No module named 'configure'
+
+2022-08-04 09:33:25
+
+https://registry.npmmirror.com/binary.html?path=python/3.8.0/
+
+https://registry.npmmirror.com/-/binary/python/3.8.0/python-3.8.0-amd64.exe

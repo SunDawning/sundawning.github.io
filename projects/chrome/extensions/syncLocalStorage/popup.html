@@ -5,11 +5,13 @@
   </head>
   <body>
     <div style="width: 240px; min-height: 48px; padding: 16px">
+      <!-- 描述 -->
       <div>
         从一个网站获取所有
         LocalStorage（复制），并将其设置到另一个网站（粘贴），即 LocalStorage
         同步。
       </div>
+      <!-- 复制粘贴按钮 -->
       <div
         style="
           display: flex;
@@ -26,9 +28,10 @@
             cursor: pointer;
           }
         </style>
-        <button id="copy">复制</button>
-        <button id="paste">粘贴</button>
+        <button id="copy" title="复制当前网页的LocalStorage">复制</button>
+        <button id="paste" title="粘贴到当前网页的LocalStorage">粘贴</button>
       </div>
+      <!-- 复制粘贴的结果 -->
       <div
         id="result"
         style="
@@ -38,11 +41,19 @@
           border-radius: 4px;
         "
       ></div>
+      <!-- 版权声明 -->
+      <style type="text/css">
+        a {
+          text-decoration: none;
+          color: blue;
+        }
+        a:visited {
+          color: blue;
+        }
+      </style>
       <div style="text-align: center; padding: 8px">
-        Copyright © 2022 SunDawning
-        <a href="mailto:jobsimi@qq.com" style="text-decoration: none"
-          >jobsimi@qq.com</a
-        >, All Rights Reserved
+        Copyright © 2022 <a href="https://github.com/SunDawning">SunDawning</a>
+        <a href="mailto:jobsimi@qq.com">jobsimi@qq.com</a>, All Rights Reserved
       </div>
     </div>
     <script type="text/javascript" src="popup.js"></script>

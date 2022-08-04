@@ -3,7 +3,13 @@ function index() {
   document.querySelector("#read").addEventListener("click", read);
   document.querySelector("#write").addEventListener("click", write);
   chrome.runtime.onMessage.addListener(function (request) {
-    console.log(request.data);
+    const { data } = request;
+    console.log(data);
+    window.localStorage.clear(); // 清空popup的LocalStorage
+    // 保存到popup的LocalStorage
+    Object.keys(data).forEach(function (key) {
+      window.localStorage.setItem(key, data[key]);
+    });
   });
 }
 function read() {

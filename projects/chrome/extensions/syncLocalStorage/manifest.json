@@ -1,0 +1,6 @@
+{
+  "manifest_version": 3,
+  "name": "chrome-extensions-syncLocalStorage",
+  "version": "0.0.1",
+  "permissions": ["storage"]
+}

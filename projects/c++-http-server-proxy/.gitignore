@@ -4,3 +4,4 @@ node_modules
 pnpm-lock.yaml
 cpp-httplib-v0.10.6
 OpenCV-MinGW-Build-OpenCV-4.5.5-x64
+msys64

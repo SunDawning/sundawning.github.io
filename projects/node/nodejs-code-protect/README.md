@@ -50,3 +50,9 @@ https://registry.npmmirror.com/-/binary/python/3.8.0/python-3.8.0-amd64.exe
 https://registry.npmmirror.com/binary.html?path=python/3.8.0/
 
 https://registry.npmmirror.com/-/binary/python/3.8.0/python-3.8.0-amd64.exe
+
+## 路径过长会找不到文件夹，但该文件夹确实存在
+
+2022-08-04 09:36:13
+
+将项目文件夹放到一个地址短的路径

@@ -16,19 +16,15 @@ function sendMessageToContent(data, text) {
       active: true,
       currentWindow: true,
     },
-    function (tabs) {
-      chrome.tabs
-        .sendMessage(tabs[0].id, {
+    async function (tabs) {
+      try {
+        const response = await chrome.tabs.sendMessage(tabs[0].id, {
           data,
-        })
-        .then(function (response) {
-          document.querySelector(
-            "#result"
-          ).innerHTML = `${new Date()}：${text}`;
-        })
-        .catch(function (error) {
-          document.querySelector("#result").innerHTML = `${error}`;
         });
+        document.querySelector("#result").innerHTML = `${new Date()}：${text}`;
+      } catch (error) {
+        document.querySelector("#result").innerHTML = `${error}`;
+      }
     }
   );
 }

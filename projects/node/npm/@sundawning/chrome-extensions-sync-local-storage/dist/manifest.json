@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "同步syncLocalStorage",
+  "version": "0.0.1",
+  "description": "从一个网站获取所有LocalStorage（复制），并将其设置到另一个网站（粘贴），即 LocalStorage同步。",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_title": "LocalStorage同步",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
+}

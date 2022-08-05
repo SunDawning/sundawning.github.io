@@ -1,0 +1,31 @@
+{
+  "name": "@sundawning/chrome-extensions-sync-local-storage",
+  "version": "1.0.4",
+  "description": "从一个网站获取所有LocalStorage（复制），并将其设置到另一个网站（粘贴），即 LocalStorage同步。",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "files": [
+    "package.json",
+    "README.md",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/chrome-extensions-sync-local-storage",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "chrome",
+    "extensions",
+    "sync",
+    "localStorage"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT"
+}

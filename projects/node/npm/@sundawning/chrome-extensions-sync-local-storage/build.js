@@ -4,7 +4,25 @@ async function index() {
   const manifest_json_file = "manifest.json";
   buildFile(manifest_json_file, function (from_string) {
     const from_json = JSON.parse(from_string);
-    return JSON.stringify(from_json, null, 2);
+    // 从package.json里读取version和description
+    {
+      const package_json_file = "package.json";
+      const fs = require("fs");
+      const path = require("path");
+      const package_json_string = fs.readFileSync(
+        path.join(__dirname, package_json_file),
+        {
+          encoding: "utf-8",
+        }
+      );
+      const package_json = JSON.parse(package_json_string);
+      const { version, description } = package_json;
+      Object.assign(from_json, {
+        version,
+        description,
+      });
+    }
+    return JSON.stringify(from_json);
   });
   // 复制文件
   ["README.md", "popup.html"].forEach(function (name) {

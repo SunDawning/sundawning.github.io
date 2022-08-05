@@ -4,7 +4,8 @@
   "description": "从一个网站获取所有LocalStorage（复制），并将其设置到另一个网站（粘贴），即 LocalStorage同步。",
   "main": "index.js",
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "archive": "git archive --output archive/master.zip master ."
   },
   "files": [
     "package.json",

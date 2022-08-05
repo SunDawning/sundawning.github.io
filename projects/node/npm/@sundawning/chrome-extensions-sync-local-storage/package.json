@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/chrome-extensions-sync-local-storage",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "从一个网站获取所有LocalStorage（复制），并将其设置到另一个网站（粘贴），即 LocalStorage同步。",
   "main": "index.js",
   "scripts": {

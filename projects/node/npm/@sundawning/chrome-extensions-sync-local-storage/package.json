@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "node build.js",
-    "archive": "git archive --output archive/master.zip master ."
+    "archive": "git archive --output archive/master.zip master .",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
   },
   "files": [
     "package.json",

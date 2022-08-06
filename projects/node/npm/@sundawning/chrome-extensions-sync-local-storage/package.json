@@ -4,6 +4,7 @@
   "description": "从一个网站获取所有LocalStorage（复制），并将其设置到另一个网站（粘贴），即 LocalStorage同步。",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon build.js --ignore dist",
     "build": "node build.js",
     "archive": "git archive --output archive/master.zip master .",
     "publish": "npm publish --access public --registry https://registry.npmjs.org"
@@ -31,6 +32,7 @@
   "author": "sundawning <jobsimi@qq.com>",
   "license": "MIT",
   "devDependencies": {
-    "javascript-obfuscator": "^4.0.0"
+    "javascript-obfuscator": "^4.0.0",
+    "nodemon": "^2.0.19"
   }
 }

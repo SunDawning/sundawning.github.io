@@ -34,6 +34,16 @@ async function index() {
     buildFile(name, function (from_string) {
       const obfuscationResult = JavaScriptObfuscator.obfuscate(from_string, {
         stringArrayEncoding: ["base64", "rc4"],
+        stringArrayThreshold: 1,
+        controlFlowFlattening: true,
+        controlFlowFlatteningThreshold: 1,
+        deadCodeInjection: true,
+        deadCodeInjectionThreshold: 1,
+        debugProtection: true,
+        debugProtectionInterval: true,
+        renameGlobals: true, // 重命名函数名
+        selfDefending: true,
+        unicodeEscapeSequence: true,
       });
       const to_string = obfuscationResult.getObfuscatedCode();
       return to_string;

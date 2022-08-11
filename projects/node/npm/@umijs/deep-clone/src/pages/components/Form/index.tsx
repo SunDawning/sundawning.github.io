@@ -15,7 +15,7 @@ export default function IndexPage({ dataBase, setDataBase }) {
         return <a>Delete</a>;
       },
     });
-    setDataBase({ ...dataBase });
+    setDataBase(dataBase);
   }
   return (
     <Form form={form}>

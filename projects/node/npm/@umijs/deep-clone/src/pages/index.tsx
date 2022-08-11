@@ -1,10 +1,16 @@
 import styles from './index.less';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Form from './components/Form';
 import Table from './components/Table';
 
 export default function IndexPage() {
   const [dataBase, setDataBase] = useState(initialDataBase);
+  useEffect(
+    function () {
+      console.log('dataBase', dataBase);
+    },
+    [dataBase],
+  );
   return (
     <div>
       <h1 className={styles.title}>{dataBase.title}</h1>

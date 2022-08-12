@@ -15,7 +15,8 @@ export default function IndexPage({ dataBase, setDataBase }) {
         return <a>Delete</a>;
       },
     });
-    setDataBase(dataBase);
+    dataBase.table.columns = [...dataBase.table.columns]; // 复制数据
+    setDataBase({ ...dataBase });
   }
   return (
     <Form form={form}>

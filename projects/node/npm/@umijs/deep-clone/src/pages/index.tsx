@@ -4,7 +4,7 @@ import Form from './components/Form';
 import Table from './components/Table';
 
 export default function IndexPage() {
-  const [dataBase, setDataBase] = useMergeState(initialDataBase);
+  const [dataBase, setDataBase] = useState(initialDataBase);
   useEffect(
     function () {
       console.log('dataBase', dataBase);

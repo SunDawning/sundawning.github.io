@@ -12,7 +12,19 @@ export default function IndexPage({ dataBase, setDataBase }) {
       title: '操作',
       dataIndex: 'operation',
       render: function (_, record) {
-        return <a>Delete</a>;
+        function onClickDeleteRow() {
+          dataBase.table.dataSource.splice(record.key, 1);
+          dataBase.table.dataSource.forEach(function (row, index) {
+            row.key = index;
+          });
+          dataBase.table.dataSource = [...dataBase.table.dataSource];
+          setDataBase({ ...dataBase });
+        }
+        return (
+          <Button type="link" onClick={onClickDeleteRow}>
+            Delete
+          </Button>
+        );
       },
     });
     dataBase.table.columns = [...dataBase.table.columns]; // 复制数组

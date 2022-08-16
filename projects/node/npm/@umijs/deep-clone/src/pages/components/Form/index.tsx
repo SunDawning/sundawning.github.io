@@ -13,11 +13,10 @@ export default function IndexPage({ dataBase, setDataBase }) {
       dataIndex: 'operation',
       render: function (_, record) {
         function onClickDeleteRow() {
-          dataBase.table.dataSource.splice(record.key, 1);
-          dataBase.table.dataSource.forEach(function (row, index) {
-            row.key = index;
-          });
-          dataBase.table.dataSource = [...dataBase.table.dataSource];
+          const dataSource = [...dataBase.table.dataSource];
+          let index = dataSource.indexOf(record);
+          dataSource.splice(index, 1);
+          dataBase.table.dataSource = [...dataSource];
           setDataBase({ ...dataBase });
         }
         return (
@@ -37,13 +36,9 @@ export default function IndexPage({ dataBase, setDataBase }) {
   }
   function onClickToEditableRow() {
     dataBase.table.dataSource.push({
-      key: dataBase.table.dataSource.length,
-      name: (
-        <Input
-          placeholser="name"
-          defaultValue={dataBase.table.dataSource.length}
-        ></Input>
-      ),
+      key:
+        dataBase.table.dataSource[dataBase.table.dataSource.length - 1].key + 1,
+      name: <Input defaultValue={dataBase.table.dataSource.length}></Input>,
       age: dataBase.table.dataSource.length,
       address: '西湖区湖底公园1号',
     });
@@ -68,4 +63,70 @@ export default function IndexPage({ dataBase, setDataBase }) {
       </Space>
     </Form>
   );
+}
+/**
+ * 版权声明：本文为CSDN博主「码飞_CC」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+ * 原文链接：https://blog.csdn.net/cc18868876837/article/details/114918262
+ */
+function deepClone(target) {
+  const map = new WeakMap();
+  function isObject(target) {
+    return (
+      (typeof target === 'object' && target) || typeof target === 'function'
+    );
+  }
+  function clone(data) {
+    if (!isObject(data)) {
+      return data;
+    }
+    if ([Date, RegExp].includes(data.constructor)) {
+      return new data.constructor(data);
+    }
+    if (typeof data === 'function') {
+      // return;
+      return new Function('return ' + data.toString())();
+    }
+    const exist = map.get(data);
+    if (exist) {
+      return exist;
+    }
+    if (data instanceof Map) {
+      const result = new Map();
+      map.set(data, result);
+      data.forEach((val, key) => {
+        if (isObject(val)) {
+          result.set(key, clone(val));
+        } else {
+          result.set(key, val);
+        }
+      });
+      return result;
+    }
+    if (data instanceof Set) {
+      const result = new Set();
+      map.set(data, result);
+      data.forEach((val) => {
+        if (isObject(val)) {
+          result.add(clone(val));
+        } else {
+          result.add(val);
+        }
+      });
+      return result;
+    }
+    const keys = Reflect.ownKeys(data);
+    const allDesc = Object.getOwnPropertyDescriptors(data);
+    const result = Object.create(Object.getPrototypeOf(data), allDesc);
+    map.set(data, result);
+    keys.forEach((key) => {
+      const val = data[key];
+      if (isObject(val)) {
+        result[key] = clone(val);
+      } else {
+        result[key] = val;
+      }
+    });
+    return result;
+  }
+  return clone(target);
 }

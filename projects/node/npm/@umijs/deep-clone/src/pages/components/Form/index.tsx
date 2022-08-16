@@ -35,6 +35,21 @@ export default function IndexPage({ dataBase, setDataBase }) {
     dataBase.table.columns = [...dataBase.table.columns]; // 复制数据
     setDataBase({ ...dataBase });
   }
+  function onClickToEditableRow() {
+    dataBase.table.dataSource.push({
+      key: dataBase.table.dataSource.length,
+      name: (
+        <Input
+          placeholser="name"
+          defaultValue={dataBase.table.dataSource.length}
+        ></Input>
+      ),
+      age: dataBase.table.dataSource.length,
+      address: '西湖区湖底公园1号',
+    });
+    dataBase.table.dataSource = [...dataBase.table.dataSource];
+    setDataBase({ ...dataBase });
+  }
   return (
     <Form form={form}>
       <Space>
@@ -46,6 +61,9 @@ export default function IndexPage({ dataBase, setDataBase }) {
         </Item>
         <Item>
           <Button onClick={onClickToRemoveColumn}>删除一列</Button>
+        </Item>
+        <Item>
+          <Button onClick={onClickToEditableRow}>增加可编辑行</Button>
         </Item>
       </Space>
     </Form>

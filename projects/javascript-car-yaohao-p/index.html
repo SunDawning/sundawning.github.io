@@ -16,18 +16,22 @@
     <style type="text/css">
       body {
         margin: 0;
+        padding: 24px;
       }
     </style>
   </head>
   <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 100%; height: 100vh"></div>
+    <div
+      id="main"
+      style="width: calc(100% - 48px); height: calc(100vh - 48px)"
+    ></div>
     <script type="text/javascript">
       // 基于准备好的dom，初始化echarts实例
       var myChart = echarts.init(document.getElementById("main"));
-      const n = 100;
+      const n = 100 * 12 * 2;
       function getP(x) {
-        return 1 - Math.pow(1 - 2933 / 1412709, x * 12); // 计算概率
+        return 1 - Math.pow(1 - 2933 / 1412709, x); // 计算概率
       }
       function mapN(fun) {
         return Array.from({ length: n }, function (value, key) {
@@ -102,6 +106,14 @@
               name: yAxis_name,
               type: "line",
               data: y_data,
+              markLine: {
+                silent: true,
+                data: [0.05, 0.5, 0.8].map(function (yAxis) {
+                  return {
+                    yAxis,
+                  };
+                }),
+              },
             },
           ],
         };
@@ -109,11 +121,11 @@
       }
       var option = get_line_option({
         title: document.title,
-        subtitle: `1 - Math.pow(1 - 2933 / 1412709, x * 12)`,
+        subtitle: `1 - Math.pow(1 - 2933 / 1412709, x)`,
         yAxis_name: "",
         y_format: "",
-        xAxis_name: "时间",
-        x_format: "年",
+        xAxis_name: "次数",
+        x_format: "次",
         x_data: mapN(function (key) {
           return key;
         }),

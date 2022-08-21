@@ -16,7 +16,7 @@
     <style type="text/css">
       body {
         margin: 0;
-        padding: 24px;
+        padding: 12px;
       }
     </style>
   </head>
@@ -24,7 +24,7 @@
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div
       id="main"
-      style="width: calc(100% - 48px); height: calc(100vh - 48px)"
+      style="width: calc(100% - 24px); height: calc(100vh - 24px)"
     ></div>
     <script type="text/javascript">
       // 基于准备好的dom，初始化echarts实例
@@ -52,16 +52,17 @@
         let option = {
           title: {
             text: title,
+            left: "center",
             subtext: subtitle,
           },
           tooltip: {
             trigger: "axis",
           },
           grid: {
-            x: 80,
+            x: 40,
             y: 80,
-            x2: 80,
-            y2: 80,
+            x2: 40,
+            y2: 40,
           },
           toolbox: {
             show: true,
@@ -73,7 +74,8 @@
               restore: { show: true },
               saveAsImage: { show: true },
             },
-            right: "48px",
+            top: "48px",
+            right: "16px",
           },
           dataZoom: {
             show: false,
@@ -121,7 +123,7 @@
         return option;
       }
       var option = get_line_option({
-        title: document.title,
+        title: `${document.title}`,
         subtitle: `1 - Math.pow(1 - 2933 / 1412709, x)`,
         yAxis_name: "概率",
         y_format: "",

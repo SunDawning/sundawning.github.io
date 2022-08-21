@@ -1,46 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8" />
     <title>汽车摇号概率计算</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=0,minimum-scale=1,maximum-scale=1"
+    />
+    <link
+      rel="shortcut icon"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJAAAACQBAMAAAAVaP+LAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAhUExUReHY5f///y8qMS0oL/Hu8khCSdHL02ZgZ4R9hKGaobqzux+9hjkAAASdSURBVGje7ZrPa9xGFMefQW0Tn9Yg3NrHGYzXVw3CuS4IJ+5xl7aOT7q0TXwqMWmcnoxNkm1PJtA46WkpmLr9K7vSajS/3ozmSb6Ues7io/f9zpufb2Djjhrcg+5B/1dQOrkDUFGsf/p49iEpiiGg4uTvd6+mjIud30qADpgflD5/OWVCCMYYz3+Buk16gA6upyJjTeP567ImFWTQ1294i6lIWUNKJjTQwxeCGa2ThILSZ1OLU5EanzxGYaDRX9OMOY3nbxtSEQlKrznCWZJ2ywAJAT3BOYy14jB1LmjzhYfDWL6QpAhQeuPlMP5UgpJu0APO/C2/8oqDeGFVSOPSR4J4YbXfb33iwO6xIEdLATskIAirQ/oZ8J4DijAzpMQPOuSssymXwA/qDmgZ0l4LWvOBNmcsoqn0TnygL7IYEFd2T3BQesGiQEpbgoO2eBSI7ZdYSECzum7nYVCc1ZW2Y0ybAj2ODQjXBkSr65y8QkICqtWVtm/BzW4gW71sY3C1SdBoFs/RTUps0BaBo40SpQ1Iw0O2K1ebBL2ncPhP4EwBDSg9JYG0bktM0DYngY69oMcki5iaAFqTgJ5FZiKZoPSSxNETSboNtJEvE6l0TFqBvmJE0MID+oxmEcsWjklAT8cAiJaONmhNgaheGx41Jq1A/I5A24z17/5mJoE+ve8HEXvfyOym28A/ZLkQGRc4CHAQmo8i++ZsPn/JKaDvEZDY+fWHpYCTN3wYiO9+WH21fpGF56MmI2vQn5mXA/BwFpwhDZC7Wudqpwi/Z4G9lgm69B86qpB4aDmSqV2DToND4PPTcBop0Og07MH7zLv5M0HO4M/N0H/Mghb5QfYfH4T/sxpsKMj6o+32GCIjMqyucnIW/I8/IkuZ3W32fxRo1PXHy0CX6tKsuT+zvQRjCDlWawl5GUo3q/+NpA+C7M633Hbj1UAXYYsAbtqJUrgBaSDDA+SXsC7PuuK7RQhkTGx56X4Kz2ZZffVzhHC0acSYs/cBa7dTIcTOGcbRQMYq8ggFwfP52fyPEsKgLyNAgTbBF8ghIOP8MARk7EYGgWaDQGoTMborkLGMkEGJZzM6poLWPNvjvV5eN6AtNgDkO0KMe1kkDzXajLQ7BKQfs/Kyj0XIwW8YSDuKZos+yrDD8fkQkJaS/LyPMuQCQT+L9wBtBZbkGGUtSEvJ8SDQhtrf7Zc9lCnQk+AK2RmQAqkdKbZmE0BqueV7PZRpoO0Z3ST0+jBt7c7OaZOjfTPaXtPHZxJ+V6vsfkRXZlxDtzu8/IpqtediPDYBOq/q+ZhqtQVqr1nzBVWZVc6QGRClLVDO2DiULo1LYkB2yUe6pFU/ohxyQLLmoxVkooS5ZTFZXlNlwihhLiiVh/P9cMcVnRW/VtwxRRhWzJTiQuMEKR+7oPRmReJH8QbhddrNC9GRApEF343DVUWc7y5iDfIVxZsavXhaxsbjK9MfXNfHKlmaj+D46v3pbVWo5wiJ+HCgehGxlOeQvA8QAo8rDq65ENaZMen13CO9rZ9pHMlLsiQp+j5AGZ38M3/36nVZVG0y8ElMxbh/NnQP+s+B/gW3UDTN+m1LRgAAAABJRU5ErkJggg=="
+    />
     <!-- 引入 echarts.js -->
     <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+    <style type="text/css">
+      body {
+        margin: 0;
+      }
+    </style>
   </head>
   <body>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-    <div id="main" style="width: 600px; height: 400px"></div>
+    <div id="main" style="width: 100%; height: 100vh"></div>
     <script type="text/javascript">
       // 基于准备好的dom，初始化echarts实例
       var myChart = echarts.init(document.getElementById("main"));
       const n = 100;
       function getP(x) {
-        return 1 - Math.pow(1 - 2933 / 1412709, x * 12);
+        return 1 - Math.pow(1 - 2933 / 1412709, x * 12); // 计算概率
+      }
+      function mapN(fun) {
+        return Array.from({ length: n }, function (value, key) {
+          return fun(key);
+        }); // 生成一连串数据
       }
       // 指定图表的配置项和数据
-      var option = {
-        title: {
-          text: "1-Math.pow(1-2933 / 1412709,x*12)",
-        },
-        tooltip: {},
-        legend: {
-          data: [],
-        },
-        xAxis: {
-          data: Array.from({ length: n }, function (value, key) {
-            return key;
-          }),
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "概率",
-            type: "line",
-            data: Array.from({ length: n }, function (value, key) {
-              return getP(key);
-            }),
+      function get_line_option({
+        title,
+        subtitle,
+        yAxis_name,
+        y_format,
+        xAxis_name,
+        x_format,
+        x_data,
+        y_data,
+      }) {
+        let option = {
+          title: {
+            text: title,
+            subtext: subtitle,
           },
-        ],
-      };
+          tooltip: {
+            trigger: "axis",
+          },
+          grid: {
+            x: 60,
+            y: 60,
+            x2: 25,
+            y2: 25,
+          },
+          toolbox: {
+            show: true,
+            feature: {
+              mark: { show: true },
+              dataZoom: { show: true },
+              dataView: { show: true, readOnly: false },
+              magicType: { show: true, type: ["line", "bar"] },
+              restore: { show: true },
+              saveAsImage: { show: true },
+            },
+          },
+          dataZoom: {
+            show: false,
+            start: 0,
+            end: 1000,
+          },
+          xAxis: [
+            {
+              type: "category",
+              boundaryGap: true,
+              name: "x",
+              data: x_data,
+              name: xAxis_name,
+              axisLabel: {
+                formatter: "{value} " + x_format,
+              },
+            },
+          ],
+          yAxis: [
+            {
+              type: "value",
+              scale: true,
+              name: yAxis_name,
+              axisLabel: {
+                formatter: "{value} " + y_format,
+              },
+            },
+          ],
+          series: [
+            {
+              name: yAxis_name,
+              type: "line",
+              data: y_data,
+            },
+          ],
+        };
+        return option;
+      }
+      var option = get_line_option({
+        title: document.title,
+        subtitle: `1 - Math.pow(1 - 2933 / 1412709, x * 12)`,
+        yAxis_name: "",
+        y_format: "",
+        xAxis_name: "时间",
+        x_format: "年",
+        x_data: mapN(function (key) {
+          return key;
+        }),
+        y_data: mapN(getP),
+      });
 
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);

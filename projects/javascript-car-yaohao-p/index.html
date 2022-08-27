@@ -30,8 +30,10 @@
       // 基于准备好的dom，初始化echarts实例
       var myChart = echarts.init(document.getElementById("main"));
       const n = 100 * 12 * 2;
+      let fenZi = 2933;
+      let fenMu = 1412709;
       function getP(x) {
-        return 1 - Math.pow(1 - 2933 / 1412709, x); // 计算概率
+        return 1 - Math.pow(1 - fenZi / fenMu, x); // 计算概率
       }
       function mapN(fun) {
         return Array.from({ length: n }, function (value, key) {
@@ -160,6 +162,7 @@
       window.addEventListener("resize", myChart.resize);
     </script>
     <div
+      id="subtitle"
       style="
         position: absolute;
         top: 42px;
@@ -172,8 +175,38 @@
       "
     >
       1 - Math.pow(1 -
-      <span contenteditable="true">2933</span>
-      / <span contenteditable="true">1412709</span>, x)
+      <span contenteditable="true" id="fenzi">2933</span>
+      / <span contenteditable="true" id="fenmu">1412709</span>, x)
     </div>
+    <script type="text/javascript">
+      document.querySelector("#fenzi").addEventListener("input", onInputFenZi);
+      document.querySelector("#fenmu").addEventListener("input", onInputFenMu);
+      function onInputFenZi(event) {
+        // console.log(event.target.innerText);
+        fenZi = parseFloat(event.target.innerText);
+        setOption();
+      }
+      function onInputFenMu(event) {
+        // console.log(event.target.innerText);
+        fenMu = parseFloat(event.target.innerText);
+        setOption();
+      }
+      function setOption() {
+        myChart.setOption(
+          get_line_option({
+            title: `${document.title}`,
+            subtitle: document.querySelector("#subtitle").innerText,
+            yAxis_name: "概率",
+            y_format: "",
+            xAxis_name: "次数",
+            x_format: "次",
+            x_data: mapN(function (key) {
+              return key;
+            }),
+            y_data: mapN(getP),
+          })
+        );
+      }
+    </script>
   </body>
 </html>

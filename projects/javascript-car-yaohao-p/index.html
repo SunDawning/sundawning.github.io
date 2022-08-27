@@ -53,7 +53,7 @@
           title: {
             text: title,
             left: "center",
-            subtext: subtitle,
+            // subtext: subtitle,
           },
           tooltip: {
             trigger: "axis",
@@ -159,5 +159,19 @@
     <script type="text/javascript">
       window.addEventListener("resize", myChart.resize);
     </script>
+    <div
+      style="
+        position: absolute;
+        top: 42px;
+        left: calc(50% - 12px);
+        transform: translate(-50%);
+        color: gray;
+        font-size: 12px;
+      "
+    >
+      1 - Math.pow(1 -
+      <span>2933</span>
+      / <span>1412709</span>, x)
+    </div>
   </body>
 </html>

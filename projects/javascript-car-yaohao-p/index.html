@@ -17,6 +17,7 @@
       body {
         margin: 0;
         padding: 12px;
+        background: white;
       }
     </style>
   </head>
@@ -59,8 +60,15 @@
         const _getP = new Function("x", `return ${_return};`);
         return _getP(x); // 计算概率
       }
+      /**
+       * 生成连续的数组
+       * @param {Function} fun 为undefined时，生成与n递增时一一对应的数据，即x轴的数据。
+       */
       function mapN(fun) {
         return Array.from({ length: n }, function (value, key) {
+          if (fun === undefined) {
+            return key;
+          }
           return fun(key);
         }); // 生成一连串数据
       }
@@ -174,9 +182,7 @@
             y_format: "",
             xAxis_name: "次数",
             x_format: "次",
-            x_data: mapN(function (key) {
-              return key;
-            }),
+            x_data: mapN(),
             y_data: mapN(getP),
           })
         );

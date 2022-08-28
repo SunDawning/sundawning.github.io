@@ -91,6 +91,7 @@
             subtext: subtitle,
           },
           tooltip: {
+            confine: true, // 始终居于图表范围内
             trigger: "axis",
             formatter: function (params, value) {
               let string = ``;
@@ -216,7 +217,7 @@
     <script type="text/javascript">
       getSubtitle().addEventListener("input", setOption);
     </script>
-
+    <!-- xx个月一次 -->too
     <style type="text/css">
       /* chrome */
       input::-webkit-outer-spin-button,

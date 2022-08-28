@@ -91,6 +91,23 @@
           },
           tooltip: {
             trigger: "axis",
+            formatter: function (params, value) {
+              let string = ``;
+              // console.log(arguments);
+              params.forEach(function ({
+                marker,
+                seriesName,
+                dataIndex,
+                data,
+              }) {
+                string =
+                  `${dataIndex} 次（若一月一次，即 ${dataIndex} 个月或 ${(
+                    dataIndex / 12
+                  ).toFixed(2)} 年）<br>${marker}${seriesName}：${data}` +
+                  string;
+              });
+              return string;
+            },
           },
           grid: {
             x: 40,

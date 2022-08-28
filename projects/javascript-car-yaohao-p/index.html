@@ -44,7 +44,6 @@
       function getSubtitle() {
         return document.querySelector("#subtitle");
       }
-      getSubtitle().addEventListener("input", setOption);
       function setOption() {
         myChart.setOption(
           get_line_option({
@@ -61,6 +60,7 @@
           })
         );
       }
+      getSubtitle().addEventListener("input", setOption);
     </script>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div
@@ -180,21 +180,7 @@
         };
         return option;
       }
-      var option = get_line_option({
-        title: `${document.title}`,
-        subtitle: document.querySelector("#subtitle").innerText,
-        yAxis_name: "概率",
-        y_format: "",
-        xAxis_name: "次数",
-        x_format: "次",
-        x_data: mapN(function (key) {
-          return key;
-        }),
-        y_data: mapN(getP),
-      });
-
-      // 使用刚指定的配置项和数据显示图表。
-      myChart.setOption(option);
+      setOption();
     </script>
     <!-- 随页面大小而重新绘制 -->
     <script type="text/javascript">

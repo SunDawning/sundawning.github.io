@@ -217,7 +217,7 @@
     <script type="text/javascript">
       getSubtitle().addEventListener("input", setOption);
     </script>
-    <!-- xx个月一次 -->too
+    <!-- xx个月一次 -->
     <style type="text/css">
       /* chrome */
       input::-webkit-outer-spin-button,
@@ -232,19 +232,15 @@
     <div
       style="
         position: absolute;
-        top: 128px;
-        right: 64px;
+        top: 42px;
+        right: 16px;
         font-size: 12px;
         user-select: none;
         color: gray;
       "
     >
-      <input
-        type="number"
-        value="1"
-        style="width: 32px; font-size: inherit"
-        oninput="frequency = this.value;"
-      />个月一次
+      <span oninput="frequency = this.innerText;" contenteditable="true">1</span
+      >个月一次
     </div>
   </body>
 </html>

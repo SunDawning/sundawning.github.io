@@ -44,23 +44,6 @@
       function getSubtitle() {
         return document.querySelector("#subtitle");
       }
-      function setOption() {
-        myChart.setOption(
-          get_line_option({
-            title: `${document.title}`,
-            subtitle: getSubtitle().innerText,
-            yAxis_name: "概率",
-            y_format: "",
-            xAxis_name: "次数",
-            x_format: "次",
-            x_data: mapN(function (key) {
-              return key;
-            }),
-            y_data: mapN(getP),
-          })
-        );
-      }
-      getSubtitle().addEventListener("input", setOption);
     </script>
     <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
     <div
@@ -180,11 +163,31 @@
         };
         return option;
       }
+      function setOption() {
+        myChart.setOption(
+          get_line_option({
+            title: `${document.title}`,
+            subtitle: getSubtitle().innerText,
+            yAxis_name: "概率",
+            y_format: "",
+            xAxis_name: "次数",
+            x_format: "次",
+            x_data: mapN(function (key) {
+              return key;
+            }),
+            y_data: mapN(getP),
+          })
+        );
+      }
       setOption();
     </script>
     <!-- 随页面大小而重新绘制 -->
     <script type="text/javascript">
       window.addEventListener("resize", myChart.resize);
+    </script>
+    <!-- 随副标题的修改而重新绘制 -->
+    <script type="text/javascript">
+      getSubtitle().addEventListener("input", setOption);
     </script>
   </body>
 </html>

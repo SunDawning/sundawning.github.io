@@ -38,8 +38,8 @@
       "
     >
       1 - Math.pow(1 -
-      <span contenteditable="true">2933</span>
-      / <span contenteditable="true">1412709</span>, x)
+      <span contenteditable="true" oninput="setOption();">2933</span>
+      / <span contenteditable="true" oninput="setOption();">1412709</span>, x)
     </div>
     <script type="text/javascript">
       function getSubtitle() {
@@ -212,10 +212,6 @@
     <!-- 随页面大小而重新绘制 -->
     <script type="text/javascript">
       window.addEventListener("resize", myChart.resize);
-    </script>
-    <!-- 随副标题的修改而重新绘制 -->
-    <script type="text/javascript">
-      getSubtitle().addEventListener("input", setOption);
     </script>
     <!-- xx个月一次 -->
     <style type="text/css">

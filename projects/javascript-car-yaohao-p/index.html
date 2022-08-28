@@ -55,7 +55,9 @@
       var myChart = echarts.init(document.getElementById("main"));
       const n = 100 * 12 * 2;
       function getP(x) {
-        return eval(getSubtitle().innerText); // 计算概率
+        const _return = getSubtitle().innerText;
+        const _getP = new Function("x", `return ${_return};`);
+        return _getP(x); // 计算概率
       }
       function mapN(fun) {
         return Array.from({ length: n }, function (value, key) {

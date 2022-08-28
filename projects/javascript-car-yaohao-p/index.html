@@ -216,5 +216,39 @@
     <script type="text/javascript">
       getSubtitle().addEventListener("input", setOption);
     </script>
+
+    <style type="text/css">
+      /* chrome */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+      }
+      /* 火狐浏览器 */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+    <div
+      style="
+        position: absolute;
+        top: 40px;
+        right: 64px;
+        font-size: 12px;
+        user-select: none;
+        color: gray;
+      "
+    >
+      <input
+        type="number"
+        value="1"
+        style="width: 32px; font-size: inherit"
+        onchange="onChange(this.value);"
+      />个月一次
+    </div>
+    <script type="text/javascript">
+      function onChange(value) {
+        frequency = value;
+      }
+    </script>
   </body>
 </html>

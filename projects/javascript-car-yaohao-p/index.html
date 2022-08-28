@@ -72,6 +72,7 @@
           return fun(key);
         }); // 生成一连串数据
       }
+      let frequency = 1; // 多少个月一次，默认一个月一次。
       // 指定图表的配置项和数据
       function get_line_option({
         title,
@@ -101,10 +102,11 @@
                 data,
               }) {
                 string =
-                  `${dataIndex} 次（若一月一次，即 ${dataIndex} 个月或 ${(
-                    dataIndex / 12
-                  ).toFixed(2)} 年）<br>${marker}${seriesName}：${data}` +
-                  string;
+                  `${dataIndex} 次（若 ${frequency} 个月一次，即 ${
+                    dataIndex * frequency
+                  } 个月或 ${((dataIndex * frequency) / 12).toFixed(
+                    2
+                  )} 年）<br>${marker}${seriesName}：${data}` + string;
               });
               return string;
             },

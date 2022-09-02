@@ -32,7 +32,7 @@
       const container = document.querySelector("#container");
       const viewer = new Cesium.Viewer(container, {
         baseLayerPicker: false,
-        imageryProvider: new Cesium.UrlTemplateIMageryProvider({
+        imageryProvider: new Cesium.UrlTemplateImageryProvider({
           url: "http://168.4.0.26:8098/map/20201119/{z}/{x}/{y}",
         }),
       });

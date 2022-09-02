@@ -33,11 +33,11 @@
       const viewer = new Cesium.Viewer(container, {
         baseLayerPicker: false,
         imageryProvider: new Cesium.UrlTemplateImageryProvider({
-          url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+          url: "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}.png",
         }),
         terrainProvider: new Cesium.CesiumTerrainProvider({
           url: new Cesium.Resource({
-            url: "",
+            url: "http://localhost:18080/gusu_img_dem",
             headers: {},
           }),
         }),

@@ -1,0 +1,30 @@
+{
+  "name": "@sundawning/koa-post-data-parser",
+  "version": "1.0.0",
+  "description": "koa处理post请求",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/koa-post-data-parser",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "koa",
+    "post",
+    "data",
+    "parse"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "koa": "^2.13.4"
+  }
+}

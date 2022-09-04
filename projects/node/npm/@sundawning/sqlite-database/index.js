@@ -43,10 +43,17 @@ async function selects({ database, table_name }) {
 }
 /**
  * 分页查询
- * @param {number} {options.current} 当前页，从1开始。
+ * @param {number} {options.current} 当前页，默认从1开始。
  */
-async function selectPage({ database, table_name, pageSize, current }) {
+async function selectPage({
+  database,
+  table_name,
+  pageSize = 10,
+  current = 1,
+} = {}) {
   await createTable({ database, table_name }); // 创建表
+  current = parseInt(current);
+  pageSize = parseInt(pageSize);
   const offset = (current - 1) * pageSize;
   const rows = await database.all(
     `SELECT * FROM ${table_name} ORDER BY key LIMIT ${pageSize} OFFSET ${offset}`

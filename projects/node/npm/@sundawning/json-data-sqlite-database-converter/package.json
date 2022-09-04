@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/json-data-sqlite-database-converter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "JSON数据与SQLite表相互转换",
   "main": "index.js",
   "scripts": {

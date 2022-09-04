@@ -5,7 +5,7 @@ module.exports = { JSONDataToSQLiteTable, SQLiteTableToJSONData };
  * @param {Array} json_data JSON数据
  * @param {*} sqlite_database SQLite数据库
  * @param {*} table_name 表名
- * @returns
+ * @returns {number} lastID 数据库表里的最后一条数据的ID
  */
 async function JSONDataToSQLiteTable(json_data, sqlite_database, table_name) {
   // 创建表
@@ -28,6 +28,7 @@ async function JSONDataToSQLiteTable(json_data, sqlite_database, table_name) {
       }
     });
   });
+  let lastID;
   // 新增数据
   for (let c = 0; c < json_data.length; c = c + 1) {
     let row = json_data[c];
@@ -63,10 +64,15 @@ async function JSONDataToSQLiteTable(json_data, sqlite_database, table_name) {
         return JSON.stringify(item);
       })
       .join(", ");
-    await sqlite_database.exec(
+    const result = await sqlite_database.run(
       `INSERT INTO ${table_name} (${columns}) VALUES (${values})`
     );
+    // 记录最后的数据
+    if (result.lastID !== undefined) {
+      lastID = result.lastID;
+    }
   }
+  return lastID;
 }
 /**
  * SQLite数据库的表转换为JSON数据

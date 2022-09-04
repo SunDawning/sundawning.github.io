@@ -170,7 +170,7 @@ async function createDatabase({ filename, table_name }) {
     selects: async function () {
       return await selects({ database, table_name });
     },
-    select: async function () {
+    select: async function (key) {
       return await select({ database, table_name, key });
     },
     insert: async function (row) {

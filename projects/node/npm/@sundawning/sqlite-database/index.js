@@ -7,6 +7,7 @@ module.exports = {
   insert,
   update,
   remove,
+  total,
   createDatabase,
 };
 /**
@@ -24,7 +25,7 @@ async function create({ filename }) {
  * 创建表
  */
 async function createTable({ database, table_name }) {
-  await await database.exec(
+  return await database.run(
     `CREATE TABLE IF NOT EXISTS ${table_name} ( key INTEGER PRIMARY KEY AUTOINCREMENT )`
   );
 }
@@ -67,19 +68,8 @@ function removeNull(row) {
  * 增加
  */
 async function insert({ database, table_name, row }) {
-  const exists = await select({
-    database,
-    table_name,
-    key: row.key,
-  });
-  // 已经新增过
-  if (exists !== undefined) {
-    return;
-  }
-  // 不存在key属性时，设置为默认null。
-  if (row.key === undefined) {
-    row.key = null;
-  }
+  await createTable({ database, table_name }); // 创建表
+  row.key = null; // key设置为nulll
   // 新增数据
   const header = Object.keys(row);
   await addColumns({ database, table_name, column_names: header }); // 新增字段
@@ -182,5 +172,17 @@ async function createDatabase({ filename, table_name }) {
     remove: async function (key) {
       return await remove({ database, table_name, key });
     },
+    total: async function () {
+      return await total({ database, table_name });
+    },
   };
+}
+/**
+ * 表里的数据总数
+ */
+async function total({ database, table_name }) {
+  await createTable({ database, table_name }); // 创建表
+  return (await database.get(`SELECT COUNT(key) from ${table_name}`))[
+    "COUNT(key)"
+  ];
 }

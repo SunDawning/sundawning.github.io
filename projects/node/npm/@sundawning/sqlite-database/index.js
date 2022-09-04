@@ -1,6 +1,14 @@
 const sqlite = require("sqlite");
 const sqlite3 = require("sqlite3");
-module.exports = { create, selects, select, insert, update, remove };
+module.exports = {
+  create,
+  selects,
+  select,
+  insert,
+  update,
+  remove,
+  createDatabase,
+};
 /**
  * 创建数据库
  * @param {string} filename
@@ -149,4 +157,27 @@ async function remove({ database, table_name, key }) {
     return;
   }
   return await database.run(`DELETE FROM ${table_name} WHERE key = ${key}`);
+}
+/**
+ * 创建数据库
+ */
+async function createDatabase({ filename, table_name }) {
+  const database = await create({
+    filename,
+  });
+  return {
+    database,
+    selects: async function () {
+      return await selects({ database, table_name });
+    },
+    insert: async function (row) {
+      return await insert({ database, table_name, row });
+    },
+    update: async function (key, row) {
+      return await update({ database, table_name, key, row });
+    },
+    remove: async function (key) {
+      return await remove({ database, table_name, key });
+    },
+  };
 }

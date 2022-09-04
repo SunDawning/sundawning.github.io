@@ -12,6 +12,7 @@ module.exports = {
   createDatabase,
   encode,
   decode,
+  encodeTable,
 };
 /**
  * 创建数据库
@@ -35,12 +36,14 @@ async function createTable({ database, table_name }) {
 /**
  * 查询
  */
-async function selects({ database, table_name }) {
+async function selects({ database, table_name, decoded = true }) {
   await createTable({ database, table_name }); // 创建表
   const rows = await database.all(`SELECT * from ${table_name}`);
   rows.forEach(function (row) {
     removeNull(row); // 删除null
-    decode(row); // 解码
+    if (decoded === true) {
+      decode(row); // 解码
+    }
   });
   return rows;
 }
@@ -101,6 +104,7 @@ function removeNull(row) {
  */
 function encode(row) {
   function _encode(value) {
+    console.log("value", value);
     return btoa(String(value)).replaceAll("=", "_");
   }
   Object.keys(row).forEach(function (key) {
@@ -132,6 +136,31 @@ function decode(row) {
     delete row[key];
   });
   return row;
+}
+/**
+ * 编码整张表
+ */
+async function encodeTable({ database, table_name }) {
+  const rows = await selects({ database, table_name, decoded: false });
+  console.log(rows);
+  const template_table_name = `tmp_${table_name}`;
+  await database.exec(
+    `ALTER TABLE ${table_name} RENAME TO ${template_table_name}`
+  );
+  try {
+    for (let c = 0; c < rows.length; c = c + 1) {
+      const row = rows[c];
+      console.log("row");
+      await insert({ database, table_name, row });
+    }
+    await database.exec(`DROP TABLE tmp_${table_name}`);
+  } catch (error) {
+    await database.exec(`DROP TABLE ${table_name}`);
+    await database.exec(
+      `ALTER TABLE ${template_table_name} RENAME TO ${table_name}`
+    );
+    console.error(error);
+  }
 }
 /**
  * 增加

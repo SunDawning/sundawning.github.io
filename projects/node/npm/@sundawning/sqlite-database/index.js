@@ -1,6 +1,6 @@
 const sqlite = require("sqlite");
 const sqlite3 = require("sqlite3");
-module.exports = { create, select, insert, update, remove };
+module.exports = { create, selects, select, insert, update, remove };
 /**
  * 创建数据库
  * @param {string} filename
@@ -22,35 +22,39 @@ async function createTable({ database, table_name }) {
 }
 /**
  * 查询
+ */
+async function selects({ database, table_name }) {
+  await createTable({ database, table_name }); // 创建表
+  const rows = await database.all(`SELECT * from ${table_name}`);
+  rows.forEach(function (row) {
+    removeNull(row); // 删除null
+  });
+  return rows;
+}
+/**
+ * 查询
  * @returns
  */
 async function select({ database, table_name, key }) {
-  await createTable({ database, table_name }); // 创建表
-  // 删除null
-  function removeNull(row) {
-    Object.keys(row).forEach(function (key) {
-      if (row[key] === null) {
-        delete row[key];
-      }
-    });
-  }
-  // 选择所有数据
   if (key === undefined) {
-    const rows = await database.all(`SELECT * from ${table_name}`);
-    rows.forEach(function (row) {
-      removeNull(row); // 删除null
-    });
-    if (rows.length === 0) {
-      return;
-    }
-    return rows;
+    return;
   }
+  await createTable({ database, table_name }); // 创建表
   const row = await database.get(
     `SELECT * from ${table_name} WHERE key = ${key}`
   );
   removeNull(row); // 删除null
   return row;
 }
+// 删除null
+function removeNull(row) {
+  Object.keys(row).forEach(function (key) {
+    if (row[key] === null) {
+      delete row[key];
+    }
+  });
+}
+
 /**
  * 增加
  */
@@ -64,6 +68,7 @@ async function insert({ database, table_name, row }) {
   if (exists !== undefined) {
     return;
   }
+  console.log(row);
   // 不存在key属性时，设置为默认null。
   if (row.key === undefined) {
     row.key = null;

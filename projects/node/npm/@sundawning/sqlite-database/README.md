@@ -13,6 +13,7 @@ pnpm add @sundawning/sqlite-database
 ```js
 const {
   create,
+  selects,
   select,
   insert,
   update,
@@ -30,12 +31,12 @@ async function index() {
     table_name,
     row: { createTime: 1662265343067, title: "title" },
   });
-  console.log(await select({ database, table_name })); // 查询
+  console.log(await selects({ database, table_name })); // 查询
   await select({ database, table_name, key }); // 查询
   await update({ database, table_name, key, row: { title: "content" } }); // 修改
-  console.log(await select({ database, table_name })); // 查询
+  console.log(await selects({ database, table_name })); // 查询
   await remove({ database, table_name, key }); // 删除
-  console.log(await select({ database, table_name })); // 查询
+  console.log(await selects({ database, table_name })); // 查询
 }
 index();
 ```

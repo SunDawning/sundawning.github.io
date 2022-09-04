@@ -8,6 +8,7 @@ module.exports = {
   update,
   remove,
   total,
+  selectPage,
   createDatabase,
 };
 /**
@@ -35,6 +36,21 @@ async function createTable({ database, table_name }) {
 async function selects({ database, table_name }) {
   await createTable({ database, table_name }); // 创建表
   const rows = await database.all(`SELECT * from ${table_name}`);
+  rows.forEach(function (row) {
+    removeNull(row); // 删除null
+  });
+  return rows;
+}
+/**
+ * 分页查询
+ * @param {number} {options.current} 当前页，从1开始。
+ */
+async function selectPage({ database, table_name, pageSize, current }) {
+  await createTable({ database, table_name }); // 创建表
+  const offset = (current - 1) * pageSize;
+  const rows = await database.all(
+    `SELECT * FROM ${table_name} ORDER BY key LIMIT ${pageSize} OFFSET ${offset}`
+  );
   rows.forEach(function (row) {
     removeNull(row); // 删除null
   });
@@ -174,6 +190,9 @@ async function createDatabase({ filename, table_name }) {
     },
     total: async function () {
       return await total({ database, table_name });
+    },
+    selectPage: async function (current, pageSize) {
+      return await selectPage({ database, table_name, pageSize, current });
     },
   };
 }

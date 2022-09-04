@@ -6,6 +6,7 @@ const {
   update,
   remove,
   total,
+  selectPage,
 } = require("./index");
 const path = require("path");
 async function index() {
@@ -19,9 +20,18 @@ async function index() {
     table_name,
     row: { createTime: 1662265343067, title: "title" },
   });
+  await insert({
+    database,
+    table_name,
+    row: { deleted: true },
+  });
   console.log("key", key);
   console.log("selects", await selects({ database, table_name })); // 查询
   console.log("total", await total({ database, table_name }));
+  console.log(
+    "selectPage",
+    await selectPage({ database, table_name, pageSize: 1, current: 1 })
+  ); // 分页查询
   await select({ database, table_name, key }); // 查询
   await update({ database, table_name, key, row: { title: "content" } }); // 修改
   console.log("selects", await selects({ database, table_name })); // 查询

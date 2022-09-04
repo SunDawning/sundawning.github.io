@@ -1,0 +1,29 @@
+{
+  "name": "@sundawning/sqlite-database",
+  "version": "1.0.0",
+  "description": "SQLite数据库",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/sqlite-database",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "sqlite",
+    "database"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "sqlite": "^4.1.2",
+    "sqlite3": "^5.0.11"
+  }
+}

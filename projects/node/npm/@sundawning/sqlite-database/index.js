@@ -104,8 +104,8 @@ function removeNull(row) {
  */
 function encode(row) {
   function _encode(value) {
-    console.log("value", value);
-    return btoa(String(value)).replaceAll("=", "_");
+    // console.log("value", value);
+    return btoa(encodeURIComponent(value)).replaceAll("=", "_");
   }
   Object.keys(row).forEach(function (key) {
     if (key === "key") {
@@ -126,7 +126,7 @@ function encode(row) {
  */
 function decode(row) {
   function _decode(value) {
-    return atob(value.replaceAll("_", "="));
+    return decodeURIComponent(atob(value.replaceAll("_", "=")));
   }
   Object.keys(row).forEach(function (key) {
     if (key === "key") {
@@ -142,7 +142,7 @@ function decode(row) {
  */
 async function encodeTable({ database, table_name }) {
   const rows = await selects({ database, table_name, decoded: false });
-  console.log(rows);
+  // console.log(rows);
   const template_table_name = `tmp_${table_name}`;
   await database.exec(
     `ALTER TABLE ${table_name} RENAME TO ${template_table_name}`
@@ -150,7 +150,7 @@ async function encodeTable({ database, table_name }) {
   try {
     for (let c = 0; c < rows.length; c = c + 1) {
       const row = rows[c];
-      console.log("row");
+      // console.log("row");
       await insert({ database, table_name, row });
     }
     await database.exec(`DROP TABLE tmp_${table_name}`);

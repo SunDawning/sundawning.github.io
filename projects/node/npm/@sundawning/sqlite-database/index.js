@@ -13,6 +13,7 @@ module.exports = {
   encode,
   decode,
   encodeTable,
+  decodeTable,
 };
 /**
  * 创建数据库
@@ -36,7 +37,7 @@ async function createTable({ database, table_name }) {
 /**
  * 查询
  */
-async function selects({ database, table_name, decoded = true }) {
+async function selects({ database, table_name, decoded }) {
   await createTable({ database, table_name }); // 创建表
   const rows = await database.all(`SELECT * from ${table_name}`);
   rows.forEach(function (row) {
@@ -56,6 +57,7 @@ async function selectPage({
   table_name,
   pageSize = 10,
   current = 1,
+  decoded,
 } = {}) {
   await createTable({ database, table_name }); // 创建表
   current = parseInt(current);
@@ -66,7 +68,9 @@ async function selectPage({
   );
   rows.forEach(function (row) {
     removeNull(row); // 删除null
-    decode(row); // 解码
+    if (decoded === true) {
+      decode(row); // 解码
+    }
   });
   return rows;
 }
@@ -74,7 +78,7 @@ async function selectPage({
  * 查询
  * @returns
  */
-async function select({ database, table_name, key }) {
+async function select({ database, table_name, key, decoded }) {
   if (key === undefined) {
     return;
   }
@@ -83,7 +87,9 @@ async function select({ database, table_name, key }) {
     `SELECT * from ${table_name} WHERE key = ${key}`
   );
   removeNull(row); // 删除null
-  decode(row); // 解码
+  if (decoded === true) {
+    decode(row); // 解码
+  }
   return row;
 }
 // 删除null
@@ -151,7 +157,31 @@ async function encodeTable({ database, table_name }) {
     for (let c = 0; c < rows.length; c = c + 1) {
       const row = rows[c];
       // console.log("row");
-      await insert({ database, table_name, row });
+      await insert({ database, table_name, row, encoded: true });
+    }
+    await database.exec(`DROP TABLE tmp_${table_name}`);
+  } catch (error) {
+    await database.exec(`DROP TABLE ${table_name}`);
+    await database.exec(
+      `ALTER TABLE ${template_table_name} RENAME TO ${table_name}`
+    );
+    console.error(error);
+  }
+}
+/**
+ * 解码整张表
+ */
+async function decodeTable({ database, table_name }) {
+  const rows = await selects({ database, table_name, decoded: true });
+  const template_table_name = `tmp_${table_name}`;
+  await database.exec(
+    `ALTER TABLE ${table_name} RENAME TO ${template_table_name}`
+  );
+  try {
+    for (let c = 0; c < rows.length; c = c + 1) {
+      const row = rows[c];
+      // console.log("row");
+      await insert({ database, table_name, row, encoded: false });
     }
     await database.exec(`DROP TABLE tmp_${table_name}`);
   } catch (error) {
@@ -165,9 +195,11 @@ async function encodeTable({ database, table_name }) {
 /**
  * 增加
  */
-async function insert({ database, table_name, row }) {
+async function insert({ database, table_name, row, encoded = true }) {
   await createTable({ database, table_name }); // 创建表
-  encode(row); // 编码
+  if (encoded === true) {
+    encode(row); // 编码
+  }
   row.key = null; // key设置为nulll
   // 新增数据
   const header = Object.keys(row);
@@ -182,7 +214,7 @@ async function insert({ database, table_name, row }) {
       if (typeof item !== "string") {
         item = JSON.stringify(item);
       }
-      return JSON.stringify(item);
+      return `"${item}"`;
     })
     .join(", ");
   const result = await database.run(
@@ -213,7 +245,7 @@ async function addColumns({ database, table_name, column_names }) {
 /**
  * 修改
  */
-async function update({ database, table_name, key, row }) {
+async function update({ database, table_name, key, row, encoded }) {
   const exists = await select({
     database,
     table_name,
@@ -223,7 +255,9 @@ async function update({ database, table_name, key, row }) {
   if (exists === undefined) {
     return;
   }
-  encode(row); // 编码
+  if (encoded === true) {
+    encode(row); // 编码
+  }
   const column_names = Object.keys(row);
   for (let c = 0; c < column_names.length; c = c + 1) {
     const column_name = column_names[c];
@@ -251,23 +285,24 @@ async function remove({ database, table_name, key }) {
 /**
  * 创建数据库
  */
-async function createDatabase({ filename, table_name }) {
+async function createDatabase({ filename, table_name, encoded } = {}) {
   const database = await create({
     filename,
   });
+  const decoded = encoded;
   return {
     database,
     selects: async function () {
-      return await selects({ database, table_name });
+      return await selects({ database, table_name, decoded });
     },
     select: async function (key) {
-      return await select({ database, table_name, key });
+      return await select({ database, table_name, key, decoded });
     },
     insert: async function (row) {
-      return await insert({ database, table_name, row });
+      return await insert({ database, table_name, row, encoded });
     },
     update: async function (key, row) {
-      return await update({ database, table_name, key, row });
+      return await update({ database, table_name, key, row, encoded });
     },
     remove: async function (key) {
       return await remove({ database, table_name, key });
@@ -276,7 +311,19 @@ async function createDatabase({ filename, table_name }) {
       return await total({ database, table_name });
     },
     selectPage: async function (current, pageSize) {
-      return await selectPage({ database, table_name, pageSize, current });
+      return await selectPage({
+        database,
+        table_name,
+        pageSize,
+        current,
+        decoded,
+      });
+    },
+    encodeTable: async function () {
+      return await encodeTable({ database, table_name });
+    },
+    decodeTable: async function () {
+      return await decodeTable({ database, table_name });
     },
   };
 }

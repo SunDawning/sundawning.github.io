@@ -68,7 +68,6 @@ async function insert({ database, table_name, row }) {
   if (exists !== undefined) {
     return;
   }
-  console.log(row);
   // 不存在key属性时，设置为默认null。
   if (row.key === undefined) {
     row.key = null;

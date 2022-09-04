@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/sqlite-database",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "SQLite数据库",
   "main": "index.js",
   "scripts": {

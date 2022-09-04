@@ -10,6 +10,8 @@ module.exports = {
   total,
   selectPage,
   createDatabase,
+  encode,
+  decode,
 };
 /**
  * 创建数据库
@@ -38,6 +40,7 @@ async function selects({ database, table_name }) {
   const rows = await database.all(`SELECT * from ${table_name}`);
   rows.forEach(function (row) {
     removeNull(row); // 删除null
+    decode(row); // 解码
   });
   return rows;
 }
@@ -60,6 +63,7 @@ async function selectPage({
   );
   rows.forEach(function (row) {
     removeNull(row); // 删除null
+    decode(row); // 解码
   });
   return rows;
 }
@@ -76,6 +80,7 @@ async function select({ database, table_name, key }) {
     `SELECT * from ${table_name} WHERE key = ${key}`
   );
   removeNull(row); // 删除null
+  decode(row); // 解码
   return row;
 }
 // 删除null
@@ -86,12 +91,54 @@ function removeNull(row) {
     }
   });
 }
-
+/**
+ * 编码
+ * @param {object} row
+ * @returns
+ * @example
+ * encode({a:btoa})
+ * {YQ==: 'ZnVuY3Rpb24gYnRvYSgpIHsgW25hdGl2ZSBjb2RlXSB9'}
+ */
+function encode(row) {
+  function _encode(value) {
+    return btoa(String(value)).replaceAll("=", "_");
+  }
+  Object.keys(row).forEach(function (key) {
+    if (key === "key") {
+      return;
+    }
+    row[_encode(key)] = _encode(row[key]);
+    delete row[key];
+  });
+  return row;
+}
+/**
+ * 解码
+ * @param {object} row
+ * @returns
+ * @example
+ * decode({YQ==: 'ZnVuY3Rpb24gYnRvYSgpIHsgW25hdGl2ZSBjb2RlXSB9'})
+ * {a: 'function btoa() { [native code] }'}
+ */
+function decode(row) {
+  function _decode(value) {
+    return atob(value.replaceAll("_", "="));
+  }
+  Object.keys(row).forEach(function (key) {
+    if (key === "key") {
+      return;
+    }
+    row[_decode(key)] = _decode(row[key]);
+    delete row[key];
+  });
+  return row;
+}
 /**
  * 增加
  */
 async function insert({ database, table_name, row }) {
   await createTable({ database, table_name }); // 创建表
+  encode(row); // 编码
   row.key = null; // key设置为nulll
   // 新增数据
   const header = Object.keys(row);
@@ -147,6 +194,7 @@ async function update({ database, table_name, key, row }) {
   if (exists === undefined) {
     return;
   }
+  encode(row); // 编码
   const column_names = Object.keys(row);
   for (let c = 0; c < column_names.length; c = c + 1) {
     const column_name = column_names[c];

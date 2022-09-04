@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/sqlite-database",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SQLite数据库",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
   ],
   "author": "sundawning <jobsimi@qq.com>",
   "license": "MIT",
-  "devDependencies": {
+  "dependencies": {
     "sqlite": "^4.1.2",
     "sqlite3": "^5.0.11"
   }

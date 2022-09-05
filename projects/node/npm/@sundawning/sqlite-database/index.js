@@ -195,7 +195,7 @@ async function decodeTable({ database, table_name }) {
 /**
  * 增加
  */
-async function insert({ database, table_name, row, encoded = true }) {
+async function insert({ database, table_name, row, encoded }) {
   await createTable({ database, table_name }); // 创建表
   if (encoded === true) {
     encode(row); // 编码

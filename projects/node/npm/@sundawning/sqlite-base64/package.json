@@ -1,0 +1,25 @@
+{
+  "name": "@sundawning/sqlite-base64",
+  "version": "1.0.0",
+  "description": "SQLite BASE64编码与解码",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/sqlite-base64",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "sqlite",
+    "base64"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT"
+}

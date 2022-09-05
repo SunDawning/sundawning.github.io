@@ -137,15 +137,18 @@ async function insert({ database, table_name, row, encoded }) {
 }
 /**
  * 添加列
+ * 列名不区分大小写
+ * [Error: SQLITE_ERROR: duplicate column name: KEY]
  */
 async function addColumns({ database, table_name, column_names }) {
   const table_info = await database.all(`PRAGMA table_info([${table_name}])`);
   const _column_names = table_info.map(function ({ name }) {
-    return name;
+    return name.toLowerCase();
   });
   for (let c = 0; c < column_names.length; c = c + 1) {
     const column_name = column_names[c];
-    if (_column_names.includes(column_name) === false) {
+    if (_column_names.includes(column_name.toLowerCase()) === false) {
+      // console.log("添加列", column_names);
       await database.exec(
         `ALTER TABLE ${table_name} ADD COLUMN ${column_name} TEXT`
       );

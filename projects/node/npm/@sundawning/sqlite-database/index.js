@@ -165,6 +165,8 @@ async function update({ database, table_name, key, row, encoded }) {
   if (exists === undefined) {
     return;
   }
+  // 删除key属性，不允许修改key。
+  delete row.key;
   if (encoded === true) {
     encodeRow(row); // 编码
   }

@@ -10,8 +10,10 @@ module.exports = {
   total,
   selectPage,
   createDatabase,
-  encode: encodeRow,
-  decode: decodeRow,
+  encode,
+  decode,
+  encodeRow,
+  decodeRow,
   encodeTable,
   decodeTable,
 };

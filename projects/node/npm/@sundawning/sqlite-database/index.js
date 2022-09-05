@@ -112,9 +112,9 @@ async function insert({ database, table_name, row, encoded }) {
   }
   row.key = null; // key设置为nulll
   // 新增数据
-  const header = Object.keys(row);
-  await addColumns({ database, table_name, column_names: header }); // 新增字段
-  const columns = header.join(", ");
+  const column_names = Object.keys(row);
+  await addColumns({ database, table_name, column_names }); // 新增字段
+  const columns = column_names.join(", ");
   const values = Object.values(row)
     .map(function (item) {
       // null => "null";
@@ -169,6 +169,7 @@ async function update({ database, table_name, key, row, encoded }) {
     encodeRow(row); // 编码
   }
   const column_names = Object.keys(row);
+  await addColumns({ database, table_name, column_names }); // 添加列
   for (let c = 0; c < column_names.length; c = c + 1) {
     const column_name = column_names[c];
     const column_value = row[column_name];

@@ -33,7 +33,12 @@ async function index() {
     await selectPage({ database, table_name, pageSize: 1, current: 1 })
   ); // 分页查询
   await select({ database, table_name, key }); // 查询
-  await update({ database, table_name, key, row: { title: "content" } }); // 修改
+  await update({
+    database,
+    table_name,
+    key,
+    row: { title: "content", status: "DONE" },
+  }); // 修改
   console.log("selects", await selects({ database, table_name })); // 查询
   await remove({ database, table_name, key }); // 删除
   console.log("selects", await selects({ database, table_name })); // 查询

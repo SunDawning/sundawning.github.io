@@ -10,8 +10,8 @@ module.exports = {
   total,
   selectPage,
   createDatabase,
-  encode,
-  decode,
+  encode: encodeRow,
+  decode: decodeRow,
   encodeTable,
   decodeTable,
 };
@@ -43,7 +43,7 @@ async function selects({ database, table_name, decoded }) {
   rows.forEach(function (row) {
     removeNull(row); // 删除null
     if (decoded === true) {
-      decode(row); // 解码
+      decodeRow(row); // 解码
     }
   });
   return rows;
@@ -69,7 +69,7 @@ async function selectPage({
   rows.forEach(function (row) {
     removeNull(row); // 删除null
     if (decoded === true) {
-      decode(row); // 解码
+      decodeRow(row); // 解码
     }
   });
   return rows;
@@ -88,7 +88,7 @@ async function select({ database, table_name, key, decoded }) {
   );
   removeNull(row); // 删除null
   if (decoded === true) {
-    decode(row); // 解码
+    decodeRow(row); // 解码
   }
   return row;
 }
@@ -108,19 +108,19 @@ function removeNull(row) {
  * encode({a:btoa})
  * {YQ==: 'ZnVuY3Rpb24gYnRvYSgpIHsgW25hdGl2ZSBjb2RlXSB9'}
  */
-function encode(row) {
-  function _encode(value) {
-    // console.log("value", value);
-    return btoa(encodeURIComponent(value)).replaceAll("=", "_");
-  }
+function encodeRow(row) {
   Object.keys(row).forEach(function (key) {
     if (key === "key") {
       return;
     }
-    row[_encode(key)] = _encode(row[key]);
+    row[encode(key)] = encode(row[key]);
     delete row[key];
   });
   return row;
+}
+function encode(value) {
+  // console.log("value", value);
+  return btoa(encodeURIComponent(value)).replaceAll("=", "_");
 }
 /**
  * 解码
@@ -130,18 +130,18 @@ function encode(row) {
  * decode({YQ==: 'ZnVuY3Rpb24gYnRvYSgpIHsgW25hdGl2ZSBjb2RlXSB9'})
  * {a: 'function btoa() { [native code] }'}
  */
-function decode(row) {
-  function _decode(value) {
-    return decodeURIComponent(atob(value.replaceAll("_", "=")));
-  }
+function decodeRow(row) {
   Object.keys(row).forEach(function (key) {
     if (key === "key") {
       return;
     }
-    row[_decode(key)] = _decode(row[key]);
+    row[decode(key)] = decode(row[key]);
     delete row[key];
   });
   return row;
+}
+function decode(value) {
+  return decodeURIComponent(atob(value.replaceAll("_", "=")));
 }
 /**
  * 编码整张表
@@ -198,7 +198,7 @@ async function decodeTable({ database, table_name }) {
 async function insert({ database, table_name, row, encoded }) {
   await createTable({ database, table_name }); // 创建表
   if (encoded === true) {
-    encode(row); // 编码
+    encodeRow(row); // 编码
   }
   row.key = null; // key设置为nulll
   // 新增数据
@@ -256,7 +256,7 @@ async function update({ database, table_name, key, row, encoded }) {
     return;
   }
   if (encoded === true) {
-    encode(row); // 编码
+    encodeRow(row); // 编码
   }
   const column_names = Object.keys(row);
   for (let c = 0; c < column_names.length; c = c + 1) {

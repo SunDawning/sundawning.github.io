@@ -46,7 +46,18 @@ async function index() {
     await selectPage({ database, table_name, pageSize: 1, current: 1 })
   ); // 分页查询
   await select({ database, table_name, key }); // 查询
-  await update({ database, table_name, key, row: { title: "content" } }); // 修改
+  await update({
+    database,
+    table_name,
+    key,
+    row: { title: "content", status: "DONE" },
+  }); // 修改
+  await update({
+    database,
+    table_name,
+    key,
+    row: { KEY: "KEY" },
+  }); // 修改“KEY”，会被忽略，因为已经存在key，列名不区分大小写。
   console.log("selects", await selects({ database, table_name })); // 查询
   await remove({ database, table_name, key }); // 删除
   console.log("selects", await selects({ database, table_name })); // 查询
@@ -66,7 +77,12 @@ selects [
 total 2
 selectPage [ { key: 1, createTime: '1662265343067', title: 'title' } ]
 selects [
-  { key: 1, createTime: '1662265343067', title: 'content' },
+  {
+    key: 1,
+    createTime: '1662265343067',
+    title: 'content',
+    status: 'DONE'
+  },
   { key: 2, deleted: 'true' }
 ]
 selects [ { key: 2, deleted: 'true' } ]
@@ -86,7 +102,12 @@ total 3
 selectPage [ { key: 2, deleted: 'true' } ]
 selects [
   { key: 2, deleted: 'true' },
-  { key: 3, createTime: '1662265343067', title: 'content' },
+  {
+    key: 3,
+    createTime: '1662265343067',
+    title: 'content',
+    status: 'DONE'
+  },
   { key: 4, deleted: 'true' }
 ]
 selects [ { key: 2, deleted: 'true' }, { key: 4, deleted: 'true' } ]

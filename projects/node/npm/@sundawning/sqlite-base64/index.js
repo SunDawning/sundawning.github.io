@@ -53,7 +53,7 @@ function decodeRow(row) {
 /**
  * 编码整张表
  */
-async function encodeTable({ database, table_name }) {
+async function encodeTable({ database, table_name, selects, insert }) {
   const rows = await selects({ database, table_name, decoded: false });
   // console.log(rows);
   const template_table_name = `tmp_${table_name}`;
@@ -78,7 +78,7 @@ async function encodeTable({ database, table_name }) {
 /**
  * 解码整张表
  */
-async function decodeTable({ database, table_name }) {
+async function decodeTable({ database, table_name, selects, insert }) {
   const rows = await selects({ database, table_name, decoded: true });
   const template_table_name = `tmp_${table_name}`;
   await database.exec(

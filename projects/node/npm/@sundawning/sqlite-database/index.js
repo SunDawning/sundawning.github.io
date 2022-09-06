@@ -1,6 +1,8 @@
 const sqlite = require("sqlite");
 const sqlite3 = require("sqlite3");
 const {
+  encode,
+  decode,
   encodeRow,
   decodeRow,
   encodeTable,
@@ -16,6 +18,12 @@ module.exports = {
   total,
   selectPage,
   createDatabase,
+  encode,
+  decode,
+  encodeRow,
+  decodeRow,
+  encodeTable,
+  decodeTable,
 };
 /**
  * 创建数据库
@@ -236,10 +244,10 @@ async function createDatabase({ filename, table_name, encoded } = {}) {
       });
     },
     encodeTable: async function () {
-      return await encodeTable({ database, table_name });
+      return await encodeTable({ database, table_name, selects, insert });
     },
     decodeTable: async function () {
-      return await decodeTable({ database, table_name });
+      return await decodeTable({ database, table_name, selects, insert });
     },
   };
 }

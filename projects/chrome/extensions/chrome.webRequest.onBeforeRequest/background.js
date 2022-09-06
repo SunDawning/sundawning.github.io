@@ -22,6 +22,10 @@ const proxy = [
     from: "http://localhost:8000/gongwushu",
     to: "http://localhost:18080/gongwushu",
   },
+  {
+    from: "http://192.168.10.41:8080/gw",
+    to: "http://localhost:18080/services/10.253.102.69/gw",
+  },
 ];
 chrome.webRequest.onBeforeRequest.addListener(
   function (details) {

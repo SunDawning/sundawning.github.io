@@ -1,0 +1,33 @@
+{
+  "name": "@sundawning/freenom-url-forwarding",
+  "version": "1.0.0",
+  "description": "将freenom域名重定向到URL，相当于在freenom里给域名设置URL Forwarding。",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/freenom-url-forwarding",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "freenom",
+    "url",
+    "forward",
+    "redirect",
+    "301"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "jsdom": "^20.0.0",
+    "qs": "^6.11.0"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@sundawning/pm2-async",
+  "version": "1.0.0",
+  "description": "将pm2的操作转为async",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/pm2-async",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "pm2",
+    "async",
+    "await"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "pm2": "^5.2.0"
+  }
+}

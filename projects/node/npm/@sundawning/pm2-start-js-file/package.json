@@ -1,5 +1,5 @@
 {
-  "name": "@sundawning/hello",
+  "name": "@sundawning/pm2-start-js-file",
   "version": "1.0.0",
   "description": "使用pm2启动.js文件，不重复启动。",
   "main": "index.js",

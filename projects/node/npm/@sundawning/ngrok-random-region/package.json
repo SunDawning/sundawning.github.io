@@ -1,0 +1,30 @@
+{
+  "name": "@sundawning/ngrok-random-region",
+  "version": "1.0.0",
+  "description": "使用随机的地区来启动ngrok内网穿透服务器",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/ngrok-random-region",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "ngrok",
+    "random",
+    "region"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@sundawning/get-random-int": "^1.0.0",
+    "ngrok": "^4.3.3"
+  }
+}

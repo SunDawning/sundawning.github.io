@@ -41,6 +41,12 @@ function encodeRow(row) {
  * {a: 'function btoa() { [native code] }'}
  */
 function decodeRow(row) {
+  if (row === null) {
+    return;
+  }
+  if (row === undefined) {
+    return;
+  }
   Object.keys(row).forEach(function (key) {
     if (key === "key") {
       return;

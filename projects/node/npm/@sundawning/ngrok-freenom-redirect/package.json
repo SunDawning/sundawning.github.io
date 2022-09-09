@@ -1,0 +1,30 @@
+{
+  "name": "@sundawning/ngrok-freenom-redirect",
+  "version": "1.0.0",
+  "description": "启动ngrok后获取网址并将设置为freenom域名的重定向网址",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/ngrok-freenom-redirect",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "ngrok",
+    "freenom",
+    "redirect"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@sundawning/freenom-url-forwarding": "^1.0.0",
+    "@sundawning/ngrok-random-region": "^1.0.0"
+  }
+}

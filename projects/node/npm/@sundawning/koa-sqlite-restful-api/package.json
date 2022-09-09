@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/koa-sqlite-restful-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "使用 Koa 来启动 HTTP 服务器，使用 SQLite 作为数据库，来提供 RESTful API。",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
   "dependencies": {
     "@sundawning/console-log-timestamp": "^1.0.0",
     "@sundawning/koa-post-data-parser": "^1.0.0",
-    "@sundawning/sqlite-database": "^1.0.17",
+    "@sundawning/sqlite-database": "^1.0.20",
     "koa": "^2.13.4",
     "koa-router": "^12.0.0"
   }

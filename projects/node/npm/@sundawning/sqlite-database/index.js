@@ -104,6 +104,13 @@ async function select({ database, table_name, key, decoded }) {
 }
 // 删除null
 function removeNull(row) {
+  // console.log("row", row);
+  if (row === null) {
+    return;
+  }
+  if (row === undefined) {
+    return;
+  }
   Object.keys(row).forEach(function (key) {
     if (row[key] === null) {
       delete row[key];

@@ -4,7 +4,8 @@ pm2.start({
   javascript: `require("child_process").exec("npx http-server");`,
 });
 pm2.startFunction({
-  fun: function helloFunction() {
-    require("child_process").exec("npx http-server -p 8081");
+  fun: function helloFunction({ port }) {
+    require("child_process").exec(`npx http-server -p ${port}`);
   },
+  args: { port: 8081 },
 });

@@ -32,16 +32,17 @@ async function start({ name, javascript, args, cwd = __dirname } = {}) {
 /**
  * 运行函数
  * @param {function} fun 有函数名称的函数，函数名称即是程序名，是一个函数定义，如果需要使用外部变量，需要提前计算。
+ * @param {string} args 函数的自变量
  * @param {string} cwd
  */
-async function startFunction({ fun, cwd = __dirname } = {}) {
+async function startFunction({ fun, args, cwd = __dirname } = {}) {
   return await start({
     name: fun.name,
     javascript: `// 由@sundawning/pm2-start-javascript自动创建于${new Date()}
 // 定义函数
 ${fun.toString()}
 // 执行函数
-${fun.name}();
+${fun.name}(${JSON.stringify(args)});
 `,
     cwd,
   });

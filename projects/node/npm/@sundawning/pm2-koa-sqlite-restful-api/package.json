@@ -1,0 +1,32 @@
+{
+  "name": "@sundawning/pm2-koa-sqlite-restful-api",
+  "version": "1.0.0",
+  "description": "使用pm2来运行@sundawning/koa-sqlite-restful-api",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/pm2-koa-sqlite-restful-api",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "pm2",
+    "koa",
+    "sqlite",
+    "restful",
+    "api"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@sundawning/koa-sqlite-restful-api": "^1.0.1",
+    "@sundawning/pm2-start-javascript": "^1.0.3"
+  }
+}

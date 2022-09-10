@@ -5,7 +5,7 @@
 # 安装
 
 ```sh
-pnpm add @sundawning/pm2-koa-sqlite-restful-api
+pnpm add @sundawning/pm2-koa-sqlite-restful-api @sundawning/koa-sqlite-restful-api
 ```
 
 # 使用

@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/pm2-koa-sqlite-restful-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "使用pm2来运行@sundawning/koa-sqlite-restful-api",
   "main": "index.js",
   "scripts": {

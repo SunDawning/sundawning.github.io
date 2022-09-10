@@ -22,7 +22,6 @@ async function start({
   const database = await createDatabase({
     filename,
     table_name,
-    encoded: true,
   });
   const { select, insert, update, remove, total, selectPage } = database;
   // HTTP服务器

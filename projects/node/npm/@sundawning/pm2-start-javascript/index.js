@@ -33,18 +33,26 @@ async function start({ name, javascript, args, cwd = __dirname } = {}) {
 }
 /**
  * 运行函数
- * @param {function} fun 有函数名称的函数，函数名称即是程序名，是一个函数定义，如果需要使用外部变量，需要提前计算。
+ * @param {string} [name = fun.name] 函数的名字，当不存在时，取fun的name属性。
+ * @param {function} fun 是一个函数定义，如果需要使用外部变量，需要提前计算。
  * @param {string|object} args 函数的自变量
  * @param {string} cwd
  */
-async function startFunction({ fun, args, cwd = __dirname } = {}) {
+async function startFunction({ name, fun, args, cwd = __dirname } = {}) {
+  if (name === undefined) {
+    name = fun.name;
+  }
+  if (name === undefined) {
+    console.log("缺失name");
+    return;
+  }
   return await start({
-    name: fun.name,
+    name,
     javascript: `// 由@sundawning/pm2-start-javascript自动创建于${new Date()}
 // 定义函数
-${fun.toString()}
+const ${name} = ${fun.toString()}
 // 执行函数
-${fun.name}(${JSON.stringify(args)});
+${name}(${JSON.stringify(args)});
 `,
     cwd,
   });

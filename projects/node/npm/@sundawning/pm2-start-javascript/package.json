@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/pm2-start-javascript",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "使用pm2来运行一段javascript文本",
   "main": "index.js",
   "scripts": {

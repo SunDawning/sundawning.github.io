@@ -1,4 +1,4 @@
-module.exports = { start };
+module.exports = { start, startFunction };
 const fs = require("fs-extra");
 const path = require("path");
 const pm2 = require("@sundawning/pm2-start-js-file");
@@ -28,4 +28,21 @@ async function start({ name, javascript, args, cwd = __dirname } = {}) {
   });
   // 启动临时文件
   return await pm2.start({ name, script: filename, args, cwd });
+}
+/**
+ * 运行函数
+ * @param {function} fun 有函数名称的函数，函数名称即是程序名，是一个函数定义，如果需要使用外部变量，需要提前计算。
+ * @param {string} cwd
+ */
+async function startFunction({ fun, cwd = __dirname } = {}) {
+  return await start({
+    name: fun.name,
+    javascript: `// 由@sundawning/pm2-start-javascript自动创建于${new Date()}
+// 定义函数
+${fun.toString()}
+// 执行函数
+${fun.name}();
+`,
+    cwd,
+  });
 }

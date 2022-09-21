@@ -49,6 +49,38 @@ async function index({
     context.response.status = 201;
   });
   router.post(
+    "/api/databases/:database_name",
+    koa_body(),
+    async function (context) {
+      console.log("context.request.body", context.request.body);
+      const { database_name } = context.params;
+      if (database_name === undefined) {
+        context.response.status = 400;
+        console.log("missing", "database_name");
+        return;
+      }
+      const { sql } = context.request.body;
+      if (sql === undefined) {
+        context.response.status = 400;
+        console.log("missing", "sql");
+        return;
+      }
+      const database_filename = path.resolve(
+        databases_directory,
+        `./${database_name}.db`
+      );
+      console.log("database_filename", database_filename);
+      const database = await sqlite.open({
+        filename: database_filename,
+        driver: sqlite3.Database,
+      });
+      const database_result = await database.all(sql);
+      console.log("database_result", database_result);
+      await database.close();
+      context.response.body = database_result;
+    }
+  );
+  router.post(
     "/api/databases/:database_name/tables",
     koa_body(),
     async function (context) {

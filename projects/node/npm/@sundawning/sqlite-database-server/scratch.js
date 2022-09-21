@@ -27,7 +27,9 @@ async function index({
     console.log("context.request.body", context.request.body);
     const { name: database_name } = context.request.body;
     if (database_name === undefined) {
-      return (context.response.status = 400);
+      context.response.status = 400;
+      console.log("missing", "database_name");
+      return;
     }
     const database_filename = path.resolve(
       databases_directory,
@@ -35,6 +37,7 @@ async function index({
     );
     console.log("database_filename", database_filename);
     if ((await fs.pathExists(database_filename)) === true) {
+      console.log("database_filename", "exists");
       context.response.status = 204;
       return;
     }

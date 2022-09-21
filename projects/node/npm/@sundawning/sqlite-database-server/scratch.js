@@ -35,7 +35,7 @@ async function index({
     );
     console.log("database_filename", database_filename);
     if ((await fs.pathExists(database_filename)) === true) {
-      context.response.status = 201;
+      context.response.status = 204;
       return;
     }
     const database = await sqlite.open({

@@ -74,9 +74,10 @@ async function index({
         filename: database_filename,
         driver: sqlite3.Database,
       });
-      await database.run(
+      const database_result = await database.all(
         `CREATE TABLE IF NOT EXISTS ${table_name} ( key INTEGER PRIMARY KEY AUTOINCREMENT )`
       );
+      console.log("database_result", database_result);
       await database.close();
       context.response.status = 201;
     }

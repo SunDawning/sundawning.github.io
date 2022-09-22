@@ -48,6 +48,34 @@ async function index({
     await database.close();
     context.response.status = 201;
   });
+  router.get(
+    "/api/databases/:database_name",
+    koa_body(),
+    async function (context) {
+      console.log("context.request.body", context.request.body);
+      const { database_name } = context.params;
+      if (database_name === undefined) {
+        context.response.status = 400;
+        console.log("missing", "database_name");
+        return;
+      }
+      const database_filename = path.resolve(
+        databases_directory,
+        `./${database_name}.db`
+      );
+      console.log("database_filename", database_filename);
+      const database = await sqlite.open({
+        filename: database_filename,
+        driver: sqlite3.Database,
+      });
+      const database_result = await database.all(
+        `SELECT * FROM sqlite_master WHERE type = 'table'`
+      );
+      console.log("database_result", database_result);
+      await database.close();
+      context.response.body = database_result;
+    }
+  );
   router.post(
     "/api/databases/:database_name",
     koa_body(),

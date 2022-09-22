@@ -151,6 +151,7 @@ async function index({
       ) {
         console.log("missing", "table");
         context.response.status = 400;
+        await database.close();
         return;
       }
       const database_result = await database.all(`SELECT * FROM ${table_name}`);
@@ -203,6 +204,7 @@ async function index({
       ) {
         console.log("missing", "table");
         context.response.status = 400;
+        await database.close();
         return;
       }
       const table_info = await database.all(
@@ -213,6 +215,7 @@ async function index({
       });
       if (column_names.includes(column_name.toLowerCase()) === true) {
         context.response.status = 204;
+        await database.close();
         return;
       }
       await database.all(

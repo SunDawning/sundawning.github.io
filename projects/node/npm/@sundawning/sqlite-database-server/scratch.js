@@ -59,7 +59,7 @@ async function index({
         console.log("missing", "database_name");
         return;
       }
-      const { sql } = context.request.body;
+      const { sql, method = "all" } = context.request.body;
       if (sql === undefined) {
         context.response.status = 400;
         console.log("missing", "sql");
@@ -74,7 +74,7 @@ async function index({
         filename: database_filename,
         driver: sqlite3.Database,
       });
-      const database_result = await database.all(sql);
+      const database_result = await database[method](sql);
       console.log("database_result", database_result);
       await database.close();
       context.response.body = database_result;

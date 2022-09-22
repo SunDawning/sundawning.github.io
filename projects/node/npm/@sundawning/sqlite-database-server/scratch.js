@@ -135,6 +135,11 @@ async function index({
         `./${database_name}.db`
       );
       console.log("database_filename", database_filename);
+      if ((await fs.pathExists(database_filename)) === false) {
+        context.response.status = 400;
+        console.log("missing", "table");
+        return;
+      }
       const database = await sqlite.open({
         filename: database_filename,
         driver: sqlite3.Database,
@@ -173,6 +178,11 @@ async function index({
         `./${database_name}.db`
       );
       console.log("database_filename", database_filename);
+      if ((await fs.pathExists(database_filename)) === false) {
+        context.response.status = 400;
+        console.log("missing", "table");
+        return;
+      }
       const database = await sqlite.open({
         filename: database_filename,
         driver: sqlite3.Database,

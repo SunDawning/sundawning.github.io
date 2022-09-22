@@ -49,7 +49,7 @@ async function index({
     context.response.status = 201;
   });
   router.get(
-    "/api/databases/:database_name",
+    "/api/databases/:database_name/tables",
     koa_body(),
     async function (context) {
       console.log("context.request.body", context.request.body);

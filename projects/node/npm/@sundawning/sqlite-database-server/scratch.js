@@ -136,14 +136,23 @@ async function index({
       );
       console.log("database_filename", database_filename);
       if ((await fs.pathExists(database_filename)) === false) {
+        console.log("missing", "database", "missing", "table");
         context.response.status = 400;
-        console.log("missing", "table");
         return;
       }
       const database = await sqlite.open({
         filename: database_filename,
         driver: sqlite3.Database,
       });
+      if (
+        (await database.get(
+          `SELECT * FROM sqlite_master WHERE type = 'table' and name = '${table_name}'`
+        )) === undefined
+      ) {
+        console.log("missing", "table");
+        context.response.status = 400;
+        return;
+      }
       const database_result = await database.all(`SELECT * FROM ${table_name}`);
       console.log("database_result", database_result);
       await database.close();
@@ -180,13 +189,22 @@ async function index({
       console.log("database_filename", database_filename);
       if ((await fs.pathExists(database_filename)) === false) {
         context.response.status = 400;
-        console.log("missing", "table");
+        console.log("missing", "database", "missing", "table");
         return;
       }
       const database = await sqlite.open({
         filename: database_filename,
         driver: sqlite3.Database,
       });
+      if (
+        (await database.get(
+          `SELECT * FROM sqlite_master WHERE type = 'table' and name = '${table_name}'`
+        )) === undefined
+      ) {
+        console.log("missing", "table");
+        context.response.status = 400;
+        return;
+      }
       const table_info = await database.all(
         `PRAGMA table_info([${table_name}])`
       );

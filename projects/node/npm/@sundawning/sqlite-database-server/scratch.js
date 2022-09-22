@@ -145,5 +145,58 @@ async function index({
       context.response.body = database_result;
     }
   );
+  router.post(
+    "/api/databases/:database_name/tables/:table_name/columns",
+    koa_body(),
+    async function (context) {
+      console.log("context.request.body", context.request.body);
+      const { database_name, table_name } = context.params;
+      if (database_name === undefined || database_name === ":database_name") {
+        context.response.status = 400;
+        console.log("missing", "database_name");
+        return;
+      }
+      if (table_name === undefined || table_name === ":table_name") {
+        context.response.status = 400;
+        console.log("missing", "table_name");
+        return;
+      }
+      const { name: column_name, type: column_type = "TEXT" } =
+        context.request.body;
+      if (column_name === undefined) {
+        context.response.status = 400;
+        console.log("missing", "column_name");
+        return;
+      }
+      const database_filename = path.resolve(
+        databases_directory,
+        `./${database_name}.db`
+      );
+      console.log("database_filename", database_filename);
+      const database = await sqlite.open({
+        filename: database_filename,
+        driver: sqlite3.Database,
+      });
+      const table_info = await database.all(
+        `PRAGMA table_info([${table_name}])`
+      );
+      const column_names = table_info.map(function ({ name }) {
+        return name.toLowerCase();
+      });
+      if (column_names.includes(column_name.toLowerCase()) === true) {
+        context.response.status = 204;
+        return;
+      }
+      await database.all(
+        `ALTER TABLE ${table_name} ADD COLUMN ${column_name} ${column_type}`
+      );
+      const database_result = await database.all(
+        `PRAGMA table_info([${table_name}])`
+      );
+      console.log("database_result", database_result);
+      await database.close();
+      context.response.body = database_result;
+    }
+  );
 }
 index();

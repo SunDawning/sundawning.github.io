@@ -1,7 +1,34 @@
 {
+  "name": "@sundawning/sqlite-database-server",
+  "version": "1.0.0",
+  "description": "SQLite 数据库服务器，用一堆 SQLite 格式的文件来搭建服务器，以HTTP的方式来管理数据库。",
+  "main": "index.js",
   "scripts": {
-    "dev": "nodemon scratch.js"
+    "dev": "nodemon test.js",
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
   },
+  "files": [
+    "package.json",
+    "README.md",
+    "index.js",
+    "test.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/sqlite-database-server",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "sqlite",
+    "database",
+    "server"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT",
   "dependencies": {
     "fs-extra": "^10.1.0",
     "koa": "^2.13.4",

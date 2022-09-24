@@ -28,6 +28,7 @@ async function start({
     }
     await next();
   });
+  const databases_map = new Map();
   router.post("/api/databases/:database_name", async function (context) {
     const { database_name } = context.params;
     if (database_name === undefined) {
@@ -46,13 +47,18 @@ async function start({
       `./${database_name}.db`
     );
     console.log("database_filename", database_filename);
-    const database = await sqlite.open({
-      filename: database_filename,
-      driver: sqlite3.Database,
-    });
+    if (databases_map.has(database_name) === false) {
+      databases_map.set(
+        database_name,
+        await sqlite.open({
+          filename: database_filename,
+          driver: sqlite3.Database,
+        })
+      );
+    }
+    const database = databases_map.get(database_name);
     const database_result = await database[method](sql);
     console.log("database_result", database_result);
-    await database.close();
     context.response.body = database_result;
   });
   app.use(router.routes());

@@ -30,8 +30,11 @@ let { proxy } = server;
  */
 ["/cors"].forEach(function (item) {
   proxy[item] = {
-    target: "http://localhost:18080/",
+    target: "http://localhost:3001/",
     changeOrigin: true,
+    rewrite: function (path) {
+      return path.replace("/cors", "");
+    },
   };
 });
 // https://vitejs.dev/config/

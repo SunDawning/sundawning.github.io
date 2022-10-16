@@ -19,7 +19,7 @@ export default async function index(options) {
     console.log("无法代理该网址，仅支持“http://”或“https://”开头的网址：", url);
     return;
   }
-  options.url = `/${options.url}`;
+  options.url = `/cors/${options.url}`;
   if (options.headers) {
     ["Cookie"].forEach(function (key) {
       key = key.toLowerCase();
@@ -27,6 +27,7 @@ export default async function index(options) {
         return;
       }
       options.headers[`_${key}`] = options.headers[key];
+      options.headers[`x-${key}`] = options.headers[key];
       delete options.headers[key];
     });
   }

@@ -28,9 +28,9 @@ let { proxy } = server;
  * 2. 所有HTTP网址
  * 3. API
  */
-["/http://", "/https://", "/api"].forEach(function (item) {
+["/cors"].forEach(function (item) {
   proxy[item] = {
-    target: "http://localhost:3001",
+    target: "http://localhost:18080/",
     changeOrigin: true,
   };
 });

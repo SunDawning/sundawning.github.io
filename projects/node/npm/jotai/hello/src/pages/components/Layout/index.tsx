@@ -1,16 +1,11 @@
 import { Layout, Menu, Input, Space } from 'antd';
-const { Header, Content, Sider, Footer } = Layout;
-const { Search } = Input;
+import Header from './components/Header';
+import Content from './components/Content';
+import Footer from './components/Footer';
 export default function IndexPage() {
   return (
     <Layout>
-      {/* 头部 */}
-      <Header>
-        <Space>
-          <Search></Search>
-        </Space>
-      </Header>
-      {/* 内容 */}
+      <Header></Header>
       <Content style={{ minHeight: '480px' }}></Content>
       {/* 底部 */}
       <Footer>

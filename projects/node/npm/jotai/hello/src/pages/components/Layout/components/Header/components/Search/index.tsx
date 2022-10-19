@@ -1,10 +1,15 @@
 import { atom, useAtom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
 import { Input, AutoComplete } from 'antd';
-import { useState } from 'react';
 const { Search } = Input;
+export const search_keywords_atom = atomWithStorage(
+  'jotai_search_keywords',
+  [],
+); // 所有搜索的关键字Atom，在localStorage里存储。
 export const search_keyword_atom = atom(''); // 搜索的关键字Atom
 export default function IndexPage() {
-  const [keywords, setKeywords] = useState([]); // 存储所搜索的关键字
+  const [search_keywords_atom_value, set_search_keywords_atom_value] =
+    useAtom(search_keywords_atom);
   const [search_keyword_atom_value, set_search_keyword_atom_value] =
     useAtom(search_keyword_atom);
   // 每当搜索时，去重存储关键字。
@@ -13,10 +18,10 @@ export default function IndexPage() {
     if (value === '') {
       return;
     }
-    if (keywords.includes(value) === true) {
+    if (search_keywords_atom_value.includes(value) === true) {
       return;
     }
-    setKeywords([...keywords, value]); // 存储所搜索的关键字
+    set_search_keywords_atom_value([...search_keywords_atom_value, value]); // 存储所搜索的关键字
   }
   // 自动补全时过滤关键字
   function filterOption(inputValue, option) {
@@ -25,7 +30,7 @@ export default function IndexPage() {
   return (
     <AutoComplete
       filterOption={filterOption}
-      options={keywords.map(function (keyword) {
+      options={search_keywords_atom_value.map(function (keyword) {
         return { value: keyword };
       })}
     >

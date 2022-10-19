@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@ant-design/icons': ^4.7.0
   '@ant-design/pro-layout': ^6.5.0
   '@types/react': ^17.0.0
   '@types/react-dom': ^17.0.0
@@ -16,6 +17,7 @@ specifiers:
   yorkie: ^2.0.0
 
 dependencies:
+  '@ant-design/icons': registry.npmmirror.com/@ant-design/icons/4.7.0_sfoxds7t5ydpegc3knd667wn6m
   '@ant-design/pro-layout': registry.npmmirror.com/@ant-design/pro-layout/6.38.22_sfoxds7t5ydpegc3knd667wn6m
   jotai: registry.npmmirror.com/jotai/1.8.5_react@17.0.2
   react: registry.npmmirror.com/react/17.0.2
@@ -25,7 +27,7 @@ dependencies:
 devDependencies:
   '@types/react': registry.npmmirror.com/@types/react/17.0.50
   '@types/react-dom': registry.npmmirror.com/@types/react-dom/17.0.17
-  '@umijs/preset-react': registry.npmmirror.com/@umijs/preset-react/1.8.31_pudhf32exf3qilxyrva4whdtvy
+  '@umijs/preset-react': registry.npmmirror.com/@umijs/preset-react/1.8.31_ypm7rynfpfoixyy42f3cst2zla
   '@umijs/test': registry.npmmirror.com/@umijs/test/3.5.34
   lint-staged: registry.npmmirror.com/lint-staged/10.5.4
   prettier: registry.npmmirror.com/prettier/2.7.1
@@ -1618,7 +1620,7 @@ packages:
       - react
     dev: true
 
-  registry.npmmirror.com/@umijs/plugin-layout/0.18.1_cdhi3gxrvetn7c6ha5kqflt64u:
+  registry.npmmirror.com/@umijs/plugin-layout/0.18.1_hags77h5k5jgfdl57rhfjtsisi:
     resolution: {integrity: sha512-15YTcFpic0v15nFzlg6G8nvMCveBtcBL77Wr9wXYJdgR0iU7dnO7T4OqbLwgEc1uHxtGhTVibi6nSGelX56zCg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@umijs/plugin-layout/download/@umijs/plugin-layout-0.18.1.tgz}
     id: registry.npmmirror.com/@umijs/plugin-layout/0.18.1
     name: '@umijs/plugin-layout'
@@ -1631,6 +1633,7 @@ packages:
       '@umijs/plugin-model': 2.x
       umi: 3.x
     dependencies:
+      '@ant-design/icons': registry.npmmirror.com/@ant-design/icons/4.7.0_sfoxds7t5ydpegc3knd667wn6m
       '@ant-design/pro-layout': registry.npmmirror.com/@ant-design/pro-layout/6.38.22_sfoxds7t5ydpegc3knd667wn6m
       '@umijs/plugin-initial-state': registry.nlark.com/@umijs/plugin-initial-state/2.4.0_umi@3.5.34
       '@umijs/plugin-locale': registry.npmmirror.com/@umijs/plugin-locale/0.15.1_gytubnbmcdsplerzzialzcpcci
@@ -1731,7 +1734,7 @@ packages:
     transitivePeerDependencies:
       - react-dom
 
-  registry.npmmirror.com/@umijs/preset-react/1.8.31_pudhf32exf3qilxyrva4whdtvy:
+  registry.npmmirror.com/@umijs/preset-react/1.8.31_ypm7rynfpfoixyy42f3cst2zla:
     resolution: {integrity: sha512-zQRYJw68mgG6pPcy6GwAXFRC/XxATIGmiaFAZHt7aYDy3VCccmjNKjs1pXqrcHYmGhoa7TyjCHUYEuJSv0n8uw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@umijs/preset-react/-/preset-react-1.8.31.tgz}
     id: registry.npmmirror.com/@umijs/preset-react/1.8.31
     name: '@umijs/preset-react'
@@ -1746,7 +1749,7 @@ packages:
       '@umijs/plugin-dva': registry.npmmirror.com/@umijs/plugin-dva/0.13.0_gytubnbmcdsplerzzialzcpcci
       '@umijs/plugin-helmet': registry.npmmirror.com/@umijs/plugin-helmet/1.1.3_react@17.0.2+umi@3.5.34
       '@umijs/plugin-initial-state': registry.nlark.com/@umijs/plugin-initial-state/2.4.0_umi@3.5.34
-      '@umijs/plugin-layout': registry.npmmirror.com/@umijs/plugin-layout/0.18.1_cdhi3gxrvetn7c6ha5kqflt64u
+      '@umijs/plugin-layout': registry.npmmirror.com/@umijs/plugin-layout/0.18.1_hags77h5k5jgfdl57rhfjtsisi
       '@umijs/plugin-locale': registry.npmmirror.com/@umijs/plugin-locale/0.15.1_gytubnbmcdsplerzzialzcpcci
       '@umijs/plugin-model': registry.npmmirror.com/@umijs/plugin-model/2.6.2_umi@3.5.34
       '@umijs/plugin-request': registry.npmmirror.com/@umijs/plugin-request/2.8.0_react@17.0.2+umi@3.5.34

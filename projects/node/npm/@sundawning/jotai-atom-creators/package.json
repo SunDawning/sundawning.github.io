@@ -1,0 +1,30 @@
+{
+  "name": "@sundawning/jotai-atom-creators",
+  "version": "1.0.0",
+  "description": "jotai atom creators https://jotai.org/docs/advanced-recipes/atom-creators",
+  "main": "index.js",
+  "files": [
+    "package.json",
+    "index.js"
+  ],
+  "scripts": {
+    "publish": "npm publish --access public --registry https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "jotai": "^1.8.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sundawning/sundawning.github.io.git"
+  },
+  "homepage": "https://github.com/sundawning/sundawning.github.io/tree/master/projects/node/npm/@sundawning/jotai-atom-creators",
+  "bugs": {
+    "url": "https://github.com/sundawning/sundawning.github.io/issues"
+  },
+  "keywords": [
+    "sundawning",
+    "jotai"
+  ],
+  "author": "sundawning <jobsimi@qq.com>",
+  "license": "MIT"
+}

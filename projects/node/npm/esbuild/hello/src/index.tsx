@@ -1,6 +1,8 @@
 import * as React from "react";
-import * as Server from "react-dom/server";
-function Greet() {
-  return <h1>Hello</h1>;
+import { createRoot } from "react-dom/client";
+function Index() {
+  return <h1>拼</h1>;
 }
-console.log(Server.renderToString(<Greet></Greet>));
+createRoot(document.body.appendChild(document.createElement("div"))).render(
+  <Index></Index>
+);

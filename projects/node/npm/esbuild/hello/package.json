@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "build": "esbuild ./src/index.tsx --bundle --outfile=./dist/index.js"
+  },
   "dependencies": {
     "esbuild": "^0.15.11",
     "react": "^18.2.0",

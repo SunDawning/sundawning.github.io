@@ -1,2 +1,2 @@
-const SQLiteServer = require("./index");
+const SQLiteServer = require("./src/utility");
 SQLiteServer.start();

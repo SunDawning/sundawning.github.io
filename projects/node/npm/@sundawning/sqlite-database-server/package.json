@@ -1,6 +1,6 @@
 {
   "name": "@sundawning/sqlite-database-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SQLite 数据库服务器，用一堆 SQLite 格式的文件来搭建服务器，以HTTP的方式来管理数据库。",
   "main": "src/utility.js",
   "bin": {

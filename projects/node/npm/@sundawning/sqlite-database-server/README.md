@@ -27,7 +27,7 @@ SQLiteServer.start({
 
 查询 hello 数据库的所有表名：
 
-POST /api/database/hello
+POST /api/databases/hello
 
 Content-Type: application/json
 
@@ -56,4 +56,22 @@ Content-Type: application/json
     "sql": "CREATE TABLE sqlite_sequence(name,seq)"
   }
 ]
+```
+
+# 命令行
+
+## 安装
+
+```sh
+pnpm add -g @sundawning/sqlite-database-server
+```
+
+## 使用
+
+参数与包在代码里的参数保持一致，在命令行中以“--”开头即可。
+
+比如 28080 端口，数据库文件夹在“./files”（默认是“./databases”）：
+
+```sh
+sundawning-sqlite-database-server --port 28080 --databases_directory ./files
 ```

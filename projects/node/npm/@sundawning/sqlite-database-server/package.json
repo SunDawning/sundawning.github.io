@@ -1,8 +1,11 @@
 {
   "name": "@sundawning/sqlite-database-server",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "SQLite 数据库服务器，用一堆 SQLite 格式的文件来搭建服务器，以HTTP的方式来管理数据库。",
-  "main": "index.js",
+  "main": "src/utility.js",
+  "bin": {
+    "sundawning-sqlite-database-server": "src/index.js"
+  },
   "scripts": {
     "dev": "nodemon test.js",
     "publish": "npm publish --access public --registry https://registry.npmjs.org"
@@ -34,6 +37,7 @@
     "koa": "^2.13.4",
     "koa-body": "^5.0.0",
     "koa-router": "^12.0.0",
+    "minimist": "^1.2.7",
     "sqlite": "^4.1.2",
     "sqlite3": "^5.1.1"
   },

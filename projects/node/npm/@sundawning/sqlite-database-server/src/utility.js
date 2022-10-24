@@ -7,7 +7,7 @@ const koa_body = require("koa-body");
 const fs = require("fs-extra");
 async function start({
   port = 28080,
-  databases_directory = path.resolve(__dirname, "./databases"),
+  databases_directory = "./databases",
 } = {}) {
   // 文件夹
   await fs.ensureDir(databases_directory);

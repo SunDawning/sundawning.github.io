@@ -1,5 +1,6 @@
 const cpolar = require("./index");
 cpolar.untilGetURL({
-  session: "YOUR_SESSION_ID",
+  email: "YOUR_EMAIL",
+  password: "YOUR_PASSWORD",
   timeout: 10 * 1000,
 });

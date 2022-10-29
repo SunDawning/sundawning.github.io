@@ -1,12 +1,29 @@
+import axios from "axios";
+
 /**
  * 管理存储登录信息的数据库
  */
 const key = "diigo_cookie";
 export function insert(cookie) {
-  localStorage.setItem(key, cookie);
+  localStorage.setItem(key, cookie); // 在localStorage里存储
+  axios({
+    method: "POST",
+    url: "/api/diigo",
+    data: {
+      cookie,
+    },
+  }); // 在服务器存储
 }
 export function select() {
-  return localStorage.getItem(key);
+  let value = localStorage.getItem(key);
+  if (value === null) {
+    return value;
+  }
+  try {
+    return JSON.parse(value);
+  } catch (error) {
+    return value;
+  }
 }
 export function drop() {
   return localStorage.removeItem(key);
@@ -14,7 +31,7 @@ export function drop() {
 /**
  * 获取用户名
  */
- export function getUserName() {
+export function getUserName() {
   let object = {};
   select()
     .split("; ")

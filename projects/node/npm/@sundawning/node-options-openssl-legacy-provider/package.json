@@ -1,7 +1,7 @@
 {
   "name": "@sundawning/node-options-openssl-legacy-provider",
-  "version": "1.0.1",
-  "description": "在node 17和node 18里需要设置NODE_OPTIONS=--openssl-legacy-provider",
+  "version": "1.0.2",
+  "description": "在node 17、node 18和node 19里需要设置NODE_OPTIONS=--openssl-legacy-provider",
   "main": "index.js",
   "scripts": {
     "test": "node test.js"

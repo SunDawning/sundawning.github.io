@@ -7,7 +7,7 @@ module.exports = function () {
   if (version < "v17") {
     return "";
   }
-  if (version >= "v19") {
+  if (version > "v19") {
     return "";
   }
   return `NODE_OPTIONS=--openssl-legacy-provider`;

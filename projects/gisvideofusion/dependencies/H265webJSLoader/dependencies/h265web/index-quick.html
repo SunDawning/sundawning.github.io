@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <script src="dist/h265webjs-v20221106.js"></script>
+    <script src="dist/missile.js"></script>
+  </head>
+  <body>
+    <div style="width: 1190px; background-color: #e9e9e9">
+      <div style="width: 100%; height: 360px; overflow: hidden">
+        <style>
+          video {
+            width: 100%;
+            height: 100%;
+          }
+        </style>
+        <div
+          id="glplayer"
+          style="
+            width: 640px;
+            height: 360px;
+            background-color: #c9c9c9;
+            float: left;
+          "
+        ></div>
+      </div>
+      <button
+        style="background-color: blue; color: white"
+        onclick="installPlayer()"
+      >
+        1.Install
+      </button>
+      <button style="background-color: red" onclick="releasePlayer()">
+        2.Release
+      </button>
+    </div>
+
+    <script>
+      if (
+        /Safari/.test(navigator.userAgent) &&
+        !/Chrome/.test(navigator.userAgent)
+      ) {
+        alert("safari");
+      }
+
+      var playerObj = null;
+
+      function clear() {
+        window.STATICE_MEM_playerCount = -1;
+        window.STATICE_MEM_playerIndexPtr = 0;
+      } // end func clear
+
+      function releasePlayer() {
+        if (playerObj !== null) {
+          playerObj.release();
+          playerObj = null;
+        }
+      }
+
+      function installPlayer() {
+        clear();
+
+        const config = {
+          player: "glplayer",
+          width: "100%",
+          height: "100%",
+          token:
+            "base64:QXV0aG9yOmNoYW5neWFubG9uZ3xudW1iZXJ3b2xmLEdpdGh1YjpodHRwczovL2dpdGh1Yi5jb20vbnVtYmVyd29sZixFbWFpbDpwb3JzY2hlZ3QyM0Bmb3htYWlsLmNvbSxRUTo1MzEzNjU4NzIsSG9tZVBhZ2U6aHR0cDovL3h2aWRlby52aWRlbyxEaXNjb3JkOm51bWJlcndvbGYjODY5NCx3ZWNoYXI6bnVtYmVyd29sZjExLEJlaWppbmcsV29ya0luOkJhaWR1",
+          extInfo: {
+            probeSize: 8192,
+            ignoreAudio: 0,
+            coreProbePart: 0.1,
+            autoPlay: true,
+            cacheLength: 50,
+            rawFps: 24,
+          },
+        };
+        const play_url = `http://110.83.41.50:8060/api/vms/v1/webuas/media-server/Wide/livestream.flv?id=eWTzbTUNQYNpxwYmUfMu&camera_id=36100179911317535427&stream_type=0&visit_ip=110.83.41.50`;
+
+        playerObj = window.new265webjs(play_url, config);
+        playerObj.onLoadFinish = () => {
+          playerObj.setVoice(1.0);
+          mediaInfo = playerObj.mediaInfo();
+        };
+        playerObj.do();
+      }
+      installPlayer();
+    </script>
+  </body>
+</html>

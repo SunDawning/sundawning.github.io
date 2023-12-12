@@ -1,0 +1,342 @@
+{
+  "map3d": {
+    "homeButton": false,
+    "sceneModePicker": false,
+    "navigationHelpButton": false,
+    "vrButton": false,
+    "fullscreenButton": false,
+    "geocoder": false,
+    "baseLayerPicker": false,
+    "center": {
+      "y": 35.548271,
+      "x": 109.26027,
+      "z": 3842.16,
+      "heading": 357.3,
+      "pitch": -40.2,
+      "roll": 0
+    },
+    "infoBox": false,
+    "terrain": {
+      "url": "http://data.marsgis.cn/terrain",
+      "visible": true
+    },
+    "crs": "",
+    "baseColor": "#000",
+    "basemaps": [
+      {
+        "id": 10,
+        "name": "地图底图",
+        "type": "group"
+      },
+      {
+        "pid": 10,
+        "name": "Arcgis影像全球地图",
+        "type": "xyz",
+        "icon": "img/basemaps/osm.png",
+        "url": "/data/arcgis/satellite/{z}/{x}/{y}.jpg",
+        "visible": false,
+        "minimumLevel": 0,
+        "maximumLevel": 14
+      },
+      {
+        "pid": 10,
+        "name": "ArcGIS卫星",
+        "icon": "img/basemaps/esriWorldImagery.png",
+        "type": "arcgis",
+        "url": "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+        "enablePickFeatures": false,
+        "visible": false
+      },
+      {
+        "name": "天地图无注记",
+        "type": "www_tdt",
+        "layer": "img_d",
+        "key": [
+          "313cd4b28ed520472e8b43de00b2de56",
+          "83b36ded6b43b9bc81fbf617c40b83b5",
+          "0ebd57f93a114d146a954da4ecae1e67",
+          "6c99c7793f41fccc4bd595b03711913e",
+          "56b81006f361f6406d0e940d2f89a39c"
+        ],
+        "visible": false
+      },
+      {
+        "name": "高德影像地图",
+        "type": "www_gaode",
+        "layer": "img_d",
+        "visible": false,
+        "minimumLevel": 0,
+        "maximumLevel": 17
+      },
+      { "type": "www_baidu", "layer": "img_d", "visible": true }
+    ]
+  },
+  "widget": {
+    "debugger": false,
+    "version": "20190418",
+    "defaultOptions": {
+      "style": "dark",
+      "windowOptions": {
+        "skin": "layer-mars-dialog animation-scale-up",
+        "position": {
+          "top": 50,
+          "right": 10
+        },
+        "maxmin": false,
+        "resize": true
+      },
+      "autoDisable": true,
+      "disableOhter": true
+    },
+    "widgetsAtStart": [],
+    "widgets": [
+      {
+        "name": "模板",
+        "type": "group",
+        "children": [
+          {
+            "name": "iframe弹窗模板",
+            "uri": "widgets/_example/widget.js",
+            "windowOptions": {
+              "width": 300,
+              "height": 400,
+              "position": {
+                "bottom": 10,
+                "right": 10
+              },
+              "maxmin": true,
+              "resize": true
+            },
+            "openAtStart": false
+          },
+          {
+            "name": "div弹窗模板",
+            "uri": "widgets/_example_divwin/widget.js"
+          },
+          {
+            "name": "append模板",
+            "uri": "widgets/_example_append/widget.js"
+          }
+        ]
+      },
+
+      {
+        "name": "地图工具",
+        "type": "group",
+        "children": [
+          {
+            "id": "manageBasemaps",
+            "name": "地图切换",
+            "uri": "widgets/manageBasemaps/widget.js",
+            "group": "forlayer",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "图层管理",
+            "uri": "widgets/manageLayers/widget.js",
+            "group": "forlayer",
+            "autoCenter": true,
+            "windowOptions": {
+              "position": {
+                "top": 50,
+                "bottom": 30,
+                "right": 10
+              }
+            },
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "图上量算",
+            "uri": "widgets/measure/widget.js",
+            "windowOptions": {
+              "position": {
+                "bottom": 30,
+                "right": 40
+              }
+            }
+          },
+          {
+            "name": "剖面分析",
+            "uri": "widgets/section/widget.js",
+            "windowOptions": {
+              "position": {
+                "bottom": 30,
+                "right": 10
+              }
+            }
+          },
+          {
+            "name": "剖面分析图表",
+            "uri": "widgets/sectionChars/widget.js",
+            "windowOptions": {
+              "noTitle": true,
+              "position": {
+                "top": 10,
+                "left": 10,
+                "right": 10
+              }
+            },
+            "disableOhter": false
+          },
+          {
+            "name": "视角书签",
+            "uri": "widgets/bookmark/widget.js"
+          },
+          {
+            "name": "坐标定位",
+            "uri": "widgets/centerXY/widget.js"
+          },
+          {
+            "name": "标记",
+            "uri": "widgets/addmarker/widget.js"
+          },
+          {
+            "name": "地区导航",
+            "uri": "widgets/navXZQH/widget.js"
+          },
+          {
+            "name": "漫游路线设置",
+            "uri": "widgets/lineroam/widget.js",
+            "windowOptions": {
+              "position": {
+                "top": 45,
+                "bottom": 30,
+                "right": 5
+              }
+            }
+          },
+          {
+            "name": "漫游路线",
+            "uri": "widgets/roamFly/widget.js",
+            "windowOptions": {
+              "position": {
+                "bottom": 60,
+                "right": 5
+              }
+            }
+          },
+          {
+            "name": "路线剖面",
+            "uri": "widgets/roamChars/widget.js",
+            "windowOptions": {
+              "noTitle": true,
+              "position": {
+                "top": 10,
+                "left": 10,
+                "right": 10
+              }
+            },
+            "disableOhter": false
+          },
+          {
+            "name": "双屏对比",
+            "uri": "widgets/mapCompare/widget.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "卷帘对比",
+            "uri": "widgets/mapSwipe/widget.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "粒子效果",
+            "uri": "widgets/particalSystem/widget.js"
+          },
+          {
+            "name": "街景",
+            "uri": "widgets/streetscape/widget.js"
+          },
+          {
+            "name": "标绘",
+            "uri": "widgets/plot/widget.js",
+            "windowOptions": {
+              "position": {
+                "top": 45,
+                "bottom": 30,
+                "right": 5
+              }
+            },
+            "openAtStart": false
+          },
+          {
+            "name": "打印",
+            "uri": "widgets/print/widget.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "分享当前地图位置",
+            "uri": "widgets/shareUrl/widget.js",
+            "windowOptions": {
+              "position": {
+                "top": 1,
+                "left": 250,
+                "right": 250
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "业务演示功能",
+        "type": "group",
+        "children": [
+          {
+            "name": "企业-地图点",
+            "uri": "widgetsTS/qyPoint/widget.js",
+            "autoDisable": false,
+            "disableOhter": false
+          },
+          {
+            "name": "企业详情",
+            "uri": "widgetsTS/qyDetailsView/widget.js",
+            "windowOptions": {
+              "skin": "layer-mars-dialog2",
+              "position": {
+                "top": 50,
+                "bottom": 50,
+                "left": 120,
+                "right": 120
+              }
+            },
+            "disableOhter": false
+          },
+          {
+            "name": "企业视频监控",
+            "uri": "widgetsTS/qyVideo/widget.js",
+            "windowOptions": {
+              "skin": "layer-mars-dialog2",
+              "position": {
+                "top": 50,
+                "bottom": 50,
+                "left": 120,
+                "right": 120
+              }
+            },
+            "disableOhter": false
+          },
+          {
+            "name": "企业查询",
+            "uri": "widgetsTS/qyListView/widget.js",
+            "windowOptions": {
+              "skin": "layer-mars-dialog2",
+              "position": {
+                "top": 50,
+                "bottom": 5,
+                "right": 5
+              }
+            }
+          },
+          {
+            "name": "企业统计图表",
+            "uri": "widgetsTS/qyCharts/widget.js"
+          }
+        ]
+      }
+    ]
+  }
+}

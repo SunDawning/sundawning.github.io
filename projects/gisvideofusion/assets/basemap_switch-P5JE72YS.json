@@ -1,0 +1,33 @@
+[
+  {
+    "label": "标准地图",
+    "key": "digital",
+    "basemaps": [
+      { "name": "天地图电子图层", "type": "tdt", "layer": "vec_d" },
+      { "name": "天地图电子注记", "type": "tdt", "layer": "vec_z" }
+    ]
+  },
+  {
+    "label": "卫星地图",
+    "key": "satellite",
+    "selected": true,
+    "basemaps": [
+      { "name": "天地图卫星影像", "type": "tdt", "layer": "img_d" },
+      { "name": "天地图影像注记", "type": "tdt", "layer": "img_z" }
+    ]
+  },
+  {
+    "label": "3D场景",
+    "key": "three",
+    "basemaps": [
+      { "name": "天地图卫星影像", "type": "tdt", "layer": "img_d" },
+      { "name": "天地图影像注记", "type": "tdt", "layer": "img_z" }
+    ],
+    "terrain": {
+      "url": "https://data.mars3d.cn/terrain/",
+      "requestWaterMask": true,
+      "requestVertexNormals": true
+    },
+    "layers": [{ "name": "OSM在线建筑物模型", "type": "osmBuildings" }]
+  }
+]

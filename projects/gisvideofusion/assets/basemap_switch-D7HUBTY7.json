@@ -10,6 +10,7 @@
   {
     "label": "影像",
     "key": "satellite",
+    "selected": true,
     "basemaps": [
       { "name": "天地图卫星影像", "type": "tdt", "layer": "img_d" },
       { "name": "天地图影像注记", "type": "tdt", "layer": "img_z" }
@@ -18,7 +19,6 @@
   {
     "label": "三维",
     "key": "three",
-    "selected": true,
     "basemaps": [
       { "name": "天地图卫星影像", "type": "tdt", "layer": "img_d" },
       { "name": "天地图影像注记", "type": "tdt", "layer": "img_z" }
